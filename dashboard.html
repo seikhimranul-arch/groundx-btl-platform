@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GroundX — Founder Dashboard</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
+  <style>
+    body { background: var(--bg); }
+
+    /* Topbar search */
+    .search-bar {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 14px; min-width: 260px;
+    }
+    .search-bar input { background: none; border: none; outline: none; font-family: 'Satoshi', sans-serif; font-size: 0.88rem; color: var(--ink); width: 100%; }
+    .search-bar input::placeholder { color: var(--ink-3); }
+
+    /* KPI cards row */
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 22px 18px; }
+    .kpi-icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; margin-bottom: 14px; }
+    .kpi-value { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .kpi-label { font-size: 0.78rem; color: var(--ink-3); margin-top: 4px; font-weight: 500; }
+    .kpi-delta { display: flex; align-items: center; gap: 3px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
+
+    /* Map area */
+    .live-map {
+      height: 100%; min-height: 380px; background: #e6ede8; border-radius: var(--radius); position: relative; overflow: hidden;
+    }
+    .live-map-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .promoter-pin {
+      position: absolute; transform: translate(-50%, -50%);
+      width: 32px; height: 32px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.7rem; font-weight: 700; color: #fff;
+      cursor: pointer; transition: transform 0.2s;
+      border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .promoter-pin:hover { transform: translate(-50%, -50%) scale(1.15); z-index: 10; }
+    .promoter-pin.active { background: var(--accent); }
+    .promoter-pin.idle { background: var(--amber); }
+    .promoter-pin.offline { background: #94a3b8; }
+    .map-road-h { position: absolute; height: 3px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+    .map-road-v { position: absolute; width: 3px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+
+    /* Activity feed */
+    .activity-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; }
+    .activity-item + .activity-item { border-top: 1px solid var(--border); }
+    .activity-icon { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
+
+    /* Campaign table */
+    .campaign-status { display: flex; align-items: center; gap: 6px; }
+
+    /* Sidebar bottom */
+    .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-top: 1px solid var(--border); margin-top: auto; }
+
+    /* Alert bar */
+    .alert-bar { background: var(--amber-pale); border: 1px solid rgba(196,124,0,0.2); border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+
+    /* Tab content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Photo grid */
+    .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .photo-thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.72rem; font-weight: 600; text-align: center; padding: 6px; }
+    .photo-thumb:hover .photo-overlay { opacity: 1; }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .photo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- ── SIDEBAR ─────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
+        <div class="nav-logo-mark">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M9 2L15.5 6V12L9 16L2.5 12V6L9 2Z" fill="white" opacity="0.9"/>
+            <path d="M9 6L12.5 8.5V12L9 14L5.5 12V8.5L9 6Z" fill="white"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">GroundX</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Operations</div>
+      <a href="#" class="sidebar-item active" onclick="setPage('dashboard',this)">
+        <ph-icon name="squares-four" weight="fill" style="width:18px;height:18px;"></ph-icon> Dashboard
+      </a>
+      <a href="#" class="sidebar-item" onclick="setPage('campaigns',this)">
+        <ph-icon name="broadcast" weight="fill" style="width:18px;height:18px;"></ph-icon> Campaigns
+        <span class="badge badge-accent" style="margin-left:auto;padding:2px 8px;">3</span>
+      </a>
+      <a href="#" class="sidebar-item" onclick="setPage('promoters',this)">
+        <ph-icon name="users-three" weight="fill" style="width:18px;height:18px;"></ph-icon> Promoters
+      </a>
+      <a href="#" class="sidebar-item" onclick="setPage('leads',this)">
+        <ph-icon name="funnel" weight="fill" style="width:18px;height:18px;"></ph-icon> Leads
+      </a>
+      <a href="#" class="sidebar-item" onclick="setPage('proofwork',this)">
+        <ph-icon name="camera" weight="fill" style="width:18px;height:18px;"></ph-icon> Proof of Work
+      </a>
+
+      <div class="sidebar-section">Business</div>
+      <a href="#" class="sidebar-item" onclick="setPage('clients',this)">
+        <ph-icon name="buildings" weight="fill" style="width:18px;height:18px;"></ph-icon> Clients
+      </a>
+      <a href="#" class="sidebar-item" onclick="setPage('analytics',this)">
+        <ph-icon name="chart-line-up" weight="fill" style="width:18px;height:18px;"></ph-icon> Analytics
+      </a>
+      <a href="#" class="sidebar-item" onclick="setPage('billing',this)">
+        <ph-icon name="currency-inr" weight="fill" style="width:18px;height:18px;"></ph-icon> Billing
+      </a>
+
+      <div class="sidebar-section">System</div>
+      <a href="#" class="sidebar-item">
+        <ph-icon name="gear" weight="fill" style="width:18px;height:18px;"></ph-icon> Settings
+      </a>
+      <a href="client-portal.html" class="sidebar-item">
+        <ph-icon name="arrow-square-out" weight="fill" style="width:18px;height:18px;"></ph-icon> Client Portal
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f56630);">SK</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Santosh Kumar</div>
+        <div style="font-size:0.72rem;color:var(--ink-3);">Founder & CEO</div>
+      </div>
+      <ph-icon name="dots-three" weight="bold" style="width:18px;height:18px;color:var(--ink-3);flex-shrink:0;cursor:pointer;"></ph-icon>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ───────────────────────────── -->
+  <main class="app-main">
+
+    <!-- Topbar -->
+    <div class="app-topbar">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div id="pageTitle" style="font-size:1rem;font-weight:700;color:var(--ink);">Dashboard</div>
+        <div class="badge badge-green"><span class="dot dot-green"></span> 24 promoters live</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="search-bar">
+          <ph-icon name="magnifying-glass" style="width:15px;height:15px;color:var(--ink-3);flex-shrink:0;"></ph-icon>
+          <input type="text" placeholder="Search campaigns, promoters…" />
+        </div>
+        <div style="position:relative;" data-tip="3 new alerts">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;">
+            <ph-icon name="bell" weight="fill" style="width:18px;height:18px;color:var(--ink-2);"></ph-icon>
+          </div>
+          <div class="notif-badge">3</div>
+        </div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;">
+          <ph-icon name="plus" weight="bold" style="width:18px;height:18px;color:var(--ink-2);"></ph-icon>
+        </div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f56630);cursor:pointer;">SK</div>
+      </div>
+    </div>
+
+    <div class="app-content">
+
+      <!-- ═══ DASHBOARD PAGE ═══ -->
+      <div id="page-dashboard" class="tab-content active">
+        <!-- Alert bar -->
+        <div class="alert-bar">
+          <ph-icon name="warning" weight="fill" style="width:18px;height:18px;color:var(--amber);flex-shrink:0;"></ph-icon>
+          <span style="font-size:0.85rem;color:var(--amber);">
+            <strong>Alert:</strong> Promoter Dinesh Patra has been stationary for 47 minutes at Unit-4, Bhubaneswar. Location outside assigned zone.
+          </span>
+          <a href="#" style="font-size:0.82rem;font-weight:600;color:var(--amber);margin-left:auto;text-decoration:none;white-space:nowrap;">View on map →</a>
+        </div>
+
+        <!-- KPI row -->
+        <div class="kpi-row">
+          <div class="kpi-card animate-slide-up delay-1">
+            <div class="kpi-icon" style="background:var(--accent-pale);">
+              <ph-icon name="users-three" weight="fill" style="width:18px;height:18px;color:var(--accent);"></ph-icon>
+            </div>
+            <div class="kpi-value">24</div>
+            <div class="kpi-label">Promoters Active Today</div>
+            <div class="kpi-delta delta-up">
+              <ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +3 vs yesterday
+            </div>
+          </div>
+          <div class="kpi-card animate-slide-up delay-2">
+            <div class="kpi-icon" style="background:var(--green-pale);">
+              <ph-icon name="funnel" weight="fill" style="width:18px;height:18px;color:var(--green);"></ph-icon>
+            </div>
+            <div class="kpi-value">147</div>
+            <div class="kpi-label">Leads Captured Today</div>
+            <div class="kpi-delta delta-up">
+              <ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +23% this week
+            </div>
+          </div>
+          <div class="kpi-card animate-slide-up delay-3">
+            <div class="kpi-icon" style="background:var(--amber-pale);">
+              <ph-icon name="camera" weight="fill" style="width:18px;height:18px;color:var(--amber);"></ph-icon>
+            </div>
+            <div class="kpi-value">89</div>
+            <div class="kpi-label">Proof Photos Uploaded</div>
+            <div class="kpi-delta" style="color:var(--ink-3);">94% geo-verified</div>
+          </div>
+          <div class="kpi-card animate-slide-up delay-4">
+            <div class="kpi-icon" style="background:#ede9ff;">
+              <ph-icon name="currency-inr" weight="fill" style="width:18px;height:18px;color:#6d28d9;"></ph-icon>
+            </div>
+            <div class="kpi-value">₹2.9L</div>
+            <div class="kpi-label">Revenue This Month</div>
+            <div class="kpi-delta delta-up">
+              <ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> ₹1.2L vs last month
+            </div>
+          </div>
+        </div>
+
+        <!-- Main grid -->
+        <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:20px;margin-bottom:20px;">
+          <!-- Live map -->
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-weight:700;font-size:0.95rem;">Live Field Map</div>
+                <div class="caption">Bhubaneswar — Updated 30 sec ago</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <div style="display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--ink-3);">
+                  <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></div>Active
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--ink-3);">
+                  <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>Idle
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--ink-3);">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#94a3b8;"></div>Offline
+                </div>
+              </div>
+            </div>
+            <div class="live-map" style="border-radius:0;min-height:320px;">
+              <div class="live-map-grid"></div>
+              <!-- Roads -->
+              <div class="map-road-h" style="top:35%;left:5%;right:5%;"></div>
+              <div class="map-road-h" style="top:60%;left:5%;right:5%;"></div>
+              <div class="map-road-v" style="left:25%;top:10%;bottom:10%;"></div>
+              <div class="map-road-v" style="left:55%;top:10%;bottom:10%;"></div>
+              <div class="map-road-v" style="left:78%;top:10%;bottom:10%;"></div>
+              <!-- Area labels -->
+              <div style="position:absolute;top:16%;left:7%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Sahid Nagar</div>
+              <div style="position:absolute;top:42%;left:30%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Rasulgarh</div>
+              <div style="position:absolute;top:65%;left:58%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Chandrasekharpur</div>
+              <div style="position:absolute;top:20%;left:60%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Unit-4</div>
+              <!-- Promoter pins -->
+              <div class="promoter-pin active" style="left:18%;top:24%;" data-tip="Ramesh K. — Sahid Nagar">RK</div>
+              <div class="promoter-pin active" style="left:38%;top:48%;" data-tip="Sunita M. — Rasulgarh">SM</div>
+              <div class="promoter-pin active" style="left:62%;top:72%;" data-tip="Priya T. — Chandrasekharpur">PT</div>
+              <div class="promoter-pin idle" style="left:66%;top:25%;" data-tip="Dinesh P. — Unit-4 (IDLE 47m!)">DP</div>
+              <div class="promoter-pin active" style="left:82%;top:45%;" data-tip="Anjali V. — Patia">AV</div>
+              <div class="promoter-pin active" style="left:48%;top:28%;" data-tip="Bikash S. — Nayapalli">BS</div>
+              <div class="promoter-pin offline" style="left:10%;top:65%;" data-tip="Kishore N. — Offline since 11am">KN</div>
+            </div>
+          </div>
+
+          <!-- Activity feed -->
+          <div class="card-flat">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <div style="font-weight:700;font-size:0.95rem;">Live Activity</div>
+              <span class="badge badge-green"><span class="dot dot-green"></span> Live</span>
+            </div>
+            <div id="activityFeed">
+              <div class="activity-item">
+                <div class="activity-icon" style="background:var(--green-pale);color:var(--green);">
+                  <ph-icon name="user-plus" weight="fill" style="width:15px;height:15px;"></ph-icon>
+                </div>
+                <div>
+                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">New lead — Muthoot drive</div>
+                  <div class="caption">Ramesh K. • Sahid Nagar • Score: 8/10</div>
+                  <div class="caption" style="margin-top:2px;">2 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:#ede9ff;color:#6d28d9;">
+                  <ph-icon name="camera" weight="fill" style="width:15px;height:15px;"></ph-icon>
+                </div>
+                <div>
+                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">Photo uploaded — geo-verified</div>
+                  <div class="caption">Sunita M. • Rasulgarh Market</div>
+                  <div class="caption" style="margin-top:2px;">4 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:var(--amber-pale);color:var(--amber);">
+                  <ph-icon name="warning" weight="fill" style="width:15px;height:15px;"></ph-icon>
+                </div>
+                <div>
+                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">Zone alert — Dinesh P.</div>
+                  <div class="caption">Stationary 47 min • Unit-4</div>
+                  <div class="caption" style="margin-top:2px;">6 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:var(--green-pale);color:var(--green);">
+                  <ph-icon name="user-plus" weight="fill" style="width:15px;height:15px;"></ph-icon>
+                </div>
+                <div>
+                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">3 leads — Star Health drive</div>
+                  <div class="caption">Priya T. • Chandrasekharpur</div>
+                  <div class="caption" style="margin-top:2px;">9 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:var(--accent-pale);color:var(--accent);">
+                  <ph-icon name="check-circle" weight="fill" style="width:15px;height:15px;"></ph-icon>
+                </div>
+                <div>
+                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">Check-in verified — geo-fenced</div>
+                  <div class="caption">Anjali V. • Patia Square</div>
+                  <div class="caption" style="margin-top:2px;">12 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:#ffeaea;color:var(--red);">
+                  <ph-icon name="wifi-slash" weight="fill" style="width:15px;height:15px;"></ph-icon>
+                </div>
+                <div>
+                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">Offline — Kishore N.</div>
+                  <div class="caption">Last seen 11:02 AM • VSS Nagar</div>
+                  <div class="caption" style="margin-top:2px;">47 min ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts row -->
+        <div class="grid-2" style="margin-bottom:20px;">
+          <div class="card-flat">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <div style="font-weight:700;font-size:0.95rem;">Leads This Week</div>
+              <div class="badge badge-green delta-up">+23%</div>
+            </div>
+            <div class="chart-area">
+              <canvas id="leadsChart"></canvas>
+            </div>
+          </div>
+          <div class="card-flat">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <div style="font-weight:700;font-size:0.95rem;">Lead Quality Distribution</div>
+              <span class="caption">Score 1–10</span>
+            </div>
+            <div class="chart-area">
+              <canvas id="qualityChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active campaigns -->
+        <div class="card-flat">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <div style="font-weight:700;font-size:0.95rem;">Active Campaigns</div>
+            <a href="#" class="btn btn-ghost btn-sm" onclick="setPage('campaigns',null)">View all</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Campaign</th>
+                  <th>Client</th>
+                  <th>Promoters</th>
+                  <th>Leads</th>
+                  <th>Progress</th>
+                  <th>Status</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div style="font-weight:600;color:var(--ink);">Muthoot Gold Loan Drive</div><div class="caption">Society activations</div></td>
+                  <td>Muthoot Finance</td>
+                  <td>8 / 8</td>
+                  <td>74 <span class="caption">(conv: 31%)</span></td>
+                  <td><div style="min-width:100px;"><div class="progress"><div class="progress-fill" style="width:68%;"></div></div><div class="caption" style="margin-top:4px;">Day 5 of 7</div></div></td>
+                  <td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.83rem;font-weight:600;color:var(--green);">Active</span></div></td>
+                  <td class="caption">14 Oct 2026</td>
+                </tr>
+                <tr>
+                  <td><div style="font-weight:600;color:var(--ink);">Star Health Society Drive</div><div class="caption">Market visits + road show</div></td>
+                  <td>Star Health Insurance</td>
+                  <td>6 / 8</td>
+                  <td>48 <span class="caption">(conv: 19%)</span></td>
+                  <td><div style="min-width:100px;"><div class="progress"><div class="progress-fill green" style="width:40%;"></div></div><div class="caption" style="margin-top:4px;">Day 4 of 10</div></div></td>
+                  <td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.83rem;font-weight:600;color:var(--green);">Active</span></div></td>
+                  <td class="caption">19 Oct 2026</td>
+                </tr>
+                <tr>
+                  <td><div style="font-weight:600;color:var(--ink);">VibhavEdge Admission Drive</div><div class="caption">Coaching institute outreach</div></td>
+                  <td>VibhavEdge Institute</td>
+                  <td>4 / 5</td>
+                  <td>25 <span class="caption">(conv: 44%)</span></td>
+                  <td><div style="min-width:100px;"><div class="progress"><div class="progress-fill" style="width:85%;"></div></div><div class="caption" style="margin-top:4px;">Day 6 of 7</div></div></td>
+                  <td><div class="campaign-status"><span class="dot dot-amber"></span><span style="font-size:0.83rem;font-weight:600;color:var(--amber);">Ending soon</span></div></td>
+                  <td class="caption">10 Oct 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PROMOTERS PAGE ═══ -->
+      <div id="page-promoters" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <div>
+            <h2 class="h2">Promoter Roster</h2>
+            <p class="caption">27 total • 24 active today</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-ghost btn-sm">Export CSV</button>
+            <button class="btn btn-primary btn-sm">+ Add Promoter</button>
+          </div>
+        </div>
+        <div class="card-flat">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Promoter</th><th>Zone</th><th>Campaign</th><th>Today's Leads</th><th>Photos</th><th>Score</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">RK</div><div><div style="font-weight:600;font-size:0.85rem;">Ramesh Kumar</div><div class="caption">+91 98761 43812</div></div></div></td><td>Sahid Nagar</td><td>Muthoot Gold Loan</td><td><strong>14</strong></td><td>7</td><td><span style="font-weight:700;color:var(--green);">9.1</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#dceffe,#7ab8f5);">SM</div><div><div style="font-weight:600;font-size:0.85rem;">Sunita Mohanty</div><div class="caption">+91 70053 29184</div></div></div></td><td>Rasulgarh</td><td>Muthoot Gold Loan</td><td><strong>11</strong></td><td>5</td><td><span style="font-weight:700;color:var(--green);">8.3</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#ddfce3,#7adfa1);">PT</div><div><div style="font-weight:600;font-size:0.85rem;">Priya Tripathy</div><div class="caption">+91 62378 51924</div></div></div></td><td>Chandrasekharpur</td><td>Star Health</td><td><strong>9</strong></td><td>6</td><td><span style="font-weight:700;color:var(--green);">7.9</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fff8dc,#f5d87a);">DP</div><div><div style="font-weight:600;font-size:0.85rem;">Dinesh Patra</div><div class="caption">+91 84531 67293</div></div></div></td><td>Unit-4</td><td>Muthoot Gold Loan</td><td><strong>3</strong></td><td>2</td><td><span style="font-weight:700;color:var(--amber);">4.1</span></td><td><div class="campaign-status"><span class="dot dot-amber"></span><span style="font-size:0.82rem;font-weight:600;color:var(--amber);">Idle 47m</span></div></td><td><button class="btn btn-primary btn-sm" style="background:var(--amber);">Alert</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">AV</div><div><div style="font-weight:600;font-size:0.85rem;">Anjali Verma</div><div class="caption">+91 99124 38472</div></div></div></td><td>Patia</td><td>VibhavEdge</td><td><strong>7</strong></td><td>4</td><td><span style="font-weight:700;color:var(--green);">8.7</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#ffe8e8,#f5a0a0);">KN</div><div><div style="font-weight:600;font-size:0.85rem;">Kishore Naik</div><div class="caption">+91 94723 18264</div></div></div></td><td>VSS Nagar</td><td>Star Health</td><td><strong>0</strong></td><td>0</td><td><span style="font-weight:700;color:var(--red);">—</span></td><td><div class="campaign-status"><span class="dot dot-red"></span><span style="font-size:0.82rem;font-weight:600;color:var(--red);">Offline</span></div></td><td><button class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Call</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ LEADS PAGE ═══ -->
+      <div id="page-leads" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <div>
+            <h2 class="h2">Lead Pipeline</h2>
+            <p class="caption">147 today • 1,284 this month • 31% conversion</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-ghost btn-sm">Export to CRM</button>
+            <button class="btn btn-primary btn-sm">+ Manual Entry</button>
+          </div>
+        </div>
+        <!-- Pipeline stages -->
+        <div class="grid-4" style="margin-bottom:24px;">
+          <div class="kpi-card" style="border-top:3px solid var(--accent);">
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">147</div>
+            <div class="kpi-label">Captured Today</div>
+          </div>
+          <div class="kpi-card" style="border-top:3px solid #6d28d9;">
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">89</div>
+            <div class="kpi-label">OTP Verified</div>
+          </div>
+          <div class="kpi-card" style="border-top:3px solid var(--green);">
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">61</div>
+            <div class="kpi-label">Score 7+ (Hot)</div>
+          </div>
+          <div class="kpi-card" style="border-top:3px solid #0ea5e9;">
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">23</div>
+            <div class="kpi-label">Converted / Disbursed</div>
+          </div>
+        </div>
+        <div class="card-flat">
+          <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+            <div class="tabs" style="flex:0;white-space:nowrap;">
+              <div class="tab active" onclick="filterTab(this)">All Leads</div>
+              <div class="tab" onclick="filterTab(this)">Hot (7+)</div>
+              <div class="tab" onclick="filterTab(this)">Converted</div>
+            </div>
+            <div class="search-bar" style="flex:1;max-width:260px;">
+              <ph-icon name="magnifying-glass" style="width:14px;height:14px;color:var(--ink-3);"></ph-icon>
+              <input type="text" placeholder="Search by name, phone…" />
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Lead</th><th>Campaign</th><th>Promoter</th><th>Score</th><th>OTP</th><th>Status</th><th>Captured</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td><div style="font-weight:600;font-size:0.85rem;">Suresh Behera</div><div class="caption">+91 94521 63748 • 47M • Rasulgarh</div></td><td>Muthoot Gold</td><td>Ramesh K.</td><td><span class="badge badge-green">9/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Contacted</span></td><td class="caption">Today 09:42</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
+                <tr><td><div style="font-weight:600;font-size:0.85rem;">Mrunalini Das</div><div class="caption">+91 70821 49362 • 34F • Sahid Nagar</div></td><td>Muthoot Gold</td><td>Sunita M.</td><td><span class="badge badge-green">8/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge badge-green">Converted</span></td><td class="caption">Today 09:17</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
+                <tr><td><div style="font-weight:600;font-size:0.85rem;">Jayanta Routray</div><div class="caption">+91 82461 73924 • 51M • CDA</div></td><td>Star Health</td><td>Priya T.</td><td><span class="badge badge-amber">6/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge badge-neutral">Pending</span></td><td class="caption">Today 10:05</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
+                <tr><td><div style="font-weight:600;font-size:0.85rem;">Alka Nanda</div><div class="caption">+91 63841 28473 • 29F • Nayapalli</div></td><td>VibhavEdge</td><td>Anjali V.</td><td><span class="badge badge-green">8/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Contacted</span></td><td class="caption">Today 10:33</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
+                <tr><td><div style="font-weight:600;font-size:0.85rem;">Pramod Sahu</div><div class="caption">+91 91234 56789 • 38M • Unit-1</div></td><td>Muthoot Gold</td><td>Dinesh P.</td><td><span class="badge badge-red">3/10</span></td><td><span class="badge badge-red">Failed</span></td><td><span class="badge badge-red">Rejected</span></td><td class="caption">Today 11:12</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PROOF OF WORK PAGE ═══ -->
+      <div id="page-proofwork" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <div>
+            <h2 class="h2">Proof of Work</h2>
+            <p class="caption">89 photos today • 94% geo-verified</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <select class="input" style="width:auto;padding:8px 14px;font-size:0.85rem;">
+              <option>All Campaigns</option>
+              <option>Muthoot Gold Loan Drive</option>
+              <option>Star Health Drive</option>
+              <option>VibhavEdge Drive</option>
+            </select>
+          </div>
+        </div>
+        <div class="photo-grid">
+          <!-- Photo placeholders with geo data overlay -->
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl001/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Ramesh K. • Sahid Nagar<br/>10:24 AM • Geo: ✓</div>
+          </div>
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl002/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Sunita M. • Rasulgarh<br/>10:31 AM • Geo: ✓</div>
+          </div>
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl003/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Priya T. • Chandrasekharpur<br/>09:57 AM • Geo: ✓</div>
+          </div>
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl004/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Anjali V. • Patia<br/>10:12 AM • Geo: ✓</div>
+          </div>
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl005/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Bikash S. • Nayapalli<br/>11:02 AM • Geo: ✓</div>
+          </div>
+          <div class="photo-thumb" style="position:relative;">
+            <img src="https://picsum.photos/seed/btl006/400/400" alt="Proof photo" style="filter:brightness(0.6);" />
+            <div style="position:absolute;inset:0;display:grid;place-items:center;flex-direction:column;">
+              <div style="background:var(--red);color:#fff;font-size:0.7rem;font-weight:700;padding:4px 8px;border-radius:6px;margin-bottom:4px;">GEO FAILED</div>
+            </div>
+            <div class="photo-overlay" style="opacity:1;background:rgba(192,40,40,0.6);">Dinesh P. • REJECTED<br/>Location outside zone</div>
+          </div>
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl007/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Ramesh K. • Sahid Nagar<br/>12:10 PM • Geo: ✓</div>
+          </div>
+          <div class="photo-thumb">
+            <img src="https://picsum.photos/seed/btl008/400/400" alt="Proof photo" />
+            <div class="photo-overlay">Sunita M. • Rasulgarh<br/>12:44 PM • Geo: ✓</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CAMPAIGNS PAGE ═══ -->
+      <div id="page-campaigns" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <div>
+            <h2 class="h2">Campaigns</h2>
+            <p class="caption">3 active • 2 scheduled • 11 completed</p>
+          </div>
+          <button class="btn btn-primary btn-sm">+ New Campaign</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="card-flat" style="display:flex;gap:20px;align-items:center;">
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <div style="font-weight:700;color:var(--ink);">Muthoot Gold Loan Drive</div>
+                <span class="badge badge-green">Active</span>
+              </div>
+              <div class="caption">Bhubaneswar — Society activations • Sahid Nagar, Rasulgarh, Unit-4</div>
+            </div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">74</div><div class="caption">Leads</div></div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">31%</div><div class="caption">Conversion</div></div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">8/8</div><div class="caption">Promoters</div></div>
+            <div style="min-width:120px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:68%;"></div></div><div class="caption">Day 5/7</div></div>
+            <button class="btn btn-ghost btn-sm">Manage</button>
+          </div>
+          <div class="card-flat" style="display:flex;gap:20px;align-items:center;">
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <div style="font-weight:700;color:var(--ink);">Star Health Society Drive</div>
+                <span class="badge badge-green">Active</span>
+              </div>
+              <div class="caption">Bhubaneswar — Market visits + road show • Chandrasekharpur, Patia</div>
+            </div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">48</div><div class="caption">Leads</div></div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">19%</div><div class="caption">Conversion</div></div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">6/8</div><div class="caption">Promoters</div></div>
+            <div style="min-width:120px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill green" style="width:40%;"></div></div><div class="caption">Day 4/10</div></div>
+            <button class="btn btn-ghost btn-sm">Manage</button>
+          </div>
+          <div class="card-flat" style="display:flex;gap:20px;align-items:center;opacity:0.7;">
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <div style="font-weight:700;color:var(--ink);">Bajaj Finserv Lead Gen</div>
+                <span class="badge badge-neutral">Scheduled</span>
+              </div>
+              <div class="caption">Cuttack — Road shows + market visits • Starts 15 Oct 2026</div>
+            </div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">—</div><div class="caption">Leads</div></div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">—</div><div class="caption">Conversion</div></div>
+            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">0/12</div><div class="caption">Assigned</div></div>
+            <div style="min-width:120px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:0%;"></div></div><div class="caption">Starts in 6 days</div></div>
+            <button class="btn btn-primary btn-sm">Finalize</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CLIENTS PAGE ═══ -->
+      <div id="page-clients" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <div><h2 class="h2">Client Accounts</h2><p class="caption">7 active clients</p></div>
+          <button class="btn btn-primary btn-sm">+ New Client</button>
+        </div>
+        <div class="table-wrap card-flat">
+          <table>
+            <thead><tr><th>Client</th><th>Industry</th><th>Active Campaigns</th><th>Total Leads</th><th>Billed MTD</th><th>Portal</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:600;">Muthoot Finance</div><div class="caption">Bhubaneswar Branch</div></td><td>NBFC / Gold Loan</td><td>1</td><td>1,247</td><td><strong>₹68,400</strong></td><td><a href="client-portal.html" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;">Star Health Insurance</div><div class="caption">Odisha Circle</div></td><td>Insurance</td><td>1</td><td>486</td><td><strong>₹42,000</strong></td><td><a href="#" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;">VibhavEdge Institute</div><div class="caption">BBSR</div></td><td>EdTech / Coaching</td><td>1</td><td>183</td><td><strong>₹28,750</strong></td><td><a href="#" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;">Bajaj Finserv</div><div class="caption">Cuttack</div></td><td>NBFC / Loans</td><td>0</td><td>0</td><td><strong>—</strong></td><td><a href="#" class="btn btn-ghost btn-sm" style="opacity:0.4;pointer-events:none;">Pending</a></td><td><button class="btn btn-primary btn-sm">Setup</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ ANALYTICS PAGE ═══ -->
+      <div id="page-analytics" class="tab-content">
+        <div style="margin-bottom:24px;"><h2 class="h2">Analytics</h2><p class="caption">October 2026 overview</p></div>
+        <div class="kpi-row" style="margin-bottom:24px;">
+          <div class="kpi-card"><div class="kpi-value">1,284</div><div class="kpi-label">Total Leads MTD</div><div class="kpi-delta delta-up"><ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +34% vs Sep</div></div>
+          <div class="kpi-card"><div class="kpi-value">31.2%</div><div class="kpi-label">Avg. Conversion Rate</div><div class="kpi-delta delta-up"><ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +4.7pp vs Sep</div></div>
+          <div class="kpi-card"><div class="kpi-value">₹147</div><div class="kpi-label">Cost per Lead</div><div class="kpi-delta delta-up"><ph-icon name="arrow-down" weight="bold" style="width:12px;height:12px;"></ph-icon> Down ₹38 vs Sep</div></div>
+          <div class="kpi-card"><div class="kpi-value">₹2.9L</div><div class="kpi-label">Revenue MTD</div><div class="kpi-delta delta-up"><ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +71% vs Sep</div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card-flat"><div style="font-weight:700;margin-bottom:16px;">Monthly Leads Trend</div><div class="chart-area"><canvas id="trendChart"></canvas></div></div>
+          <div class="card-flat"><div style="font-weight:700;margin-bottom:16px;">Revenue by Client</div><div class="chart-area"><canvas id="revenueChart"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- ═══ BILLING PAGE ═══ -->
+      <div id="page-billing" class="tab-content">
+        <div style="margin-bottom:24px;"><h2 class="h2">Billing & Revenue</h2></div>
+        <div class="kpi-row" style="margin-bottom:24px;">
+          <div class="kpi-card"><div class="kpi-value">₹2.9L</div><div class="kpi-label">Collected MTD</div></div>
+          <div class="kpi-card"><div class="kpi-value">₹1.1L</div><div class="kpi-label">Outstanding</div></div>
+          <div class="kpi-card"><div class="kpi-value">₹4.0L</div><div class="kpi-label">Total Billed</div></div>
+          <div class="kpi-card"><div class="kpi-value">72.5%</div><div class="kpi-label">Collection Rate</div></div>
+        </div>
+        <div class="card-flat table-wrap">
+          <table>
+            <thead><tr><th>Invoice</th><th>Client</th><th>Campaign</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:600;font-family:monospace;font-size:0.82rem;">GX-2026-041</div></td><td>Muthoot Finance</td><td>Gold Loan Drive Oct</td><td><strong>₹68,400</strong></td><td>15 Oct 2026</td><td><span class="badge badge-green">Paid</span></td><td><button class="btn btn-ghost btn-sm">PDF</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:monospace;font-size:0.82rem;">GX-2026-042</div></td><td>Star Health</td><td>Society Drive Oct</td><td><strong>₹42,000</strong></td><td>20 Oct 2026</td><td><span class="badge badge-amber">Pending</span></td><td><button class="btn btn-primary btn-sm">Send Reminder</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:monospace;font-size:0.82rem;">GX-2026-043</div></td><td>VibhavEdge</td><td>Admission Drive Oct</td><td><strong>₹28,750</strong></td><td>12 Oct 2026</td><td><span class="badge badge-red">Overdue</span></td><td><button class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Escalate</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /app-content -->
+  </main>
+</div>
+
+<script src="js/supabase.js"></script>
+<script>
+  // Page navigation
+  function setPage(pageId, el) {
+    document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    const pg = document.getElementById('page-' + pageId);
+    if (pg) pg.classList.add('active');
+    if (el) el.classList.add('active');
+    const titles = { dashboard:'Dashboard', campaigns:'Campaigns', promoters:'Promoters', leads:'Leads', proofwork:'Proof of Work', clients:'Clients', analytics:'Analytics', billing:'Billing' };
+    document.getElementById('pageTitle').textContent = titles[pageId] || pageId;
+    if (pageId === 'analytics') setTimeout(initTrendCharts, 100);
+    return false;
+  }
+
+  function filterTab(el) {
+    el.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Leads chart
+  const leadsCtx = document.getElementById('leadsChart');
+  if (leadsCtx) {
+    new Chart(leadsCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Today'],
+        datasets: [{
+          label: 'Leads',
+          data: [82, 95, 71, 118, 134, 109, 147],
+          backgroundColor: 'rgba(212,87,28,0.12)',
+          borderColor: 'rgba(212,87,28,0.8)',
+          borderWidth: 2, borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } }
+        }
+      }
+    });
+  }
+
+  const qualityCtx = document.getElementById('qualityChart');
+  if (qualityCtx) {
+    new Chart(qualityCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Hot (8-10)', 'Warm (6-7)', 'Cold (1-5)'],
+        datasets: [{
+          data: [41.5, 34.7, 23.8],
+          backgroundColor: ['#1a7a4a','#c47c00','#e2e8f0'],
+          borderWidth: 0, borderRadius: 4, spacing: 4
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '72%',
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { family: 'Satoshi' }, color: '#3d3d38', padding: 14, boxWidth: 10 } }
+        }
+      }
+    });
+  }
+
+  function initTrendCharts() {
+    const tc = document.getElementById('trendChart');
+    const rc = document.getElementById('revenueChart');
+    if (tc && !tc._chartInstance) {
+      tc._chartInstance = new Chart(tc, {
+        type: 'line',
+        data: {
+          labels: ['Jun','Jul','Aug','Sep','Oct*'],
+          datasets: [{
+            label: 'Leads',
+            data: [312, 487, 694, 958, 1284],
+            borderColor: 'rgba(212,87,28,0.9)', backgroundColor: 'rgba(212,87,28,0.06)',
+            fill: true, tension: 0.4, borderWidth: 2, pointRadius: 4,
+            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(212,87,28,0.9)', pointBorderWidth: 2,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
+            x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } }
+          }
+        }
+      });
+    }
+    if (rc && !rc._chartInstance) {
+      rc._chartInstance = new Chart(rc, {
+        type: 'bar',
+        data: {
+          labels: ['Muthoot Finance','Star Health','VibhavEdge','Others'],
+          datasets: [{ data: [68400, 42000, 28750, 11850], backgroundColor: ['rgba(212,87,28,0.85)','rgba(26,122,74,0.85)','rgba(196,124,0,0.85)','rgba(148,163,184,0.7)'], borderRadius: 8, }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72', callback: v => '₹' + (v/1000).toFixed(0) + 'K' } },
+            y: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } }
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

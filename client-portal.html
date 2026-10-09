@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GroundX — Campaign Portal | Muthoot Finance</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
+  <style>
+    body { background: var(--bg); }
+
+    /* Client portal header */
+    .portal-header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 16px 0; position: sticky; top: 0; z-index: 50;
+    }
+    .portal-header-inner { display: flex; align-items: center; justify-content: space-between; }
+
+    /* Campaign hero bar */
+    .campaign-hero {
+      background: var(--ink); padding: 32px 0;
+    }
+
+    /* Metric strip */
+    .metric-strip {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 24px;
+    }
+    .metric-cell {
+      padding: 22px 24px; border-right: 1px solid var(--border);
+    }
+    .metric-cell:last-child { border-right: none; }
+    .metric-val { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .metric-label { font-size: 0.75rem; color: var(--ink-3); font-weight: 500; margin-top: 4px; }
+
+    /* Timeline / activity */
+    .timeline { position: relative; padding-left: 20px; }
+    .timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:2px; background:var(--border); }
+    .timeline-item { position: relative; padding-bottom: 20px; padding-left: 12px; }
+    .timeline-dot {
+      position: absolute; left: -14px; top: 4px; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--surface); border: 2px solid var(--border);
+    }
+    .timeline-dot.active { background: var(--accent); border-color: var(--accent); }
+    .timeline-dot.green { background: var(--green); border-color: var(--green); }
+
+    /* Proof gallery */
+    .proof-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .proof-item { border-radius: 12px; overflow: hidden; position: relative; aspect-ratio: 4/3; }
+    .proof-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .proof-item:hover img { transform: scale(1.04); }
+    .proof-badge {
+      position: absolute; bottom: 8px; left: 8px; right: 8px;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 8px; padding: 6px 10px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .proof-badge-text { font-size: 0.7rem; color: rgba(255,255,255,0.9); }
+    .proof-geo-ok { display: flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; color: #4ade80; }
+
+    /* Lead funnel */
+    .funnel-steps { display: flex; align-items: stretch; gap: 0; }
+    .funnel-step {
+      flex: 1; padding: 18px 16px; border-right: 1px solid var(--border);
+      position: relative; display: flex; flex-direction: column; gap: 4px;
+    }
+    .funnel-step:last-child { border-right: none; }
+    .funnel-step-val { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.025em; }
+    .funnel-step-label { font-size: 0.75rem; color: var(--ink-3); font-weight: 500; }
+    .funnel-arrow {
+      position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+      z-index: 2; background: var(--surface); color: var(--ink-3);
+    }
+
+    /* Download row */
+    .download-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .metric-strip { grid-template-columns: repeat(3, 1fr); }
+      .proof-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .metric-strip { grid-template-columns: 1fr 1fr; }
+      .funnel-steps { flex-direction: column; }
+      .funnel-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .proof-gallery { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Portal Header ─────────────────────────── -->
+<div class="portal-header">
+  <div class="container">
+    <div class="portal-header-inner">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="nav-logo">
+          <div class="nav-logo-mark">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 2L15.5 6V12L9 16L2.5 12V6L9 2Z" fill="white" opacity="0.9"/>
+              <path d="M9 6L12.5 8.5V12L9 14L5.5 12V8.5L9 6Z" fill="white"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text">GroundX</span>
+        </div>
+        <div class="divider-v" style="height:20px;"></div>
+        <span style="font-size:0.85rem;color:var(--ink-3);">Client Portal</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="text-align:right;">
+          <div style="font-size:0.85rem;font-weight:700;color:var(--ink);">Muthoot Finance</div>
+          <div style="font-size:0.72rem;color:var(--ink-3);">Bhubaneswar Branch</div>
+        </div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f56630);">MF</div>
+        <button class="btn btn-ghost btn-sm" onclick="window.location='index.html'">
+          <ph-icon name="sign-out" weight="bold" style="width:14px;height:14px;"></ph-icon>
+          Sign out
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Campaign Hero ─────────────────────────── -->
+<div class="campaign-hero">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="badge badge-green" style="margin-bottom:10px;"><span class="dot dot-green"></span> Campaign Active</div>
+        <h1 style="font-size:1.7rem;font-weight:800;color:#fff;letter-spacing:-0.025em;margin-bottom:6px;">Gold Loan Activation Drive</h1>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.88rem;">Bhubaneswar — 9 Oct to 15 Oct 2026 • Managed by GroundX</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="btn btn-sm" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2);" onclick="downloadReport()">
+          <ph-icon name="download-simple" weight="bold" style="width:14px;height:14px;"></ph-icon>
+          Download Report
+        </button>
+        <a href="dashboard.html" class="btn btn-sm" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2);">
+          <ph-icon name="arrow-left" weight="bold" style="width:14px;height:14px;"></ph-icon>
+          Ops View
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main Content ──────────────────────────── -->
+<div class="container" style="padding-top:28px;padding-bottom:60px;">
+
+  <!-- Metric strip -->
+  <div class="metric-strip">
+    <div class="metric-cell">
+      <div class="metric-val" style="color:var(--accent);">24</div>
+      <div class="metric-label">Promoters Deployed</div>
+      <div style="margin-top:8px;display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--green);font-weight:600;">
+        <ph-icon name="check-circle" weight="fill" style="width:12px;height:12px;"></ph-icon> All GPS-verified
+      </div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val">147</div>
+      <div class="metric-label">Leads Captured Today</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:var(--ink-3);">OTP verified: 89</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val" style="color:var(--green);">31%</div>
+      <div class="metric-label">Lead Conversion Rate</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:var(--green);font-weight:600;">Industry avg: 9–14%</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val">₹147</div>
+      <div class="metric-label">Cost Per Qualified Lead</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:var(--ink-3);">vs. ₹520 market avg</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val" style="color:var(--green);">89</div>
+      <div class="metric-label">Geo-verified Photos</div>
+      <div style="margin-top:8px;"><div class="progress"><div class="progress-fill green" style="width:94%;"></div></div><div style="font-size:0.7rem;margin-top:3px;color:var(--ink-3);">94% verification rate</div></div>
+    </div>
+  </div>
+
+  <!-- Campaign progress bar -->
+  <div class="card-flat" style="margin-bottom:24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+    <div style="flex-shrink:0;">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Campaign Progress</div>
+      <div style="font-size:1rem;font-weight:700;">Day 5 of 7</div>
+    </div>
+    <div style="flex:1;min-width:200px;">
+      <div class="progress" style="height:10px;"><div class="progress-fill" style="width:71.4%;"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;">
+        <span class="caption">9 Oct 2026</span>
+        <span class="caption" style="color:var(--accent);font-weight:600;">71% complete</span>
+        <span class="caption">15 Oct 2026</span>
+      </div>
+    </div>
+    <div style="flex-shrink:0;text-align:right;">
+      <div style="font-size:0.78rem;color:var(--ink-3);">Ends in</div>
+      <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);">2 days</div>
+    </div>
+  </div>
+
+  <!-- Main 2-col layout -->
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-bottom:24px;">
+
+    <!-- Lead funnel chart -->
+    <div class="card-flat">
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px;">Lead Funnel</div>
+      <div class="caption" style="margin-bottom:20px;">Full-campaign view (5 of 7 days)</div>
+      <!-- Funnel visual -->
+      <div class="funnel-steps" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;">
+        <div class="funnel-step">
+          <div class="funnel-step-val" style="color:var(--ink);">648</div>
+          <div class="funnel-step-label">Contacted</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);"></div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-step-val">412</div>
+          <div class="funnel-step-label">Form Submitted</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);width:63.5%;"></div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-step-val">318</div>
+          <div class="funnel-step-label">OTP Verified</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);width:49%;"></div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-step-val" style="color:var(--green);">201</div>
+          <div class="funnel-step-label">Score 7+ (Hot)</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--green);width:31%;"></div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-step-val" style="color:var(--green);">74</div>
+          <div class="funnel-step-label">Converted</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--green);width:11.4%;"></div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <canvas id="funnelChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Live field map + activity -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <!-- Live map -->
+      <div class="card-flat" style="padding:0;overflow:hidden;flex:1;">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight:700;font-size:0.88rem;">Live Field Map</div>
+          <div class="badge badge-green"><span class="dot dot-green"></span> Live</div>
+        </div>
+        <div style="height:200px;background:#e6ede8;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px);background-size:28px 28px;"></div>
+          <!-- Roads -->
+          <div style="position:absolute;top:38%;left:0;right:0;height:3px;background:rgba(255,255,255,0.6);"></div>
+          <div style="position:absolute;top:62%;left:0;right:0;height:3px;background:rgba(255,255,255,0.6);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:30%;width:3px;background:rgba(255,255,255,0.6);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:65%;width:3px;background:rgba(255,255,255,0.6);"></div>
+          <!-- Promoter pins (read-only for client) -->
+          <div style="position:absolute;left:18%;top:22%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">RK</div>
+          <div style="position:absolute;left:40%;top:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">SM</div>
+          <div style="position:absolute;left:70%;top:28%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--amber);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">DP</div>
+          <div style="position:absolute;left:55%;top:70%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">BS</div>
+          <div style="position:absolute;left:82%;top:55%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">AV</div>
+          <!-- Note overlay for client -->
+          <div style="position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);color:rgba(255,255,255,0.8);font-size:0.65rem;padding:5px 9px;border-radius:6px;">
+            Read-only view. All data is uneditable.
+          </div>
+        </div>
+      </div>
+      <!-- Today's summary -->
+      <div class="card-flat" style="padding:16px;">
+        <div style="font-weight:700;font-size:0.88rem;margin-bottom:12px;">Today's Summary</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.83rem;color:var(--ink-2);">Promoters deployed</span>
+            <strong style="font-size:0.88rem;">8 / 8</strong>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.83rem;color:var(--ink-2);">Zones covered</span>
+            <strong style="font-size:0.88rem;">5 of 5</strong>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.83rem;color:var(--ink-2);">Leads today</span>
+            <strong style="font-size:0.88rem;color:var(--green);">147</strong>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.83rem;color:var(--ink-2);">Hot leads (score 7+)</span>
+            <strong style="font-size:0.88rem;color:var(--green);">61</strong>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.83rem;color:var(--ink-2);">Photos geo-verified</span>
+            <strong style="font-size:0.88rem;">89 / 94</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leads per day chart -->
+  <div class="card-flat" style="margin-bottom:24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div style="font-weight:700;font-size:0.95rem;">Daily Lead Performance</div>
+        <div class="caption">Gold Loan Activation Drive • 9–15 Oct 2026</div>
+      </div>
+      <div style="display:flex;gap:12px;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--ink-3);">
+          <div style="width:12px;height:3px;border-radius:2px;background:var(--accent);"></div> Total Leads
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--ink-3);">
+          <div style="width:12px;height:3px;border-radius:2px;background:var(--green);"></div> Converted
+        </div>
+      </div>
+    </div>
+    <div class="chart-area" style="height:200px;">
+      <canvas id="dailyLeadsChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Proof of Work Gallery -->
+  <div style="margin-bottom:24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div style="font-weight:700;font-size:0.95rem;">Proof of Work Gallery</div>
+        <div class="caption">89 geo-tagged photos — uneditable, timestamped</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="badge badge-green">
+          <ph-icon name="lock-key" weight="fill" style="width:11px;height:11px;"></ph-icon>
+          Tamper-proof
+        </div>
+        <button class="btn btn-ghost btn-sm">View all 89</button>
+      </div>
+    </div>
+    <div class="proof-gallery">
+      <div class="proof-item">
+        <img src="https://picsum.photos/seed/proof101/600/400" alt="Campaign proof" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">Ramesh K. • Sahid Nagar • 09:42 AM</div>
+          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <img src="https://picsum.photos/seed/proof102/600/400" alt="Campaign proof" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">Sunita M. • Rasulgarh • 10:11 AM</div>
+          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <img src="https://picsum.photos/seed/proof103/600/400" alt="Campaign proof" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">Anjali V. • Patia • 10:38 AM</div>
+          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <img src="https://picsum.photos/seed/proof104/600/400" alt="Campaign proof" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">Bikash S. • Nayapalli • 11:15 AM</div>
+          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <img src="https://picsum.photos/seed/proof105/600/400" alt="Campaign proof" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">Priya T. • Chandrasekharpur • 12:02 PM</div>
+          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <img src="https://picsum.photos/seed/proof106/600/400" alt="Campaign proof" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">Ramesh K. • Sahid Nagar • 12:54 PM</div>
+          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lead table (Client-visible) -->
+  <div style="margin-bottom:24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div style="font-weight:700;font-size:0.95rem;">Your Lead Database</div>
+        <div class="caption">Hot leads (score 7+) from today • Ready for your team to contact</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="downloadLeads()">
+        <ph-icon name="download-simple" weight="bold" style="width:14px;height:14px;"></ph-icon>
+        Download CSV
+      </button>
+    </div>
+    <div class="card-flat table-wrap">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Phone</th><th>Age / Gender</th><th>Zone</th><th>Lead Score</th><th>OTP Status</th><th>Gold Est. (gm)</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div style="font-weight:600;font-size:0.85rem;">Suresh Behera</div></td>
+            <td style="font-family:monospace;font-size:0.82rem;">+91 94521 63748</td>
+            <td>47M</td>
+            <td>Rasulgarh</td>
+            <td><span class="badge badge-green">9/10</span></td>
+            <td><span class="badge badge-green">Verified</span></td>
+            <td style="font-weight:600;">28–35g</td>
+            <td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Call Today</span></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:600;font-size:0.85rem;">Mrunalini Das</div></td>
+            <td style="font-family:monospace;font-size:0.82rem;">+91 70821 49362</td>
+            <td>34F</td>
+            <td>Sahid Nagar</td>
+            <td><span class="badge badge-green">8/10</span></td>
+            <td><span class="badge badge-green">Verified</span></td>
+            <td style="font-weight:600;">18–24g</td>
+            <td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Call Today</span></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:600;font-size:0.85rem;">Gopabandhu Rath</div></td>
+            <td style="font-family:monospace;font-size:0.82rem;">+91 63841 28473</td>
+            <td>52M</td>
+            <td>Nayapalli</td>
+            <td><span class="badge badge-green">8/10</span></td>
+            <td><span class="badge badge-green">Verified</span></td>
+            <td style="font-weight:600;">40–50g</td>
+            <td><span class="badge badge-green">Priority</span></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:600;font-size:0.85rem;">Shanti Devi Patra</div></td>
+            <td style="font-family:monospace;font-size:0.82rem;">+91 82461 73924</td>
+            <td>45F</td>
+            <td>Chandrasekharpur</td>
+            <td><span class="badge badge-amber">7/10</span></td>
+            <td><span class="badge badge-green">Verified</span></td>
+            <td style="font-weight:600;">12–18g</td>
+            <td><span class="badge badge-neutral">Normal</span></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:600;font-size:0.85rem;">Nirmal Mishra</div></td>
+            <td style="font-family:monospace;font-size:0.82rem;">+91 99124 38472</td>
+            <td>38M</td>
+            <td>Patia</td>
+            <td><span class="badge badge-green">9/10</span></td>
+            <td><span class="badge badge-green">Verified</span></td>
+            <td style="font-weight:600;">55–70g</td>
+            <td><span class="badge badge-green">Priority</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity log -->
+  <div class="grid-2">
+    <div class="card-flat">
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:16px;">Campaign Audit Log</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot green"></div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">147 leads captured — Day 5</div>
+          <div class="caption">Oct 9, 2026 at 5:30 PM</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">All 8 promoters checked in</div>
+          <div class="caption">Oct 9, 2026 at 9:15 AM • GPS verified</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot green"></div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">118 leads — Day 4</div>
+          <div class="caption">Oct 8, 2026 at 5:47 PM</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">134 leads — Day 3</div>
+          <div class="caption">Oct 7, 2026 at 6:02 PM</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">Campaign launched • All zones assigned</div>
+          <div class="caption">Oct 5, 2026 at 8:00 AM</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download / actions -->
+    <div class="card-flat">
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:6px;">Reports & Downloads</div>
+      <div class="caption" style="margin-bottom:16px;">All data is read-only and tamper-proof</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;" onclick="downloadReport()">
+          <div style="width:34px;height:34px;border-radius:9px;background:var(--accent-pale);display:grid;place-items:center;flex-shrink:0;">
+            <ph-icon name="file-pdf" weight="fill" style="width:16px;height:16px;color:var(--accent);"></ph-icon>
+          </div>
+          <div style="text-align:left;">
+            <div style="font-size:0.85rem;font-weight:600;">Full Campaign Report PDF</div>
+            <div class="caption">Day 5 of 7 • Generated now</div>
+          </div>
+        </button>
+        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;" onclick="downloadLeads()">
+          <div style="width:34px;height:34px;border-radius:9px;background:var(--green-pale);display:grid;place-items:center;flex-shrink:0;">
+            <ph-icon name="table" weight="fill" style="width:16px;height:16px;color:var(--green);"></ph-icon>
+          </div>
+          <div style="text-align:left;">
+            <div style="font-size:0.85rem;font-weight:600;">Lead Database CSV</div>
+            <div class="caption">1,284 leads • OTP-verified</div>
+          </div>
+        </button>
+        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:9px;background:#ede9ff;display:grid;place-items:center;flex-shrink:0;">
+            <ph-icon name="images" weight="fill" style="width:16px;height:16px;color:#6d28d9;"></ph-icon>
+          </div>
+          <div style="text-align:left;">
+            <div style="font-size:0.85rem;font-weight:600;">Photo Proof ZIP Archive</div>
+            <div class="caption">89 geo-tagged photos</div>
+          </div>
+        </button>
+        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:9px;background:var(--amber-pale);display:grid;place-items:center;flex-shrink:0;">
+            <ph-icon name="chart-line-up" weight="fill" style="width:16px;height:16px;color:var(--amber);"></ph-icon>
+          </div>
+          <div style="text-align:left;">
+            <div style="font-size:0.85rem;font-weight:600;">ROI Analytics Deck</div>
+            <div class="caption">Cost per lead • Conversion breakdown</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Trust note -->
+      <div style="margin-top:16px;padding:12px;background:var(--green-pale);border-radius:10px;display:flex;gap:10px;align-items:flex-start;">
+        <ph-icon name="shield-check" weight="fill" style="width:18px;height:18px;color:var(--green);flex-shrink:0;margin-top:1px;"></ph-icon>
+        <div style="font-size:0.8rem;color:var(--green);line-height:1.5;">All data is <strong>cryptographically logged</strong> and cannot be altered retroactively. What you see is exactly what happened on the ground.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<div style="border-top:1px solid var(--border);padding:20px 0;background:var(--surface);">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+    <span class="caption">GroundX Client Portal • Powered by GroundX Technologies Pvt. Ltd.</span>
+    <a href="index.html" class="caption" style="text-decoration:none;color:var(--ink-3);">groundx.in</a>
+  </div>
+</div>
+
+<script src="js/supabase.js"></script>
+<script>
+  // Funnel chart
+  const funnelCtx = document.getElementById('funnelChart');
+  if (funnelCtx) {
+    new Chart(funnelCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Contacted', 'Form Submitted', 'OTP Verified', 'Hot Leads', 'Converted'],
+        datasets: [{
+          data: [648, 412, 318, 201, 74],
+          backgroundColor: ['rgba(212,87,28,0.15)','rgba(212,87,28,0.25)','rgba(212,87,28,0.45)','rgba(26,122,74,0.5)','rgba(26,122,74,0.85)'],
+          borderColor: ['rgba(212,87,28,0.6)','rgba(212,87,28,0.7)','rgba(212,87,28,0.8)','rgba(26,122,74,0.7)','rgba(26,122,74,0.9)'],
+          borderWidth: 1.5, borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi', size: 10 }, color: '#7a7a72' } }
+        }
+      }
+    });
+  }
+
+  // Daily leads chart
+  const dlCtx = document.getElementById('dailyLeadsChart');
+  if (dlCtx) {
+    new Chart(dlCtx, {
+      type: 'line',
+      data: {
+        labels: ['Day 1 (5 Oct)','Day 2 (6 Oct)','Day 3 (7 Oct)','Day 4 (8 Oct)','Day 5 (9 Oct)','Day 6','Day 7'],
+        datasets: [
+          {
+            label: 'Total Leads',
+            data: [82, 95, 134, 118, 147, null, null],
+            borderColor: 'rgba(212,87,28,0.9)', backgroundColor: 'rgba(212,87,28,0.06)',
+            fill: true, tension: 0.4, borderWidth: 2.5, pointRadius: 5,
+            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(212,87,28,0.9)', pointBorderWidth: 2,
+          },
+          {
+            label: 'Converted',
+            data: [18, 26, 37, 31, 46, null, null],
+            borderColor: 'rgba(26,122,74,0.9)', backgroundColor: 'rgba(26,122,74,0.06)',
+            fill: true, tension: 0.4, borderWidth: 2.5, borderDash: [0,0], pointRadius: 5,
+            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(26,122,74,0.9)', pointBorderWidth: 2,
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi', size: 10 }, color: '#7a7a72', maxRotation: 0 } }
+        }
+      }
+    });
+  }
+
+  function downloadReport() {
+    alert('In production: Campaign PDF report will be generated and downloaded. Includes geo-tagged photos, lead funnel, ROI analysis, and promoter performance.');
+  }
+  function downloadLeads() {
+    // Simulate CSV download
+    const csv = `Name,Phone,Age,Gender,Zone,Lead Score,OTP Status,Gold Estimate\nSuresh Behera,+919452163748,47,M,Rasulgarh,9,Verified,28-35g\nMrunalini Das,+917082149362,34,F,Sahid Nagar,8,Verified,18-24g\nGopabandhu Rath,+916384128473,52,M,Nayapalli,8,Verified,40-50g`;
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'GroundX_MuthootFinance_Leads_Oct2026.csv';
+    a.click();
+  }
+</script>
+</body>
+</html>
