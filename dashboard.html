@@ -718,8 +718,8 @@
         datasets: [{
           label: 'Leads',
           data: [82, 95, 71, 118, 134, 109, 147],
-          backgroundColor: 'rgba(212,87,28,0.12)',
-          borderColor: 'rgba(212,87,28,0.8)',
+          backgroundColor: 'rgba(216,90,48,0.18)',
+          borderColor: 'rgba(216,90,48,0.85)',
           borderWidth: 2, borderRadius: 6,
         }]
       },
@@ -727,8 +727,8 @@
         responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
-          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } }
+          y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans' }, color: '#6B6660' } }
         }
       }
     });
@@ -742,14 +742,14 @@
         labels: ['Hot (8-10)', 'Warm (6-7)', 'Cold (1-5)'],
         datasets: [{
           data: [41.5, 34.7, 23.8],
-          backgroundColor: ['#1a7a4a','#c47c00','#e2e8f0'],
+          backgroundColor: ['#1E7B4D','#EF9F27','#DCD6CD'],
           borderWidth: 0, borderRadius: 4, spacing: 4
         }]
       },
       options: {
         responsive: true, maintainAspectRatio: false, cutout: '72%',
         plugins: {
-          legend: { position: 'bottom', labels: { font: { family: 'Satoshi' }, color: '#3d3d38', padding: 14, boxWidth: 10 } }
+          legend: { position: 'bottom', labels: { font: { family: 'IBM Plex Sans' }, color: '#1F1D1B', padding: 14, boxWidth: 10 } }
         }
       }
     });
@@ -766,17 +766,17 @@
           datasets: [{
             label: 'Leads',
             data: [312, 487, 694, 958, 1284],
-            borderColor: 'rgba(212,87,28,0.9)', backgroundColor: 'rgba(212,87,28,0.06)',
+            borderColor: 'rgba(216,90,48,0.92)', backgroundColor: 'rgba(216,90,48,0.06)',
             fill: true, tension: 0.4, borderWidth: 2, pointRadius: 4,
-            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(212,87,28,0.9)', pointBorderWidth: 2,
+            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(216,90,48,0.92)', pointBorderWidth: 2,
           }]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
-            x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } }
+            y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
+            x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans' }, color: '#6B6660' } }
           }
         }
       });
@@ -786,14 +786,14 @@
         type: 'bar',
         data: {
           labels: ['Muthoot Finance','Star Health','VibhavEdge','Others'],
-          datasets: [{ data: [68400, 42000, 28750, 11850], backgroundColor: ['rgba(212,87,28,0.85)','rgba(26,122,74,0.85)','rgba(196,124,0,0.85)','rgba(148,163,184,0.7)'], borderRadius: 8, }]
+          datasets: [{ data: [68400, 42000, 28750, 11850], backgroundColor: ['rgba(216,90,48,0.88)','rgba(30,123,77,0.88)','rgba(239,159,39,0.88)','rgba(107,102,96,0.6)'], borderRadius: 8, }]
         },
         options: {
           responsive: true, maintainAspectRatio: false, indexAxis: 'y',
           plugins: { legend: { display: false } },
           scales: {
-            x: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72', callback: v => '₹' + (v/1000).toFixed(0) + 'K' } },
-            y: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } }
+            x: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660', callback: v => '₹' + (v/1000).toFixed(0) + 'K' } },
+            y: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans' }, color: '#6B6660' } }
           }
         }
       });
