@@ -1,4 +1,4 @@
-// GroundX — Supabase Configuration
+// Utkal Vantage — Supabase Configuration
 // Project URL: https://slussfxakghszgsfxusv.supabase.co
 
 const SUPABASE_CONFIG = {
@@ -11,12 +11,16 @@ const SUPABASE_CONFIG = {
 // ── Supabase Client ────────────────────────────────
 // Lightweight client for auth + database calls (no npm required)
 const supabase = {
+  _getToken() {
+    return localStorage.getItem('uv_access_token') || localStorage.getItem('gx_access_token');
+  },
+
   _headers() {
     const h = {
       'apikey': SUPABASE_CONFIG.anonKey,
       'Content-Type': 'application/json',
     };
-    const token = localStorage.getItem('gx_access_token');
+    const token = this._getToken();
     if (token) h['Authorization'] = `Bearer ${token}`;
     return h;
   },
@@ -30,8 +34,8 @@ const supabase = {
     });
     const data = await res.json();
     if (data.access_token) {
-      localStorage.setItem('gx_access_token', data.access_token);
-      localStorage.setItem('gx_user', JSON.stringify(data.user));
+      localStorage.setItem('uv_access_token', data.access_token);
+      localStorage.setItem('uv_user', JSON.stringify(data.user));
     }
     return data;
   },
@@ -44,24 +48,26 @@ const supabase = {
     });
     const data = await res.json();
     if (data.access_token) {
-      localStorage.setItem('gx_access_token', data.access_token);
-      localStorage.setItem('gx_user', JSON.stringify(data.user));
+      localStorage.setItem('uv_access_token', data.access_token);
+      localStorage.setItem('uv_user', JSON.stringify(data.user));
     }
     return data;
   },
 
   signOut() {
+    localStorage.removeItem('uv_access_token');
+    localStorage.removeItem('uv_user');
     localStorage.removeItem('gx_access_token');
     localStorage.removeItem('gx_user');
   },
 
   getUser() {
-    const u = localStorage.getItem('gx_user');
+    const u = localStorage.getItem('uv_user') || localStorage.getItem('gx_user');
     return u ? JSON.parse(u) : null;
   },
 
   isLoggedIn() {
-    return !!localStorage.getItem('gx_access_token');
+    return !!this._getToken();
   },
 
   // ── Database (PostgREST) ───────────────────
@@ -106,7 +112,7 @@ const supabase = {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${localStorage.getItem('gx_access_token')}`,
+        'Authorization': `Bearer ${this._getToken()}`,
       },
       body: file,
     });

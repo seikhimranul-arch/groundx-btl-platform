@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GroundX — Founder Dashboard</title>
+  <title>Utkal Vantage — Founder Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles/main.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
@@ -16,30 +17,31 @@
       background: var(--bg); border: 1px solid var(--border);
       border-radius: 10px; padding: 7px 14px; min-width: 260px;
     }
-    .search-bar input { background: none; border: none; outline: none; font-family: 'Satoshi', sans-serif; font-size: 0.88rem; color: var(--ink); width: 100%; }
+    .search-bar input { background: none; border: none; outline: none; font-family: var(--body); font-size: 0.88rem; color: var(--ink); width: 100%; }
     .search-bar input::placeholder { color: var(--ink-3); }
 
     /* KPI cards row */
     .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
     .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 22px 18px; }
     .kpi-icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; margin-bottom: 14px; }
-    .kpi-value { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .kpi-value { font-family: var(--mono); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
     .kpi-label { font-size: 0.78rem; color: var(--ink-3); margin-top: 4px; font-weight: 500; }
-    .kpi-delta { display: flex; align-items: center; gap: 3px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
+    .kpi-delta { font-family: var(--mono); display: flex; align-items: center; gap: 3px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
 
     /* Map area */
     .live-map {
-      height: 100%; min-height: 380px; background: #e6ede8; border-radius: var(--radius); position: relative; overflow: hidden;
+      height: 100%; min-height: 380px; background: #E8E5DD; border-radius: var(--radius); position: relative; overflow: hidden;
     }
     .live-map-grid {
       position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-      background-size: 32px 32px;
+      background-image: radial-gradient(rgba(31,29,27,0.12) 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
     }
     .promoter-pin {
       position: absolute; transform: translate(-50%, -50%);
       width: 32px; height: 32px; border-radius: 50%;
       display: grid; place-items: center;
+      font-family: var(--mono);
       font-size: 0.7rem; font-weight: 700; color: #fff;
       cursor: pointer; transition: transform 0.2s;
       border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -48,8 +50,8 @@
     .promoter-pin.active { background: var(--accent); }
     .promoter-pin.idle { background: var(--amber); }
     .promoter-pin.offline { background: #94a3b8; }
-    .map-road-h { position: absolute; height: 3px; background: rgba(255,255,255,0.6); border-radius: 2px; }
-    .map-road-v { position: absolute; width: 3px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+    .map-road-h { position: absolute; height: 3px; background: rgba(255,255,255,0.7); border-radius: 2px; }
+    .map-road-v { position: absolute; width: 3px; background: rgba(255,255,255,0.7); border-radius: 2px; }
 
     /* Activity feed */
     .activity-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; }
@@ -63,7 +65,7 @@
     .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-top: 1px solid var(--border); margin-top: auto; }
 
     /* Alert bar */
-    .alert-bar { background: var(--amber-pale); border: 1px solid rgba(196,124,0,0.2); border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .alert-bar { background: var(--amber-pale); border: 1px solid rgba(239,159,39,0.3); border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
 
     /* Tab content */
     .tab-content { display: none; }
@@ -94,13 +96,13 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <a href="index.html" class="nav-logo" style="text-decoration:none;">
-        <div class="nav-logo-mark">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M9 2L15.5 6V12L9 16L2.5 12V6L9 2Z" fill="white" opacity="0.9"/>
-            <path d="M9 6L12.5 8.5V12L9 14L5.5 12V8.5L9 6Z" fill="white"/>
-          </svg>
+        <div class="nav-logo-mark" style="width:38px;height:auto;">
+          <img src="assets/mark.svg" alt="Utkal Vantage" style="width:38px;height:auto;" />
         </div>
-        <span class="nav-logo-text">GroundX</span>
+        <div>
+          <span class="nav-logo-text">Utkal Vantage</span>
+          <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;">Console</div>
+        </div>
       </a>
     </div>
 
@@ -135,6 +137,9 @@
       </a>
 
       <div class="sidebar-section">System</div>
+      <a href="brand-sheet.html" class="sidebar-item">
+        <ph-icon name="paint-brush" weight="fill" style="width:18px;height:18px;"></ph-icon> Brand Sheet
+      </a>
       <a href="#" class="sidebar-item">
         <ph-icon name="gear" weight="fill" style="width:18px;height:18px;"></ph-icon> Settings
       </a>
@@ -671,9 +676,9 @@
           <table>
             <thead><tr><th>Invoice</th><th>Client</th><th>Campaign</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Action</th></tr></thead>
             <tbody>
-              <tr><td><div style="font-weight:600;font-family:monospace;font-size:0.82rem;">GX-2026-041</div></td><td>Muthoot Finance</td><td>Gold Loan Drive Oct</td><td><strong>₹68,400</strong></td><td>15 Oct 2026</td><td><span class="badge badge-green">Paid</span></td><td><button class="btn btn-ghost btn-sm">PDF</button></td></tr>
-              <tr><td><div style="font-weight:600;font-family:monospace;font-size:0.82rem;">GX-2026-042</div></td><td>Star Health</td><td>Society Drive Oct</td><td><strong>₹42,000</strong></td><td>20 Oct 2026</td><td><span class="badge badge-amber">Pending</span></td><td><button class="btn btn-primary btn-sm">Send Reminder</button></td></tr>
-              <tr><td><div style="font-weight:600;font-family:monospace;font-size:0.82rem;">GX-2026-043</div></td><td>VibhavEdge</td><td>Admission Drive Oct</td><td><strong>₹28,750</strong></td><td>12 Oct 2026</td><td><span class="badge badge-red">Overdue</span></td><td><button class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Escalate</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-041</div></td><td>Muthoot Finance</td><td>Gold Loan Drive Oct</td><td><strong>₹68,400</strong></td><td>15 Oct 2026</td><td><span class="badge badge-green">Paid</span></td><td><button class="btn btn-ghost btn-sm">PDF</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-042</div></td><td>Star Health</td><td>Society Drive Oct</td><td><strong>₹42,000</strong></td><td>20 Oct 2026</td><td><span class="badge badge-amber">Pending</span></td><td><button class="btn btn-primary btn-sm">Send Reminder</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-043</div></td><td>VibhavEdge</td><td>Admission Drive Oct</td><td><strong>₹28,750</strong></td><td>12 Oct 2026</td><td><span class="badge badge-red">Overdue</span></td><td><button class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Escalate</button></td></tr>
             </tbody>
           </table>
         </div>

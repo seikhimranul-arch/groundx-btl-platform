@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GroundX — Campaign Portal | Muthoot Finance</title>
+  <title>Utkal Vantage — Campaign Portal | Muthoot Finance</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles/main.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
@@ -19,7 +20,7 @@
 
     /* Campaign hero bar */
     .campaign-hero {
-      background: var(--ink); padding: 32px 0;
+      background: var(--fg); padding: 32px 0;
     }
 
     /* Metric strip */
@@ -32,7 +33,7 @@
       padding: 22px 24px; border-right: 1px solid var(--border);
     }
     .metric-cell:last-child { border-right: none; }
-    .metric-val { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .metric-val { font-family: var(--mono); font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
     .metric-label { font-size: 0.75rem; color: var(--ink-3); font-weight: 500; margin-top: 4px; }
 
     /* Timeline / activity */
@@ -53,13 +54,13 @@
     .proof-item:hover img { transform: scale(1.04); }
     .proof-badge {
       position: absolute; bottom: 8px; left: 8px; right: 8px;
-      background: rgba(0,0,0,0.65); backdrop-filter: blur(8px);
+      background: rgba(31,29,27,0.72); backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border-radius: 8px; padding: 6px 10px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .proof-badge-text { font-size: 0.7rem; color: rgba(255,255,255,0.9); }
-    .proof-geo-ok { display: flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; color: #4ade80; }
+    .proof-badge-text { font-family: var(--mono); font-size: 0.68rem; color: rgba(255,255,255,0.92); }
+    .proof-geo-ok { display: flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.65rem; font-weight: 700; color: #4ade80; }
 
     /* Lead funnel */
     .funnel-steps { display: flex; align-items: stretch; gap: 0; }
@@ -68,7 +69,7 @@
       position: relative; display: flex; flex-direction: column; gap: 4px;
     }
     .funnel-step:last-child { border-right: none; }
-    .funnel-step-val { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.025em; }
+    .funnel-step-val { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
     .funnel-step-label { font-size: 0.75rem; color: var(--ink-3); font-weight: 500; }
     .funnel-arrow {
       position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
@@ -99,23 +100,20 @@
     <div class="portal-header-inner">
       <div style="display:flex;align-items:center;gap:16px;">
         <div class="nav-logo">
-          <div class="nav-logo-mark">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M9 2L15.5 6V12L9 16L2.5 12V6L9 2Z" fill="white" opacity="0.9"/>
-              <path d="M9 6L12.5 8.5V12L9 14L5.5 12V8.5L9 6Z" fill="white"/>
-            </svg>
+          <div class="nav-logo-mark" style="width:38px;height:auto;">
+            <img src="assets/mark.svg" alt="Utkal Vantage" style="width:38px;height:auto;" />
           </div>
-          <span class="nav-logo-text">GroundX</span>
+          <span class="nav-logo-text">Utkal Vantage</span>
         </div>
         <div class="divider-v" style="height:20px;"></div>
-        <span style="font-size:0.85rem;color:var(--ink-3);">Client Portal</span>
+        <span style="font-family:var(--mono);font-size:0.75rem;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;">Client Portal</span>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="text-align:right;">
           <div style="font-size:0.85rem;font-weight:700;color:var(--ink);">Muthoot Finance</div>
           <div style="font-size:0.72rem;color:var(--ink-3);">Bhubaneswar Branch</div>
         </div>
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f56630);">MF</div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#D85A30);color:#fff;">MF</div>
         <button class="btn btn-ghost btn-sm" onclick="window.location='index.html'">
           <ph-icon name="sign-out" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Sign out
@@ -128,11 +126,11 @@
 <!-- ── Campaign Hero ─────────────────────────── -->
 <div class="campaign-hero">
   <div class="container">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:gap:16px;">
       <div>
         <div class="badge badge-green" style="margin-bottom:10px;"><span class="dot dot-green"></span> Campaign Active</div>
-        <h1 style="font-size:1.7rem;font-weight:800;color:#fff;letter-spacing:-0.025em;margin-bottom:6px;">Gold Loan Activation Drive</h1>
-        <div style="color:rgba(255,255,255,0.55);font-size:0.88rem;">Bhubaneswar — 9 Oct to 15 Oct 2026 • Managed by GroundX</div>
+        <h1 style="font-size:1.7rem;font-weight:700;color:#fff;letter-spacing:-0.025em;margin-bottom:6px;">Gold Loan Activation Drive</h1>
+        <div style="color:rgba(255,255,255,0.65);font-size:0.88rem;">Bhubaneswar — 9 Oct to 15 Oct 2026 • Managed by Utkal Vantage</div>
       </div>
       <div style="display:flex;gap:10px;align-items:center;">
         <button class="btn btn-sm" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2);" onclick="downloadReport()">
@@ -542,8 +540,8 @@
 <!-- Footer -->
 <div style="border-top:1px solid var(--border);padding:20px 0;background:var(--surface);">
   <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
-    <span class="caption">GroundX Client Portal • Powered by GroundX Technologies Pvt. Ltd.</span>
-    <a href="index.html" class="caption" style="text-decoration:none;color:var(--ink-3);">groundx.in</a>
+    <span class="caption" style="font-family:var(--mono);">Utkal Vantage Client Portal • Powered by Utkal Vantage Technologies Pvt. Ltd.</span>
+    <a href="index.html" class="caption" style="text-decoration:none;color:var(--muted);font-family:var(--mono);">utkalvantage.in</a>
   </div>
 </div>
 
@@ -558,8 +556,8 @@
         labels: ['Contacted', 'Form Submitted', 'OTP Verified', 'Hot Leads', 'Converted'],
         datasets: [{
           data: [648, 412, 318, 201, 74],
-          backgroundColor: ['rgba(212,87,28,0.15)','rgba(212,87,28,0.25)','rgba(212,87,28,0.45)','rgba(26,122,74,0.5)','rgba(26,122,74,0.85)'],
-          borderColor: ['rgba(212,87,28,0.6)','rgba(212,87,28,0.7)','rgba(212,87,28,0.8)','rgba(26,122,74,0.7)','rgba(26,122,74,0.9)'],
+          backgroundColor: ['rgba(216,90,48,0.15)','rgba(216,90,48,0.28)','rgba(216,90,48,0.48)','rgba(30,123,77,0.5)','rgba(30,123,77,0.85)'],
+          borderColor: ['rgba(216,90,48,0.6)','rgba(216,90,48,0.7)','rgba(216,90,48,0.85)','rgba(30,123,77,0.7)','rgba(30,123,77,0.95)'],
           borderWidth: 1.5, borderRadius: 6,
         }]
       },
@@ -567,8 +565,8 @@
         responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
-          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi', size: 10 }, color: '#7a7a72' } }
+          y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans', size: 10 }, color: '#6B6660' } }
         }
       }
     });
@@ -585,16 +583,16 @@
           {
             label: 'Total Leads',
             data: [82, 95, 134, 118, 147, null, null],
-            borderColor: 'rgba(212,87,28,0.9)', backgroundColor: 'rgba(212,87,28,0.06)',
+            borderColor: 'rgba(216,90,48,0.92)', backgroundColor: 'rgba(216,90,48,0.06)',
             fill: true, tension: 0.4, borderWidth: 2.5, pointRadius: 5,
-            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(212,87,28,0.9)', pointBorderWidth: 2,
+            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(216,90,48,0.92)', pointBorderWidth: 2,
           },
           {
             label: 'Converted',
             data: [18, 26, 37, 31, 46, null, null],
-            borderColor: 'rgba(26,122,74,0.9)', backgroundColor: 'rgba(26,122,74,0.06)',
+            borderColor: 'rgba(30,123,77,0.92)', backgroundColor: 'rgba(30,123,77,0.06)',
             fill: true, tension: 0.4, borderWidth: 2.5, borderDash: [0,0], pointRadius: 5,
-            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(26,122,74,0.9)', pointBorderWidth: 2,
+            pointBackgroundColor: '#fff', pointBorderColor: 'rgba(30,123,77,0.92)', pointBorderWidth: 2,
           }
         ]
       },
@@ -602,8 +600,8 @@
         responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          y: { grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { family: 'Satoshi' }, color: '#7a7a72' } },
-          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'Satoshi', size: 10 }, color: '#7a7a72', maxRotation: 0 } }
+          y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans', size: 10 }, color: '#6B6660', maxRotation: 0 } }
         }
       }
     });
@@ -618,7 +616,7 @@
     const blob = new Blob([csv], { type: 'text/csv' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'GroundX_MuthootFinance_Leads_Oct2026.csv';
+    a.download = 'UtkalVantage_MuthootFinance_Leads_Oct2026.csv';
     a.click();
   }
 </script>
