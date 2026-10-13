@@ -1,7 +1,7 @@
 # Utkal Vantage — Sector-Specific Service Blueprints & Market Playbook
 
 > **Author:** Founder, Utkal Vantage Technologies Pvt. Ltd.  
-> **Brand Tagline:** *"Your advantage, on the ground."*  
+> **Brand Tagline:** *"Your on ground advantage"*  
 > **Headquarters:** Bhubaneswar, Odisha, India  
 > **Core Operating Model:** Tech-Verified BTL Execution + Live Monitoring + Conversion Funnel
 

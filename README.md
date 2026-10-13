@@ -1,6 +1,6 @@
 # Utkal Vantage — BTL Execution + Monitoring + Conversion Platform
 
-> **"Your advantage, on the ground."**  
+> **"Your on ground advantage"**  
 > End-to-end BTL field marketing execution with GPS-verified proof-of-work and conversion tracking across Odisha.
 
 ---
@@ -19,7 +19,7 @@
 ## Brand Identity
 
 * **Name:** Utkal Vantage (`Utkal Vantage Technologies Pvt. Ltd.`)
-* **Tagline:** *"Your advantage, on the ground."*
+* **Tagline:** *"Your on ground advantage"*
 * **Primary Mark:** 13-by-7 dot-grid sunrise rising over a dotted horizon.
 * **Palette:**
   * **Sunrise Coral:** `#D85A30` (Primary brand lead)
