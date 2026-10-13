@@ -684,17 +684,20 @@
     if (!el || dashMap) return;
 
     dashMap = L.map('dashboardLeafletMap', { attributionControl: false }).setView([20.2961, 85.8300], 13);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19
+    
+    // High-Definition, Watermark-Free, Zero-API-Key Esri World Street Map
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri'
     }).addTo(dashMap);
 
     // Render Bhubaneswar Anchor Zones
     const zones = [
-      { name: 'Rasulgarh Square (NBFC)', lat: 20.2906, lng: 85.8648, r: 100, color: '#D85A30' },
-      { name: 'Unit-1 Daily Haat (NBFC)', lat: 20.2638, lng: 85.8340, r: 100, color: '#D85A30' },
-      { name: 'KIIT / Patia (D2C)', lat: 20.3541, lng: 85.8192, r: 100, color: '#EF9F27' },
-      { name: 'Saheed Nagar (Bank KYC)', lat: 20.2882, lng: 85.8436, r: 20, color: '#1E7B4D' },
-      { name: 'Kalinga Nagar (Insurance)', lat: 20.2789, lng: 85.7725, r: 100, color: '#6d28d9' }
+      { name: 'Rasulgarh Square (NBFC)', lat: 20.2906, lng: 85.8648, r: 100, color: '#D85A30', label: 'NBFC' },
+      { name: 'Unit-1 Daily Haat (NBFC)', lat: 20.2638, lng: 85.8340, r: 100, color: '#D85A30', label: 'NBFC' },
+      { name: 'KIIT / Patia (D2C)', lat: 20.3541, lng: 85.8192, r: 100, color: '#EF9F27', label: 'D2C' },
+      { name: 'Saheed Nagar (Bank KYC)', lat: 20.2882, lng: 85.8436, r: 20, color: '#1E7B4D', label: 'BANK' },
+      { name: 'Kalinga Nagar (Insurance)', lat: 20.2789, lng: 85.7725, r: 100, color: '#6d28d9', label: 'INS' }
     ];
 
     zones.forEach(z => {
@@ -703,24 +706,44 @@
         color: z.color,
         fillColor: z.color,
         fillOpacity: 0.15,
-        weight: 1.5,
+        weight: 2,
         dashArray: '4, 4'
       }).addTo(dashMap);
 
-      const m = L.marker([z.lat, z.lng]).addTo(dashMap);
-      m.bindPopup(`<b>${z.name}</b><br>100m Geofence Lock Active`);
+      const anchorIcon = L.divIcon({
+        className: 'custom-dash-anchor',
+        html: `<div style="background:#1F1D1B;color:#fff;padding:2px 6px;border-radius:12px;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;border:2px solid ${z.color};box-shadow:0 2px 8px rgba(0,0,0,0.35);white-space:nowrap;display:flex;align-items:center;gap:3px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:${z.color};"></span>${z.label}
+        </div>`,
+        iconSize: [50, 20],
+        iconAnchor: [25, 10]
+      });
+
+      const m = L.marker([z.lat, z.lng], { icon: anchorIcon }).addTo(dashMap);
+      m.bindPopup(`<b>${z.name}</b><br>${z.r}m Geofence Active`);
     });
 
-    // Promoter Marker (PRO-084)
-    const pIcon = L.divIcon({
-      className: 'custom-promoter-icon',
-      html: `<div style="background:#D85A30;color:#fff;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;border:2px solid #fff;box-shadow:0 0 10px rgba(216,90,48,0.7);">84</div>`,
-      iconSize: [22, 22],
-      iconAnchor: [11, 11]
-    });
+    // Promoter Fleet Markers
+    const promoters = [
+      { id: '84', name: 'Suresh K. (Active)', lat: 20.2908, lng: 85.8650, color: '#D85A30', status: 'Active' },
+      { id: '12', name: 'Sunita M. (Active)', lat: 20.2640, lng: 85.8342, color: '#D85A30', status: 'Active' },
+      { id: '45', name: 'Priya T. (Active)', lat: 20.3544, lng: 85.8195, color: '#EF9F27', status: 'Active' },
+      { id: '33', name: 'Bikash S. (Active)', lat: 20.2880, lng: 85.8432, color: '#1E7B4D', status: 'Active' },
+      { id: '09', name: 'Dinesh P. (Idle)', lat: 20.2980, lng: 85.8250, color: '#94a3b8', status: 'Idle' }
+    ];
 
-    livePromoterMarker = L.marker([20.2908, 85.8650], { icon: pIcon }).addTo(dashMap);
-    livePromoterMarker.bindPopup('<b>PRO-084: Suresh K.</b><br>Rasulgarh Canopy Camp • Active');
+    promoters.forEach(p => {
+      const pIcon = L.divIcon({
+        className: 'custom-promoter-icon',
+        html: `<div style="background:${p.color};color:#fff;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;border:2px solid #fff;box-shadow:0 0 10px ${p.color};cursor:pointer;">${p.id}</div>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+      });
+
+      const pm = L.marker([p.lat, p.lng], { icon: pIcon }).addTo(dashMap);
+      pm.bindPopup(`<b>PRO-${p.id}: ${p.name}</b><br>Status: ${p.status}`);
+      if (p.id === '84') livePromoterMarker = pm;
+    });
   }
 
   // Real-time Event Subscription from Field Terminal
