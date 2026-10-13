@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Utkal Vantage — Field Promoter Terminal | Live Verification</title>
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles/main.css" />
+  
+  <!-- Leaflet Map (100% Free, Zero Google Maps Cost) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
+
+  <style>
+    :root {
+      --app-header-h: 58px;
+    }
+
+    body {
+      background: #F0ECE4;
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 30px;
+    }
+
+    /* Fixed Terminal Header */
+    .terminal-bar {
+      height: var(--app-header-h);
+      background: #1F1D1B;
+      color: #FFFFFF;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid var(--accent);
+    }
+    .terminal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .terminal-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-pill {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .status-pill.online { background: rgba(30,123,77,0.25); color: #4ade80; border: 1px solid rgba(74,222,128,0.4); }
+    .status-pill.offline { background: rgba(197,48,48,0.25); color: #f87171; border: 1px solid rgba(248,113,113,0.4); }
+
+    /* Main Container */
+    .terminal-content {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Feature Card Block */
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .feature-header {
+      padding: 14px 18px;
+      background: #FAF7F2;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .feature-header h2 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-body {
+      padding: 16px 18px;
+    }
+
+    /* Geofence Map */
+    #geofenceMap {
+      height: 240px;
+      width: 100%;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .geofence-gauge {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: #F8F5EE;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+    }
+    .gauge-item {
+      text-align: center;
+    }
+    .gauge-val {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.1;
+    }
+    .gauge-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    .geofence-status-banner {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .geofence-status-banner.locked {
+      background: var(--green-pale);
+      color: var(--green);
+      border: 1px solid rgba(30,123,77,0.3);
+    }
+    .geofence-status-banner.breach {
+      background: var(--red-pale);
+      color: var(--red);
+      border: 1px solid rgba(197,48,48,0.3);
+    }
+
+    /* Sector Selector */
+    .sector-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .sector-tab {
+      padding: 9px 4px;
+      text-align: center;
+      background: #F4EFE6;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.76rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .sector-tab.active {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-color: var(--accent);
+    }
+
+    /* Form Fields */
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-2);
+      margin-bottom: 6px;
+    }
+    .field-input, .field-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--body);
+      font-size: 0.92rem;
+      background: #FFFFFF;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field-input:focus, .field-select:focus {
+      border-color: var(--accent);
+    }
+
+    /* Photo Audit Canvas Preview */
+    .photo-preview-wrap {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      display: none;
+    }
+    .photo-preview-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .photo-hash-bar {
+      background: #1A1816;
+      color: #A39C93;
+      padding: 8px 12px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #333;
+    }
+
+    /* Modal for OTP */
+    .otp-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(31,29,27,0.75);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .otp-modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .btn-block {
+      width: 100%;
+      padding: 12px;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      transition: opacity 0.2s;
+    }
+    .btn-block:hover { opacity: 0.92; }
+
+    /* Pitch Demo Bar */
+    .pitch-tools {
+      background: #FAF5EB;
+      border: 1px dashed var(--amber);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 0.78rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Fixed App Header -->
+  <header class="terminal-bar">
+    <div class="terminal-title">
+      <div style="width:24px;height:24px;background:var(--accent);border-radius:6px;display:grid;place-items:center;">
+        <span style="font-family:var(--mono);font-size:12px;font-weight:800;color:#fff;">UV</span>
+      </div>
+      <span>Utkal Vantage Field Terminal</span>
+    </div>
+    <div class="terminal-meta">
+      <span class="status-pill online" id="netStatus">
+        <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> ONLINE
+      </span>
+      <span style="font-family:var(--mono);font-size:0.75rem;color:#A39C93;">ID: PRO-084</span>
+    </div>
+  </header>
+
+  <!-- Main Work Area -->
+  <main class="terminal-content">
+
+    <!-- ── FEATURE 1: 100M GPS GEOFENCING ENGINE ──────────────────────── -->
+    <section class="feature-card">
+      <div class="feature-header">
+        <h2>
+          <ph-icon name="map-pin" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
+          Feature 1: GPS 100m Radial Lock Engine
+        </h2>
+        <span class="badge badge-green" id="geoEngineBadge">ACTIVE GPS</span>
+      </div>
+      <div class="feature-body">
+        
+        <!-- Founder Pitch Tool for Instant Demo in Client Office -->
+        <div class="pitch-tools">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <strong>Founder Demo Mode (In-Office Pitch Tool):</strong>
+            <span class="caption">Zero-Cost Testing</span>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('rasulgarh')">Rasulgarh (100m)</button>
+            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('unit1')">Unit-1 Market (100m)</button>
+            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('patia')">KIIT Square (100m)</button>
+            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('saheed')">Saheed Nagar (20m Shop)</button>
+            <button class="btn btn-sm btn-primary" onclick="setAnchorToCurrentLocation()">Lock Here (My Current GPS)</button>
+          </div>
+        </div>
+
+        <!-- Live Leaflet Map -->
+        <div id="geofenceMap"></div>
+
+        <!-- Real-time Geo Gauge -->
+        <div class="geofence-gauge">
+          <div class="gauge-item">
+            <div class="gauge-val" id="gaugeDistance">--</div>
+            <div class="gauge-label">Distance to Canopy</div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-val" id="gaugeAccuracy">--</div>
+            <div class="gauge-label">GPS Precision</div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-val" id="gaugeThreshold">100m</div>
+            <div class="gauge-label">Allowed Radius</div>
+          </div>
+        </div>
+
+        <!-- Lock Status Banner -->
+        <div class="geofence-status-banner locked" id="geoBanner">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <ph-icon name="shield-check" weight="fill" style="font-size:20px;"></ph-icon>
+            <span id="geoBannerText">GEOFENCE LOCKED — WITHIN VERIFIED CANOPY ZONE</span>
+          </div>
+          <span style="font-size:0.75rem;" id="geoCoordsDisplay">20.2906, 85.8648</span>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(false)">Simulate Inside Canopy (15m)</button>
+          <button class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(true)">Simulate Breach (140m)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FEATURE 2: CRYPTOGRAPHIC PHOTO AUDIT ───────────────────────── -->
+    <section class="feature-card">
+      <div class="feature-header">
+        <h2>
+          <ph-icon name="camera" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
+          Feature 2: Tamper-Proof Cryptographic Photo Audit
+        </h2>
+        <span class="caption" style="font-family:var(--mono);">SHA-256 LEDGER</span>
+      </div>
+      <div class="feature-body">
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
+          Captures ground canopy or storefront proof. Automatically burns real-time GPS coordinates, IST timestamp, and promoter ID into canvas bytes, then calculates an immutable SHA-256 hash.
+        </p>
+
+        <!-- Hidden input and capture trigger -->
+        <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoSelected(event)">
+
+        <div style="display:flex;gap:10px;margin-bottom:12px;">
+          <button class="btn-block btn-primary" onclick="document.getElementById('photoInput').click()">
+            <ph-icon name="camera" weight="bold"></ph-icon>
+            Capture Live Canopy / Storefront Photo
+          </button>
+          <button class="btn btn-ghost" onclick="captureSampleAuditPhoto()">
+            Use Sample Demo Photo
+          </button>
+        </div>
+
+        <!-- Rendered Canvas Result Preview -->
+        <div class="photo-preview-wrap" id="photoWrap">
+          <img id="auditPhotoImg" src="" alt="Audited Proof" />
+          <div class="photo-hash-bar">
+            <span id="photoHashLabel">SHA-256: Computing...</span>
+            <button class="btn btn-sm btn-ghost" style="padding:2px 8px;font-size:0.65rem;color:#4ade80;border-color:#4ade80;" onclick="verifyCurrentPhotoIntegrity()">
+              ✓ Verify Integrity
+            </button>
+          </div>
+        </div>
+
+        <div id="integrityResult" style="display:none;margin-top:8px;padding:8px 12px;background:var(--green-pale);border-radius:6px;font-size:0.75rem;font-family:var(--mono);color:var(--green);">
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FEATURE 3: SECTOR LEAD FUNNEL & DUAL-VERIFICATION (OTP) ────── -->
+    <section class="feature-card">
+      <div class="feature-header">
+        <h2>
+          <ph-icon name="user-check" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
+          Feature 3: Sector Lead Engine & Dual-Verification (OTP)
+        </h2>
+        <span class="badge badge-amber" id="offlineQueueBadge">0 QUEUED OFFLINE</span>
+      </div>
+      <div class="feature-body">
+        
+        <!-- Sector Selector -->
+        <div class="sector-tabs">
+          <div class="sector-tab active" onclick="switchSector('nbfc', this)">1. NBFC</div>
+          <div class="sector-tab" onclick="switchSector('insurance', this)">2. Insurance</div>
+          <div class="sector-tab" onclick="switchSector('bank', this)">3. Bank</div>
+          <div class="sector-tab" onclick="switchSector('d2c', this)">4. D2C Brand</div>
+        </div>
+
+        <form id="leadForm" onsubmit="handleFormSubmit(event)">
+          
+          <div class="field-group">
+            <label>Customer / Contact Name</label>
+            <input type="text" id="custName" class="field-input" placeholder="e.g. Rakesh Mohanty" required value="Suresh Behera" />
+          </div>
+
+          <div class="field-group">
+            <label>Mobile Number (For Dual OTP Verification)</label>
+            <input type="tel" id="custPhone" class="field-input" placeholder="10-digit number" required value="9437128495" pattern="[0-9]{10}" />
+          </div>
+
+          <!-- DYNAMIC SECTOR FIELDS -->
+          <div id="sectorDynamicFields">
+            <!-- NBFC Fields (Default) -->
+            <div class="field-group">
+              <label>Estimated Gold Weight (Asset Readiness)</label>
+              <select id="nbfcGold" class="field-select">
+                <option value="15-30g">15–30 grams (Ticket: ₹75,000–₹1,50,000)</option>
+                <option value="30-50g" selected>30–50 grams (Ticket: ₹1,50,000–₹2,50,000)</option>
+                <option value="50g+">50+ grams (High-Value Ticket: ₹2.5L+)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Current Pawn / Loan Interest Rate at Local Sahukar</label>
+              <select id="nbfcRate" class="field-select">
+                <option value="36%">36% per annum (Local Mahajan / Moneylender)</option>
+                <option value="48%" selected>48% per annum (Pawnshop default)</option>
+                <option value="24%">24% per annum (Other NBFC)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button type="button" class="btn-block btn-primary" style="background:#EF9F27;color:#1F1D1B;" onclick="triggerOtpFlow()">
+              <ph-icon name="key" weight="bold"></ph-icon>
+              1. Trigger Dual OTP Verification
+            </button>
+            <button type="submit" id="submitLeadBtn" class="btn-block btn-primary" style="background:#1E7B4D;display:none;">
+              <ph-icon name="check-circle" weight="bold"></ph-icon>
+              2. Save Verified Lead
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── OTP MODAL ──────────────────────────────────────────────────── -->
+  <div class="otp-modal-overlay" id="otpModal">
+    <div class="otp-modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="font-size:1.1rem;font-weight:700;">Instant Dual-Verification</h3>
+        <span class="badge badge-amber" id="otpTimerDisplay">90s</span>
+      </div>
+      <p style="font-size:0.84rem;color:var(--muted);margin-bottom:14px;">
+        An auditable verification challenge has been generated for <strong id="otpPhoneDisplay">+91 9437128495</strong>.
+      </p>
+
+      <div style="background:#FAF6EF;border:1px dashed var(--accent);border-radius:8px;padding:12px;margin-bottom:14px;text-align:center;">
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;">PROMOTER SCREEN DEMO CODE:</div>
+        <div style="font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--accent);" id="demoOtpCode">------</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:4px;">(Real customer also receives via WhatsApp link)</div>
+      </div>
+
+      <a id="waTriggerLink" href="#" target="_blank" class="btn btn-ghost" style="width:100%;margin-bottom:14px;color:#1E7B4D;border-color:#1E7B4D;justify-content:center;gap:6px;text-decoration:none;">
+        <ph-icon name="whatsapp-logo" weight="fill" style="font-size:18px;"></ph-icon>
+        Open WhatsApp Verification Deep-Link (₹0 Cost)
+      </a>
+
+      <div class="field-group">
+        <label>Enter 6-Digit OTP Provided by Customer</label>
+        <input type="text" id="otpInput" class="field-input" maxlength="6" placeholder="Enter 6-digit code" style="font-family:var(--mono);font-size:1.3rem;letter-spacing:4px;text-align:center;" />
+      </div>
+
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost" style="flex:1;" onclick="closeOtpModal()">Cancel</button>
+        <button class="btn btn-primary" style="flex:2;" onclick="verifyOtpCode()">Verify & Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Utkal Vantage Engine Scripts -->
+  <script src="js/field-engine.js"></script>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════════════
+    // APPLICATION CONTROLLER
+    // ═══════════════════════════════════════════════════════════════════════
+
+    let activeSector = 'nbfc';
+    let currentAuditPhoto = null;
+    let isOtpVerified = false;
+    let map = null;
+    let anchorMarker = null;
+    let circleGeofence = null;
+    let promoterMarker = null;
+    let geoManager = null;
+    let otpMachine = null;
+    let otpTimerInterval = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      initGeoEngine();
+      initNetworkListener();
+      updateOfflineQueueBadge();
+      otpMachine = new UtkalVantage.DualVerificationMachine();
+    });
+
+    // ── LEAFLET MAP INITIALIZATION ─────────────────────────────────────────
+    function initMap() {
+      // Default center: Rasulgarh Square, Bhubaneswar
+      map = L.map('geofenceMap', { attributionControl: false }).setView([20.2906, 85.8648], 17);
+
+      // Free, ultra-fast Carto Voyager tile layer
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19
+      }).addTo(map);
+
+      // Anchor icon
+      const anchorIcon = L.divIcon({
+        className: 'custom-anchor-icon',
+        html: `<div style="background:#1F1D1B;color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);">📍</div>`,
+        iconSize: [28, 28],
+        iconAnchor: [14, 14]
+      });
+
+      // Promoter live pulse icon
+      const promoterIcon = L.divIcon({
+        className: 'custom-promoter-icon',
+        html: `<div style="background:#D85A30;color:#fff;width:20px;height:20px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 12px #D85A30;"></div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+      });
+
+      anchorMarker = L.marker([20.2906, 85.8648], { icon: anchorIcon }).addTo(map);
+      anchorMarker.bindPopup('<b>Canopy Anchor</b><br>Rasulgarh Square');
+
+      circleGeofence = L.circle([20.2906, 85.8648], {
+        radius: 100,
+        color: '#1E7B4D',
+        fillColor: '#1E7B4D',
+        fillOpacity: 0.12,
+        weight: 2,
+        dashArray: '4, 4'
+      }).addTo(map);
+
+      promoterMarker = L.marker([20.2908, 85.8650], { icon: promoterIcon }).addTo(map);
+    }
+
+    // ── GEO ENGINE SETUP ───────────────────────────────────────────────────
+    function initGeoEngine() {
+      geoManager = new UtkalVantage.GeofenceManager(UtkalVantage.anchors.rasulgarh);
+
+      geoManager.subscribe((status) => {
+        if (status.error) {
+          document.getElementById('geoBannerText').textContent = status.error;
+          document.getElementById('geoBanner').className = 'geofence-status-banner breach';
+          return;
+        }
+
+        const dist = status.distanceM !== null ? `${status.distanceM}m` : '--';
+        const acc = status.accuracy !== null ? `±${status.accuracy}m` : '±4m';
+        document.getElementById('gaugeDistance').textContent = dist;
+        document.getElementById('gaugeAccuracy').textContent = acc;
+        document.getElementById('gaugeThreshold').textContent = `${status.maxRadiusM}m`;
+
+        const banner = document.getElementById('geoBanner');
+        const bannerText = document.getElementById('geoBannerText');
+
+        if (status.isLocked) {
+          banner.className = 'geofence-status-banner locked';
+          bannerText.textContent = `GEOFENCE LOCKED — WITHIN ${status.anchor.name.toUpperCase()}`;
+          circleGeofence.setStyle({ color: '#1E7B4D', fillColor: '#1E7B4D' });
+        } else {
+          banner.className = 'geofence-status-banner breach';
+          bannerText.textContent = `BREACH DETECTED: ${status.breachM}m OUTSIDE AUTHORIZED CANOPY ZONE`;
+          circleGeofence.setStyle({ color: '#C53030', fillColor: '#C53030' });
+        }
+
+        if (status.currentPosition) {
+          document.getElementById('geoCoordsDisplay').textContent =
+            `${status.currentPosition.lat.toFixed(4)}, ${status.currentPosition.lng.toFixed(4)}`;
+          
+          promoterMarker.setLatLng([status.currentPosition.lat, status.currentPosition.lng]);
+          map.panTo([status.currentPosition.lat, status.currentPosition.lng]);
+        }
+      });
+
+      // Start actual hardware GPS watch
+      geoManager.startWatch();
+    }
+
+    function setAnchorPreset(presetKey) {
+      const preset = UtkalVantage.anchors[presetKey];
+      if (!preset) return;
+      geoManager.setAnchor(preset);
+      anchorMarker.setLatLng([preset.lat, preset.lng]).bindPopup(`<b>${preset.name}</b>`).openPopup();
+      circleGeofence.setLatLng([preset.lat, preset.lng]).setRadius(preset.radiusM);
+      map.setView([preset.lat, preset.lng], 17);
+    }
+
+    function setAnchorToCurrentLocation() {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        geoManager.setAnchorCoords(lat, lng, 'Promoter Locked Location', 100);
+        anchorMarker.setLatLng([lat, lng]).bindPopup('<b>Current Locked Anchor</b>').openPopup();
+        circleGeofence.setLatLng([lat, lng]).setRadius(100);
+        map.setView([lat, lng], 17);
+      }, (err) => alert('Unable to get current location: ' + err.message));
+    }
+
+    function simulateBreach(isBreached) {
+      const anchor = geoManager.anchor;
+      if (isBreached) {
+        // Move ~140m away north
+        geoManager.simulatePosition(anchor.lat + 0.0013, anchor.lng + 0.0012, 3);
+      } else {
+        // Move ~15m away
+        geoManager.simulatePosition(anchor.lat + 0.0001, anchor.lng + 0.0001, 3);
+      }
+    }
+
+    // ── FEATURE 2: CRYPTOGRAPHIC PHOTO AUDIT ───────────────────────────────
+    async function handlePhotoSelected(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const status = geoManager.getStatus();
+      const meta = {
+        lat: status.currentPosition ? status.currentPosition.lat : 20.290623,
+        lng: status.currentPosition ? status.currentPosition.lng : 85.864812,
+        accuracy: status.currentPosition ? status.currentPosition.accuracy : 5,
+        sector: activeSector,
+        zone: status.anchor.name,
+        promoterId: 'UV-PRO-084'
+      };
+
+      try {
+        currentAuditPhoto = await UtkalVantage.PhotoAuditEngine.processAndAudit(file, meta);
+        displayAuditPhoto(currentAuditPhoto);
+        await UtkalVantage.StorageEngine.savePhoto(currentAuditPhoto);
+      } catch (err) {
+        alert('Photo processing error: ' + err.message);
+      }
+    }
+
+    async function captureSampleAuditPhoto() {
+      // Create a clean demo canopy canvas image
+      const c = document.createElement('canvas');
+      c.width = 800; c.height = 600;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#2A2724'; ctx.fillRect(0, 0, 800, 600);
+      ctx.fillStyle = '#D85A30'; ctx.fillRect(50, 80, 700, 260);
+      ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 36px sans-serif';
+      ctx.fillText('MUTHOOT GOLD LOAN CANOPY CAMP', 80, 160);
+      ctx.font = '22px sans-serif';
+      ctx.fillText('Unit-1 Haat • Precision Scales Demo Active', 80, 210);
+
+      const status = geoManager.getStatus();
+      const meta = {
+        lat: status.currentPosition ? status.currentPosition.lat : 20.290623,
+        lng: status.currentPosition ? status.currentPosition.lng : 85.864812,
+        accuracy: 4,
+        sector: activeSector,
+        zone: status.anchor.name,
+        promoterId: 'UV-PRO-084'
+      };
+
+      currentAuditPhoto = await UtkalVantage.PhotoAuditEngine.processAndAudit(c.toDataURL(), meta);
+      displayAuditPhoto(currentAuditPhoto);
+      await UtkalVantage.StorageEngine.savePhoto(currentAuditPhoto);
+    }
+
+    function displayAuditPhoto(auditRecord) {
+      document.getElementById('photoWrap').style.display = 'block';
+      document.getElementById('auditPhotoImg').src = auditRecord.dataUrl;
+      document.getElementById('photoHashLabel').textContent = `SHA-256: ${auditRecord.shortHash}... (${auditRecord.sha256.substring(56)})`;
+      document.getElementById('integrityResult').style.display = 'none';
+    }
+
+    async function verifyCurrentPhotoIntegrity() {
+      if (!currentAuditPhoto) return;
+      const res = await UtkalVantage.PhotoAuditEngine.verifyIntegrity(currentAuditPhoto.dataUrl, currentAuditPhoto.sha256);
+      const box = document.getElementById('integrityResult');
+      box.style.display = 'block';
+      if (res.match) {
+        box.style.background = 'var(--green-pale)';
+        box.style.color = 'var(--green)';
+        box.innerHTML = `✓ CRYPTOGRAPHIC INTEGRITY VERIFIED (Zero pixel modification)<br>Computed SHA-256 matches audit ledger precisely.`;
+      } else {
+        box.style.background = 'var(--red-pale)';
+        box.style.color = 'var(--red)';
+        box.innerHTML = `⚠ HASH MISMATCH: Image has been altered or tampered with.`;
+      }
+    }
+
+    // ── FEATURE 3: SECTOR SWITCHER & LEAD ENGINE ───────────────────────────
+    function switchSector(sector, tabEl) {
+      activeSector = sector;
+      document.querySelectorAll('.sector-tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+
+      const container = document.getElementById('sectorDynamicFields');
+      if (sector === 'nbfc') {
+        container.innerHTML = `
+          <div class="field-group">
+            <label>Estimated Gold Weight (Asset Readiness)</label>
+            <select id="nbfcGold" class="field-select">
+              <option value="15-30g">15–30 grams (Ticket: ₹75,000–₹1,50,000)</option>
+              <option value="30-50g" selected>30–50 grams (Ticket: ₹1,50,000–₹2,50,000)</option>
+              <option value="50g+">50+ grams (High-Value Ticket: ₹2.5L+)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Current Pawn / Loan Interest Rate at Local Sahukar</label>
+            <select id="nbfcRate" class="field-select">
+              <option value="36%">36% per annum (Local Mahajan / Moneylender)</option>
+              <option value="48%" selected>48% per annum (Pawnshop default)</option>
+              <option value="24%">24% per annum (Other NBFC)</option>
+            </select>
+          </div>`;
+      } else if (sector === 'insurance') {
+        container.innerHTML = `
+          <div class="field-group">
+            <label>Family Size & Dependents</label>
+            <select id="insFamily" class="field-select">
+              <option value="Self + Spouse + 2 Children">Self + Spouse + 2 Kids (Nuclear)</option>
+              <option value="Self + Spouse + Parents">Self + Spouse + Senior Parents (High Priority)</option>
+              <option value="Individual">Self Only</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Preferred Bhubaneswar Cashless Hospital</label>
+            <select id="insHospital" class="field-select">
+              <option value="Apollo Hospitals (Gagapatia)">Apollo Hospitals</option>
+              <option value="SUM Ultimate Medicare" selected>SUM Ultimate Medicare</option>
+              <option value="AMRI Hospitals">AMRI Hospitals</option>
+            </select>
+          </div>`;
+      } else if (sector === 'bank') {
+        container.innerHTML = `
+          <div class="field-group">
+            <label>Merchant / Shop Commercial Name</label>
+            <input type="text" id="bankShopName" class="field-input" placeholder="e.g. Maa Tarini Electricals" value="Maa Tarini Hardware" required />
+          </div>
+          <div class="field-group">
+            <label>Business Compliance Readiness</label>
+            <select id="bankKyc" class="field-select">
+              <option value="GST Registered + Trade License" selected>GST Registered + Trade License (Ready for CASA)</option>
+              <option value="Udyam Certificate Only">Udyam / MSME Certificate</option>
+              <option value="Shop Photo & PAN Only">PAN + Geo Storefront Photo Only</option>
+            </select>
+          </div>`;
+      } else if (sector === 'd2c') {
+        container.innerHTML = `
+          <div class="field-group">
+            <label>Product Trial SKU Sampled</label>
+            <select id="d2cSku" class="field-select">
+              <option value="Paper Boat Sparkling Kokum">Paper Boat Sparkling Kokum</option>
+              <option value="Raw Pressery Cold Juice" selected>Raw Pressery Cold Juice</option>
+              <option value="Milk Mantra Probiotic Shake">Milk Mantra Probiotic Shake</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Consumer Taste & Texture Rating (1-5)</label>
+            <select id="d2cRating" class="field-select">
+              <option value="5 Stars">⭐⭐⭐⭐⭐ Excellent (Will Buy on Zepto)</option>
+              <option value="4 Stars" selected>⭐⭐⭐⭐ Good (Competitive Taste)</option>
+              <option value="3 Stars">⭐⭐⭐ Neutral</option>
+            </select>
+          </div>`;
+      }
+    }
+
+    // ── DUAL OTP VERIFICATION WORKFLOW ─────────────────────────────────────
+    function triggerOtpFlow() {
+      const phone = document.getElementById('custPhone').value.trim();
+      if (phone.length < 10) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+
+      const challenge = otpMachine.startChallenge(phone, { sector: activeSector });
+      document.getElementById('otpPhoneDisplay').textContent = '+91 ' + phone;
+      document.getElementById('demoOtpCode').textContent = challenge.code;
+
+      const waUrl = UtkalVantage.DualVerificationMachine.getWhatsAppLink(phone, activeSector, challenge.code);
+      document.getElementById('waTriggerLink').href = waUrl;
+
+      document.getElementById('otpModal').style.display = 'flex';
+      document.getElementById('otpInput').value = '';
+      document.getElementById('otpInput').focus();
+
+      // Start 90s countdown timer
+      let remaining = 90;
+      clearInterval(otpTimerInterval);
+      otpTimerInterval = setInterval(() => {
+        remaining--;
+        document.getElementById('otpTimerDisplay').textContent = `${remaining}s`;
+        if (remaining <= 0) {
+          clearInterval(otpTimerInterval);
+          document.getElementById('otpTimerDisplay').textContent = 'Expired';
+        }
+      }, 1000);
+    }
+
+    function closeOtpModal() {
+      clearInterval(otpTimerInterval);
+      document.getElementById('otpModal').style.display = 'none';
+    }
+
+    function verifyOtpCode() {
+      const code = document.getElementById('otpInput').value.trim();
+      const res = otpMachine.verify(code);
+      if (res.success) {
+        clearInterval(otpTimerInterval);
+        isOtpVerified = true;
+        document.getElementById('otpModal').style.display = 'none';
+        document.getElementById('submitLeadBtn').style.display = 'flex';
+        alert('✓ Mobile Number OTP Verified Successfully!');
+      } else {
+        alert('Verification Failed: ' + res.reason);
+      }
+    }
+
+    // ── LEAD SUBMISSION & STORAGE ──────────────────────────────────────────
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      if (!isOtpVerified) {
+        alert('Please verify customer OTP before submitting lead.');
+        return;
+      }
+
+      const geoStatus = geoManager.getStatus();
+      if (!geoStatus.isLocked) {
+        const proceed = confirm('WARNING: You are outside the designated canopy zone. This lead will be flagged for compliance review. Proceed?');
+        if (!proceed) return;
+      }
+
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+
+      const leadRecord = {
+        id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
+        timestamp: new Date().toISOString(),
+        sector: activeSector,
+        client: activeSector === 'nbfc' ? 'Muthoot Finance' :
+                activeSector === 'insurance' ? 'Star Health' :
+                activeSector === 'bank' ? 'HDFC Bank' : 'Raw Pressery',
+        customer: { name, phone },
+        otpVerified: true,
+        geoCompliant: geoStatus.isLocked,
+        distanceFromAnchorM: geoStatus.distanceM,
+        anchorZone: geoStatus.anchor.name,
+        photoSha256: currentAuditPhoto ? currentAuditPhoto.sha256 : null,
+        syncStatus: navigator.onLine ? 'synced' : 'queued'
+      };
+
+      // Gather sector-specific details
+      if (activeSector === 'nbfc') {
+        leadRecord.details = {
+          goldGrams: document.getElementById('nbfcGold').value,
+          currentRate: document.getElementById('nbfcRate').value,
+          leadScore: 9
+        };
+      } else if (activeSector === 'insurance') {
+        leadRecord.details = {
+          family: document.getElementById('insFamily').value,
+          hospital: document.getElementById('insHospital').value,
+          leadScore: 8
+        };
+      } else if (activeSector === 'bank') {
+        leadRecord.details = {
+          shopName: document.getElementById('bankShopName').value,
+          kycStatus: document.getElementById('bankKyc').value,
+          leadScore: 8
+        };
+      } else if (activeSector === 'd2c') {
+        leadRecord.details = {
+          sku: document.getElementById('d2cSku').value,
+          rating: document.getElementById('d2cRating').value,
+          leadScore: 9
+        };
+      }
+
+      // Save to IndexedDB
+      await UtkalVantage.StorageEngine.saveLead(leadRecord);
+
+      alert(`✓ Lead Saved Successfully!\nID: ${leadRecord.id}\nSync Status: ${leadRecord.syncStatus.toUpperCase()}`);
+
+      // Reset state for next customer
+      isOtpVerified = false;
+      document.getElementById('submitLeadBtn').style.display = 'none';
+      document.getElementById('custName').value = '';
+      document.getElementById('custPhone').value = '';
+      updateOfflineQueueBadge();
+    }
+
+    // ── NETWORK & OFFLINE QUEUE MONITOR ───────────────────────────────────
+    function initNetworkListener() {
+      const badge = document.getElementById('netStatus');
+      const updateNet = () => {
+        if (navigator.onLine) {
+          badge.className = 'status-pill online';
+          badge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> ONLINE';
+          flushOfflineLeads();
+        } else {
+          badge.className = 'status-pill offline';
+          badge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:#f87171;"></span> OFFLINE (QUEUE ACTIVE)';
+        }
+      };
+      window.addEventListener('online', updateNet);
+      window.addEventListener('offline', updateNet);
+      updateNet();
+    }
+
+    async function updateOfflineQueueBadge() {
+      const leads = await UtkalVantage.StorageEngine.getAllLeads();
+      const queued = leads.filter(l => l.syncStatus === 'queued').length;
+      const b = document.getElementById('offlineQueueBadge');
+      if (queued > 0) {
+        b.className = 'badge badge-red';
+        b.textContent = `${queued} QUEUED OFFLINE`;
+      } else {
+        b.className = 'badge badge-green';
+        b.textContent = `ALL ${leads.length} LEADS SYNCED`;
+      }
+    }
+
+    async function flushOfflineLeads() {
+      const leads = await UtkalVantage.StorageEngine.getAllLeads();
+      let updated = 0;
+      for (const lead of leads) {
+        if (lead.syncStatus === 'queued') {
+          lead.syncStatus = 'synced';
+          await UtkalVantage.StorageEngine.saveLead(lead);
+          updated++;
+        }
+      }
+      if (updated > 0) {
+        console.log(`[UtkalVantage] Auto-synced ${updated} offline leads.`);
+      }
+      updateOfflineQueueBadge();
+    }
+  </script>
+</body>
+</html>

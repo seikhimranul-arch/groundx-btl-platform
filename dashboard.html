@@ -6,6 +6,8 @@
   <title>Utkal Vantage — Founder Dashboard</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
   <style>
@@ -168,6 +170,9 @@
         <div class="badge badge-green"><span class="dot dot-green"></span> 24 promoters live</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
+        <a href="promoter.html" target="_blank" class="btn btn-primary btn-sm" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:var(--accent);">
+          <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon> Open Field Terminal
+        </a>
         <div class="search-bar">
           <ph-icon name="magnifying-glass" style="width:15px;height:15px;color:var(--ink-3);flex-shrink:0;"></ph-icon>
           <input type="text" placeholder="Search campaigns, promoters…" />
@@ -261,28 +266,7 @@
                 </div>
               </div>
             </div>
-            <div class="live-map" style="border-radius:0;min-height:320px;">
-              <div class="live-map-grid"></div>
-              <!-- Roads -->
-              <div class="map-road-h" style="top:35%;left:5%;right:5%;"></div>
-              <div class="map-road-h" style="top:60%;left:5%;right:5%;"></div>
-              <div class="map-road-v" style="left:25%;top:10%;bottom:10%;"></div>
-              <div class="map-road-v" style="left:55%;top:10%;bottom:10%;"></div>
-              <div class="map-road-v" style="left:78%;top:10%;bottom:10%;"></div>
-              <!-- Area labels -->
-              <div style="position:absolute;top:16%;left:7%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Sahid Nagar</div>
-              <div style="position:absolute;top:42%;left:30%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Rasulgarh</div>
-              <div style="position:absolute;top:65%;left:58%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Chandrasekharpur</div>
-              <div style="position:absolute;top:20%;left:60%;font-size:0.68rem;color:rgba(0,0,0,0.35);font-weight:600;text-transform:uppercase;">Unit-4</div>
-              <!-- Promoter pins -->
-              <div class="promoter-pin active" style="left:18%;top:24%;" data-tip="Ramesh K. — Sahid Nagar">RK</div>
-              <div class="promoter-pin active" style="left:38%;top:48%;" data-tip="Sunita M. — Rasulgarh">SM</div>
-              <div class="promoter-pin active" style="left:62%;top:72%;" data-tip="Priya T. — Chandrasekharpur">PT</div>
-              <div class="promoter-pin idle" style="left:66%;top:25%;" data-tip="Dinesh P. — Unit-4 (IDLE 47m!)">DP</div>
-              <div class="promoter-pin active" style="left:82%;top:45%;" data-tip="Anjali V. — Patia">AV</div>
-              <div class="promoter-pin active" style="left:48%;top:28%;" data-tip="Bikash S. — Nayapalli">BS</div>
-              <div class="promoter-pin offline" style="left:10%;top:65%;" data-tip="Kishore N. — Offline since 11am">KN</div>
-            </div>
+            <div id="dashboardLeafletMap" style="height:360px;width:100%;border-radius:0;"></div>
           </div>
 
           <!-- Activity feed -->
@@ -689,7 +673,117 @@
 </div>
 
 <script src="js/supabase.js"></script>
+<script src="js/field-engine.js"></script>
 <script>
+  let dashMap = null;
+  let livePromoterMarker = null;
+
+  // Initialize Dashboard Leaflet Map
+  function initDashboardMap() {
+    const el = document.getElementById('dashboardLeafletMap');
+    if (!el || dashMap) return;
+
+    dashMap = L.map('dashboardLeafletMap', { attributionControl: false }).setView([20.2961, 85.8300], 13);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19
+    }).addTo(dashMap);
+
+    // Render Bhubaneswar Anchor Zones
+    const zones = [
+      { name: 'Rasulgarh Square (NBFC)', lat: 20.2906, lng: 85.8648, r: 100, color: '#D85A30' },
+      { name: 'Unit-1 Daily Haat (NBFC)', lat: 20.2638, lng: 85.8340, r: 100, color: '#D85A30' },
+      { name: 'KIIT / Patia (D2C)', lat: 20.3541, lng: 85.8192, r: 100, color: '#EF9F27' },
+      { name: 'Saheed Nagar (Bank KYC)', lat: 20.2882, lng: 85.8436, r: 20, color: '#1E7B4D' },
+      { name: 'Kalinga Nagar (Insurance)', lat: 20.2789, lng: 85.7725, r: 100, color: '#6d28d9' }
+    ];
+
+    zones.forEach(z => {
+      L.circle([z.lat, z.lng], {
+        radius: z.r,
+        color: z.color,
+        fillColor: z.color,
+        fillOpacity: 0.15,
+        weight: 1.5,
+        dashArray: '4, 4'
+      }).addTo(dashMap);
+
+      const m = L.marker([z.lat, z.lng]).addTo(dashMap);
+      m.bindPopup(`<b>${z.name}</b><br>100m Geofence Lock Active`);
+    });
+
+    // Promoter Marker (PRO-084)
+    const pIcon = L.divIcon({
+      className: 'custom-promoter-icon',
+      html: `<div style="background:#D85A30;color:#fff;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;border:2px solid #fff;box-shadow:0 0 10px rgba(216,90,48,0.7);">84</div>`,
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+
+    livePromoterMarker = L.marker([20.2908, 85.8650], { icon: pIcon }).addTo(dashMap);
+    livePromoterMarker.bindPopup('<b>PRO-084: Suresh K.</b><br>Rasulgarh Canopy Camp • Active');
+  }
+
+  // Real-time Event Subscription from Field Terminal
+  function initDashboardRealtime() {
+    UtkalVantage.RealtimeBroadcaster.subscribe((event) => {
+      if (event.type === 'LEAD_SAVED') {
+        const lead = event.payload;
+        addActivityItem('user-plus', 'var(--green-pale)', 'var(--green)',
+          `New Verified ${lead.sector.toUpperCase()} Lead — ${lead.client}`,
+          `${lead.customer.name} • ${lead.anchorZone} • OTP Verified`,
+          'Just now'
+        );
+        // Increment KPI
+        incrementLeadKpi();
+      } else if (event.type === 'PHOTO_AUDITED') {
+        const photo = event.payload;
+        addActivityItem('camera', '#ede9ff', '#6d28d9',
+          `Photo Audited (SHA-256 Verified)`,
+          `${photo.promoterId} • ${photo.zone} • ${photo.shortHash}...`,
+          'Just now'
+        );
+      }
+    });
+  }
+
+  function addActivityItem(iconName, bg, color, title, desc, time) {
+    const feed = document.getElementById('activityFeed');
+    if (!feed) return;
+    const item = document.createElement('div');
+    item.className = 'activity-item';
+    item.style.background = 'rgba(216,90,48,0.08)';
+    item.style.borderRadius = '8px';
+    item.style.padding = '8px 10px';
+    item.style.marginBottom = '6px';
+    item.innerHTML = `
+      <div class="activity-icon" style="background:${bg};color:${color};">
+        <ph-icon name="${iconName}" weight="fill" style="width:15px;height:15px;"></ph-icon>
+      </div>
+      <div>
+        <div style="font-size:0.83rem;font-weight:700;color:var(--ink);">${title}</div>
+        <div class="caption">${desc}</div>
+        <div class="caption" style="margin-top:2px;color:var(--accent);font-weight:600;">${time}</div>
+      </div>
+    `;
+    feed.insertBefore(item, feed.firstChild);
+    setTimeout(() => { item.style.transition = 'background 2s'; item.style.background = 'transparent'; }, 2000);
+  }
+
+  function incrementLeadKpi() {
+    const cards = document.querySelectorAll('.kpi-card .kpi-value');
+    if (cards && cards[1]) {
+      const cur = parseInt(cards[1].textContent.replace(/[^0-9]/g, '')) || 147;
+      cards[1].textContent = (cur + 1).toString();
+      cards[1].style.color = 'var(--accent)';
+      setTimeout(() => { cards[1].style.color = ''; }, 1500);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initDashboardMap();
+    initDashboardRealtime();
+  });
+
   // Page navigation
   function setPage(pageId, el) {
     document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active'));
@@ -699,6 +793,7 @@
     if (el) el.classList.add('active');
     const titles = { dashboard:'Dashboard', campaigns:'Campaigns', promoters:'Promoters', leads:'Leads', proofwork:'Proof of Work', clients:'Clients', analytics:'Analytics', billing:'Billing' };
     document.getElementById('pageTitle').textContent = titles[pageId] || pageId;
+    if (pageId === 'dashboard') setTimeout(() => { if (dashMap) dashMap.invalidateSize(); }, 200);
     if (pageId === 'analytics') setTimeout(initTrendCharts, 100);
     return false;
   }

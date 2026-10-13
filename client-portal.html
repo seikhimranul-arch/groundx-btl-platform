@@ -332,7 +332,7 @@
         <button class="btn btn-ghost btn-sm">View all 89</button>
       </div>
     </div>
-    <div class="proof-gallery">
+    <div class="proof-gallery" id="clientProofGallery">
       <div class="proof-item">
         <img src="https://picsum.photos/seed/proof101/600/400" alt="Campaign proof" />
         <div class="proof-badge">
@@ -395,7 +395,7 @@
         <thead>
           <tr><th>Name</th><th>Phone</th><th>Age / Gender</th><th>Zone</th><th>Lead Score</th><th>OTP Status</th><th>Gold Est. (gm)</th><th>Priority</th></tr>
         </thead>
-        <tbody>
+        <tbody id="clientLeadsTbody">
           <tr>
             <td><div style="font-weight:600;font-size:0.85rem;">Suresh Behera</div></td>
             <td style="font-family:monospace;font-size:0.82rem;">+91 94521 63748</td>
@@ -546,7 +546,94 @@
 </div>
 
 <script src="js/supabase.js"></script>
+<script src="js/field-engine.js"></script>
 <script>
+  // Live Field Sync
+  async function initLiveSync() {
+    try {
+      const storedLeads = await UtkalVantage.StorageEngine.getAllLeads();
+      const tbody = document.getElementById('clientLeadsTbody');
+      if (tbody && storedLeads && storedLeads.length) {
+        storedLeads.forEach(lead => appendLeadRow(lead, false));
+      }
+
+      const storedPhotos = await UtkalVantage.StorageEngine.getAllPhotos();
+      const gallery = document.getElementById('clientProofGallery');
+      if (gallery && storedPhotos && storedPhotos.length) {
+        storedPhotos.forEach(photo => prependPhotoCard(photo, false));
+      }
+    } catch (e) {
+      console.warn('StorageEngine sync notice:', e);
+    }
+
+    // Subscribe to inter-tab real-time events from promoter.html
+    UtkalVantage.RealtimeBroadcaster.subscribe((event) => {
+      if (event.type === 'LEAD_SAVED') {
+        appendLeadRow(event.payload, true);
+      } else if (event.type === 'PHOTO_AUDITED') {
+        prependPhotoCard(event.payload, true);
+      }
+    });
+  }
+
+  function appendLeadRow(lead, isLive = false) {
+    const tbody = document.getElementById('clientLeadsTbody');
+    if (!tbody) return;
+
+    // Avoid duplicate rows
+    if (document.getElementById('lead-row-' + lead.id)) return;
+
+    const tr = document.createElement('tr');
+    tr.id = 'lead-row-' + lead.id;
+    if (isLive) tr.style.background = 'rgba(216,90,48,0.12)';
+
+    const goldVal = lead.details && lead.details.goldGrams ? lead.details.goldGrams : (lead.sector === 'insurance' ? 'Health Plan' : 'Verified Lead');
+    const scoreVal = lead.details && lead.details.leadScore ? `${lead.details.leadScore}/10` : '9/10';
+
+    tr.innerHTML = `
+      <td><div style="font-weight:700;font-size:0.85rem;color:var(--accent);">${escapeHtml(lead.customer.name)}</div></td>
+      <td style="font-family:monospace;font-size:0.82rem;">+91 ${escapeHtml(lead.customer.phone)}</td>
+      <td>Live Verified</td>
+      <td>${escapeHtml(lead.anchorZone || 'Bhubaneswar')}</td>
+      <td><span class="badge badge-green">${scoreVal}</span></td>
+      <td><span class="badge badge-green">OTP Verified</span></td>
+      <td style="font-weight:600;">${escapeHtml(goldVal)}</td>
+      <td><span class="badge badge-green">Immediate Followup</span></td>
+    `;
+    tbody.insertBefore(tr, tbody.firstChild);
+
+    if (isLive) {
+      setTimeout(() => { tr.style.transition = 'background 1.5s'; tr.style.background = ''; }, 3000);
+    }
+  }
+
+  function prependPhotoCard(photo, isLive = false) {
+    const gallery = document.getElementById('clientProofGallery');
+    if (!gallery) return;
+
+    if (document.getElementById('photo-card-' + photo.id)) return;
+
+    const card = document.createElement('div');
+    card.id = 'photo-card-' + photo.id;
+    card.className = 'proof-item';
+    if (isLive) card.style.boxShadow = '0 0 0 3px var(--accent)';
+
+    card.innerHTML = `
+      <img src="${photo.dataUrl}" alt="Live Proof" />
+      <div class="proof-badge">
+        <div class="proof-badge-text">${escapeHtml(photo.promoterId)} • ${escapeHtml(photo.zone)} • SHA: ${escapeHtml(photo.shortHash)}</div>
+        <div class="proof-geo-ok"><ph-icon name="shield-check" weight="fill" style="width:11px;height:11px;color:#4ade80;"></ph-icon>SHA-256 OK</div>
+      </div>
+    `;
+    gallery.insertBefore(card, gallery.firstChild);
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  window.addEventListener('DOMContentLoaded', initLiveSync);
+
   // Funnel chart
   const funnelCtx = document.getElementById('funnelChart');
   if (funnelCtx) {
@@ -611,13 +698,22 @@
     alert('In production: Campaign PDF report will be generated and downloaded. Includes geo-tagged photos, lead funnel, ROI analysis, and promoter performance.');
   }
   function downloadLeads() {
-    // Simulate CSV download
-    const csv = `Name,Phone,Age,Gender,Zone,Lead Score,OTP Status,Gold Estimate\nSuresh Behera,+919452163748,47,M,Rasulgarh,9,Verified,28-35g\nMrunalini Das,+917082149362,34,F,Sahid Nagar,8,Verified,18-24g\nGopabandhu Rath,+916384128473,52,M,Nayapalli,8,Verified,40-50g`;
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'UtkalVantage_MuthootFinance_Leads_Oct2026.csv';
-    a.click();
+    // Generate CSV including live captured leads
+    UtkalVantage.StorageEngine.getAllLeads().then((stored) => {
+      let csv = `ID,Name,Phone,Zone,Sector,OTP Status,Details\n`;
+      csv += `LEAD-INIT-01,Suresh Behera,+919452163748,Rasulgarh,NBFC,Verified,28-35g\n`;
+      csv += `LEAD-INIT-02,Mrunalini Das,+917082149362,Sahid Nagar,NBFC,Verified,18-24g\n`;
+      if (stored && stored.length) {
+        stored.forEach(l => {
+          csv += `${l.id},${l.customer.name},+91${l.customer.phone},${l.anchorZone},${l.sector},Verified,Live Capture\n`;
+        });
+      }
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'UtkalVantage_Live_Verified_Leads.csv';
+      a.click();
+    });
   }
 </script>
 </body>
