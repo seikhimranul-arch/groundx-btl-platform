@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -15,13 +15,24 @@
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
 
   <style>
-    :root {
+    /* Strict Light High-Contrast Color Variables */
+    :root, [data-theme="light"], html {
       --app-header-h: 58px;
+      --bg: #F4EFE6 !important;
+      --fg: #1F1D1B !important;
+      --ink: #1F1D1B !important;
+      --ink-2: #38332E !important;
+      --ink-3: #5C564F !important;
+      --surface: #FFFFFF !important;
+      --border: #DCD6CD !important;
+      --border-strong: #B8B0A2 !important;
+      --panel: #ECE7DF !important;
+      color-scheme: light !important;
     }
 
     body {
-      background: #F0ECE4;
-      color: var(--fg);
+      background: #F4EFE6 !important;
+      color: #1F1D1B !important;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -31,8 +42,8 @@
     /* Fixed Terminal Header */
     .terminal-bar {
       height: var(--app-header-h);
-      background: #1F1D1B;
-      color: #FFFFFF;
+      background: #1F1D1B !important;
+      color: #FFFFFF !important;
       padding: 0 16px;
       display: flex;
       align-items: center;
@@ -50,6 +61,7 @@
       font-weight: 700;
       font-size: 1rem;
       letter-spacing: -0.01em;
+      color: #FFFFFF !important;
     }
     .terminal-meta {
       display: flex;
@@ -66,8 +78,8 @@
       align-items: center;
       gap: 5px;
     }
-    .status-pill.online { background: rgba(30,123,77,0.25); color: #4ade80; border: 1px solid rgba(74,222,128,0.4); }
-    .status-pill.offline { background: rgba(197,48,48,0.25); color: #f87171; border: 1px solid rgba(248,113,113,0.4); }
+    .status-pill.online { background: rgba(30,123,77,0.3) !important; color: #4ade80 !important; border: 1px solid rgba(74,222,128,0.5) !important; }
+    .status-pill.offline { background: rgba(197,48,48,0.3) !important; color: #f87171 !important; border: 1px solid rgba(248,113,113,0.5) !important; }
 
     /* Main Container */
     .terminal-content {
@@ -82,29 +94,68 @@
 
     /* Feature Card Block */
     .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #FFFFFF !important;
+      border: 1.5px solid #DCD6CD !important;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 4px 16px rgba(31,29,27,0.06);
       overflow: hidden;
+      color: #1F1D1B !important;
     }
     .feature-header {
       padding: 14px 18px;
-      background: #FAF7F2;
-      border-bottom: 1px solid var(--border);
+      background: #FAF7F2 !important;
+      border-bottom: 1.5px solid #DCD6CD !important;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: #1F1D1B !important;
     }
     .feature-header h2 {
       font-size: 0.95rem;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
+      color: #1F1D1B !important;
     }
     .feature-body {
       padding: 16px 18px;
+      color: #1F1D1B !important;
+    }
+
+    /* Pitch Demo Bar */
+    .pitch-tools {
+      background: #FFFDF9 !important;
+      border: 1.5px dashed #D85A30 !important;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+      color: #1F1D1B !important;
+    }
+    .pitch-tools strong {
+      color: #1F1D1B !important;
+    }
+    .pitch-tools .caption {
+      color: #5C564F !important;
+      font-weight: 600;
+    }
+    .pitch-tools .btn-ghost {
+      background: #FFFFFF !important;
+      color: #1F1D1B !important;
+      border: 1.5px solid #B8B0A2 !important;
+      font-weight: 700 !important;
+      border-radius: 6px;
+    }
+    .pitch-tools .btn-ghost:hover {
+      background: #F4EFE6 !important;
+      border-color: #1F1D1B !important;
+    }
+    .pitch-tools .btn-primary {
+      background: #D85A30 !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      font-weight: 700 !important;
     }
 
     /* Geofence Map */
@@ -112,7 +163,7 @@
       height: 240px;
       width: 100%;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
+      border: 1.5px solid #DCD6CD !important;
       margin-bottom: 12px;
     }
 
@@ -120,10 +171,10 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      background: #F8F5EE;
-      border: 1px solid var(--border);
+      background: #FFFFFF !important;
+      border: 1.5px solid #DCD6CD !important;
       border-radius: 10px;
-      padding: 10px 14px;
+      padding: 12px 14px;
       margin-bottom: 12px;
     }
     .gauge-item {
@@ -131,16 +182,17 @@
     }
     .gauge-val {
       font-family: var(--mono);
-      font-weight: 700;
-      font-size: 1.15rem;
+      font-weight: 800;
+      font-size: 1.25rem;
       line-height: 1.1;
+      color: #1F1D1B !important;
     }
     .gauge-label {
       font-size: 0.68rem;
-      color: var(--muted);
+      color: #5C564F !important;
       text-transform: uppercase;
-      font-weight: 600;
-      margin-top: 3px;
+      font-weight: 700;
+      margin-top: 4px;
     }
 
     .geofence-status-banner {
@@ -148,20 +200,26 @@
       border-radius: 8px;
       font-family: var(--mono);
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .geofence-status-banner.locked {
-      background: var(--green-pale);
-      color: var(--green);
-      border: 1px solid rgba(30,123,77,0.3);
+      background: #EBF5EF !important;
+      color: #1E7B4D !important;
+      border: 1.5px solid #1E7B4D !important;
+    }
+    .geofence-status-banner.locked span {
+      color: #1E7B4D !important;
     }
     .geofence-status-banner.breach {
-      background: var(--red-pale);
-      color: var(--red);
-      border: 1px solid rgba(197,48,48,0.3);
+      background: #FDE8E8 !important;
+      color: #C53030 !important;
+      border: 1.5px solid #C53030 !important;
+    }
+    .geofence-status-banner.breach span {
+      color: #C53030 !important;
     }
 
     /* Sector Selector */
@@ -172,20 +230,21 @@
       margin-bottom: 16px;
     }
     .sector-tab {
-      padding: 9px 4px;
+      padding: 10px 4px;
       text-align: center;
-      background: #F4EFE6;
-      border: 1px solid var(--border);
+      background: #F4EFE6 !important;
+      color: #1F1D1B !important;
+      border: 1.5px solid #DCD6CD !important;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 700;
       transition: all 0.2s;
     }
     .sector-tab.active {
-      background: var(--accent);
-      color: #FFFFFF;
-      border-color: var(--accent);
+      background: #D85A30 !important;
+      color: #FFFFFF !important;
+      border-color: #D85A30 !important;
     }
 
     /* Form Fields */
@@ -194,25 +253,25 @@
     }
     .field-group label {
       display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--ink-2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1F1D1B !important;
       margin-bottom: 6px;
     }
     .field-input, .field-select {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid var(--border);
+      border: 1.5px solid #B8B0A2 !important;
       border-radius: 8px;
       font-family: var(--body);
       font-size: 0.92rem;
-      background: #FFFFFF;
-      color: var(--fg);
+      background: #FFFFFF !important;
+      color: #1F1D1B !important;
       outline: none;
       transition: border-color 0.2s;
     }
     .field-input:focus, .field-select:focus {
-      border-color: var(--accent);
+      border-color: var(--accent) !important;
     }
 
     /* Photo Audit Canvas Preview */
@@ -221,7 +280,7 @@
       border-radius: 10px;
       overflow: hidden;
       background: #111;
-      border: 1px solid var(--border);
+      border: 1.5px solid #DCD6CD !important;
       margin-bottom: 12px;
       display: none;
     }
@@ -231,8 +290,8 @@
       display: block;
     }
     .photo-hash-bar {
-      background: #1A1816;
-      color: #A39C93;
+      background: #1A1816 !important;
+      color: #E2DDD6 !important;
       padding: 8px 12px;
       font-family: var(--mono);
       font-size: 0.68rem;
@@ -255,13 +314,14 @@
       padding: 16px;
     }
     .otp-modal {
-      background: var(--surface);
+      background: #FFFFFF !important;
+      color: #1F1D1B !important;
       border-radius: var(--radius);
       width: 100%;
       max-width: 420px;
       padding: 24px;
       box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border);
+      border: 1.5px solid #DCD6CD !important;
     }
 
     .btn-block {
@@ -280,14 +340,25 @@
     }
     .btn-block:hover { opacity: 0.92; }
 
-    /* Pitch Demo Bar */
-    .pitch-tools {
-      background: #FAF5EB;
-      border: 1px dashed var(--amber);
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      font-size: 0.78rem;
+    .btn.btn-ghost {
+      background: #FFFFFF !important;
+      color: #1F1D1B !important;
+      border: 1.5px solid #B8B0A2 !important;
+      font-weight: 700 !important;
+    }
+
+    .badge-green {
+      background: #EBF5EF !important;
+      color: #1E7B4D !important;
+      border: 1px solid #1E7B4D !important;
+      font-weight: 700 !important;
+    }
+
+    .badge-amber {
+      background: #FEF7EA !important;
+      color: #993C1D !important;
+      border: 1px solid #EF9F27 !important;
+      font-weight: 700 !important;
     }
   </style>
 </head>
