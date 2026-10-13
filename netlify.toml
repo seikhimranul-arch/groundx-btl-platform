@@ -2,6 +2,37 @@
   publish = "."
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/promoter"
+  to = "/promoter.html"
   status = 200
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/client-portal"
+  to = "/client-portal.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal"
+  to = "/client-portal.html"
+  status = 200
+
+[[redirects]]
+  from = "/brand"
+  to = "/brand-sheet.html"
+  status = 200
+
+[[redirects]]
+  from = "/brand-sheet"
+  to = "/brand-sheet.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
