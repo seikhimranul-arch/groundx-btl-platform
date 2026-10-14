@@ -1,4 +1,8 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Utkal Vantage Brand Sheet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <style>
@@ -11,20 +15,11 @@
   --mono:"IBM Plex Mono",ui-monospace,monospace;
   color-scheme:light;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#161412; --fg:#F1EDE7; --muted:#A39C93; --line:#3A3631; --panel:#211E1B;
-    --accent:#E8714A; --accent-deep:#F5C4B3; --accent-soft:#4A2A1E; --amber:#F2B04A;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#161412; --fg:#F1EDE7; --muted:#A39C93; --line:#3A3631; --panel:#211E1B;
-  --accent:#E8714A; --accent-deep:#F5C4B3; --accent-soft:#4A2A1E; --amber:#F2B04A;
-  color-scheme:dark;
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:400 15px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 15px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.top-nav{background:#1F1D1B;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--accent)}
+.top-nav a{color:#F6F3EE;text-decoration:none;font:500 12px var(--mono);padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.2)}
+.top-nav a:hover{background:rgba(255,255,255,0.12)}
 .wrap{max-width:880px;margin:0 auto;padding-block:32px 64px;padding-inline:20px}
 header{display:grid;gap:14px;padding-block:24px 36px;border-bottom:1px solid var(--line)}
 .kicker{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -37,11 +32,11 @@ h2{font:600 28px/1.1 var(--display);margin:0 0 6px;letter-spacing:-.01em}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (min-width:640px){.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.tile{background:var(--panel);border-radius:14px;padding:22px;display:grid;place-items:center;min-height:200px;min-width:0}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--panel);border-radius:14px;padding:22px;display:grid;place-items:center;min-height:200px;min-width:0;grid-template-rows:auto 1fr auto}
 .tile svg{width:100%;max-width:260px;height:auto;display:block}
 .tile .label{align-self:start;justify-self:start;margin-bottom:auto}
 .tile-cap{align-self:end;justify-self:start;font-size:13px;color:var(--muted)}
-.tile{grid-template-rows:auto 1fr auto}
 .hero{background:var(--panel);border-radius:18px;padding:36px 20px 28px;display:grid;place-items:center;gap:8px}
 .hero svg{width:100%;max-width:420px;height:auto}
 .clear{position:relative;padding:34px;border:1px dashed var(--accent);border-radius:6px;display:inline-block;max-width:100%}
@@ -70,6 +65,18 @@ h2{font:600 28px/1.1 var(--display);margin:0 0 6px;letter-spacing:-.01em}
 .tagline{font:600 clamp(26px,5vw,38px)/1.1 var(--display);letter-spacing:-.015em;margin:0;text-wrap:balance}
 footer{padding-block:28px 0;color:var(--muted);font-size:13px}
 </style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <span style="font:700 14px var(--display);letter-spacing:-0.01em;">Utkal Vantage · Brand System v1.0</span>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <a href="index.html">Home</a>
+    <a href="promoter.html" style="border-color:var(--accent);color:var(--accent-soft);">Field Terminal</a>
+    <a href="dashboard.html">Ops Console</a>
+    <a href="client-portal.html">Client Portal</a>
+  </div>
+</nav>
 
 <div class="wrap">
   <header>
@@ -143,7 +150,7 @@ footer{padding-block:28px 0;color:var(--muted);font-size:13px}
     <div class="grid2">
       <div class="tile" style="min-height:0;display:grid;gap:18px;justify-items:start;place-items:unset">
         <div class="scale" style="width:100%">
-          <div><span class="spec">Display · Bricolage Grotesque 600</span><span class="sample" style="--size:40px">Rise over the horizon</span></div>
+          <div><span class="spec">Display · Bricolage Grotesque 600</span><span class="sample" style="--size:34px">Rise over the horizon</span></div>
           <div><span class="spec">Body · IBM Plex Sans 400</span><span class="sample" style="--size:17px;font-family:var(--body);font-weight:400">Campaigns that reach people where they are.</span></div>
         </div>
       </div>
@@ -250,4 +257,5 @@ document.getElementById("m-glow").appendChild(markOnly({}));
 document.getElementById("m-glow").firstChild.style.filter="drop-shadow(0 0 6px rgba(216,90,48,.7))";
 </script>
 
-</body></html>
+</body>
+</html>

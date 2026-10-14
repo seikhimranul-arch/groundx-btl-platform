@@ -2,10 +2,921 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Utkal Vantage — Founder Dashboard</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles/main.css" />
+  <style id="uv-inline-main-css">
+/* ==========================================================================
+   UTKAL VANTAGE — GLOBAL DESIGN SYSTEM & MOBILE-FIRST RESPONSIVE ENGINE v2.0
+   Brand Palette: Sunrise Coral (#D85A30), Ember (#993C1D), Dawn (#F5C4B3),
+   Ink (#1F1D1B), Warm Paper (#F6F3EE), Amber (#EF9F27), Forest (#1E7B4D)
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  --bg: #F6F3EE;
+  --fg: #1F1D1B;
+  --ink: #1F1D1B;
+  --ink-2: #38332E;
+  --ink-3: #6B6660;
+  --muted: #6B6660;
+  --line: #DCD6CD;
+  --panel: #ECE7DF;
+  --surface: #FFFFFF;
+  --border: #DCD6CD;
+  --border-strong: #B8B0A2;
+
+  --accent: #D85A30;
+  --accent-2: #E8714A;
+  --accent-deep: #993C1D;
+  --accent-soft: #F5C4B3;
+  --accent-pale: #FCEEE9;
+
+  --amber: #EF9F27;
+  --amber-deep: #995B08;
+  --amber-pale: #FEF7EA;
+
+  --green: #1E7B4D;
+  --green-pale: #EBF5EF;
+
+  --red: #C53030;
+  --red-pale: #FDE8E8;
+
+  --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 2px 6px rgba(31, 29, 27, 0.05);
+  --shadow: 0 6px 20px rgba(31, 29, 27, 0.08);
+  --shadow-lg: 0 18px 42px rgba(31, 29, 27, 0.12);
+
+  --sidebar-w: 252px;
+  --topbar-h: 64px;
+  color-scheme: light;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--display);
+  font-size: clamp(2.25rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.h1, h1 {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 3.6vw, 2.65rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.h2, h2 {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.h3, h3 {
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.body-lg {
+  font-size: 1.06rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.body {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.caption {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ── Layout & Containers ────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 84px 0;
+}
+
+.section-sm {
+  padding: 48px 0;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.divider-v {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(220, 214, 205, 0.8);
+}
+
+/* ── Top Marketing Navigation ───────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(246, 243, 238, 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.nav.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-inner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav-logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ── Buttons & Inputs ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  box-shadow: 0 4px 14px rgba(216, 90, 48, 0.28);
+}
+
+.btn-ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.btn-ghost:hover {
+  background: var(--panel);
+  border-color: var(--ink);
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 7px 12px;
+  border-radius: 8px;
+}
+
+.btn-lg {
+  font-size: 0.98rem;
+  padding: 13px 24px;
+  border-radius: 12px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+/* ── Badges, Dots & Deltas ──────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge-accent {
+  background: var(--accent-pale);
+  color: var(--accent-deep);
+  border: 1px solid rgba(216, 90, 48, 0.25);
+}
+
+.badge-green {
+  background: var(--green-pale);
+  color: var(--green);
+  border: 1px solid rgba(30, 123, 77, 0.25);
+}
+
+.badge-amber {
+  background: var(--amber-pale);
+  color: var(--amber-deep);
+  border: 1px solid rgba(239, 159, 39, 0.35);
+}
+
+.badge-red {
+  background: var(--red-pale);
+  color: var(--red);
+  border: 1px solid rgba(197, 48, 48, 0.25);
+}
+
+.badge-neutral {
+  background: var(--panel);
+  color: var(--ink-2);
+  border: 1px solid var(--border);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-green {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(30, 123, 77, 0.18);
+}
+
+.dot-amber {
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(239, 159, 39, 0.2);
+}
+
+.dot-red {
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.18);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--surface);
+}
+
+.delta-up { color: var(--green); }
+.delta-down { color: var(--red); }
+
+/* ── Cards, Avatars, Progress & Charts ──────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-flat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.avatar {
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--ink);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.avatar-sm { width: 32px; height: 32px; font-size: 0.72rem; }
+.avatar-md { width: 38px; height: 38px; font-size: 0.8rem; }
+.avatar-lg { width: 48px; height: 48px; font-size: 0.95rem; }
+
+.progress {
+  width: 100%;
+  height: 7px;
+  background: var(--panel);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+.progress-fill.green {
+  background: var(--green);
+}
+
+.chart-area {
+  position: relative;
+  height: 220px;
+  width: 100%;
+}
+
+/* ── Tables & Tabs ──────────────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  padding: 12px 14px;
+  border-bottom: 1.5px solid var(--border);
+  background: #FAF8F5;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: rgba(246, 243, 238, 0.55);
+}
+
+.tabs {
+  display: inline-flex;
+  background: var(--panel);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  gap: 4px;
+}
+
+.tab {
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tab.active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Marquee & Animations ───────────────────────────────────────────────── */
+.marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  white-space: nowrap;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUpFade 0.45s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.06s; }
+.delay-2 { animation-delay: 0.12s; }
+.delay-3 { animation-delay: 0.18s; }
+.delay-4 { animation-delay: 0.24s; }
+
+/* ── App Console Layout (Dashboard) ─────────────────────────────────────── */
+.app-layout {
+  display: flex;
+  min-height: 100dvh;
+  width: 100%;
+  background: var(--bg);
+}
+
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 300;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-logo {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-nav {
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sidebar-section {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  padding: 14px 10px 6px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.sidebar-item.active {
+  background: var(--accent-pale);
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.app-main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-topbar {
+  min-height: var(--topbar-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  flex-wrap: wrap;
+}
+
+.app-content {
+  padding: 24px;
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+}
+
+/* Mobile Sidebar Backdrop & Bottom Bar */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 29, 27, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 290;
+  display: none;
+}
+
+.sidebar-backdrop.open {
+  display: block;
+}
+
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  z-index: 280;
+  grid-template-columns: repeat(5, 1fr);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(31, 29, 27, 0.06);
+}
+
+.mobile-bottom-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.mobile-bottom-item.active {
+  color: var(--accent);
+}
+
+/* ── Universal Modal & Toast Components ─────────────────────────────────── */
+.uv-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 29, 27, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.uv-modal-backdrop.open {
+  display: flex;
+}
+
+.uv-modal {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  color: var(--ink);
+}
+
+.uv-toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(380px, calc(100vw - 32px));
+}
+
+.uv-toast {
+  background: #1F1D1B;
+  color: #FFFFFF;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: slideUpFade 0.25s ease forwards;
+}
+
+.uv-toast.success { border-left-color: #4ade80; }
+.uv-toast.error { border-left-color: #f87171; }
+.uv-toast.warn { border-left-color: var(--amber); }
+
+/* ── Responsive Breakpoints (Tablet & Phone) ────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+  .app-main {
+    margin-left: 0 !important;
+  }
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  .section {
+    padding: 56px 0;
+  }
+  .section-sm {
+    padding: 36px 0;
+  }
+  .grid-2, .grid-3, .grid-4,
+  .responsive-split, .steps-4-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .nav-links {
+    display: none;
+  }
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .app-topbar {
+    padding: 10px 14px;
+  }
+  .app-content {
+    padding: 14px 14px 80px 14px;
+  }
+  .mobile-bottom-nav {
+    display: grid;
+  }
+  .campaign-row-card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  /* Prevent iOS Safari zoom on input focus */
+  input, select, textarea, .field-input, .field-select, .input {
+    font-size: 16px !important;
+  }
+  .uv-toast-container {
+    bottom: 74px;
+    right: 16px;
+    left: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-actions .btn-sm {
+    padding: 6px 9px;
+    font-size: 0.74rem;
+  }
+  .nav-logo-text {
+    font-size: 1rem;
+  }
+}
+
+  </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -17,57 +928,62 @@
     .search-bar {
       display: flex; align-items: center; gap: 8px;
       background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 7px 14px; min-width: 260px;
+      border-radius: 10px; padding: 7px 14px; min-width: 220px;
     }
     .search-bar input { background: none; border: none; outline: none; font-family: var(--body); font-size: 0.88rem; color: var(--ink); width: 100%; }
     .search-bar input::placeholder { color: var(--ink-3); }
 
     /* KPI cards row */
     .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 22px 18px; }
-    .kpi-icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; margin-bottom: 14px; }
-    .kpi-value { font-family: var(--mono); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 20px 16px; min-width: 0; }
+    .kpi-icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; margin-bottom: 12px; }
+    .kpi-value { font-family: var(--mono); font-size: 1.85rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
     .kpi-label { font-size: 0.78rem; color: var(--ink-3); margin-top: 4px; font-weight: 500; }
     .kpi-delta { font-family: var(--mono); display: flex; align-items: center; gap: 3px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
 
-    /* Map area */
-    .live-map {
-      height: 100%; min-height: 380px; background: #E8E5DD; border-radius: var(--radius); position: relative; overflow: hidden;
+    /* Main Split Grid (Map + Activity) */
+    .dashboard-main-split {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
     }
-    .live-map-grid {
-      position: absolute; inset: 0;
-      background-image: radial-gradient(rgba(31,29,27,0.12) 1.2px, transparent 1.2px);
-      background-size: 24px 24px;
-    }
-    .promoter-pin {
-      position: absolute; transform: translate(-50%, -50%);
-      width: 32px; height: 32px; border-radius: 50%;
-      display: grid; place-items: center;
-      font-family: var(--mono);
-      font-size: 0.7rem; font-weight: 700; color: #fff;
-      cursor: pointer; transition: transform 0.2s;
-      border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .promoter-pin:hover { transform: translate(-50%, -50%) scale(1.15); z-index: 10; }
-    .promoter-pin.active { background: var(--accent); }
-    .promoter-pin.idle { background: var(--amber); }
-    .promoter-pin.offline { background: #94a3b8; }
-    .map-road-h { position: absolute; height: 3px; background: rgba(255,255,255,0.7); border-radius: 2px; }
-    .map-road-v { position: absolute; width: 3px; background: rgba(255,255,255,0.7); border-radius: 2px; }
 
     /* Activity feed */
     .activity-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; }
     .activity-item + .activity-item { border-top: 1px solid var(--border); }
     .activity-icon { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
 
-    /* Campaign table */
+    /* Campaign table & row cards */
     .campaign-status { display: flex; align-items: center; gap: 6px; }
+    .campaign-row-card {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .campaign-metrics-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
     /* Sidebar bottom */
-    .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-top: 1px solid var(--border); margin-top: auto; }
+    .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid var(--border); margin-top: auto; }
 
     /* Alert bar */
-    .alert-bar { background: var(--amber-pale); border: 1px solid rgba(239,159,39,0.3); border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .alert-bar {
+      background: var(--amber-pale);
+      border: 1px solid rgba(239,159,39,0.35);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
 
     /* Tab content */
     .tab-content { display: none; }
@@ -75,9 +991,9 @@
 
     /* Photo grid */
     .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .photo-thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; }
+    .photo-thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; background: #222; }
     .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .photo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.72rem; font-weight: 600; text-align: center; padding: 6px; }
+    .photo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.52); opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.72rem; font-weight: 600; text-align: center; padding: 8px; }
     .photo-thumb:hover .photo-overlay { opacity: 1; }
 
     /* Responsive */
@@ -85,65 +1001,79 @@
       .kpi-row { grid-template-columns: repeat(2, 1fr); }
       .photo-grid { grid-template-columns: repeat(3, 1fr); }
     }
+    @media (max-width: 960px) {
+      .dashboard-main-split { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
-      .kpi-row { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .kpi-card { padding: 14px; }
+      .kpi-value { font-size: 1.45rem; }
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .topbar-search-desktop { display: none !important; }
+      .campaign-metrics-group { width: 100%; justify-content: space-between; }
+    }
+    @media (max-width: 420px) {
+      .kpi-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div class="app-layout">
 
+  <!-- Mobile Sidebar Backdrop -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar(false)"></div>
+
   <!-- ── SIDEBAR ─────────────────────────── -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="appSidebar">
     <div class="sidebar-logo">
       <a href="index.html" class="nav-logo" style="text-decoration:none;">
         <div class="nav-logo-mark" style="width:38px;height:auto;">
-          <img src="assets/mark.svg" alt="Utkal Vantage" style="width:38px;height:auto;" />
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNjAgMTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlV0a2FsIFZhbnRhZ2UgU3VucmlzZSBNYXJrIj4KICA8Y2lyY2xlIGN4PSI1OC4wMCIgY3k9IjYwLjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iNTguMDAiIGN5PSI3Mi4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjU4LjAwIiBjeT0iODQuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSI3MC4wMCIgY3k9IjM2LjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iNzAuMDAiIGN5PSI0OC4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjcwLjAwIiBjeT0iNjAuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSI3MC4wMCIgY3k9IjcyLjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iNzAuMDAiIGN5PSI4NC4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjgyLjAwIiBjeT0iMjQuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSI4Mi4wMCIgY3k9IjM2LjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iODIuMDAiIGN5PSI0OC4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjgyLjAwIiBjeT0iNjAuMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSI4Mi4wMCIgY3k9IjcyLjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iODIuMDAiIGN5PSI4NC4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9Ijk0LjAwIiBjeT0iMjQuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSI5NC4wMCIgY3k9IjM2LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iOTQuMDAiIGN5PSI0OC4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9Ijk0LjAwIiBjeT0iNjAuMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSI5NC4wMCIgY3k9IjcyLjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iOTQuMDAiIGN5PSI4NC4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjEwNi4wMCIgY3k9IjEyLjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTA2LjAwIiBjeT0iMjQuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMDYuMDAiIGN5PSIzNi4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjEwNi4wMCIgY3k9IjQ4LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTA2LjAwIiBjeT0iNjAuMDAiIHI9IjMuODQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMDYuMDAiIGN5PSI3Mi4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjEwNi4wMCIgY3k9Ijg0LjAwIiByPSIzLjg0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTE4LjAwIiBjeT0iMTIuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMTguMDAiIGN5PSIyNC4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjExOC4wMCIgY3k9IjM2LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTE4LjAwIiBjeT0iNDguMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMTguMDAiIGN5PSI2MC4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjExOC4wMCIgY3k9IjcyLjAwIiByPSIzLjg0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTE4LjAwIiBjeT0iODQuMDAiIHI9IjMuODQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMzAuMDAiIGN5PSIxMi4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjEzMC4wMCIgY3k9IjI0LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTMwLjAwIiBjeT0iMzYuMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMzAuMDAiIGN5PSI0OC4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjEzMC4wMCIgY3k9IjYwLjAwIiByPSIzLjg0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTMwLjAwIiBjeT0iNzIuMDAiIHI9IjMuODQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxMzAuMDAiIGN5PSI4NC4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE0Mi4wMCIgY3k9IjEyLjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTQyLjAwIiBjeT0iMjQuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNDIuMDAiIGN5PSIzNi4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE0Mi4wMCIgY3k9IjQ4LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTQyLjAwIiBjeT0iNjAuMDAiIHI9IjMuODQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNDIuMDAiIGN5PSI3Mi4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE0Mi4wMCIgY3k9Ijg0LjAwIiByPSIzLjg0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTU0LjAwIiBjeT0iMTIuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNTQuMDAiIGN5PSIyNC4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE1NC4wMCIgY3k9IjM2LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTU0LjAwIiBjeT0iNDguMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNTQuMDAiIGN5PSI2MC4wMCIgcj0iMy44NCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE1NC4wMCIgY3k9IjcyLjAwIiByPSIzLjg0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTU0LjAwIiBjeT0iODQuMDAiIHI9IjMuODQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNjYuMDAiIGN5PSIyNC4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE2Ni4wMCIgY3k9IjM2LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTY2LjAwIiBjeT0iNDguMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNjYuMDAiIGN5PSI2MC4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE2Ni4wMCIgY3k9IjcyLjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTY2LjAwIiBjeT0iODQuMDAiIHI9IjMuODQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNzguMDAiIGN5PSIyNC4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE3OC4wMCIgY3k9IjM2LjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTc4LjAwIiBjeT0iNDguMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxNzguMDAiIGN5PSI2MC4wMCIgcj0iMy4yNCIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE3OC4wMCIgY3k9IjcyLjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTc4LjAwIiBjeT0iODQuMDAiIHI9IjMuMjQiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxOTAuMDAiIGN5PSIzNi4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE5MC4wMCIgY3k9IjQ4LjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTkwLjAwIiBjeT0iNjAuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIxOTAuMDAiIGN5PSI3Mi4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjE5MC4wMCIgY3k9Ijg0LjAwIiByPSIzLjI0IiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMjAyLjAwIiBjeT0iNjAuMDAiIHI9IjIuNTIiIGZpbGw9IiNEODVBMzAiLz4KICA8Y2lyY2xlIGN4PSIyMDIuMDAiIGN5PSI3Mi4wMCIgcj0iMi41MiIgZmlsbD0iI0Q4NUEzMCIvPgogIDxjaXJjbGUgY3g9IjIwMi4wMCIgY3k9Ijg0LjAwIiByPSIyLjUyIiBmaWxsPSIjRDg1QTMwIi8+CiAgPGNpcmNsZSBjeD0iMTAuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMjIuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMzQuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iNDYuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iNTguMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iNzAuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iODIuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iOTQuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMTA2LjAwIiBjeT0iOTYuMDAiIHI9IjEuODAiIGZpbGw9IiMxRjFEMUIiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjExOC4wMCIgY3k9Ijk2LjAwIiByPSIxLjgwIiBmaWxsPSIjMUYxRDFCIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSIxMzAuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMTQyLjAwIiBjeT0iOTYuMDAiIHI9IjEuODAiIGZpbGw9IiMxRjFEMUIiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjE1NC4wMCIgY3k9Ijk2LjAwIiByPSIxLjgwIiBmaWxsPSIjMUYxRDFCIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSIxNjYuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMTc4LjAwIiBjeT0iOTYuMDAiIHI9IjEuODAiIGZpbGw9IiMxRjFEMUIiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjE5MC4wMCIgY3k9Ijk2LjAwIiByPSIxLjgwIiBmaWxsPSIjMUYxRDFCIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSIyMDIuMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMjE0LjAwIiBjeT0iOTYuMDAiIHI9IjEuODAiIGZpbGw9IiMxRjFEMUIiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjIyNi4wMCIgY3k9Ijk2LjAwIiByPSIxLjgwIiBmaWxsPSIjMUYxRDFCIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSIyMzguMDAiIGN5PSI5Ni4wMCIgcj0iMS44MCIgZmlsbD0iIzFGMUQxQiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMjUwLjAwIiBjeT0iOTYuMDAiIHI9IjEuODAiIGZpbGw9IiMxRjFEMUIiIG9wYWNpdHk9IjAuNSIvPgo8L3N2Zz4=" alt="Utkal Vantage" style="width:38px;height:auto;" onerror="this.style.display='none'" />
         </div>
         <div>
           <span class="nav-logo-text">Utkal Vantage</span>
           <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;">Console</div>
         </div>
       </a>
+      <button type="button" class="mobile-menu-toggle" onclick="toggleMobileSidebar(false)" aria-label="Close menu" style="width:32px;height:32px;">✕</button>
     </div>
 
     <nav class="sidebar-nav">
       <div class="sidebar-section">Operations</div>
-      <a href="#" class="sidebar-item active" onclick="setPage('dashboard',this)">
+      <a href="#dashboard" class="sidebar-item active" data-page="dashboard" onclick="return setPage('dashboard',this)">
         <ph-icon name="squares-four" weight="fill" style="width:18px;height:18px;"></ph-icon> Dashboard
       </a>
-      <a href="#" class="sidebar-item" onclick="setPage('campaigns',this)">
+      <a href="#campaigns" class="sidebar-item" data-page="campaigns" onclick="return setPage('campaigns',this)">
         <ph-icon name="broadcast" weight="fill" style="width:18px;height:18px;"></ph-icon> Campaigns
-        <span class="badge badge-accent" style="margin-left:auto;padding:2px 8px;">3</span>
+        <span class="badge badge-accent" id="sidebarCampaignCount" style="margin-left:auto;padding:2px 8px;">3</span>
       </a>
-      <a href="#" class="sidebar-item" onclick="setPage('promoters',this)">
+      <a href="#promoters" class="sidebar-item" data-page="promoters" onclick="return setPage('promoters',this)">
         <ph-icon name="users-three" weight="fill" style="width:18px;height:18px;"></ph-icon> Promoters
       </a>
-      <a href="#" class="sidebar-item" onclick="setPage('leads',this)">
+      <a href="#leads" class="sidebar-item" data-page="leads" onclick="return setPage('leads',this)">
         <ph-icon name="funnel" weight="fill" style="width:18px;height:18px;"></ph-icon> Leads
       </a>
-      <a href="#" class="sidebar-item" onclick="setPage('proofwork',this)">
+      <a href="#proofwork" class="sidebar-item" data-page="proofwork" onclick="return setPage('proofwork',this)">
         <ph-icon name="camera" weight="fill" style="width:18px;height:18px;"></ph-icon> Proof of Work
       </a>
 
       <div class="sidebar-section">Business</div>
-      <a href="#" class="sidebar-item" onclick="setPage('clients',this)">
+      <a href="#clients" class="sidebar-item" data-page="clients" onclick="return setPage('clients',this)">
         <ph-icon name="buildings" weight="fill" style="width:18px;height:18px;"></ph-icon> Clients
       </a>
-      <a href="#" class="sidebar-item" onclick="setPage('analytics',this)">
+      <a href="#analytics" class="sidebar-item" data-page="analytics" onclick="return setPage('analytics',this)">
         <ph-icon name="chart-line-up" weight="fill" style="width:18px;height:18px;"></ph-icon> Analytics
       </a>
-      <a href="#" class="sidebar-item" onclick="setPage('billing',this)">
+      <a href="#billing" class="sidebar-item" data-page="billing" onclick="return setPage('billing',this)">
         <ph-icon name="currency-inr" weight="fill" style="width:18px;height:18px;"></ph-icon> Billing
       </a>
 
       <div class="sidebar-section">System</div>
+      <a href="promoter.html" class="sidebar-item" style="color:var(--accent);font-weight:700;">
+        <ph-icon name="device-mobile" weight="fill" style="width:18px;height:18px;"></ph-icon> Field Terminal
+      </a>
       <a href="brand-sheet.html" class="sidebar-item">
         <ph-icon name="paint-brush" weight="fill" style="width:18px;height:18px;"></ph-icon> Brand Sheet
-      </a>
-      <a href="#" class="sidebar-item">
-        <ph-icon name="gear" weight="fill" style="width:18px;height:18px;"></ph-icon> Settings
       </a>
       <a href="client-portal.html" class="sidebar-item">
         <ph-icon name="arrow-square-out" weight="fill" style="width:18px;height:18px;"></ph-icon> Client Portal
@@ -156,7 +1086,6 @@
         <div style="font-size:0.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Santosh Kumar</div>
         <div style="font-size:0.72rem;color:var(--ink-3);">Founder & CEO</div>
       </div>
-      <ph-icon name="dots-three" weight="bold" style="width:18px;height:18px;color:var(--ink-3);flex-shrink:0;cursor:pointer;"></ph-icon>
     </div>
   </aside>
 
@@ -165,28 +1094,28 @@
 
     <!-- Topbar -->
     <div class="app-topbar">
-      <div style="display:flex;align-items:center;gap:16px;">
-        <div id="pageTitle" style="font-size:1rem;font-weight:700;color:var(--ink);">Dashboard</div>
-        <div class="badge badge-green"><span class="dot dot-green"></span> 24 promoters live</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button type="button" class="mobile-menu-toggle" id="mobileMenuBtn" onclick="toggleMobileSidebar()" aria-label="Open navigation menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div id="pageTitle" style="font-size:1.02rem;font-weight:700;color:var(--ink);">Dashboard</div>
+        <div class="badge badge-green"><span class="dot dot-green"></span> <span id="livePromoterBadgeCount">24</span> live</div>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <a href="promoter.html" target="_blank" class="btn btn-primary btn-sm" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:var(--accent);">
-          <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon> Open Field Terminal
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <a href="promoter.html" class="btn btn-primary btn-sm" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:var(--accent);">
+          <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon> Field Terminal
         </a>
-        <div class="search-bar">
+        <div class="search-bar topbar-search-desktop">
           <ph-icon name="magnifying-glass" style="width:15px;height:15px;color:var(--ink-3);flex-shrink:0;"></ph-icon>
-          <input type="text" placeholder="Search campaigns, promoters…" />
+          <input type="text" id="globalSearchInput" placeholder="Search campaigns, promoters, leads…" oninput="handleGlobalSearch(this.value)" />
         </div>
-        <div style="position:relative;" data-tip="3 new alerts">
-          <div style="width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;">
-            <ph-icon name="bell" weight="fill" style="width:18px;height:18px;color:var(--ink-2);"></ph-icon>
-          </div>
+        <button type="button" style="position:relative;width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;" onclick="UtkalVantage.UI.toast('3 Active Alerts: Dinesh P. idle 47m at Unit-4; Kishore N. offline; VibhavEdge campaign ending in 24h.', 'warn')" aria-label="Notifications">
+          <ph-icon name="bell" weight="fill" style="width:18px;height:18px;color:var(--ink-2);"></ph-icon>
           <div class="notif-badge">3</div>
-        </div>
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;">
+        </button>
+        <button type="button" style="width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;" onclick="openActionModal('campaign')" aria-label="New Campaign">
           <ph-icon name="plus" weight="bold" style="width:18px;height:18px;color:var(--ink-2);"></ph-icon>
-        </div>
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f56630);cursor:pointer;">SK</div>
+        </button>
       </div>
     </div>
 
@@ -197,10 +1126,10 @@
         <!-- Alert bar -->
         <div class="alert-bar">
           <ph-icon name="warning" weight="fill" style="width:18px;height:18px;color:var(--amber);flex-shrink:0;"></ph-icon>
-          <span style="font-size:0.85rem;color:var(--amber);">
+          <span style="font-size:0.85rem;color:var(--amber-deep);flex:1;min-width:200px;">
             <strong>Alert:</strong> Promoter Dinesh Patra has been stationary for 47 minutes at Unit-4, Bhubaneswar. Location outside assigned zone.
           </span>
-          <a href="#" style="font-size:0.82rem;font-weight:600;color:var(--amber);margin-left:auto;text-decoration:none;white-space:nowrap;">View on map →</a>
+          <a href="#map" onclick="focusPromoterOnMap(20.2980, 85.8250, 'PRO-09: Dinesh Patra (Idle 47m)'); return false;" style="font-size:0.82rem;font-weight:700;color:var(--accent-deep);text-decoration:none;white-space:nowrap;">View on map →</a>
         </div>
 
         <!-- KPI row -->
@@ -209,7 +1138,7 @@
             <div class="kpi-icon" style="background:var(--accent-pale);">
               <ph-icon name="users-three" weight="fill" style="width:18px;height:18px;color:var(--accent);"></ph-icon>
             </div>
-            <div class="kpi-value">24</div>
+            <div class="kpi-value" id="kpiPromotersVal">24</div>
             <div class="kpi-label">Promoters Active Today</div>
             <div class="kpi-delta delta-up">
               <ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +3 vs yesterday
@@ -219,7 +1148,7 @@
             <div class="kpi-icon" style="background:var(--green-pale);">
               <ph-icon name="funnel" weight="fill" style="width:18px;height:18px;color:var(--green);"></ph-icon>
             </div>
-            <div class="kpi-value">147</div>
+            <div class="kpi-value" id="kpiLeadsVal">147</div>
             <div class="kpi-label">Leads Captured Today</div>
             <div class="kpi-delta delta-up">
               <ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +23% this week
@@ -229,7 +1158,7 @@
             <div class="kpi-icon" style="background:var(--amber-pale);">
               <ph-icon name="camera" weight="fill" style="width:18px;height:18px;color:var(--amber);"></ph-icon>
             </div>
-            <div class="kpi-value">89</div>
+            <div class="kpi-value" id="kpiPhotosVal">89</div>
             <div class="kpi-label">Proof Photos Uploaded</div>
             <div class="kpi-delta" style="color:var(--ink-3);">94% geo-verified</div>
           </div>
@@ -246,15 +1175,15 @@
         </div>
 
         <!-- Main grid -->
-        <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:20px;margin-bottom:20px;">
+        <div class="dashboard-main-split">
           <!-- Live map -->
           <div class="card" style="padding:0;overflow:hidden;">
-            <div style="padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
               <div>
                 <div style="font-weight:700;font-size:0.95rem;">Live Field Map</div>
-                <div class="caption">Bhubaneswar — Updated 30 sec ago</div>
+                <div class="caption">Bhubaneswar — Real-Time GPS & Geofence Monitor</div>
               </div>
-              <div style="display:flex;gap:8px;align-items:center;">
+              <div style="display:flex;gap:10px;align-items:center;">
                 <div style="display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--ink-3);">
                   <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></div>Active
                 </div>
@@ -266,7 +1195,7 @@
                 </div>
               </div>
             </div>
-            <div id="dashboardLeafletMap" style="height:360px;width:100%;border-radius:0;"></div>
+            <div id="dashboardLeafletMap" style="height:360px;width:100%;border-radius:0;background:#E8E5DD;"></div>
           </div>
 
           <!-- Activity feed -->
@@ -326,16 +1255,6 @@
                   <div class="caption" style="margin-top:2px;">12 min ago</div>
                 </div>
               </div>
-              <div class="activity-item">
-                <div class="activity-icon" style="background:#ffeaea;color:var(--red);">
-                  <ph-icon name="wifi-slash" weight="fill" style="width:15px;height:15px;"></ph-icon>
-                </div>
-                <div>
-                  <div style="font-size:0.83rem;font-weight:600;color:var(--ink);">Offline — Kishore N.</div>
-                  <div class="caption">Last seen 11:02 AM • VSS Nagar</div>
-                  <div class="caption" style="margin-top:2px;">47 min ago</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -347,7 +1266,7 @@
               <div style="font-weight:700;font-size:0.95rem;">Leads This Week</div>
               <div class="badge badge-green delta-up">+23%</div>
             </div>
-            <div class="chart-area">
+            <div class="chart-area" id="leadsChartContainer">
               <canvas id="leadsChart"></canvas>
             </div>
           </div>
@@ -356,7 +1275,7 @@
               <div style="font-weight:700;font-size:0.95rem;">Lead Quality Distribution</div>
               <span class="caption">Score 1–10</span>
             </div>
-            <div class="chart-area">
+            <div class="chart-area" id="qualityChartContainer">
               <canvas id="qualityChart"></canvas>
             </div>
           </div>
@@ -366,7 +1285,7 @@
         <div class="card-flat">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
             <div style="font-weight:700;font-size:0.95rem;">Active Campaigns</div>
-            <a href="#" class="btn btn-ghost btn-sm" onclick="setPage('campaigns',null)">View all</a>
+            <a href="#campaigns" class="btn btn-ghost btn-sm" onclick="return setPage('campaigns',null)">View all</a>
           </div>
           <div class="table-wrap">
             <table>
@@ -381,15 +1300,15 @@
                   <th>End Date</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="dashboardCampaignsTbody">
                 <tr>
-                  <td><div style="font-weight:600;color:var(--ink);">Muthoot Gold Loan Drive</div><div class="caption">Society activations</div></td>
+                  <td><div style="font-weight:600;color:var(--ink);">Muthoot Gold Loan Drive</div><div class="caption">Society & market activations</div></td>
                   <td>Muthoot Finance</td>
                   <td>8 / 8</td>
                   <td>74 <span class="caption">(conv: 31%)</span></td>
                   <td><div style="min-width:100px;"><div class="progress"><div class="progress-fill" style="width:68%;"></div></div><div class="caption" style="margin-top:4px;">Day 5 of 7</div></div></td>
                   <td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.83rem;font-weight:600;color:var(--green);">Active</span></div></td>
-                  <td class="caption">14 Oct 2026</td>
+                  <td class="caption">15 Oct 2026</td>
                 </tr>
                 <tr>
                   <td><div style="font-weight:600;color:var(--ink);">Star Health Society Drive</div><div class="caption">Market visits + road show</div></td>
@@ -407,7 +1326,7 @@
                   <td>25 <span class="caption">(conv: 44%)</span></td>
                   <td><div style="min-width:100px;"><div class="progress"><div class="progress-fill" style="width:85%;"></div></div><div class="caption" style="margin-top:4px;">Day 6 of 7</div></div></td>
                   <td><div class="campaign-status"><span class="dot dot-amber"></span><span style="font-size:0.83rem;font-weight:600;color:var(--amber);">Ending soon</span></div></td>
-                  <td class="caption">10 Oct 2026</td>
+                  <td class="caption">15 Oct 2026</td>
                 </tr>
               </tbody>
             </table>
@@ -417,27 +1336,27 @@
 
       <!-- ═══ PROMOTERS PAGE ═══ -->
       <div id="page-promoters" class="tab-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 class="h2">Promoter Roster</h2>
             <p class="caption">27 total • 24 active today</p>
           </div>
-          <div style="display:flex;gap:10px;">
-            <button class="btn btn-ghost btn-sm">Export CSV</button>
-            <button class="btn btn-primary btn-sm">+ Add Promoter</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-ghost btn-sm" onclick="exportPromotersCsv()">Export CSV</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openActionModal('promoter')">+ Add Promoter</button>
           </div>
         </div>
         <div class="card-flat">
           <div class="table-wrap">
             <table>
               <thead><tr><th>Promoter</th><th>Zone</th><th>Campaign</th><th>Today's Leads</th><th>Photos</th><th>Score</th><th>Status</th><th>Action</th></tr></thead>
-              <tbody>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">RK</div><div><div style="font-weight:600;font-size:0.85rem;">Ramesh Kumar</div><div class="caption">+91 98761 43812</div></div></div></td><td>Sahid Nagar</td><td>Muthoot Gold Loan</td><td><strong>14</strong></td><td>7</td><td><span style="font-weight:700;color:var(--green);">9.1</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#dceffe,#7ab8f5);">SM</div><div><div style="font-weight:600;font-size:0.85rem;">Sunita Mohanty</div><div class="caption">+91 70053 29184</div></div></div></td><td>Rasulgarh</td><td>Muthoot Gold Loan</td><td><strong>11</strong></td><td>5</td><td><span style="font-weight:700;color:var(--green);">8.3</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#ddfce3,#7adfa1);">PT</div><div><div style="font-weight:600;font-size:0.85rem;">Priya Tripathy</div><div class="caption">+91 62378 51924</div></div></div></td><td>Chandrasekharpur</td><td>Star Health</td><td><strong>9</strong></td><td>6</td><td><span style="font-weight:700;color:var(--green);">7.9</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fff8dc,#f5d87a);">DP</div><div><div style="font-weight:600;font-size:0.85rem;">Dinesh Patra</div><div class="caption">+91 84531 67293</div></div></div></td><td>Unit-4</td><td>Muthoot Gold Loan</td><td><strong>3</strong></td><td>2</td><td><span style="font-weight:700;color:var(--amber);">4.1</span></td><td><div class="campaign-status"><span class="dot dot-amber"></span><span style="font-size:0.82rem;font-weight:600;color:var(--amber);">Idle 47m</span></div></td><td><button class="btn btn-primary btn-sm" style="background:var(--amber);">Alert</button></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">AV</div><div><div style="font-weight:600;font-size:0.85rem;">Anjali Verma</div><div class="caption">+91 99124 38472</div></div></div></td><td>Patia</td><td>VibhavEdge</td><td><strong>7</strong></td><td>4</td><td><span style="font-weight:700;color:var(--green);">8.7</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button class="btn btn-ghost btn-sm">Track</button></td></tr>
-                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#ffe8e8,#f5a0a0);">KN</div><div><div style="font-weight:600;font-size:0.85rem;">Kishore Naik</div><div class="caption">+91 94723 18264</div></div></div></td><td>VSS Nagar</td><td>Star Health</td><td><strong>0</strong></td><td>0</td><td><span style="font-weight:700;color:var(--red);">—</span></td><td><div class="campaign-status"><span class="dot dot-red"></span><span style="font-size:0.82rem;font-weight:600;color:var(--red);">Offline</span></div></td><td><button class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Call</button></td></tr>
+              <tbody id="promotersTableBody">
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">RK</div><div><div style="font-weight:600;font-size:0.85rem;">Ramesh Kumar</div><div class="caption">+91 98761 43812</div></div></div></td><td>Sahid Nagar</td><td>Muthoot Gold Loan</td><td><strong>14</strong></td><td>7</td><td><span style="font-weight:700;color:var(--green);">9.1</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="focusPromoterOnMap(20.2882, 85.8436, 'Ramesh Kumar')">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#dceffe,#7ab8f5);">SM</div><div><div style="font-weight:600;font-size:0.85rem;">Sunita Mohanty</div><div class="caption">+91 70053 29184</div></div></div></td><td>Rasulgarh</td><td>Muthoot Gold Loan</td><td><strong>11</strong></td><td>5</td><td><span style="font-weight:700;color:var(--green);">8.3</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="focusPromoterOnMap(20.2908, 85.8650, 'Sunita Mohanty')">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#ddfce3,#7adfa1);">PT</div><div><div style="font-weight:600;font-size:0.85rem;">Priya Tripathy</div><div class="caption">+91 62378 51924</div></div></div></td><td>Chandrasekharpur</td><td>Star Health</td><td><strong>9</strong></td><td>6</td><td><span style="font-weight:700;color:var(--green);">7.9</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="focusPromoterOnMap(20.3300, 85.8200, 'Priya Tripathy')">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fff8dc,#f5d87a);">DP</div><div><div style="font-weight:600;font-size:0.85rem;">Dinesh Patra</div><div class="caption">+91 84531 67293</div></div></div></td><td>Unit-4</td><td>Muthoot Gold Loan</td><td><strong>3</strong></td><td>2</td><td><span style="font-weight:700;color:var(--amber);">4.1</span></td><td><div class="campaign-status"><span class="dot dot-amber"></span><span style="font-size:0.82rem;font-weight:600;color:var(--amber);">Idle 47m</span></div></td><td><button type="button" class="btn btn-primary btn-sm" style="background:var(--amber);" onclick="UtkalVantage.UI.toast('Automated WhatsApp & Supervisor Alert dispatched to Dinesh Patra (+91 84531 67293).', 'warn')">Alert</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">AV</div><div><div style="font-weight:600;font-size:0.85rem;">Anjali Verma</div><div class="caption">+91 99124 38472</div></div></div></td><td>Patia</td><td>VibhavEdge</td><td><strong>7</strong></td><td>4</td><td><span style="font-weight:700;color:var(--green);">8.7</span></td><td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="focusPromoterOnMap(20.3541, 85.8192, 'Anjali Verma')">Track</button></td></tr>
+                <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#ffe8e8,#f5a0a0);">KN</div><div><div style="font-weight:600;font-size:0.85rem;">Kishore Naik</div><div class="caption">+91 94723 18264</div></div></div></td><td>VSS Nagar</td><td>Star Health</td><td><strong>0</strong></td><td>0</td><td><span style="font-weight:700;color:var(--red);">—</span></td><td><div class="campaign-status"><span class="dot dot-red"></span><span style="font-size:0.82rem;font-weight:600;color:var(--red);">Offline</span></div></td><td><a href="tel:+919472318264" class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Call</a></td></tr>
               </tbody>
             </table>
           </div>
@@ -446,28 +1365,28 @@
 
       <!-- ═══ LEADS PAGE ═══ -->
       <div id="page-leads" class="tab-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 class="h2">Lead Pipeline</h2>
             <p class="caption">147 today • 1,284 this month • 31% conversion</p>
           </div>
-          <div style="display:flex;gap:10px;">
-            <button class="btn btn-ghost btn-sm">Export to CRM</button>
-            <button class="btn btn-primary btn-sm">+ Manual Entry</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-ghost btn-sm" onclick="exportLeadsCsv()">Export to CRM</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openActionModal('lead')">+ Manual Entry</button>
           </div>
         </div>
         <!-- Pipeline stages -->
         <div class="grid-4" style="margin-bottom:24px;">
           <div class="kpi-card" style="border-top:3px solid var(--accent);">
-            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">147</div>
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;" id="leadsStageCaptured">147</div>
             <div class="kpi-label">Captured Today</div>
           </div>
           <div class="kpi-card" style="border-top:3px solid #6d28d9;">
-            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">89</div>
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;" id="leadsStageOtp">89</div>
             <div class="kpi-label">OTP Verified</div>
           </div>
           <div class="kpi-card" style="border-top:3px solid var(--green);">
-            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;">61</div>
+            <div style="font-size:1.6rem;font-weight:800;letter-spacing:-0.025em;" id="leadsStageHot">61</div>
             <div class="kpi-label">Score 7+ (Hot)</div>
           </div>
           <div class="kpi-card" style="border-top:3px solid #0ea5e9;">
@@ -478,24 +1397,24 @@
         <div class="card-flat">
           <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
             <div class="tabs" style="flex:0;white-space:nowrap;">
-              <div class="tab active" onclick="filterTab(this)">All Leads</div>
-              <div class="tab" onclick="filterTab(this)">Hot (7+)</div>
-              <div class="tab" onclick="filterTab(this)">Converted</div>
+              <div class="tab active" onclick="filterTab(this, 'all')">All Leads</div>
+              <div class="tab" onclick="filterTab(this, 'hot')">Hot (7+)</div>
+              <div class="tab" onclick="filterTab(this, 'converted')">Converted</div>
             </div>
-            <div class="search-bar" style="flex:1;max-width:260px;">
+            <div class="search-bar" style="flex:1;max-width:280px;">
               <ph-icon name="magnifying-glass" style="width:14px;height:14px;color:var(--ink-3);"></ph-icon>
-              <input type="text" placeholder="Search by name, phone…" />
+              <input type="text" id="leadsSearchInput" placeholder="Search by name, phone, zone…" oninput="filterLeadsTable()" />
             </div>
           </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Lead</th><th>Campaign</th><th>Promoter</th><th>Score</th><th>OTP</th><th>Status</th><th>Captured</th><th>Action</th></tr></thead>
-              <tbody>
-                <tr><td><div style="font-weight:600;font-size:0.85rem;">Suresh Behera</div><div class="caption">+91 94521 63748 • 47M • Rasulgarh</div></td><td>Muthoot Gold</td><td>Ramesh K.</td><td><span class="badge badge-green">9/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Contacted</span></td><td class="caption">Today 09:42</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
-                <tr><td><div style="font-weight:600;font-size:0.85rem;">Mrunalini Das</div><div class="caption">+91 70821 49362 • 34F • Sahid Nagar</div></td><td>Muthoot Gold</td><td>Sunita M.</td><td><span class="badge badge-green">8/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge badge-green">Converted</span></td><td class="caption">Today 09:17</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
-                <tr><td><div style="font-weight:600;font-size:0.85rem;">Jayanta Routray</div><div class="caption">+91 82461 73924 • 51M • CDA</div></td><td>Star Health</td><td>Priya T.</td><td><span class="badge badge-amber">6/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge badge-neutral">Pending</span></td><td class="caption">Today 10:05</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
-                <tr><td><div style="font-weight:600;font-size:0.85rem;">Alka Nanda</div><div class="caption">+91 63841 28473 • 29F • Nayapalli</div></td><td>VibhavEdge</td><td>Anjali V.</td><td><span class="badge badge-green">8/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Contacted</span></td><td class="caption">Today 10:33</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
-                <tr><td><div style="font-weight:600;font-size:0.85rem;">Pramod Sahu</div><div class="caption">+91 91234 56789 • 38M • Unit-1</div></td><td>Muthoot Gold</td><td>Dinesh P.</td><td><span class="badge badge-red">3/10</span></td><td><span class="badge badge-red">Failed</span></td><td><span class="badge badge-red">Rejected</span></td><td class="caption">Today 11:12</td><td><button class="btn btn-ghost btn-sm">Details</button></td></tr>
+              <tbody id="leadsTableBody">
+                <tr data-score="9" data-status="contacted"><td><div style="font-weight:600;font-size:0.85rem;">Suresh Behera</div><div class="caption">+91 94521 63748 • 47M • Rasulgarh</div></td><td>Muthoot Gold</td><td>Ramesh K.</td><td><span class="badge badge-green">9/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Contacted</span></td><td class="caption">Today 09:42</td><td><button type="button" class="btn btn-ghost btn-sm" onclick="UtkalVantage.UI.toast('Lead Suresh Behera: 30-50g Gold Asset • Assigned to Muthoot Rasulgarh Branch.', 'info')">Details</button></td></tr>
+                <tr data-score="8" data-status="converted"><td><div style="font-weight:600;font-size:0.85rem;">Mrunalini Das</div><div class="caption">+91 70821 49362 • 34F • Sahid Nagar</div></td><td>Muthoot Gold</td><td>Sunita M.</td><td><span class="badge badge-green">8/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge badge-green">Converted</span></td><td class="caption">Today 09:17</td><td><button type="button" class="btn btn-ghost btn-sm" onclick="UtkalVantage.UI.toast('Lead Mrunalini Das: Disbursed ₹1.45L Gold Loan at Sahid Nagar Branch.', 'success')">Details</button></td></tr>
+                <tr data-score="6" data-status="pending"><td><div style="font-weight:600;font-size:0.85rem;">Jayanta Routray</div><div class="caption">+91 82461 73924 • 51M • CDA</div></td><td>Star Health</td><td>Priya T.</td><td><span class="badge badge-amber">6/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge badge-neutral">Pending</span></td><td class="caption">Today 10:05</td><td><button type="button" class="btn btn-ghost btn-sm" onclick="UtkalVantage.UI.toast('Lead Jayanta Routray: Family Floater Inquiry • Scheduled Callback.', 'info')">Details</button></td></tr>
+                <tr data-score="8" data-status="contacted"><td><div style="font-weight:600;font-size:0.85rem;">Alka Nanda</div><div class="caption">+91 63841 28473 • 29F • Nayapalli</div></td><td>VibhavEdge</td><td>Anjali V.</td><td><span class="badge badge-green">8/10</span></td><td><span class="badge badge-green">Verified</span></td><td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Contacted</span></td><td class="caption">Today 10:33</td><td><button type="button" class="btn btn-ghost btn-sm" onclick="UtkalVantage.UI.toast('Lead Alka Nanda: Coaching Admission Counseling Scheduled.', 'info')">Details</button></td></tr>
+                <tr data-score="3" data-status="rejected"><td><div style="font-weight:600;font-size:0.85rem;">Pramod Sahu</div><div class="caption">+91 91234 56789 • 38M • Unit-1</div></td><td>Muthoot Gold</td><td>Dinesh P.</td><td><span class="badge badge-red">3/10</span></td><td><span class="badge badge-red">Failed</span></td><td><span class="badge badge-red">Rejected</span></td><td class="caption">Today 11:12</td><td><button type="button" class="btn btn-ghost btn-sm" onclick="UtkalVantage.UI.toast('Rejected: Unverified OTP & Geo-fence breach detected.', 'error')">Details</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -504,54 +1423,53 @@
 
       <!-- ═══ PROOF OF WORK PAGE ═══ -->
       <div id="page-proofwork" class="tab-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 class="h2">Proof of Work</h2>
-            <p class="caption">89 photos today • 94% geo-verified</p>
+            <p class="caption">89 photos today • 94% geo-verified • SHA-256 Audited</p>
           </div>
           <div style="display:flex;gap:10px;">
-            <select class="input" style="width:auto;padding:8px 14px;font-size:0.85rem;">
-              <option>All Campaigns</option>
-              <option>Muthoot Gold Loan Drive</option>
-              <option>Star Health Drive</option>
-              <option>VibhavEdge Drive</option>
+            <select class="input" id="proofCampaignFilter" style="width:auto;padding:8px 14px;font-size:0.85rem;" onchange="filterProofPhotos(this.value)">
+              <option value="all">All Campaigns</option>
+              <option value="muthoot">Muthoot Gold Loan Drive</option>
+              <option value="star">Star Health Drive</option>
+              <option value="vibhavedge">VibhavEdge Drive</option>
             </select>
           </div>
         </div>
-        <div class="photo-grid">
-          <!-- Photo placeholders with geo data overlay -->
-          <div class="photo-thumb">
+        <div class="photo-grid" id="proofPhotoGrid">
+          <div class="photo-thumb" data-campaign="muthoot">
             <img src="https://picsum.photos/seed/btl001/400/400" alt="Proof photo" />
             <div class="photo-overlay">Ramesh K. • Sahid Nagar<br/>10:24 AM • Geo: ✓</div>
           </div>
-          <div class="photo-thumb">
+          <div class="photo-thumb" data-campaign="muthoot">
             <img src="https://picsum.photos/seed/btl002/400/400" alt="Proof photo" />
             <div class="photo-overlay">Sunita M. • Rasulgarh<br/>10:31 AM • Geo: ✓</div>
           </div>
-          <div class="photo-thumb">
+          <div class="photo-thumb" data-campaign="star">
             <img src="https://picsum.photos/seed/btl003/400/400" alt="Proof photo" />
             <div class="photo-overlay">Priya T. • Chandrasekharpur<br/>09:57 AM • Geo: ✓</div>
           </div>
-          <div class="photo-thumb">
+          <div class="photo-thumb" data-campaign="vibhavedge">
             <img src="https://picsum.photos/seed/btl004/400/400" alt="Proof photo" />
             <div class="photo-overlay">Anjali V. • Patia<br/>10:12 AM • Geo: ✓</div>
           </div>
-          <div class="photo-thumb">
+          <div class="photo-thumb" data-campaign="muthoot">
             <img src="https://picsum.photos/seed/btl005/400/400" alt="Proof photo" />
             <div class="photo-overlay">Bikash S. • Nayapalli<br/>11:02 AM • Geo: ✓</div>
           </div>
-          <div class="photo-thumb" style="position:relative;">
+          <div class="photo-thumb" data-campaign="muthoot" style="position:relative;">
             <img src="https://picsum.photos/seed/btl006/400/400" alt="Proof photo" style="filter:brightness(0.6);" />
             <div style="position:absolute;inset:0;display:grid;place-items:center;flex-direction:column;">
               <div style="background:var(--red);color:#fff;font-size:0.7rem;font-weight:700;padding:4px 8px;border-radius:6px;margin-bottom:4px;">GEO FAILED</div>
             </div>
             <div class="photo-overlay" style="opacity:1;background:rgba(192,40,40,0.6);">Dinesh P. • REJECTED<br/>Location outside zone</div>
           </div>
-          <div class="photo-thumb">
+          <div class="photo-thumb" data-campaign="muthoot">
             <img src="https://picsum.photos/seed/btl007/400/400" alt="Proof photo" />
             <div class="photo-overlay">Ramesh K. • Sahid Nagar<br/>12:10 PM • Geo: ✓</div>
           </div>
-          <div class="photo-thumb">
+          <div class="photo-thumb" data-campaign="star">
             <img src="https://picsum.photos/seed/btl008/400/400" alt="Proof photo" />
             <div class="photo-overlay">Sunita M. • Rasulgarh<br/>12:44 PM • Geo: ✓</div>
           </div>
@@ -560,73 +1478,79 @@
 
       <!-- ═══ CAMPAIGNS PAGE ═══ -->
       <div id="page-campaigns" class="tab-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 class="h2">Campaigns</h2>
             <p class="caption">3 active • 2 scheduled • 11 completed</p>
           </div>
-          <button class="btn btn-primary btn-sm">+ New Campaign</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="openActionModal('campaign')">+ New Campaign</button>
         </div>
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div class="card-flat" style="display:flex;gap:20px;align-items:center;">
-            <div style="flex:1;">
+        <div style="display:flex;flex-direction:column;gap:14px;" id="campaignsListContainer">
+          <div class="card-flat campaign-row-card">
+            <div style="flex:1;min-width:220px;">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
                 <div style="font-weight:700;color:var(--ink);">Muthoot Gold Loan Drive</div>
                 <span class="badge badge-green">Active</span>
               </div>
               <div class="caption">Bhubaneswar — Society activations • Sahid Nagar, Rasulgarh, Unit-4</div>
             </div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">74</div><div class="caption">Leads</div></div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">31%</div><div class="caption">Conversion</div></div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">8/8</div><div class="caption">Promoters</div></div>
-            <div style="min-width:120px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:68%;"></div></div><div class="caption">Day 5/7</div></div>
-            <button class="btn btn-ghost btn-sm">Manage</button>
+            <div class="campaign-metrics-group">
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">74</div><div class="caption">Leads</div></div>
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">31%</div><div class="caption">Conversion</div></div>
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">8/8</div><div class="caption">Promoters</div></div>
+              <div style="min-width:110px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:68%;"></div></div><div class="caption">Day 5/7</div></div>
+              <a href="client-portal.html" class="btn btn-ghost btn-sm">Portal</a>
+            </div>
           </div>
-          <div class="card-flat" style="display:flex;gap:20px;align-items:center;">
-            <div style="flex:1;">
+          <div class="card-flat campaign-row-card">
+            <div style="flex:1;min-width:220px;">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
                 <div style="font-weight:700;color:var(--ink);">Star Health Society Drive</div>
                 <span class="badge badge-green">Active</span>
               </div>
               <div class="caption">Bhubaneswar — Market visits + road show • Chandrasekharpur, Patia</div>
             </div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">48</div><div class="caption">Leads</div></div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">19%</div><div class="caption">Conversion</div></div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">6/8</div><div class="caption">Promoters</div></div>
-            <div style="min-width:120px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill green" style="width:40%;"></div></div><div class="caption">Day 4/10</div></div>
-            <button class="btn btn-ghost btn-sm">Manage</button>
+            <div class="campaign-metrics-group">
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">48</div><div class="caption">Leads</div></div>
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">19%</div><div class="caption">Conversion</div></div>
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">6/8</div><div class="caption">Promoters</div></div>
+              <div style="min-width:110px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill green" style="width:40%;"></div></div><div class="caption">Day 4/10</div></div>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="setPage('leads', null)">Manage</button>
+            </div>
           </div>
-          <div class="card-flat" style="display:flex;gap:20px;align-items:center;opacity:0.7;">
-            <div style="flex:1;">
+          <div class="card-flat campaign-row-card" style="opacity:0.8;">
+            <div style="flex:1;min-width:220px;">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
                 <div style="font-weight:700;color:var(--ink);">Bajaj Finserv Lead Gen</div>
                 <span class="badge badge-neutral">Scheduled</span>
               </div>
               <div class="caption">Cuttack — Road shows + market visits • Starts 15 Oct 2026</div>
             </div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">—</div><div class="caption">Leads</div></div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">—</div><div class="caption">Conversion</div></div>
-            <div style="text-align:center;min-width:80px;"><div style="font-size:1.3rem;font-weight:800;">0/12</div><div class="caption">Assigned</div></div>
-            <div style="min-width:120px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:0%;"></div></div><div class="caption">Starts in 6 days</div></div>
-            <button class="btn btn-primary btn-sm">Finalize</button>
+            <div class="campaign-metrics-group">
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">—</div><div class="caption">Leads</div></div>
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">—</div><div class="caption">Conversion</div></div>
+              <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">0/12</div><div class="caption">Assigned</div></div>
+              <div style="min-width:110px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:0%;"></div></div><div class="caption">Starts tomorrow</div></div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="UtkalVantage.UI.toast('Bajaj Finserv Cuttack roster locked (12 promoters assigned).', 'success')">Finalize</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- ═══ CLIENTS PAGE ═══ -->
       <div id="page-clients" class="tab-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-          <div><h2 class="h2">Client Accounts</h2><p class="caption">7 active clients</p></div>
-          <button class="btn btn-primary btn-sm">+ New Client</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+          <div><h2 class="h2">Client Accounts</h2><p class="caption">7 active clients across NBFC, Insurance, Bank & D2C</p></div>
+          <button type="button" class="btn btn-primary btn-sm" onclick="openActionModal('client')">+ New Client</button>
         </div>
         <div class="table-wrap card-flat">
           <table>
             <thead><tr><th>Client</th><th>Industry</th><th>Active Campaigns</th><th>Total Leads</th><th>Billed MTD</th><th>Portal</th><th>Action</th></tr></thead>
-            <tbody>
-              <tr><td><div style="font-weight:600;">Muthoot Finance</div><div class="caption">Bhubaneswar Branch</div></td><td>NBFC / Gold Loan</td><td>1</td><td>1,247</td><td><strong>₹68,400</strong></td><td><a href="client-portal.html" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
-              <tr><td><div style="font-weight:600;">Star Health Insurance</div><div class="caption">Odisha Circle</div></td><td>Insurance</td><td>1</td><td>486</td><td><strong>₹42,000</strong></td><td><a href="#" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
-              <tr><td><div style="font-weight:600;">VibhavEdge Institute</div><div class="caption">BBSR</div></td><td>EdTech / Coaching</td><td>1</td><td>183</td><td><strong>₹28,750</strong></td><td><a href="#" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
-              <tr><td><div style="font-weight:600;">Bajaj Finserv</div><div class="caption">Cuttack</div></td><td>NBFC / Loans</td><td>0</td><td>0</td><td><strong>—</strong></td><td><a href="#" class="btn btn-ghost btn-sm" style="opacity:0.4;pointer-events:none;">Pending</a></td><td><button class="btn btn-primary btn-sm">Setup</button></td></tr>
+            <tbody id="clientsTableBody">
+              <tr><td><div style="font-weight:600;">Muthoot Finance</div><div class="caption">Bhubaneswar Branch</div></td><td>NBFC / Gold Loan</td><td>1</td><td>1,247</td><td><strong>₹68,400</strong></td><td><a href="client-portal.html" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="setPage('billing', null)">Billing</button></td></tr>
+              <tr><td><div style="font-weight:600;">Star Health Insurance</div><div class="caption">Odisha Circle</div></td><td>Insurance</td><td>1</td><td>486</td><td><strong>₹42,000</strong></td><td><a href="client-portal.html" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="setPage('billing', null)">Billing</button></td></tr>
+              <tr><td><div style="font-weight:600;">VibhavEdge Institute</div><div class="caption">BBSR</div></td><td>EdTech / Coaching</td><td>1</td><td>183</td><td><strong>₹28,750</strong></td><td><a href="client-portal.html" class="btn btn-ghost btn-sm">Open Portal</a></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="setPage('billing', null)">Billing</button></td></tr>
+              <tr><td><div style="font-weight:600;">Bajaj Finserv</div><div class="caption">Cuttack</div></td><td>NBFC / Loans</td><td>0</td><td>0</td><td><strong>—</strong></td><td><span class="badge badge-neutral">Pending</span></td><td><button type="button" class="btn btn-primary btn-sm" onclick="openActionModal('campaign')">Setup</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -642,14 +1566,14 @@
           <div class="kpi-card"><div class="kpi-value">₹2.9L</div><div class="kpi-label">Revenue MTD</div><div class="kpi-delta delta-up"><ph-icon name="arrow-up" weight="bold" style="width:12px;height:12px;"></ph-icon> +71% vs Sep</div></div>
         </div>
         <div class="grid-2">
-          <div class="card-flat"><div style="font-weight:700;margin-bottom:16px;">Monthly Leads Trend</div><div class="chart-area"><canvas id="trendChart"></canvas></div></div>
-          <div class="card-flat"><div style="font-weight:700;margin-bottom:16px;">Revenue by Client</div><div class="chart-area"><canvas id="revenueChart"></canvas></div></div>
+          <div class="card-flat"><div style="font-weight:700;margin-bottom:16px;">Monthly Leads Trend</div><div class="chart-area" id="trendChartContainer"><canvas id="trendChart"></canvas></div></div>
+          <div class="card-flat"><div style="font-weight:700;margin-bottom:16px;">Revenue by Client</div><div class="chart-area" id="revenueChartContainer"><canvas id="revenueChart"></canvas></div></div>
         </div>
       </div>
 
       <!-- ═══ BILLING PAGE ═══ -->
       <div id="page-billing" class="tab-content">
-        <div style="margin-bottom:24px;"><h2 class="h2">Billing & Revenue</h2></div>
+        <div style="margin-bottom:24px;"><h2 class="h2">Billing & Revenue</h2><p class="caption">50% Upfront Commercial Discipline SOP Enforced</p></div>
         <div class="kpi-row" style="margin-bottom:24px;">
           <div class="kpi-card"><div class="kpi-value">₹2.9L</div><div class="kpi-label">Collected MTD</div></div>
           <div class="kpi-card"><div class="kpi-value">₹1.1L</div><div class="kpi-label">Outstanding</div></div>
@@ -660,9 +1584,9 @@
           <table>
             <thead><tr><th>Invoice</th><th>Client</th><th>Campaign</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Action</th></tr></thead>
             <tbody>
-              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-041</div></td><td>Muthoot Finance</td><td>Gold Loan Drive Oct</td><td><strong>₹68,400</strong></td><td>15 Oct 2026</td><td><span class="badge badge-green">Paid</span></td><td><button class="btn btn-ghost btn-sm">PDF</button></td></tr>
-              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-042</div></td><td>Star Health</td><td>Society Drive Oct</td><td><strong>₹42,000</strong></td><td>20 Oct 2026</td><td><span class="badge badge-amber">Pending</span></td><td><button class="btn btn-primary btn-sm">Send Reminder</button></td></tr>
-              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-043</div></td><td>VibhavEdge</td><td>Admission Drive Oct</td><td><strong>₹28,750</strong></td><td>12 Oct 2026</td><td><span class="badge badge-red">Overdue</span></td><td><button class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);">Escalate</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-041</div></td><td>Muthoot Finance</td><td>Gold Loan Drive Oct</td><td><strong>₹68,400</strong></td><td>15 Oct 2026</td><td><span class="badge badge-green">Paid</span></td><td><button type="button" class="btn btn-ghost btn-sm" onclick="window.print()">PDF</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-042</div></td><td>Star Health</td><td>Society Drive Oct</td><td><strong>₹42,000</strong></td><td>20 Oct 2026</td><td><span class="badge badge-amber">Pending</span></td><td><button type="button" class="btn btn-primary btn-sm" onclick="UtkalVantage.UI.toast('Payment reminder sent to Star Health Odisha Circle Accounts.', 'success')">Send Reminder</button></td></tr>
+              <tr><td><div style="font-weight:600;font-family:var(--mono);font-size:0.82rem;">UV-2026-043</div></td><td>VibhavEdge</td><td>Admission Drive Oct</td><td><strong>₹28,750</strong></td><td>12 Oct 2026</td><td><span class="badge badge-red">Overdue</span></td><td><button type="button" class="btn btn-ghost btn-sm" style="border-color:var(--red);color:var(--red);" onclick="UtkalVantage.UI.toast('Escalation notice logged for VibhavEdge Institute.', 'warn')">Escalate</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -670,105 +1594,1351 @@
 
     </div><!-- /app-content -->
   </main>
+
+  <!-- Mobile Bottom Quick Navigation Bar (<768px) -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+    <button type="button" class="mobile-bottom-item active" data-mob-page="dashboard" onclick="setPage('dashboard', null)">
+      <ph-icon name="squares-four" weight="fill" style="font-size:18px;"></ph-icon>
+      <span>Ops</span>
+    </button>
+    <button type="button" class="mobile-bottom-item" data-mob-page="campaigns" onclick="setPage('campaigns', null)">
+      <ph-icon name="broadcast" weight="fill" style="font-size:18px;"></ph-icon>
+      <span>Campaigns</span>
+    </button>
+    <button type="button" class="mobile-bottom-item" data-mob-page="promoters" onclick="setPage('promoters', null)">
+      <ph-icon name="users-three" weight="fill" style="font-size:18px;"></ph-icon>
+      <span>Roster</span>
+    </button>
+    <button type="button" class="mobile-bottom-item" data-mob-page="leads" onclick="setPage('leads', null)">
+      <ph-icon name="funnel" weight="fill" style="font-size:18px;"></ph-icon>
+      <span>Leads</span>
+    </button>
+    <button type="button" class="mobile-bottom-item" data-mob-page="proofwork" onclick="setPage('proofwork', null)">
+      <ph-icon name="camera" weight="fill" style="font-size:18px;"></ph-icon>
+      <span>Proof</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Universal Action Modal (Create Campaign / Add Promoter / Manual Lead / New Client) -->
+<div class="uv-modal-backdrop" id="actionModalBackdrop">
+  <div class="uv-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 class="h3" id="actionModalTitle">New Record</h3>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="closeActionModal()">✕</button>
+    </div>
+    <form id="actionModalForm" onsubmit="submitActionModal(event)">
+      <div id="actionModalFields" style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="btn btn-ghost" onclick="closeActionModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save & Deploy</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script src="js/supabase.js"></script>
 <script src="js/field-engine.js"></script>
+<script id="uv-inline-core-engine">
+  if (!window.UtkalVantage) {
+/**
+ * ============================================================================
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.0
+ * Zero-cost client-side architecture for Odisha BTL Operations:
+ *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
+ *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
+ *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
+ *   4. LeadScoringEngine (Sector-Specific P&L Qualification Scoring)
+ *   5. StorageEngine (Resilient IndexedDB + localStorage + Memory Failover)
+ *   6. RealtimeBroadcaster (BroadcastChannel + Storage Event Cross-Tab Sync)
+ * ============================================================================
+ */
+(function (global) {
+  'use strict';
+
+  // ── 1. CRYPTOGRAPHIC SHA-256 (WebCrypto + Pure-JS Fallback for HTTP/LAN) ──
+  function sha256PureJS(ascii) {
+    function rightRotate(value, amount) {
+      return (value >>> amount) | (value << (32 - amount));
+    }
+    const mathPow = Math.pow;
+    const maxWord = mathPow(2, 32);
+    const lengthProperty = 'length';
+    let i, j;
+    let result = '';
+    const words = [];
+    const asciiBitLength = ascii[lengthProperty] * 8;
+    let hash = (sha256PureJS.h = sha256PureJS.h || []);
+    const k = (sha256PureJS.k = sha256PureJS.k || []);
+    let primeCounter = k[lengthProperty];
+    const isComposite = {};
+    for (let candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = 0; i < 313; i += candidate) {
+          isComposite[i] = candidate;
+        }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while ((ascii[lengthProperty] % 64) - 56) ascii += '\x00';
+    for (i = 0; i < ascii[lengthProperty]; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << (((3 - i) % 4) * 8);
+    }
+    words[words[lengthProperty]] = (asciiBitLength / maxWord) | 0;
+    words[words[lengthProperty]] = asciiBitLength;
+    for (j = 0; j < words[lengthProperty]; ) {
+      const w = words.slice(j, (j += 16));
+      const oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (i = 0; i < 64; i++) {
+        const i2 = i + j;
+        const w15 = w[i - 15], w2 = w[i - 2];
+        const a = hash[0], e = hash[4];
+        const temp1 =
+          hash[7] +
+          (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+          ((e & hash[5]) ^ (~e & hash[6])) +
+          k[i] +
+          (w[i] =
+            i < 16
+              ? w[i]
+              : (w[i - 16] +
+                  (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                  w[i - 7] +
+                  (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+                0);
+        const temp2 =
+          (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+          ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (i = 0; i < 8; i++) {
+        hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j + 1; j--) {
+        const b = (hash[i] >> (j * 8)) & 255;
+        result += (b < 16 ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  async function computeSha256Hex(strInput) {
+    const str = String(strInput || '');
+    try {
+      if (global.crypto && global.crypto.subtle && global.TextEncoder) {
+        const buf = new TextEncoder().encode(str);
+        const digest = await global.crypto.subtle.digest('SHA-256', buf);
+        return Array.from(new Uint8Array(digest))
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('');
+      }
+    } catch (_) {
+      // Fallback to pure JS SHA-256 on non-HTTPS mobile LAN or restricted contexts
+    }
+    const utf8 = unescape(encodeURIComponent(str));
+    return sha256PureJS(utf8);
+  }
+
+  // ── 2. SECURITY & FORMATTING UTILITIES ────────────────────────────────────
+  function escapeHtml(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function escapeCsvCell(val) {
+    let s = String(val == null ? '' : val).replace(/\r?\n/g, ' ').trim();
+    // Defend against CSV Formula Injection (=, +, -, @, \t, \r)
+    if (/^[=+\-@\t\r]/.test(s) && !/^\+91\d/.test(s)) {
+      s = "'" + s;
+    }
+    if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  function sanitizeIndianPhone(raw) {
+    const digits = String(raw || '').replace(/\D/g, '');
+    if (digits.length === 12 && digits.startsWith('91')) {
+      return digits.slice(2);
+    }
+    if (digits.length === 11 && digits.startsWith('0')) {
+      return digits.slice(1);
+    }
+    return digits;
+  }
+
+  function isValidIndianPhone(raw) {
+    const clean = sanitizeIndianPhone(raw);
+    return /^[6-9]\d{9}$/.test(clean);
+  }
+
+  function formatIST(dateObj) {
+    const d = dateObj instanceof Date ? dateObj : new Date();
+    try {
+      return d.toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }) + ' IST';
+    } catch (_) {
+      return d.toISOString();
+    }
+  }
+
+  // ── 3. DESIGNATED BHUBANESWAR & ODISHA ANCHOR ZONES ───────────────────────
+  const anchors = {
+    rasulgarh: {
+      id: 'rasulgarh',
+      name: 'Rasulgarh Square Canopy',
+      lat: 20.2906,
+      lng: 85.8648,
+      radiusM: 100,
+      sector: 'nbfc'
+    },
+    unit1: {
+      id: 'unit1',
+      name: 'Unit-1 Daily Haat Canopy',
+      lat: 20.2638,
+      lng: 85.8340,
+      radiusM: 100,
+      sector: 'nbfc'
+    },
+    patia: {
+      id: 'patia',
+      name: 'KIIT Square Sampling Hub',
+      lat: 20.3541,
+      lng: 85.8192,
+      radiusM: 100,
+      sector: 'd2c'
+    },
+    saheed: {
+      id: 'saheed',
+      name: 'Saheed Nagar Merchant Zone',
+      lat: 20.2882,
+      lng: 85.8436,
+      radiusM: 20,
+      sector: 'bank'
+    },
+    kalinga: {
+      id: 'kalinga',
+      name: 'Kalinga Nagar Society Kiosk',
+      lat: 20.2789,
+      lng: 85.7725,
+      radiusM: 100,
+      sector: 'insurance'
+    }
+  };
+
+  // ── 4. HAVERSINE RADIAL DISTANCE ENGINE ───────────────────────────────────
+  function haversineDistanceM(lat1, lng1, lat2, lng2) {
+    const nLat1 = Number(lat1), nLng1 = Number(lng1);
+    const nLat2 = Number(lat2), nLng2 = Number(lng2);
+    if (
+      !Number.isFinite(nLat1) || !Number.isFinite(nLng1) ||
+      !Number.isFinite(nLat2) || !Number.isFinite(nLng2)
+    ) {
+      return Infinity;
+    }
+    const R = 6371000; // Earth mean radius in meters
+    const toRad = (deg) => (deg * Math.PI) / 180;
+    const dLat = toRad(nLat2 - nLat1);
+    const dLng = toRad(nLng2 - nLng1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(nLat1)) * Math.cos(toRad(nLat2)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(Math.max(0, 1 - a)));
+    return Math.round(R * c);
+  }
+
+  // ── 5. GEOFENCE MANAGER ───────────────────────────────────────────────────
+  class GeofenceManager {
+    constructor(initialAnchor) {
+      this.anchor = Object.assign({}, initialAnchor || anchors.rasulgarh);
+      this.currentPosition = {
+        lat: Number((this.anchor.lat + 0.00009).toFixed(6)),
+        lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
+        accuracy: 4,
+        simulated: true
+      };
+      this.listeners = [];
+      this.watchId = null;
+      this.error = null;
+    }
+
+    subscribe(fn) {
+      if (typeof fn === 'function') {
+        this.listeners.push(fn);
+        fn(this.getStatus());
+      }
+      return () => {
+        this.listeners = this.listeners.filter((l) => l !== fn);
+      };
+    }
+
+    notify() {
+      const status = this.getStatus();
+      this.listeners.forEach((fn) => {
+        try {
+          fn(status);
+        } catch (err) {
+          console.error('[UtkalVantage.GeofenceManager] Listener error:', err);
+        }
+      });
+      RealtimeBroadcaster.publish('GEO_STATUS', status);
+    }
+
+    setAnchor(presetObj) {
+      if (!presetObj || !Number.isFinite(Number(presetObj.lat)) || !Number.isFinite(Number(presetObj.lng))) {
+        return this.getStatus();
+      }
+      this.anchor = {
+        id: presetObj.id || 'custom',
+        name: presetObj.name || 'Assigned Canopy Zone',
+        lat: Number(presetObj.lat),
+        lng: Number(presetObj.lng),
+        radiusM: Number(presetObj.radiusM) || 100,
+        sector: presetObj.sector || 'nbfc'
+      };
+      this.error = null;
+      // Align simulated position near the newly selected preset for seamless demo pitching
+      this.currentPosition = {
+        lat: Number((this.anchor.lat + 0.00008).toFixed(6)),
+        lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
+        accuracy: 4,
+        simulated: true
+      };
+      this.notify();
+      return this.getStatus();
+    }
+
+    setAnchorCoords(lat, lng, name = 'Promoter Locked Location', radiusM = 100) {
+      return this.setAnchor({
+        id: 'locked_gps',
+        name,
+        lat: Number(lat),
+        lng: Number(lng),
+        radiusM: Number(radiusM) || 100
+      });
+    }
+
+    simulatePosition(lat, lng, accuracy = 4) {
+      const nLat = Number(lat);
+      const nLng = Number(lng);
+      if (!Number.isFinite(nLat) || !Number.isFinite(nLng)) {
+        this.error = 'Invalid GPS coordinates received';
+        this.notify();
+        return this.getStatus();
+      }
+      this.error = null;
+      this.currentPosition = {
+        lat: nLat,
+        lng: nLng,
+        accuracy: Number(accuracy) || 4,
+        simulated: true
+      };
+      this.notify();
+      return this.getStatus();
+    }
+
+    getStatus() {
+      if (this.error) {
+        return {
+          anchor: this.anchor,
+          currentPosition: this.currentPosition,
+          distanceM: null,
+          accuracy: null,
+          maxRadiusM: this.anchor.radiusM,
+          isLocked: false,
+          breachM: 0,
+          error: this.error
+        };
+      }
+      const dist = haversineDistanceM(
+        this.anchor.lat,
+        this.anchor.lng,
+        this.currentPosition.lat,
+        this.currentPosition.lng
+      );
+      const maxR = Number(this.anchor.radiusM) || 100;
+      const isLocked = dist <= maxR;
+      const breachM = isLocked ? 0 : Math.max(1, Math.round(dist - maxR));
+      return {
+        anchor: this.anchor,
+        currentPosition: this.currentPosition,
+        distanceM: dist,
+        accuracy: this.currentPosition.accuracy || 4,
+        maxRadiusM: maxR,
+        isLocked,
+        breachM,
+        error: null
+      };
+    }
+
+    startWatch() {
+      // Immediately emit initial valid lock state so UI never hangs on "--"
+      this.notify();
+      if (typeof navigator === 'undefined' || !navigator.geolocation) {
+        return;
+      }
+      try {
+        this.watchId = navigator.geolocation.watchPosition(
+          (pos) => {
+            if (pos && pos.coords) {
+              const distToAnchor = haversineDistanceM(
+                this.anchor.lat,
+                this.anchor.lng,
+                pos.coords.latitude,
+                pos.coords.longitude
+              );
+              // Only override demo anchor if actual GPS is within 5km of Bhubaneswar or user locked current GPS
+              if (distToAnchor < 5000 || this.anchor.id === 'locked_gps') {
+                this.currentPosition = {
+                  lat: pos.coords.latitude,
+                  lng: pos.coords.longitude,
+                  accuracy: Math.round(pos.coords.accuracy || 5),
+                  simulated: false
+                };
+                this.error = null;
+                this.notify();
+              }
+            }
+          },
+          () => {
+            // Keep high-precision simulated anchor position when hardware GPS permission is denied
+            this.notify();
+          },
+          { enableHighAccuracy: true, timeout: 6000, maximumAge: 10000 }
+        );
+      } catch (_) {
+        this.notify();
+      }
+    }
+
+    stopWatch() {
+      if (this.watchId !== null && typeof navigator !== 'undefined' && navigator.geolocation) {
+        navigator.geolocation.clearWatch(this.watchId);
+        this.watchId = null;
+      }
+    }
+  }
+
+  // ── 6. CRYPTOGRAPHIC PHOTO AUDIT ENGINE ───────────────────────────────────
+  const PhotoAuditEngine = {
+    async loadImageSource(source) {
+      if (typeof source === 'string' && source.startsWith('data:image')) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error('Failed to decode Data URL image'));
+          img.src = source;
+        });
+      }
+      if (typeof File !== 'undefined' && (source instanceof File || source instanceof Blob)) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error('Unsupported or corrupt image file'));
+            img.src = e.target.result;
+          };
+          reader.onerror = () => reject(new Error('Failed to read image file'));
+          reader.readAsDataURL(source);
+        });
+      }
+      if (typeof HTMLCanvasElement !== 'undefined' && source instanceof HTMLCanvasElement) {
+        return source;
+      }
+      if (typeof HTMLImageElement !== 'undefined' && source instanceof HTMLImageElement) {
+        return source;
+      }
+      throw new Error('Invalid image input provided to PhotoAuditEngine');
+    },
+
+    async processAndAudit(source, meta = {}) {
+      const istTime = formatIST(new Date());
+      const isoTime = new Date().toISOString();
+      const lat = Number.isFinite(Number(meta.lat)) ? Number(meta.lat) : 20.290623;
+      const lng = Number.isFinite(Number(meta.lng)) ? Number(meta.lng) : 85.864812;
+      const accuracy = Number.isFinite(Number(meta.accuracy)) ? Number(meta.accuracy) : 4;
+      const promoterId = String(meta.promoterId || 'UV-PRO-084');
+      const sector = String(meta.sector || 'nbfc').toUpperCase();
+      const zone = String(meta.zone || 'Rasulgarh Square Canopy');
+
+      let dataUrl = '';
+
+      if (typeof document !== 'undefined') {
+        const imgOrCanvas = await this.loadImageSource(source);
+        const origW = imgOrCanvas.width || 800;
+        const origH = imgOrCanvas.height || 600;
+        // Scale down oversized mobile camera photos (e.g., 4000x3000) to prevent RAM overflow
+        const maxDim = 960;
+        const scale = Math.min(1, maxDim / Math.max(origW, origH));
+        const w = Math.max(400, Math.round(origW * scale));
+        const h = Math.max(300, Math.round(origH * scale));
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(imgOrCanvas, 0, 0, w, h);
+
+        // Burn tamper-proof cryptographic watermark bar at bottom
+        const barH = Math.max(76, Math.round(h * 0.16));
+        const barY = h - barH;
+        ctx.fillStyle = 'rgba(22, 20, 18, 0.88)';
+        ctx.fillRect(0, barY, w, barH);
+
+        // Sunrise Coral top border on watermark bar
+        ctx.fillStyle = '#D85A30';
+        ctx.fillRect(0, barY, w, 4);
+
+        const padX = 16;
+        const fontBase = Math.max(11, Math.round(w * 0.017));
+        ctx.fillStyle = '#EF9F27';
+        ctx.font = `bold ${fontBase}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`UTKAL VANTAGE • TAMPER-PROOF FIELD AUDIT [${sector}]`, padX, barY + Math.round(barH * 0.34));
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = `${fontBase}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`REP: ${promoterId} | ZONE: ${zone}`, padX, barY + Math.round(barH * 0.62));
+
+        ctx.fillStyle = '#A3E635';
+        ctx.font = `${Math.max(10, fontBase - 1)}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`GPS: ${lat.toFixed(6)}, ${lng.toFixed(6)} (±${accuracy}m) | ${istTime}`, padX, barY + Math.round(barH * 0.88));
+
+        dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+      } else {
+        dataUrl = typeof source === 'string' ? source : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+      }
+
+      const sha256 = await computeSha256Hex(dataUrl);
+      return {
+        id: 'AUD-' + Date.now().toString(36).toUpperCase() + '-' + sha256.substring(0, 6).toUpperCase(),
+        dataUrl,
+        sha256,
+        shortHash: sha256.substring(0, 12),
+        timestamp: isoTime,
+        istFormatted: istTime,
+        lat,
+        lng,
+        accuracy,
+        sector: sector.toLowerCase(),
+        zone,
+        promoterId
+      };
+    },
+
+    async verifyIntegrity(dataUrl, expectedSha256) {
+      if (!dataUrl || !expectedSha256) {
+        return { match: false, computed: null, expected: expectedSha256 };
+      }
+      const computed = await computeSha256Hex(dataUrl);
+      const cleanExpected = String(expectedSha256).trim().toLowerCase();
+      return {
+        match: computed.toLowerCase() === cleanExpected,
+        computed,
+        expected: cleanExpected,
+        verifiedAt: new Date().toISOString()
+      };
+    }
+  };
+
+  // ── 7. DUAL-VERIFICATION OTP STATE MACHINE ────────────────────────────────
+  class DualVerificationMachine {
+    constructor(options = {}) {
+      this.ttlMs = Number(options.ttlMs) || 90000; // 90 seconds
+      this.maxAttempts = Number(options.maxAttempts) || 3;
+      this.challenge = null;
+    }
+
+    startChallenge(rawPhone, context = {}) {
+      const cleanPhone = sanitizeIndianPhone(rawPhone);
+      if (!isValidIndianPhone(cleanPhone)) {
+        throw new Error('Invalid Indian mobile number. Must be 10 digits starting with 6, 7, 8, or 9.');
+      }
+      // Cryptographically unbiased 6-digit OTP
+      let codeNum = 0;
+      if (global.crypto && global.crypto.getRandomValues) {
+        const arr = new Uint32Array(1);
+        global.crypto.getRandomValues(arr);
+        codeNum = 100000 + (arr[0] % 900000);
+      } else {
+        codeNum = Math.floor(100000 + Math.random() * 900000);
+      }
+      const now = Date.now();
+      this.challenge = {
+        phone: cleanPhone,
+        code: String(codeNum),
+        createdAt: now,
+        expiresAt: now + this.ttlMs,
+        attempts: 0,
+        maxAttempts: this.maxAttempts,
+        verified: false,
+        verifiedAt: null,
+        token: null,
+        context: Object.assign({}, context)
+      };
+      return Object.assign({}, this.challenge);
+    }
+
+    verify(inputCode, currentPhoneOnForm = null) {
+      if (!this.challenge) {
+        return { success: false, reason: 'No active OTP challenge. Please request an OTP first.' };
+      }
+      if (currentPhoneOnForm !== null) {
+        const checkPhone = sanitizeIndianPhone(currentPhoneOnForm);
+        if (checkPhone !== this.challenge.phone) {
+          return {
+            success: false,
+            reason: `Phone number changed (${checkPhone} vs ${this.challenge.phone}). Please re-trigger OTP for the new number.`
+          };
+        }
+      }
+      if (Date.now() > this.challenge.expiresAt) {
+        return { success: false, reason: 'OTP code expired (90s timeout). Please generate a new OTP.' };
+      }
+      if (this.challenge.attempts >= this.challenge.maxAttempts) {
+        return {
+          success: false,
+          reason: 'Maximum verification attempts (3) exceeded. Challenge locked — please request a new OTP.'
+        };
+      }
+      const cleanedCode = String(inputCode || '').trim();
+      if (!/^\d{6}$/.test(cleanedCode)) {
+        return { success: false, reason: 'Please enter a valid 6-digit numeric OTP code.' };
+      }
+      this.challenge.attempts += 1;
+      if (cleanedCode === this.challenge.code) {
+        this.challenge.verified = true;
+        this.challenge.verifiedAt = new Date().toISOString();
+        this.challenge.token = `UV-OTP-${this.challenge.phone}-${Date.now().toString(36).toUpperCase()}`;
+        return {
+          success: true,
+          phone: this.challenge.phone,
+          verifiedAt: this.challenge.verifiedAt,
+          token: this.challenge.token
+        };
+      }
+      const rem = this.challenge.maxAttempts - this.challenge.attempts;
+      return {
+        success: false,
+        reason: rem > 0
+          ? `Incorrect OTP code (${rem} attempt${rem === 1 ? '' : 's'} remaining).`
+          : 'Incorrect OTP code. Maximum attempts reached — please regenerate OTP.'
+      };
+    }
+
+    isVerifiedForPhone(rawPhone) {
+      if (!this.challenge || !this.challenge.verified) return false;
+      return this.challenge.phone === sanitizeIndianPhone(rawPhone);
+    }
+
+    reset() {
+      this.challenge = null;
+    }
+
+    static getWhatsAppLink(rawPhone, sector = 'nbfc', code = '000000') {
+      const cleanPhone = sanitizeIndianPhone(rawPhone);
+      const sectorMessages = {
+        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at the nearest Muthoot/IIFL Bhubaneswar branch for 11.9% p.a. zero-processing-fee assessment.`,
+        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes 100% cashless hospital coverage brochure for Apollo, SUM Ultimate & AMRI Bhubaneswar.`,
+        bank: `Namaskar! Your Utkal Vantage Merchant CASA & Soundbox Onboarding OTP is *${code}*. Verified KYC checklist logged for zero-fee current account activation.`,
+        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use code *UTKAL25* on Zepto/Blinkit for 25% OFF your next order!`
+      };
+      const text = sectorMessages[String(sector).toLowerCase()] || sectorMessages.nbfc;
+      return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
+    }
+  }
+
+  // ── 8. SECTOR P&L LEAD SCORING ENGINE ─────────────────────────────────────
+  const LeadScoringEngine = {
+    scoreLead(sector, details = {}, geoCompliant = true, otpVerified = true) {
+      let score = 5;
+      const sec = String(sector || 'nbfc').toLowerCase();
+      if (sec === 'nbfc') {
+        const g = String(details.goldGrams || '');
+        if (g.includes('50g+')) score = 9;
+        else if (g.includes('30-50g')) score = 8;
+        else score = 7;
+        if (String(details.currentRate || '').includes('48%') || String(details.currentRate || '').includes('36%')) {
+          score += 1;
+        }
+      } else if (sec === 'insurance') {
+        const f = String(details.family || '');
+        if (f.includes('Parents')) score = 9;
+        else if (f.includes('Children') || f.includes('Spouse')) score = 8;
+        else score = 7;
+        if (details.hospital) score += 0.5;
+      } else if (sec === 'bank') {
+        const k = String(details.kycStatus || '');
+        if (k.includes('GST')) score = 9;
+        else if (k.includes('Udyam')) score = 8;
+        else score = 7;
+        if (details.shopName && String(details.shopName).trim().length > 3) score += 0.5;
+      } else if (sec === 'd2c') {
+        const r = String(details.rating || '');
+        if (r.includes('5')) score = 9;
+        else if (r.includes('4')) score = 8;
+        else score = 6;
+      }
+      if (!geoCompliant) score -= 2;
+      if (!otpVerified) score -= 3;
+      return Math.max(1, Math.min(10, Math.round(score)));
+    },
+
+    estimateInsurancePremium(familyStr, ageBracket = '30-45') {
+      const f = String(familyStr || '');
+      let base = 690;
+      if (f.includes('Parents')) base = 1850;
+      else if (f.includes('Children') || f.includes('Kids')) base = 1190;
+      if (String(ageBracket).includes('45-60')) base = Math.round(base * 1.35);
+      else if (String(ageBracket).includes('18-30')) base = Math.round(base * 0.82);
+      return {
+        monthlyInr: base,
+        annualInr: base * 12,
+        coverLakhs: f.includes('Parents') ? '₹15 Lakhs Floater' : '₹10 Lakhs Floater'
+      };
+    }
+  };
+
+  // ── 9. REALTIME INTER-TAB & SAME-PAGE BROADCASTER ─────────────────────────
+  const RealtimeBroadcaster = {
+    channel: null,
+    subscribers: [],
+
+    init() {
+      if (this._initialized) return;
+      this._initialized = true;
+      try {
+        if (typeof BroadcastChannel !== 'undefined') {
+          this.channel = new BroadcastChannel('utkal_vantage_realtime_v2');
+          this.channel.onmessage = (e) => {
+            if (e && e.data) this._dispatch(e.data);
+          };
+        }
+      } catch (_) {}
+
+      if (typeof global.addEventListener === 'function') {
+        global.addEventListener('storage', (e) => {
+          if (e && e.key === 'uv_realtime_event_bus' && e.newValue) {
+            try {
+              const parsed = JSON.parse(e.newValue);
+              this._dispatch(parsed);
+            } catch (_) {}
+          }
+        });
+      }
+    },
+
+    _dispatch(eventObj) {
+      this.subscribers.forEach((cb) => {
+        try {
+          cb(eventObj);
+        } catch (err) {
+          console.error('[UtkalVantage.RealtimeBroadcaster] Subscriber error:', err);
+        }
+      });
+    },
+
+    publish(type, payload) {
+      this.init();
+      const eventObj = {
+        id: 'EVT-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+        type,
+        payload,
+        timestamp: new Date().toISOString()
+      };
+      // Notify same-window listeners
+      this._dispatch(eventObj);
+      // Notify other tabs via BroadcastChannel
+      try {
+        if (this.channel) this.channel.postMessage(eventObj);
+      } catch (_) {}
+      // Notify other tabs via localStorage event bus fallback
+      try {
+        if (global.localStorage) {
+          global.localStorage.setItem('uv_realtime_event_bus', JSON.stringify(eventObj));
+        }
+      } catch (_) {}
+      return eventObj;
+    },
+
+    subscribe(callback) {
+      this.init();
+      if (typeof callback === 'function') {
+        this.subscribers.push(callback);
+      }
+      return () => {
+        this.subscribers = this.subscribers.filter((cb) => cb !== callback);
+      };
+    }
+  };
+
+  // ── 10. RESILIENT STORAGE ENGINE (IndexedDB + localStorage + Memory) ──────
+  const memoryStore = {
+    leads: [],
+    photos: [],
+    campaigns: [],
+    promoters: [],
+    inventory: {
+      d2c: { startingStock: 200, dispensed: 53, remaining: 147, sku: 'Raw Pressery Cold Juice' }
+    }
+  };
+
+  const StorageEngine = {
+    dbName: 'UtkalVantageDB',
+    dbVersion: 2,
+    _dbPromise: null,
+
+    _readLocal(key, fallback) {
+      try {
+        if (global.localStorage) {
+          const raw = global.localStorage.getItem('uv_store_' + key);
+          if (raw) return JSON.parse(raw);
+        }
+      } catch (_) {}
+      return fallback;
+    },
+
+    _writeLocal(key, val) {
+      try {
+        if (global.localStorage) {
+          global.localStorage.setItem('uv_store_' + key, JSON.stringify(val));
+        }
+      } catch (_) {}
+    },
+
+    async _getDB() {
+      if (typeof indexedDB === 'undefined') return null;
+      if (this._dbPromise) return this._dbPromise;
+      this._dbPromise = new Promise((resolve) => {
+        try {
+          const req = indexedDB.open(this.dbName, this.dbVersion);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('leads')) {
+              db.createObjectStore('leads', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('photos')) {
+              db.createObjectStore('photos', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('campaigns')) {
+              db.createObjectStore('campaigns', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('promoters')) {
+              db.createObjectStore('promoters', { keyPath: 'id' });
+            }
+          };
+          req.onsuccess = (e) => resolve(e.target.result);
+          req.onerror = () => resolve(null);
+          req.onblocked = () => resolve(null);
+        } catch (_) {
+          resolve(null);
+        }
+      });
+      return this._dbPromise;
+    },
+
+    async saveLead(leadRecord, options = {}) {
+      if (!leadRecord || !leadRecord.id) {
+        throw new Error('Invalid leadRecord: missing id');
+      }
+      const cleanLead = Object.assign(
+        {
+          timestamp: new Date().toISOString(),
+          sector: 'nbfc',
+          client: 'Muthoot Finance',
+          otpVerified: true,
+          geoCompliant: true,
+          syncStatus: typeof navigator !== 'undefined' && navigator.onLine === false ? 'queued' : 'synced'
+        },
+        leadRecord
+      );
+
+      // Update local array + memory
+      const existing = this._readLocal('leads', memoryStore.leads);
+      const idx = existing.findIndex((l) => l.id === cleanLead.id);
+      if (idx >= 0) existing[idx] = cleanLead;
+      else existing.unshift(cleanLead);
+      memoryStore.leads = existing;
+      this._writeLocal('leads', existing);
+
+      // Persist to IndexedDB
+      const db = await this._getDB();
+      if (db) {
+        await new Promise((resolve) => {
+          try {
+            const tx = db.transaction('leads', 'readwrite');
+            tx.objectStore('leads').put(cleanLead);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+          } catch (_) {
+            resolve(false);
+          }
+        });
+      }
+
+      if (!options.silent) {
+        RealtimeBroadcaster.publish('LEAD_SAVED', cleanLead);
+      }
+      return cleanLead;
+    },
+
+    async getAllLeads() {
+      const localLeads = this._readLocal('leads', memoryStore.leads);
+      const db = await this._getDB();
+      if (!db) return localLeads;
+
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction('leads', 'readonly');
+          const req = tx.objectStore('leads').getAll();
+          req.onsuccess = () => {
+            const dbLeads = Array.isArray(req.result) ? req.result : [];
+            const mergedMap = new Map();
+            localLeads.forEach((l) => mergedMap.set(l.id, l));
+            dbLeads.forEach((l) => mergedMap.set(l.id, l));
+            const merged = Array.from(mergedMap.values()).sort(
+              (a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)
+            );
+            memoryStore.leads = merged;
+            resolve(merged);
+          };
+          req.onerror = () => resolve(localLeads);
+        } catch (_) {
+          resolve(localLeads);
+        }
+      });
+    },
+
+    async savePhoto(photoRecord, options = {}) {
+      if (!photoRecord || !photoRecord.id) {
+        throw new Error('Invalid photoRecord: missing id');
+      }
+      const existing = this._readLocal('photos', memoryStore.photos);
+      const idx = existing.findIndex((p) => p.id === photoRecord.id);
+      if (idx >= 0) existing[idx] = photoRecord;
+      else existing.unshift(photoRecord);
+      // Cap localStorage mirror to 15 photos to respect 5MB quota
+      memoryStore.photos = existing;
+      this._writeLocal('photos', existing.slice(0, 15));
+
+      const db = await this._getDB();
+      if (db) {
+        await new Promise((resolve) => {
+          try {
+            const tx = db.transaction('photos', 'readwrite');
+            tx.objectStore('photos').put(photoRecord);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+          } catch (_) {
+            resolve(false);
+          }
+        });
+      }
+
+      if (!options.silent) {
+        RealtimeBroadcaster.publish('PHOTO_AUDITED', photoRecord);
+      }
+      return photoRecord;
+    },
+
+    async getAllPhotos() {
+      const localPhotos = this._readLocal('photos', memoryStore.photos);
+      const db = await this._getDB();
+      if (!db) return localPhotos;
+
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction('photos', 'readonly');
+          const req = tx.objectStore('photos').getAll();
+          req.onsuccess = () => {
+            const dbPhotos = Array.isArray(req.result) ? req.result : [];
+            const mergedMap = new Map();
+            localPhotos.forEach((p) => mergedMap.set(p.id, p));
+            dbPhotos.forEach((p) => mergedMap.set(p.id, p));
+            const merged = Array.from(mergedMap.values()).sort(
+              (a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)
+            );
+            memoryStore.photos = merged;
+            resolve(merged);
+          };
+          req.onerror = () => resolve(localPhotos);
+        } catch (_) {
+          resolve(localPhotos);
+        }
+      });
+    },
+
+    getInventory(sector = 'd2c') {
+      const allInv = this._readLocal('inventory', memoryStore.inventory);
+      return (
+        allInv[sector] || {
+          startingStock: 200,
+          dispensed: 53,
+          remaining: 147,
+          sku: 'Raw Pressery Cold Juice'
+        }
+      );
+    },
+
+    updateInventory(sector = 'd2c', deltaDispensed = 1, customStart = null) {
+      const allInv = this._readLocal('inventory', memoryStore.inventory);
+      const cur = allInv[sector] || { startingStock: 200, dispensed: 53, remaining: 147 };
+      if (customStart !== null && Number.isFinite(Number(customStart))) {
+        cur.startingStock = Math.max(0, Number(customStart));
+      }
+      cur.dispensed = Math.min(cur.startingStock, Math.max(0, cur.dispensed + Number(deltaDispensed || 0)));
+      cur.remaining = Math.max(0, cur.startingStock - cur.dispensed);
+      allInv[sector] = cur;
+      memoryStore.inventory = allInv;
+      this._writeLocal('inventory', allInv);
+      RealtimeBroadcaster.publish('INVENTORY_UPDATED', { sector, inventory: cur });
+      return cur;
+    },
+
+    async clearAll() {
+      memoryStore.leads = [];
+      memoryStore.photos = [];
+      this._writeLocal('leads', []);
+      this._writeLocal('photos', []);
+      const db = await this._getDB();
+      if (db) {
+        try {
+          const tx = db.transaction(['leads', 'photos'], 'readwrite');
+          tx.objectStore('leads').clear();
+          tx.objectStore('photos').clear();
+        } catch (_) {}
+      }
+    }
+  };
+
+  // ── 11. UI TOAST & MODAL HELPER ───────────────────────────────────────────
+  const UI = {
+    toast(message, type = 'info', durationMs = 3800) {
+      if (typeof document === 'undefined') return;
+      let container = document.getElementById('uvToastContainer');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'uvToastContainer';
+        container.className = 'uv-toast-container';
+        document.body.appendChild(container);
+      }
+      const toastEl = document.createElement('div');
+      toastEl.className = `uv-toast ${type}`;
+      toastEl.innerHTML = `
+        <span>${escapeHtml(message)}</span>
+        <button type="button" style="background:none;border:none;color:#A39C93;cursor:pointer;font-weight:700;padding:0 4px;" aria-label="Dismiss">✕</button>
+      `;
+      toastEl.querySelector('button').onclick = () => toastEl.remove();
+      container.appendChild(toastEl);
+      if (durationMs > 0) {
+        setTimeout(() => {
+          if (toastEl.parentNode) toastEl.remove();
+        }, durationMs);
+      }
+    }
+  };
+
+  // Expose unified API on window.UtkalVantage
+  global.UtkalVantage = {
+    version: '2.0.0',
+    anchors,
+    haversineDistanceM,
+    computeSha256Hex,
+    escapeHtml,
+    escapeCsvCell,
+    sanitizeIndianPhone,
+    isValidIndianPhone,
+    formatIST,
+    GeofenceManager,
+    PhotoAuditEngine,
+    DualVerificationMachine,
+    LeadScoringEngine,
+    StorageEngine,
+    RealtimeBroadcaster,
+    UI
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+  }
+  if (!window.UtkalSupabase) {
+/**
+ * ============================================================================
+ * UTKAL VANTAGE — SUPABASE CLOUD & OFFLINE-FIRST REST CLIENT (js/supabase.js)
+ * Zero-dependency REST bridge for Supabase Auth, Postgres & Storage.
+ * Automatically falls back to local IndexedDB/StorageEngine when offline
+ * or before production Supabase credentials are configured.
+ * ============================================================================
+ */
+(function (global) {
+  'use strict';
+
+  const SUPABASE_CONFIG = {
+    url: 'https://your-project-ref.supabase.co',
+    anonKey: '' // Paste your Supabase public anon key here for cloud sync
+  };
+
+  class UtkalSupabaseClient {
+    constructor(config) {
+      this.url = (config && config.url) || SUPABASE_CONFIG.url;
+      this.anonKey = (config && config.anonKey) || SUPABASE_CONFIG.anonKey;
+    }
+
+    isConfigured() {
+      return Boolean(
+        this.anonKey &&
+        this.anonKey.length > 20 &&
+        this.url &&
+        !this.url.includes('your-project-ref')
+      );
+    }
+
+    async request(path, options = {}) {
+      if (!this.isConfigured() || (typeof navigator !== 'undefined' && !navigator.onLine)) {
+        return { data: null, offlineFallback: true, error: null };
+      }
+      try {
+        const headers = Object.assign(
+          {
+            'Content-Type': 'application/json',
+            apikey: this.anonKey,
+            Authorization: `Bearer ${this.anonKey}`,
+            Prefer: 'return=representation'
+          },
+          options.headers || {}
+        );
+        const res = await fetch(`${this.url}/rest/v1/${path}`, {
+          method: options.method || 'GET',
+          headers,
+          body: options.body ? JSON.stringify(options.body) : undefined
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          return { data: null, offlineFallback: false, error: errText };
+        }
+        const data = await res.json();
+        return { data, offlineFallback: false, error: null };
+      } catch (err) {
+        return { data: null, offlineFallback: true, error: err.message };
+      }
+    }
+
+    async syncLead(leadRecord) {
+      if (global.UtkalVantage && global.UtkalVantage.StorageEngine) {
+        await global.UtkalVantage.StorageEngine.saveLead(leadRecord, { silent: true });
+      }
+      return this.request('leads', { method: 'POST', body: leadRecord });
+    }
+
+    async fetchLeads() {
+      const cloud = await this.request('leads?select=*&order=timestamp.desc');
+      if (cloud.data && Array.isArray(cloud.data)) {
+        return cloud.data;
+      }
+      if (global.UtkalVantage && global.UtkalVantage.StorageEngine) {
+        return global.UtkalVantage.StorageEngine.getAllLeads();
+      }
+      return [];
+    }
+  }
+
+  global.UtkalSupabase = new UtkalSupabaseClient(SUPABASE_CONFIG);
+})(typeof window !== 'undefined' ? window : globalThis);
+
+  }
+</script>
 <script>
   let dashMap = null;
   let livePromoterMarker = null;
+  let activeLeadFilter = 'all';
+  let currentModalType = null;
 
-  // Initialize Dashboard Leaflet Map
+  function toggleMobileSidebar(forceState) {
+    const sidebar = document.getElementById('appSidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (!sidebar || !backdrop) return;
+    const isOpen = typeof forceState === 'boolean' ? forceState : !sidebar.classList.contains('open');
+    sidebar.classList.toggle('open', isOpen);
+    backdrop.classList.toggle('open', isOpen);
+  }
+
+  // Initialize Dashboard Map (Leaflet + Offline Vector Fallback)
   function initDashboardMap() {
     const el = document.getElementById('dashboardLeafletMap');
     if (!el || dashMap) return;
 
-    dashMap = L.map('dashboardLeafletMap', { attributionControl: false }).setView([20.2961, 85.8300], 13);
-    
-    // High-Definition, Watermark-Free, Zero-API-Key Esri World Street Map
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 19,
-      attribution: 'Tiles &copy; Esri'
-    }).addTo(dashMap);
+    if (typeof L !== 'undefined' && typeof L.map === 'function') {
+      try {
+        dashMap = L.map('dashboardLeafletMap', { attributionControl: false }).setView([20.2961, 85.8300], 13);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19,
+          attribution: 'Tiles &copy; Esri'
+        }).addTo(dashMap);
 
-    // Render Bhubaneswar Anchor Zones
-    const zones = [
-      { name: 'Rasulgarh Square (NBFC)', lat: 20.2906, lng: 85.8648, r: 100, color: '#D85A30', label: 'NBFC' },
-      { name: 'Unit-1 Daily Haat (NBFC)', lat: 20.2638, lng: 85.8340, r: 100, color: '#D85A30', label: 'NBFC' },
-      { name: 'KIIT / Patia (D2C)', lat: 20.3541, lng: 85.8192, r: 100, color: '#EF9F27', label: 'D2C' },
-      { name: 'Saheed Nagar (Bank KYC)', lat: 20.2882, lng: 85.8436, r: 20, color: '#1E7B4D', label: 'BANK' },
-      { name: 'Kalinga Nagar (Insurance)', lat: 20.2789, lng: 85.7725, r: 100, color: '#6d28d9', label: 'INS' }
-    ];
+        const zones = [
+          { name: 'Rasulgarh Square (NBFC)', lat: 20.2906, lng: 85.8648, r: 100, color: '#D85A30', label: 'NBFC' },
+          { name: 'Unit-1 Daily Haat (NBFC)', lat: 20.2638, lng: 85.8340, r: 100, color: '#D85A30', label: 'NBFC' },
+          { name: 'KIIT / Patia (D2C)', lat: 20.3541, lng: 85.8192, r: 100, color: '#EF9F27', label: 'D2C' },
+          { name: 'Saheed Nagar (Bank KYC)', lat: 20.2882, lng: 85.8436, r: 20, color: '#1E7B4D', label: 'BANK' },
+          { name: 'Kalinga Nagar (Insurance)', lat: 20.2789, lng: 85.7725, r: 100, color: '#6d28d9', label: 'INS' }
+        ];
 
-    zones.forEach(z => {
-      L.circle([z.lat, z.lng], {
-        radius: z.r,
-        color: z.color,
-        fillColor: z.color,
-        fillOpacity: 0.15,
-        weight: 2,
-        dashArray: '4, 4'
-      }).addTo(dashMap);
+        zones.forEach(z => {
+          L.circle([z.lat, z.lng], {
+            radius: z.r,
+            color: z.color,
+            fillColor: z.color,
+            fillOpacity: 0.15,
+            weight: 2,
+            dashArray: '4, 4'
+          }).addTo(dashMap);
 
-      const anchorIcon = L.divIcon({
-        className: 'custom-dash-anchor',
-        html: `<div style="background:#1F1D1B;color:#fff;padding:2px 6px;border-radius:12px;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;border:2px solid ${z.color};box-shadow:0 2px 8px rgba(0,0,0,0.35);white-space:nowrap;display:flex;align-items:center;gap:3px;">
-          <span style="width:6px;height:6px;border-radius:50%;background:${z.color};"></span>${z.label}
-        </div>`,
-        iconSize: [50, 20],
-        iconAnchor: [25, 10]
-      });
+          const anchorIcon = L.divIcon({
+            className: 'custom-dash-anchor',
+            html: `<div style="background:#1F1D1B;color:#fff;padding:2px 6px;border-radius:12px;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;border:2px solid ${z.color};box-shadow:0 2px 8px rgba(0,0,0,0.35);white-space:nowrap;display:flex;align-items:center;gap:3px;">
+              <span style="width:6px;height:6px;border-radius:50%;background:${z.color};"></span>${z.label}
+            </div>`,
+            iconSize: [50, 20],
+            iconAnchor: [25, 10]
+          });
 
-      const m = L.marker([z.lat, z.lng], { icon: anchorIcon }).addTo(dashMap);
-      m.bindPopup(`<b>${z.name}</b><br>${z.r}m Geofence Active`);
-    });
+          const m = L.marker([z.lat, z.lng], { icon: anchorIcon }).addTo(dashMap);
+          m.bindPopup(`<b>${z.name}</b><br>${z.r}m Geofence Active`);
+        });
 
-    // Promoter Fleet Markers
-    const promoters = [
-      { id: '84', name: 'Suresh K. (Active)', lat: 20.2908, lng: 85.8650, color: '#D85A30', status: 'Active' },
-      { id: '12', name: 'Sunita M. (Active)', lat: 20.2640, lng: 85.8342, color: '#D85A30', status: 'Active' },
-      { id: '45', name: 'Priya T. (Active)', lat: 20.3544, lng: 85.8195, color: '#EF9F27', status: 'Active' },
-      { id: '33', name: 'Bikash S. (Active)', lat: 20.2880, lng: 85.8432, color: '#1E7B4D', status: 'Active' },
-      { id: '09', name: 'Dinesh P. (Idle)', lat: 20.2980, lng: 85.8250, color: '#94a3b8', status: 'Idle' }
-    ];
+        const promoters = [
+          { id: '84', name: 'Suresh K. (Active)', lat: 20.2908, lng: 85.8650, color: '#D85A30', status: 'Active' },
+          { id: '12', name: 'Sunita M. (Active)', lat: 20.2640, lng: 85.8342, color: '#D85A30', status: 'Active' },
+          { id: '45', name: 'Priya T. (Active)', lat: 20.3544, lng: 85.8195, color: '#EF9F27', status: 'Active' },
+          { id: '33', name: 'Bikash S. (Active)', lat: 20.2880, lng: 85.8432, color: '#1E7B4D', status: 'Active' },
+          { id: '09', name: 'Dinesh P. (Idle)', lat: 20.2980, lng: 85.8250, color: '#94a3b8', status: 'Idle' }
+        ];
 
-    promoters.forEach(p => {
-      const pIcon = L.divIcon({
-        className: 'custom-promoter-icon',
-        html: `<div style="background:${p.color};color:#fff;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;border:2px solid #fff;box-shadow:0 0 10px ${p.color};cursor:pointer;">${p.id}</div>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12]
-      });
+        promoters.forEach(p => {
+          const pIcon = L.divIcon({
+            className: 'custom-promoter-icon',
+            html: `<div style="background:${p.color};color:#fff;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;border:2px solid #fff;box-shadow:0 0 10px ${p.color};cursor:pointer;">${p.id}</div>`,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+          });
 
-      const pm = L.marker([p.lat, p.lng], { icon: pIcon }).addTo(dashMap);
-      pm.bindPopup(`<b>PRO-${p.id}: ${p.name}</b><br>Status: ${p.status}`);
-      if (p.id === '84') livePromoterMarker = pm;
-    });
+          const pm = L.marker([p.lat, p.lng], { icon: pIcon }).addTo(dashMap);
+          pm.bindPopup(`<b>PRO-${p.id}: ${p.name}</b><br>Status: ${p.status}`);
+          if (p.id === '84') livePromoterMarker = pm;
+        });
+        return;
+      } catch (err) {
+        console.warn('Dashboard Leaflet fallback:', err);
+      }
+    }
+
+    // Offline Vector Map Fallback
+    el.innerHTML = `
+      <svg viewBox="0 0 600 360" width="100%" height="100%" style="background:#E8E5DD;display:block;">
+        <defs>
+          <pattern id="dashGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(31,29,27,0.08)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="600" height="360" fill="url(#dashGrid)"/>
+        <path d="M 0 180 Q 300 160 600 200" stroke="#FFFFFF" stroke-width="6" fill="none"/>
+        <path d="M 240 0 Q 260 180 220 360" stroke="#FFFFFF" stroke-width="6" fill="none"/>
+        <circle cx="420" cy="175" r="35" fill="#D85A30" fill-opacity="0.18" stroke="#D85A30" stroke-width="2" stroke-dasharray="4,4"/>
+        <circle cx="420" cy="175" r="12" fill="#D85A30" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="436" y="179" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="#1F1D1B">Rasulgarh (PRO-84)</text>
+        <circle cx="245" cy="240" r="35" fill="#1E7B4D" fill-opacity="0.18" stroke="#1E7B4D" stroke-width="2" stroke-dasharray="4,4"/>
+        <circle cx="245" cy="240" r="12" fill="#1E7B4D" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="261" y="244" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="#1F1D1B">Saheed Nagar (PRO-33)</text>
+        <circle cx="280" cy="85" r="35" fill="#EF9F27" fill-opacity="0.18" stroke="#EF9F27" stroke-width="2" stroke-dasharray="4,4"/>
+        <circle cx="280" cy="85" r="12" fill="#EF9F27" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="296" y="89" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="#1F1D1B">KIIT Patia (PRO-45)</text>
+      </svg>
+    `;
   }
 
-  // Real-time Event Subscription from Field Terminal
-  function initDashboardRealtime() {
+  function focusPromoterOnMap(lat, lng, label) {
+    setPage('dashboard', document.querySelector('[data-page="dashboard"]'));
+    if (dashMap) {
+      dashMap.setView([lat, lng], 16);
+      L.popup()
+        .setLatLng([lat, lng])
+        .setContent(`<b>${UtkalVantage.escapeHtml(label)}</b><br>GPS Telemetry Active`)
+        .openOn(dashMap);
+    }
+    UtkalVantage.UI.toast(`Focused map on ${label}`, 'info', 2200);
+  }
+
+  // Hydrate existing leads & photos from StorageEngine + Subscribe to Realtime Events
+  async function initDashboardRealtime() {
+    try {
+      const storedLeads = await UtkalVantage.StorageEngine.getAllLeads();
+      if (storedLeads && storedLeads.length) {
+        storedLeads.slice().reverse().forEach(l => prependDashboardLeadRow(l, false));
+      }
+      const storedPhotos = await UtkalVantage.StorageEngine.getAllPhotos();
+      if (storedPhotos && storedPhotos.length) {
+        storedPhotos.slice().reverse().forEach(p => prependDashboardPhotoThumb(p, false));
+      }
+    } catch (e) {
+      console.warn('Dashboard initial sync warning:', e);
+    }
+
     UtkalVantage.RealtimeBroadcaster.subscribe((event) => {
       if (event.type === 'LEAD_SAVED') {
         const lead = event.payload;
-        addActivityItem('user-plus', 'var(--green-pale)', 'var(--green)',
-          `New Verified ${lead.sector.toUpperCase()} Lead — ${lead.client}`,
+        addActivityItem(
+          'user-plus',
+          'var(--green-pale)',
+          'var(--green)',
+          `New Verified ${String(lead.sector || 'NBFC').toUpperCase()} Lead — ${lead.client}`,
           `${lead.customer.name} • ${lead.anchorZone} • OTP Verified`,
           'Just now'
         );
-        // Increment KPI
+        prependDashboardLeadRow(lead, true);
         incrementLeadKpi();
       } else if (event.type === 'PHOTO_AUDITED') {
         const photo = event.payload;
-        addActivityItem('camera', '#ede9ff', '#6d28d9',
+        addActivityItem(
+          'camera',
+          '#ede9ff',
+          '#6d28d9',
           `Photo Audited (SHA-256 Verified)`,
           `${photo.promoterId} • ${photo.zone} • ${photo.shortHash}...`,
           'Just now'
         );
+        prependDashboardPhotoThumb(photo, true);
+        const pKpi = document.getElementById('kpiPhotosVal');
+        if (pKpi) pKpi.textContent = String((parseInt(pKpi.textContent, 10) || 89) + 1);
+      } else if (event.type === 'GEO_STATUS' && event.payload && event.payload.currentPosition) {
+        if (livePromoterMarker && dashMap) {
+          livePromoterMarker.setLatLng([event.payload.currentPosition.lat, event.payload.currentPosition.lng]);
+        }
       }
     });
   }
 
+  // XSS-Safe Activity Feed Item Injection
   function addActivityItem(iconName, bg, color, title, desc, time) {
     const feed = document.getElementById('activityFeed');
     if (!feed) return;
@@ -779,103 +2949,405 @@
     item.style.padding = '8px 10px';
     item.style.marginBottom = '6px';
     item.innerHTML = `
-      <div class="activity-icon" style="background:${bg};color:${color};">
-        <ph-icon name="${iconName}" weight="fill" style="width:15px;height:15px;"></ph-icon>
+      <div class="activity-icon" style="background:${UtkalVantage.escapeHtml(bg)};color:${UtkalVantage.escapeHtml(color)};">
+        <ph-icon name="${UtkalVantage.escapeHtml(iconName)}" weight="fill" style="width:15px;height:15px;"></ph-icon>
       </div>
       <div>
-        <div style="font-size:0.83rem;font-weight:700;color:var(--ink);">${title}</div>
-        <div class="caption">${desc}</div>
-        <div class="caption" style="margin-top:2px;color:var(--accent);font-weight:600;">${time}</div>
+        <div style="font-size:0.83rem;font-weight:700;color:var(--ink);">${UtkalVantage.escapeHtml(title)}</div>
+        <div class="caption">${UtkalVantage.escapeHtml(desc)}</div>
+        <div class="caption" style="margin-top:2px;color:var(--accent);font-weight:600;">${UtkalVantage.escapeHtml(time)}</div>
       </div>
     `;
     feed.insertBefore(item, feed.firstChild);
     setTimeout(() => { item.style.transition = 'background 2s'; item.style.background = 'transparent'; }, 2000);
   }
 
-  function incrementLeadKpi() {
-    const cards = document.querySelectorAll('.kpi-card .kpi-value');
-    if (cards && cards[1]) {
-      const cur = parseInt(cards[1].textContent.replace(/[^0-9]/g, '')) || 147;
-      cards[1].textContent = (cur + 1).toString();
-      cards[1].style.color = 'var(--accent)';
-      setTimeout(() => { cards[1].style.color = ''; }, 1500);
-    }
+  function prependDashboardLeadRow(lead, isLive) {
+    const tbody = document.getElementById('leadsTableBody');
+    if (!tbody || !lead || !lead.id) return;
+    if (document.getElementById('dash-lead-' + lead.id)) return;
+
+    const score = lead.details && lead.details.leadScore ? Number(lead.details.leadScore) : 9;
+    const tr = document.createElement('tr');
+    tr.id = 'dash-lead-' + lead.id;
+    tr.setAttribute('data-score', String(score));
+    tr.setAttribute('data-status', 'contacted');
+    if (isLive) tr.style.background = 'rgba(216,90,48,0.12)';
+
+    tr.innerHTML = `
+      <td>
+        <div style="font-weight:700;font-size:0.85rem;color:var(--accent);">${UtkalVantage.escapeHtml(lead.customer.name)}</div>
+        <div class="caption">+91 ${UtkalVantage.escapeHtml(lead.customer.phone)} • ${UtkalVantage.escapeHtml(lead.anchorZone || 'Bhubaneswar')}</div>
+      </td>
+      <td>${UtkalVantage.escapeHtml(lead.client || 'Muthoot Gold')}</td>
+      <td>PRO-084</td>
+      <td><span class="badge badge-green">${score}/10</span></td>
+      <td><span class="badge badge-green">Verified</span></td>
+      <td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Live Synced</span></td>
+      <td class="caption">Just now</td>
+      <td><button type="button" class="btn btn-ghost btn-sm" onclick="UtkalVantage.UI.toast('Verified Lead ID: ${UtkalVantage.escapeHtml(lead.id)}', 'info')">Details</button></td>
+    `;
+    tbody.insertBefore(tr, tbody.firstChild);
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    initDashboardMap();
-    initDashboardRealtime();
-  });
+  function prependDashboardPhotoThumb(photo, isLive) {
+    const grid = document.getElementById('proofPhotoGrid');
+    if (!grid || !photo || !photo.id) return;
+    if (document.getElementById('dash-photo-' + photo.id)) return;
+
+    const div = document.createElement('div');
+    div.id = 'dash-photo-' + photo.id;
+    div.className = 'photo-thumb';
+    div.setAttribute('data-campaign', 'muthoot');
+    if (isLive) div.style.boxShadow = '0 0 0 3px var(--accent)';
+    div.innerHTML = `
+      <img src="${photo.dataUrl}" alt="Audited proof" />
+      <div class="photo-overlay">${UtkalVantage.escapeHtml(photo.promoterId)} • ${UtkalVantage.escapeHtml(photo.zone)}<br/>SHA: ${UtkalVantage.escapeHtml(photo.shortHash)} ✓</div>
+    `;
+    grid.insertBefore(div, grid.firstChild);
+  }
+
+  function incrementLeadKpi() {
+    const el = document.getElementById('kpiLeadsVal');
+    if (el) {
+      const cur = parseInt(el.textContent.replace(/[^0-9]/g, ''), 10) || 147;
+      el.textContent = String(cur + 1);
+      el.style.color = 'var(--accent)';
+      setTimeout(() => { el.style.color = ''; }, 1500);
+    }
+    const stageCap = document.getElementById('leadsStageCaptured');
+    if (stageCap) stageCap.textContent = String((parseInt(stageCap.textContent, 10) || 147) + 1);
+    const stageOtp = document.getElementById('leadsStageOtp');
+    if (stageOtp) stageOtp.textContent = String((parseInt(stageOtp.textContent, 10) || 89) + 1);
+    const stageHot = document.getElementById('leadsStageHot');
+    if (stageHot) stageHot.textContent = String((parseInt(stageHot.textContent, 10) || 61) + 1);
+  }
 
   // Page navigation
   function setPage(pageId, el) {
     document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.mobile-bottom-item').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-mob-page') === pageId);
+    });
+
     const pg = document.getElementById('page-' + pageId);
     if (pg) pg.classList.add('active');
-    if (el) el.classList.add('active');
-    const titles = { dashboard:'Dashboard', campaigns:'Campaigns', promoters:'Promoters', leads:'Leads', proofwork:'Proof of Work', clients:'Clients', analytics:'Analytics', billing:'Billing' };
+
+    const matchingSidebar = el || document.querySelector(`.sidebar-item[data-page="${pageId}"]`);
+    if (matchingSidebar) matchingSidebar.classList.add('active');
+
+    const titles = {
+      dashboard: 'Dashboard',
+      campaigns: 'Campaigns',
+      promoters: 'Promoters',
+      leads: 'Leads',
+      proofwork: 'Proof of Work',
+      clients: 'Clients',
+      analytics: 'Analytics',
+      billing: 'Billing'
+    };
     document.getElementById('pageTitle').textContent = titles[pageId] || pageId;
+    toggleMobileSidebar(false);
+
     if (pageId === 'dashboard') setTimeout(() => { if (dashMap) dashMap.invalidateSize(); }, 200);
     if (pageId === 'analytics') setTimeout(initTrendCharts, 100);
     return false;
   }
 
-  function filterTab(el) {
+  // Lead Table Filtering & Search
+  function filterTab(el, filterMode) {
     el.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
+    activeLeadFilter = filterMode || 'all';
+    filterLeadsTable();
   }
 
-  // Leads chart
-  const leadsCtx = document.getElementById('leadsChart');
-  if (leadsCtx) {
-    new Chart(leadsCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Today'],
-        datasets: [{
-          label: 'Leads',
-          data: [82, 95, 71, 118, 134, 109, 147],
-          backgroundColor: 'rgba(216,90,48,0.18)',
-          borderColor: 'rgba(216,90,48,0.85)',
-          borderWidth: 2, borderRadius: 6,
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
-          x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans' }, color: '#6B6660' } }
-        }
-      }
+  function filterLeadsTable() {
+    const q = (document.getElementById('leadsSearchInput') ? document.getElementById('leadsSearchInput').value : '').toLowerCase().trim();
+    const rows = document.querySelectorAll('#leadsTableBody tr');
+    rows.forEach(tr => {
+      const score = Number(tr.getAttribute('data-score') || 8);
+      const status = (tr.getAttribute('data-status') || '').toLowerCase();
+      const text = tr.textContent.toLowerCase();
+
+      let matchesTab = true;
+      if (activeLeadFilter === 'hot') matchesTab = score >= 7;
+      else if (activeLeadFilter === 'converted') matchesTab = status === 'converted';
+
+      const matchesSearch = !q || text.includes(q);
+      tr.style.display = matchesTab && matchesSearch ? '' : 'none';
     });
   }
 
-  const qualityCtx = document.getElementById('qualityChart');
-  if (qualityCtx) {
-    new Chart(qualityCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Hot (8-10)', 'Warm (6-7)', 'Cold (1-5)'],
-        datasets: [{
-          data: [41.5, 34.7, 23.8],
-          backgroundColor: ['#1E7B4D','#EF9F27','#DCD6CD'],
-          borderWidth: 0, borderRadius: 4, spacing: 4
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false, cutout: '72%',
-        plugins: {
-          legend: { position: 'bottom', labels: { font: { family: 'IBM Plex Sans' }, color: '#1F1D1B', padding: 14, boxWidth: 10 } }
-        }
+  function handleGlobalSearch(query) {
+    const q = String(query || '').toLowerCase().trim();
+    const activeTab = document.querySelector('.tab-content.active');
+    if (!activeTab) return;
+    activeTab.querySelectorAll('tbody tr').forEach(tr => {
+      tr.style.display = !q || tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+
+  function filterProofPhotos(campaignKey) {
+    const thumbs = document.querySelectorAll('#proofPhotoGrid .photo-thumb');
+    thumbs.forEach(t => {
+      const c = t.getAttribute('data-campaign') || 'muthoot';
+      t.style.display = campaignKey === 'all' || c === campaignKey ? '' : 'none';
+    });
+  }
+
+  // CSV Exports
+  function exportPromotersCsv() {
+    const rows = [['Name', 'Zone', 'Campaign', 'Leads Today', 'Photos', 'Score', 'Status']];
+    document.querySelectorAll('#promotersTableBody tr').forEach(tr => {
+      const tds = tr.querySelectorAll('td');
+      if (tds.length >= 7) {
+        rows.push([
+          tds[0].innerText.replace(/\s+/g, ' ').trim(),
+          tds[1].innerText.trim(),
+          tds[2].innerText.trim(),
+          tds[3].innerText.trim(),
+          tds[4].innerText.trim(),
+          tds[5].innerText.trim(),
+          tds[6].innerText.trim()
+        ]);
       }
     });
+    const csv = rows.map(r => r.map(UtkalVantage.escapeCsvCell).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'UtkalVantage_Promoter_Roster.csv';
+    a.click();
+    UtkalVantage.UI.toast('Promoter Roster CSV exported!', 'success');
+  }
+
+  function exportLeadsCsv() {
+    const rows = [['Lead Details', 'Campaign', 'Promoter', 'Score', 'OTP Status', 'Stage', 'Captured']];
+    document.querySelectorAll('#leadsTableBody tr').forEach(tr => {
+      const tds = tr.querySelectorAll('td');
+      if (tds.length >= 7) {
+        rows.push([
+          tds[0].innerText.replace(/\s+/g, ' ').trim(),
+          tds[1].innerText.trim(),
+          tds[2].innerText.trim(),
+          tds[3].innerText.trim(),
+          tds[4].innerText.trim(),
+          tds[5].innerText.trim(),
+          tds[6].innerText.trim()
+        ]);
+      }
+    });
+    const csv = rows.map(r => r.map(UtkalVantage.escapeCsvCell).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'UtkalVantage_CRM_Leads.csv';
+    a.click();
+    UtkalVantage.UI.toast('CRM Lead Pipeline CSV exported!', 'success');
+  }
+
+  // Interactive Action Modals (+ Campaign, + Promoter, + Lead, + Client)
+  function openActionModal(type) {
+    currentModalType = type;
+    const backdrop = document.getElementById('actionModalBackdrop');
+    const title = document.getElementById('actionModalTitle');
+    const fields = document.getElementById('actionModalFields');
+
+    if (type === 'campaign') {
+      title.textContent = 'Launch New BTL Campaign';
+      fields.innerHTML = `
+        <div><label style="font-size:0.8rem;font-weight:700;">Campaign Title</label><input class="input" id="modCampName" required placeholder="e.g. IIFL Gold Loan Haat Blitz" value="IIFL Gold Loan Haat Blitz" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Client Organization</label><input class="input" id="modCampClient" required placeholder="e.g. IIFL Finance" value="IIFL Finance" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Target Catchment Zones</label><input class="input" id="modCampZone" required value="Unit-1 Market, Rasulgarh, Kalpana Square" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Promoter Headcount</label><input type="number" class="input" id="modCampPromoters" required value="6" min="1" max="50" /></div>
+      `;
+    } else if (type === 'promoter') {
+      title.textContent = 'Add Field Promoter to Roster';
+      fields.innerHTML = `
+        <div><label style="font-size:0.8rem;font-weight:700;">Full Name</label><input class="input" id="modProName" required value="Subrat Mohapatra" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">10-Digit Mobile Number</label><input class="input" id="modProPhone" required value="9438219045" maxlength="10" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Assigned Zone</label><input class="input" id="modProZone" required value="Rasulgarh Square" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Assigned Campaign</label><input class="input" id="modProCamp" required value="Muthoot Gold Loan" /></div>
+      `;
+    } else if (type === 'lead') {
+      title.textContent = 'Manual Verified Lead Entry';
+      fields.innerHTML = `
+        <div><label style="font-size:0.8rem;font-weight:700;">Customer Name</label><input class="input" id="modLeadName" required value="Bidyadhar Swain" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Customer 10-Digit Mobile</label><input class="input" id="modLeadPhone" required value="9861045291" maxlength="10" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Catchment Zone</label><input class="input" id="modLeadZone" required value="Saheed Nagar" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Client Campaign</label><input class="input" id="modLeadClient" required value="Muthoot Finance" /></div>
+      `;
+    } else if (type === 'client') {
+      title.textContent = 'Onboard Enterprise Client';
+      fields.innerHTML = `
+        <div><label style="font-size:0.8rem;font-weight:700;">Organization Name</label><input class="input" id="modClientName" required value="Annapurna Finance" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Sector</label><input class="input" id="modClientSector" required value="NBFC / Microfinance" /></div>
+        <div><label style="font-size:0.8rem;font-weight:700;">Monthly Retainer (INR)</label><input class="input" id="modClientRetainer" required value="₹85,000" /></div>
+      `;
+    }
+    backdrop.classList.add('open');
+  }
+
+  function closeActionModal() {
+    document.getElementById('actionModalBackdrop').classList.remove('open');
+  }
+
+  async function submitActionModal(e) {
+    e.preventDefault();
+    if (currentModalType === 'campaign') {
+      const name = document.getElementById('modCampName').value.trim();
+      const client = document.getElementById('modCampClient').value.trim();
+      const zone = document.getElementById('modCampZone').value.trim();
+      const count = document.getElementById('modCampPromoters').value.trim();
+
+      const list = document.getElementById('campaignsListContainer');
+      if (list) {
+        const card = document.createElement('div');
+        card.className = 'card-flat campaign-row-card';
+        card.innerHTML = `
+          <div style="flex:1;min-width:220px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <div style="font-weight:700;color:var(--ink);">${UtkalVantage.escapeHtml(name)}</div>
+              <span class="badge badge-green">Active</span>
+            </div>
+            <div class="caption">${UtkalVantage.escapeHtml(client)} — ${UtkalVantage.escapeHtml(zone)}</div>
+          </div>
+          <div class="campaign-metrics-group">
+            <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">0</div><div class="caption">Leads</div></div>
+            <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">—</div><div class="caption">Conversion</div></div>
+            <div style="text-align:center;min-width:65px;"><div style="font-size:1.25rem;font-weight:800;">${UtkalVantage.escapeHtml(count)}/${UtkalVantage.escapeHtml(count)}</div><div class="caption">Promoters</div></div>
+            <div style="min-width:110px;"><div class="progress" style="margin-bottom:4px;"><div class="progress-fill" style="width:14%;"></div></div><div class="caption">Day 1/7</div></div>
+            <a href="promoter.html" class="btn btn-primary btn-sm">Launch</a>
+          </div>
+        `;
+        list.insertBefore(card, list.firstChild);
+      }
+      const badge = document.getElementById('sidebarCampaignCount');
+      if (badge) badge.textContent = String((parseInt(badge.textContent, 10) || 3) + 1);
+      UtkalVantage.UI.toast(`Campaign "${name}" deployed!`, 'success');
+    } else if (currentModalType === 'promoter') {
+      const name = document.getElementById('modProName').value.trim();
+      const phone = document.getElementById('modProPhone').value.trim();
+      const zone = document.getElementById('modProZone').value.trim();
+      const camp = document.getElementById('modProCamp').value.trim();
+      const initials = name.split(' ').map(s => s[0]).join('').substring(0, 2).toUpperCase();
+      const tbody = document.getElementById('promotersTableBody');
+      if (tbody) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">${UtkalVantage.escapeHtml(initials)}</div><div><div style="font-weight:600;font-size:0.85rem;">${UtkalVantage.escapeHtml(name)}</div><div class="caption">+91 ${UtkalVantage.escapeHtml(phone)}</div></div></div></td>
+          <td>${UtkalVantage.escapeHtml(zone)}</td>
+          <td>${UtkalVantage.escapeHtml(camp)}</td>
+          <td><strong>1</strong></td>
+          <td>1</td>
+          <td><span style="font-weight:700;color:var(--green);">9.0</span></td>
+          <td><div class="campaign-status"><span class="dot dot-green"></span><span style="font-size:0.82rem;font-weight:600;color:var(--green);">Active</span></div></td>
+          <td><button type="button" class="btn btn-ghost btn-sm" onclick="focusPromoterOnMap(20.2906, 85.8648, '${UtkalVantage.escapeHtml(name)}')">Track</button></td>
+        `;
+        tbody.insertBefore(tr, tbody.firstChild);
+      }
+      UtkalVantage.UI.toast(`Promoter ${name} added to active roster!`, 'success');
+    } else if (currentModalType === 'lead') {
+      const name = document.getElementById('modLeadName').value.trim();
+      const phone = UtkalVantage.sanitizeIndianPhone(document.getElementById('modLeadPhone').value);
+      const zone = document.getElementById('modLeadZone').value.trim();
+      const client = document.getElementById('modLeadClient').value.trim();
+      const leadObj = {
+        id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
+        timestamp: new Date().toISOString(),
+        sector: 'nbfc',
+        client,
+        customer: { name, phone },
+        otpVerified: true,
+        geoCompliant: true,
+        distanceFromAnchorM: 10,
+        anchorZone: zone,
+        details: { leadScore: 9, goldGrams: '30-50g' }
+      };
+      await UtkalVantage.StorageEngine.saveLead(leadObj);
+      UtkalVantage.UI.toast(`Lead ${name} saved & broadcast to Client Portal!`, 'success');
+    } else if (currentModalType === 'client') {
+      const name = document.getElementById('modClientName').value.trim();
+      const sector = document.getElementById('modClientSector').value.trim();
+      const retainer = document.getElementById('modClientRetainer').value.trim();
+      const tbody = document.getElementById('clientsTableBody');
+      if (tbody) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><div style="font-weight:600;">${UtkalVantage.escapeHtml(name)}</div><div class="caption">Odisha HQ</div></td>
+          <td>${UtkalVantage.escapeHtml(sector)}</td>
+          <td>1</td>
+          <td>0</td>
+          <td><strong>${UtkalVantage.escapeHtml(retainer)}</strong></td>
+          <td><a href="client-portal.html" class="btn btn-ghost btn-sm">Open Portal</a></td>
+          <td><button type="button" class="btn btn-ghost btn-sm" onclick="setPage('billing', null)">Billing</button></td>
+        `;
+        tbody.insertBefore(tr, tbody.firstChild);
+      }
+      UtkalVantage.UI.toast(`Client ${name} onboarded!`, 'success');
+    }
+    closeActionModal();
+  }
+
+  // Charts with SVG Offline Fallbacks
+  function initCharts() {
+    const leadsCtx = document.getElementById('leadsChart');
+    if (leadsCtx && typeof Chart !== 'undefined') {
+      new Chart(leadsCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Today'],
+          datasets: [{
+            label: 'Leads',
+            data: [82, 95, 71, 118, 134, 109, 147],
+            backgroundColor: 'rgba(216,90,48,0.18)',
+            borderColor: 'rgba(216,90,48,0.85)',
+            borderWidth: 2, borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
+            x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans' }, color: '#6B6660' } }
+          }
+        }
+      });
+    } else if (leadsCtx) {
+      document.getElementById('leadsChartContainer').innerHTML = `<svg viewBox="0 0 360 180" width="100%" height="100%"><rect x="20" y="75" width="32" height="80" rx="4" fill="#D85A30" opacity="0.7"/><rect x="68" y="62" width="32" height="93" rx="4" fill="#D85A30" opacity="0.7"/><rect x="116" y="85" width="32" height="70" rx="4" fill="#D85A30" opacity="0.7"/><rect x="164" y="45" width="32" height="110" rx="4" fill="#D85A30" opacity="0.8"/><rect x="212" y="30" width="32" height="125" rx="4" fill="#D85A30" opacity="0.85"/><rect x="260" y="50" width="32" height="105" rx="4" fill="#D85A30" opacity="0.8"/><rect x="308" y="15" width="32" height="140" rx="4" fill="#D85A30"/><text x="310" y="172" font-size="10" font-family="monospace" fill="#1F1D1B">Today (147)</text></svg>`;
+    }
+
+    const qualityCtx = document.getElementById('qualityChart');
+    if (qualityCtx && typeof Chart !== 'undefined') {
+      new Chart(qualityCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Hot (8-10)', 'Warm (6-7)', 'Cold (1-5)'],
+          datasets: [{
+            data: [41.5, 34.7, 23.8],
+            backgroundColor: ['#1E7B4D','#EF9F27','#DCD6CD'],
+            borderWidth: 0, borderRadius: 4, spacing: 4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, cutout: '72%',
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'IBM Plex Sans' }, color: '#1F1D1B', padding: 14, boxWidth: 10 } }
+          }
+        }
+      });
+    } else if (qualityCtx) {
+      document.getElementById('qualityChartContainer').innerHTML = `<svg viewBox="0 0 240 160" width="100%" height="100%"><circle cx="120" cy="70" r="48" fill="none" stroke="#DCD6CD" stroke-width="16"/><circle cx="120" cy="70" r="48" fill="none" stroke="#1E7B4D" stroke-width="16" stroke-dasharray="125 300"/><text x="120" y="75" text-anchor="middle" font-family="monospace" font-weight="700" font-size="14" fill="#1F1D1B">41.5% Hot</text></svg>`;
+    }
   }
 
   function initTrendCharts() {
     const tc = document.getElementById('trendChart');
     const rc = document.getElementById('revenueChart');
+    if (typeof Chart === 'undefined') return;
     if (tc && !tc._chartInstance) {
       tc._chartInstance = new Chart(tc, {
         type: 'line',
@@ -917,6 +3389,12 @@
       });
     }
   }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initDashboardMap();
+    initCharts();
+    initDashboardRealtime();
+  });
 </script>
 </body>
 </html>

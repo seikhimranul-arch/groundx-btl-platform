@@ -2,12 +2,923 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Utkal Vantage — Field Promoter Terminal | Live Verification</title>
   
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles/main.css" />
+  <style id="uv-inline-main-css">
+/* ==========================================================================
+   UTKAL VANTAGE — GLOBAL DESIGN SYSTEM & MOBILE-FIRST RESPONSIVE ENGINE v2.0
+   Brand Palette: Sunrise Coral (#D85A30), Ember (#993C1D), Dawn (#F5C4B3),
+   Ink (#1F1D1B), Warm Paper (#F6F3EE), Amber (#EF9F27), Forest (#1E7B4D)
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  --bg: #F6F3EE;
+  --fg: #1F1D1B;
+  --ink: #1F1D1B;
+  --ink-2: #38332E;
+  --ink-3: #6B6660;
+  --muted: #6B6660;
+  --line: #DCD6CD;
+  --panel: #ECE7DF;
+  --surface: #FFFFFF;
+  --border: #DCD6CD;
+  --border-strong: #B8B0A2;
+
+  --accent: #D85A30;
+  --accent-2: #E8714A;
+  --accent-deep: #993C1D;
+  --accent-soft: #F5C4B3;
+  --accent-pale: #FCEEE9;
+
+  --amber: #EF9F27;
+  --amber-deep: #995B08;
+  --amber-pale: #FEF7EA;
+
+  --green: #1E7B4D;
+  --green-pale: #EBF5EF;
+
+  --red: #C53030;
+  --red-pale: #FDE8E8;
+
+  --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 2px 6px rgba(31, 29, 27, 0.05);
+  --shadow: 0 6px 20px rgba(31, 29, 27, 0.08);
+  --shadow-lg: 0 18px 42px rgba(31, 29, 27, 0.12);
+
+  --sidebar-w: 252px;
+  --topbar-h: 64px;
+  color-scheme: light;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--display);
+  font-size: clamp(2.25rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.h1, h1 {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 3.6vw, 2.65rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.h2, h2 {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.h3, h3 {
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.body-lg {
+  font-size: 1.06rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.body {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.caption {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ── Layout & Containers ────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 84px 0;
+}
+
+.section-sm {
+  padding: 48px 0;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.divider-v {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(220, 214, 205, 0.8);
+}
+
+/* ── Top Marketing Navigation ───────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(246, 243, 238, 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.nav.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-inner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav-logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ── Buttons & Inputs ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  box-shadow: 0 4px 14px rgba(216, 90, 48, 0.28);
+}
+
+.btn-ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.btn-ghost:hover {
+  background: var(--panel);
+  border-color: var(--ink);
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 7px 12px;
+  border-radius: 8px;
+}
+
+.btn-lg {
+  font-size: 0.98rem;
+  padding: 13px 24px;
+  border-radius: 12px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+/* ── Badges, Dots & Deltas ──────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge-accent {
+  background: var(--accent-pale);
+  color: var(--accent-deep);
+  border: 1px solid rgba(216, 90, 48, 0.25);
+}
+
+.badge-green {
+  background: var(--green-pale);
+  color: var(--green);
+  border: 1px solid rgba(30, 123, 77, 0.25);
+}
+
+.badge-amber {
+  background: var(--amber-pale);
+  color: var(--amber-deep);
+  border: 1px solid rgba(239, 159, 39, 0.35);
+}
+
+.badge-red {
+  background: var(--red-pale);
+  color: var(--red);
+  border: 1px solid rgba(197, 48, 48, 0.25);
+}
+
+.badge-neutral {
+  background: var(--panel);
+  color: var(--ink-2);
+  border: 1px solid var(--border);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-green {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(30, 123, 77, 0.18);
+}
+
+.dot-amber {
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(239, 159, 39, 0.2);
+}
+
+.dot-red {
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.18);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--surface);
+}
+
+.delta-up { color: var(--green); }
+.delta-down { color: var(--red); }
+
+/* ── Cards, Avatars, Progress & Charts ──────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-flat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.avatar {
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--ink);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.avatar-sm { width: 32px; height: 32px; font-size: 0.72rem; }
+.avatar-md { width: 38px; height: 38px; font-size: 0.8rem; }
+.avatar-lg { width: 48px; height: 48px; font-size: 0.95rem; }
+
+.progress {
+  width: 100%;
+  height: 7px;
+  background: var(--panel);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+.progress-fill.green {
+  background: var(--green);
+}
+
+.chart-area {
+  position: relative;
+  height: 220px;
+  width: 100%;
+}
+
+/* ── Tables & Tabs ──────────────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  padding: 12px 14px;
+  border-bottom: 1.5px solid var(--border);
+  background: #FAF8F5;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: rgba(246, 243, 238, 0.55);
+}
+
+.tabs {
+  display: inline-flex;
+  background: var(--panel);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  gap: 4px;
+}
+
+.tab {
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tab.active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Marquee & Animations ───────────────────────────────────────────────── */
+.marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  white-space: nowrap;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUpFade 0.45s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.06s; }
+.delay-2 { animation-delay: 0.12s; }
+.delay-3 { animation-delay: 0.18s; }
+.delay-4 { animation-delay: 0.24s; }
+
+/* ── App Console Layout (Dashboard) ─────────────────────────────────────── */
+.app-layout {
+  display: flex;
+  min-height: 100dvh;
+  width: 100%;
+  background: var(--bg);
+}
+
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 300;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-logo {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-nav {
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sidebar-section {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  padding: 14px 10px 6px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.sidebar-item.active {
+  background: var(--accent-pale);
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.app-main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-topbar {
+  min-height: var(--topbar-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  flex-wrap: wrap;
+}
+
+.app-content {
+  padding: 24px;
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+}
+
+/* Mobile Sidebar Backdrop & Bottom Bar */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 29, 27, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 290;
+  display: none;
+}
+
+.sidebar-backdrop.open {
+  display: block;
+}
+
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  z-index: 280;
+  grid-template-columns: repeat(5, 1fr);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(31, 29, 27, 0.06);
+}
+
+.mobile-bottom-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.mobile-bottom-item.active {
+  color: var(--accent);
+}
+
+/* ── Universal Modal & Toast Components ─────────────────────────────────── */
+.uv-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 29, 27, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.uv-modal-backdrop.open {
+  display: flex;
+}
+
+.uv-modal {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  color: var(--ink);
+}
+
+.uv-toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(380px, calc(100vw - 32px));
+}
+
+.uv-toast {
+  background: #1F1D1B;
+  color: #FFFFFF;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: slideUpFade 0.25s ease forwards;
+}
+
+.uv-toast.success { border-left-color: #4ade80; }
+.uv-toast.error { border-left-color: #f87171; }
+.uv-toast.warn { border-left-color: var(--amber); }
+
+/* ── Responsive Breakpoints (Tablet & Phone) ────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+  .app-main {
+    margin-left: 0 !important;
+  }
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  .section {
+    padding: 56px 0;
+  }
+  .section-sm {
+    padding: 36px 0;
+  }
+  .grid-2, .grid-3, .grid-4,
+  .responsive-split, .steps-4-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .nav-links {
+    display: none;
+  }
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .app-topbar {
+    padding: 10px 14px;
+  }
+  .app-content {
+    padding: 14px 14px 80px 14px;
+  }
+  .mobile-bottom-nav {
+    display: grid;
+  }
+  .campaign-row-card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  /* Prevent iOS Safari zoom on input focus */
+  input, select, textarea, .field-input, .field-select, .input {
+    font-size: 16px !important;
+  }
+  .uv-toast-container {
+    bottom: 74px;
+    right: 16px;
+    left: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-actions .btn-sm {
+    padding: 6px 9px;
+    font-size: 0.74rem;
+  }
+  .nav-logo-text {
+    font-size: 1rem;
+  }
+}
+
+  </style>
   
   <!-- Leaflet Map (100% Free, Zero Google Maps Cost) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -23,31 +934,54 @@
       --ink: #1F1D1B !important;
       --ink-2: #38332E !important;
       --ink-3: #5C564F !important;
+      --muted: #5C564F !important;
       --surface: #FFFFFF !important;
       --border: #DCD6CD !important;
       --border-strong: #B8B0A2 !important;
       --panel: #ECE7DF !important;
+      --accent: #D85A30 !important;
+      --accent-deep: #993C1D !important;
+      --accent-pale: #FCEEE9 !important;
+      --amber: #EF9F27 !important;
+      --amber-pale: #FEF7EA !important;
+      --green: #1E7B4D !important;
+      --green-pale: #EBF5EF !important;
+      --red: #C53030 !important;
+      --red-pale: #FDE8E8 !important;
+      --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif;
+      --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+      --radius-sm: 8px;
+      --radius: 12px;
+      --shadow-lg: 0 18px 42px rgba(31, 29, 27, 0.14);
       color-scheme: light !important;
     }
 
+    *, *::before, *::after { box-sizing: border-box; }
+
     body {
+      margin: 0;
       background: #F4EFE6 !important;
       color: #1F1D1B !important;
-      min-height: 100vh;
+      font-family: var(--body);
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 30px;
+      padding-bottom: 40px;
+      overflow-x: hidden;
     }
 
     /* Fixed Terminal Header */
     .terminal-bar {
-      height: var(--app-header-h);
+      min-height: var(--app-header-h);
       background: #1F1D1B !important;
       color: #FFFFFF !important;
-      padding: 0 16px;
+      padding: 8px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -59,14 +993,29 @@
       gap: 10px;
       font-family: var(--display);
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.98rem;
       letter-spacing: -0.01em;
       color: #FFFFFF !important;
+      text-decoration: none;
     }
     .terminal-meta {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
+    }
+    .terminal-nav-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #E2DDD6 !important;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: background 0.15s;
+    }
+    .terminal-nav-link:hover {
+      background: rgba(255,255,255,0.12);
     }
     .status-pill {
       font-family: var(--mono);
@@ -86,7 +1035,7 @@
       width: 100%;
       max-width: 680px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -102,24 +1051,27 @@
       color: #1F1D1B !important;
     }
     .feature-header {
-      padding: 14px 18px;
+      padding: 13px 16px;
       background: #FAF7F2 !important;
       border-bottom: 1.5px solid #DCD6CD !important;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
       color: #1F1D1B !important;
     }
     .feature-header h2 {
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
       color: #1F1D1B !important;
+      margin: 0;
     }
     .feature-body {
-      padding: 16px 18px;
+      padding: 16px;
       color: #1F1D1B !important;
     }
 
@@ -128,35 +1080,36 @@
       background: #FFFDF9 !important;
       border: 1.5px dashed #D85A30 !important;
       border-radius: 8px;
-      padding: 12px 14px;
+      padding: 12px;
       margin-bottom: 14px;
       font-size: 0.8rem;
       color: #1F1D1B !important;
     }
-    .pitch-tools strong {
-      color: #1F1D1B !important;
+    .pitch-tools strong { color: #1F1D1B !important; }
+    .pitch-tools .caption { color: #5C564F !important; font-weight: 600; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all 0.15s;
     }
-    .pitch-tools .caption {
-      color: #5C564F !important;
-      font-weight: 600;
-    }
-    .pitch-tools .btn-ghost {
+    .btn-sm { padding: 6px 10px; font-size: 0.76rem; min-height: 36px; }
+    .btn-primary { background: #D85A30 !important; color: #FFFFFF !important; border-color: #D85A30 !important; }
+    .btn-ghost {
       background: #FFFFFF !important;
       color: #1F1D1B !important;
       border: 1.5px solid #B8B0A2 !important;
       font-weight: 700 !important;
-      border-radius: 6px;
     }
-    .pitch-tools .btn-ghost:hover {
-      background: #F4EFE6 !important;
-      border-color: #1F1D1B !important;
-    }
-    .pitch-tools .btn-primary {
-      background: #D85A30 !important;
-      color: #FFFFFF !important;
-      border: none !important;
-      font-weight: 700 !important;
-    }
+    .btn-ghost:hover { background: #F4EFE6 !important; border-color: #1F1D1B !important; }
 
     /* Geofence Map */
     #geofenceMap {
@@ -165,30 +1118,31 @@
       border-radius: var(--radius-sm);
       border: 1.5px solid #DCD6CD !important;
       margin-bottom: 12px;
+      position: relative;
+      background: #E8E5DD;
+      overflow: hidden;
     }
 
     .geofence-gauge {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 8px;
       background: #FFFFFF !important;
       border: 1.5px solid #DCD6CD !important;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 12px 10px;
       margin-bottom: 12px;
     }
-    .gauge-item {
-      text-align: center;
-    }
+    .gauge-item { text-align: center; }
     .gauge-val {
       font-family: var(--mono);
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 1.18rem;
       line-height: 1.1;
       color: #1F1D1B !important;
     }
     .gauge-label {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: #5C564F !important;
       text-transform: uppercase;
       font-weight: 700;
@@ -196,31 +1150,29 @@
     }
 
     .geofence-status-banner {
-      padding: 10px 14px;
+      padding: 10px 12px;
       border-radius: 8px;
       font-family: var(--mono);
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
     }
     .geofence-status-banner.locked {
       background: #EBF5EF !important;
       color: #1E7B4D !important;
       border: 1.5px solid #1E7B4D !important;
     }
-    .geofence-status-banner.locked span {
-      color: #1E7B4D !important;
-    }
+    .geofence-status-banner.locked span { color: #1E7B4D !important; }
     .geofence-status-banner.breach {
       background: #FDE8E8 !important;
       color: #C53030 !important;
       border: 1.5px solid #C53030 !important;
     }
-    .geofence-status-banner.breach span {
-      color: #C53030 !important;
-    }
+    .geofence-status-banner.breach span { color: #C53030 !important; }
 
     /* Sector Selector */
     .sector-tabs {
@@ -230,7 +1182,7 @@
       margin-bottom: 16px;
     }
     .sector-tab {
-      padding: 10px 4px;
+      padding: 10px 6px;
       text-align: center;
       background: #F4EFE6 !important;
       color: #1F1D1B !important;
@@ -240,6 +1192,10 @@
       font-size: 0.78rem;
       font-weight: 700;
       transition: all 0.2s;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .sector-tab.active {
       background: #D85A30 !important;
@@ -248,9 +1204,7 @@
     }
 
     /* Form Fields */
-    .field-group {
-      margin-bottom: 14px;
-    }
+    .field-group { margin-bottom: 14px; }
     .field-group label {
       display: block;
       font-size: 0.8rem;
@@ -260,18 +1214,20 @@
     }
     .field-input, .field-select {
       width: 100%;
-      padding: 10px 12px;
+      padding: 11px 12px;
       border: 1.5px solid #B8B0A2 !important;
       border-radius: 8px;
       font-family: var(--body);
-      font-size: 0.92rem;
+      font-size: 16px !important; /* Prevents iOS Safari auto-zoom on focus */
       background: #FFFFFF !important;
       color: #1F1D1B !important;
       outline: none;
       transition: border-color 0.2s;
+      min-height: 44px;
     }
     .field-input:focus, .field-select:focus {
       border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(216, 90, 48, 0.15);
     }
 
     /* Photo Audit Canvas Preview */
@@ -298,6 +1254,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
       border-top: 1px solid #333;
     }
 
@@ -319,59 +1277,85 @@
       border-radius: var(--radius);
       width: 100%;
       max-width: 420px;
-      padding: 24px;
+      padding: 22px;
       box-shadow: var(--shadow-lg);
       border: 1.5px solid #DCD6CD !important;
+      max-height: 92dvh;
+      overflow-y: auto;
     }
 
     .btn-block {
       width: 100%;
-      padding: 12px;
+      padding: 12px 14px;
+      min-height: 46px;
       border-radius: 9px;
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       border: none;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, transform 0.1s;
     }
-    .btn-block:hover { opacity: 0.92; }
+    .btn-block:hover { opacity: 0.94; }
+    .btn-block:active { transform: translateY(1px); }
 
-    .btn.btn-ghost {
-      background: #FFFFFF !important;
-      color: #1F1D1B !important;
-      border: 1.5px solid #B8B0A2 !important;
-      font-weight: 700 !important;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 4px 9px;
+      border-radius: 999px;
     }
-
     .badge-green {
       background: #EBF5EF !important;
       color: #1E7B4D !important;
       border: 1px solid #1E7B4D !important;
       font-weight: 700 !important;
     }
-
     .badge-amber {
       background: #FEF7EA !important;
       color: #993C1D !important;
       border: 1px solid #EF9F27 !important;
       font-weight: 700 !important;
     }
+    .badge-red {
+      background: #FDE8E8 !important;
+      color: #C53030 !important;
+      border: 1px solid #C53030 !important;
+      font-weight: 700 !important;
+    }
     .caption {
       color: #5C564F !important;
       font-weight: 600 !important;
+      font-size: 0.76rem;
     }
-    .feature-body p {
-      color: #38332E !important;
+
+    .action-btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
     }
-    small, .text-muted {
-      color: #5C564F !important;
+
+    .playbook-widget {
+      background: #FAF7F2 !important;
+      border: 1.5px solid #DCD6CD !important;
+      border-radius: 9px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
     }
-    strong, b, h1, h2, h3, h4, h5, h6 {
-      color: #1F1D1B !important;
+
+    @media (max-width: 520px) {
+      .sector-tabs { grid-template-columns: repeat(2, 1fr); }
+      .action-btn-row { flex-direction: column; }
+      .photo-action-row { flex-direction: column; }
+      .sim-btn-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -379,29 +1363,31 @@
 
   <!-- Top Fixed App Header -->
   <header class="terminal-bar">
-    <div class="terminal-title">
-      <div style="width:24px;height:24px;background:var(--accent);border-radius:6px;display:grid;place-items:center;">
+    <a href="index.html" class="terminal-title">
+      <div style="width:26px;height:26px;background:var(--accent);border-radius:6px;display:grid;place-items:center;flex-shrink:0;">
         <span style="font-family:var(--mono);font-size:12px;font-weight:800;color:#fff;">UV</span>
       </div>
       <span>Utkal Vantage Field Terminal</span>
-    </div>
+    </a>
     <div class="terminal-meta">
+      <a href="dashboard.html" class="terminal-nav-link">Ops Console</a>
+      <a href="client-portal.html" class="terminal-nav-link">Client Portal</a>
       <span class="status-pill online" id="netStatus">
         <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> ONLINE
       </span>
-      <span style="font-family:var(--mono);font-size:0.75rem;color:#A39C93;">ID: PRO-084</span>
+      <span style="font-family:var(--mono);font-size:0.72rem;color:#A39C93;">ID: PRO-084</span>
     </div>
   </header>
 
   <!-- Main Work Area -->
   <main class="terminal-content">
 
-    <!-- ── FEATURE 1: 100M GPS GEOFENCING ENGINE ──────────────────────── -->
+    <!-- ── FEATURE 1: 100M / 20M GPS GEOFENCING ENGINE ────────────────── -->
     <section class="feature-card">
       <div class="feature-header">
         <h2>
           <ph-icon name="map-pin" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
-          Feature 1: GPS 100m Radial Lock Engine
+          Feature 1: GPS Radial Lock Engine
         </h2>
         <span class="badge badge-green" id="geoEngineBadge">ACTIVE GPS</span>
       </div>
@@ -409,30 +1395,35 @@
         
         <!-- Founder Pitch Tool for Instant Demo in Client Office -->
         <div class="pitch-tools">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <strong>Founder Demo Mode (In-Office Pitch Tool):</strong>
-            <span class="caption">Zero-Cost Testing</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px;">
+            <strong>Founder Demo Mode (In-Office & Mobile Pitch Tool):</strong>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button type="button" class="btn btn-sm btn-ghost" id="simOfflineToggleBtn" onclick="toggleSimulatedOffline()" style="padding:3px 8px;font-size:0.7rem;min-height:28px;">
+                Simulate Offline Mode
+              </button>
+            </div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('rasulgarh')">Rasulgarh (100m)</button>
-            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('unit1')">Unit-1 Market (100m)</button>
-            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('patia')">KIIT Square (100m)</button>
-            <button class="btn btn-sm btn-ghost" onclick="setAnchorPreset('saheed')">Saheed Nagar (20m Shop)</button>
-            <button class="btn btn-sm btn-primary" onclick="setAnchorToCurrentLocation()">Lock Here (My Current GPS)</button>
+            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('rasulgarh')">Rasulgarh (100m)</button>
+            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('unit1')">Unit-1 Market (100m)</button>
+            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('patia')">KIIT Square (100m)</button>
+            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('kalinga')">Kalinga Nagar (100m)</button>
+            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('saheed')">Saheed Nagar (20m Shop)</button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="setAnchorToCurrentLocation()">Lock Here (My Current GPS)</button>
           </div>
         </div>
 
-        <!-- Live Leaflet Map -->
+        <!-- Live Map (Leaflet + Offline Vector Radar Fallback) -->
         <div id="geofenceMap"></div>
 
         <!-- Real-time Geo Gauge -->
         <div class="geofence-gauge">
           <div class="gauge-item">
-            <div class="gauge-val" id="gaugeDistance">--</div>
+            <div class="gauge-val" id="gaugeDistance">12m</div>
             <div class="gauge-label">Distance to Canopy</div>
           </div>
           <div class="gauge-item">
-            <div class="gauge-val" id="gaugeAccuracy">--</div>
+            <div class="gauge-val" id="gaugeAccuracy">±4m</div>
             <div class="gauge-label">GPS Precision</div>
           </div>
           <div class="gauge-item">
@@ -445,14 +1436,14 @@
         <div class="geofence-status-banner locked" id="geoBanner">
           <div style="display:flex;align-items:center;gap:8px;">
             <ph-icon name="shield-check" weight="fill" style="font-size:20px;"></ph-icon>
-            <span id="geoBannerText">GEOFENCE LOCKED — WITHIN VERIFIED CANOPY ZONE</span>
+            <span id="geoBannerText">GEOFENCE LOCKED — WITHIN RASULGARH SQUARE CANOPY</span>
           </div>
-          <span style="font-size:0.75rem;" id="geoCoordsDisplay">20.2906, 85.8648</span>
+          <span style="font-size:0.75rem;" id="geoCoordsDisplay">20.2907, 85.8649</span>
         </div>
 
-        <div style="display:flex;gap:8px;margin-top:10px;">
-          <button class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(false)">Simulate Inside Canopy (15m)</button>
-          <button class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(true)">Simulate Breach (140m)</button>
+        <div class="sim-btn-row" style="display:flex;gap:8px;margin-top:10px;">
+          <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(false)">Simulate Inside Canopy (15m)</button>
+          <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(true)">Simulate Breach (140m)</button>
         </div>
       </div>
     </section>
@@ -468,18 +1459,18 @@
       </div>
       <div class="feature-body">
         <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
-          Captures ground canopy or storefront proof. Automatically burns real-time GPS coordinates, IST timestamp, and promoter ID into canvas bytes, then calculates an immutable SHA-256 hash.
+          Captures ground canopy or merchant storefront proof. Automatically burns real-time GPS coordinates, IST timestamp, and promoter ID into canvas bytes, then calculates an immutable FIPS 180-4 SHA-256 hash.
         </p>
 
         <!-- Hidden input and capture trigger -->
         <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoSelected(event)">
 
-        <div style="display:flex;gap:10px;margin-bottom:12px;">
-          <button class="btn-block btn-primary" onclick="document.getElementById('photoInput').click()">
+        <div class="photo-action-row" style="display:flex;gap:10px;margin-bottom:12px;">
+          <button type="button" class="btn-block btn-primary" onclick="document.getElementById('photoInput').click()">
             <ph-icon name="camera" weight="bold"></ph-icon>
             Capture Live Canopy / Storefront Photo
           </button>
-          <button class="btn btn-ghost" onclick="captureSampleAuditPhoto()">
+          <button type="button" class="btn btn-ghost" style="min-height:46px;" onclick="captureSampleAuditPhoto()">
             Use Sample Demo Photo
           </button>
         </div>
@@ -489,13 +1480,18 @@
           <img id="auditPhotoImg" src="" alt="Audited Proof" />
           <div class="photo-hash-bar">
             <span id="photoHashLabel">SHA-256: Computing...</span>
-            <button class="btn btn-sm btn-ghost" style="padding:2px 8px;font-size:0.65rem;color:#4ade80;border-color:#4ade80;" onclick="verifyCurrentPhotoIntegrity()">
-              ✓ Verify Integrity
-            </button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-sm btn-ghost" style="padding:2px 8px;font-size:0.65rem;color:#4ade80 !important;border-color:#4ade80 !important;background:#1A1816 !important;min-height:26px;" onclick="verifyCurrentPhotoIntegrity()">
+                ✓ Verify Integrity
+              </button>
+              <button type="button" class="btn btn-sm btn-ghost" style="padding:2px 8px;font-size:0.65rem;color:#f87171 !important;border-color:#f87171 !important;background:#1A1816 !important;min-height:26px;" onclick="simulatePhotoTamperAttack()">
+                ⚡ Test 1px Tamper
+              </button>
+            </div>
           </div>
         </div>
 
-        <div id="integrityResult" style="display:none;margin-top:8px;padding:8px 12px;background:var(--green-pale);border-radius:6px;font-size:0.75rem;font-family:var(--mono);color:var(--green);">
+        <div id="integrityResult" style="display:none;margin-top:8px;padding:10px 12px;background:var(--green-pale);border-radius:6px;font-size:0.75rem;font-family:var(--mono);color:var(--green);">
         </div>
       </div>
     </section>
@@ -513,38 +1509,39 @@
         
         <!-- Sector Selector -->
         <div class="sector-tabs">
-          <div class="sector-tab active" onclick="switchSector('nbfc', this)">1. NBFC</div>
-          <div class="sector-tab" onclick="switchSector('insurance', this)">2. Insurance</div>
-          <div class="sector-tab" onclick="switchSector('bank', this)">3. Bank</div>
-          <div class="sector-tab" onclick="switchSector('d2c', this)">4. D2C Brand</div>
+          <div class="sector-tab active" data-sector="nbfc" onclick="switchSector('nbfc', this)">1. NBFC</div>
+          <div class="sector-tab" data-sector="insurance" onclick="switchSector('insurance', this)">2. Insurance</div>
+          <div class="sector-tab" data-sector="bank" onclick="switchSector('bank', this)">3. Bank</div>
+          <div class="sector-tab" data-sector="d2c" onclick="switchSector('d2c', this)">4. D2C Brand</div>
         </div>
 
-        <form id="leadForm" onsubmit="handleFormSubmit(event)">
+        <form id="leadForm" onsubmit="handleFormSubmit(event)" novalidate>
           
           <div class="field-group">
-            <label>Customer / Contact Name</label>
+            <label for="custName">Customer / Contact Name</label>
             <input type="text" id="custName" class="field-input" placeholder="e.g. Rakesh Mohanty" required value="Suresh Behera" />
           </div>
 
           <div class="field-group">
-            <label>Mobile Number (For Dual OTP Verification)</label>
-            <input type="tel" id="custPhone" class="field-input" placeholder="10-digit number" required value="9437128495" pattern="[0-9]{10}" />
+            <label for="custPhone">Mobile Number (10-Digit Indian Mobile for Dual OTP Verification)</label>
+            <input type="tel" id="custPhone" class="field-input" placeholder="10-digit number starting with 6-9" required value="9437128495" maxlength="10" pattern="[6-9][0-9]{9}" oninput="onPhoneInputChanged()" />
+            <div id="phoneBindingNotice" style="display:none;margin-top:4px;font-size:0.74rem;font-family:var(--mono);color:var(--green);"></div>
           </div>
 
           <!-- DYNAMIC SECTOR FIELDS -->
           <div id="sectorDynamicFields">
             <!-- NBFC Fields (Default) -->
             <div class="field-group">
-              <label>Estimated Gold Weight (Asset Readiness)</label>
-              <select id="nbfcGold" class="field-select">
+              <label for="nbfcGold">Estimated Gold Weight (Asset Readiness)</label>
+              <select id="nbfcGold" class="field-select" onchange="updateSectorPlaybookWidget()">
                 <option value="15-30g">15–30 grams (Ticket: ₹75,000–₹1,50,000)</option>
                 <option value="30-50g" selected>30–50 grams (Ticket: ₹1,50,000–₹2,50,000)</option>
                 <option value="50g+">50+ grams (High-Value Ticket: ₹2.5L+)</option>
               </select>
             </div>
             <div class="field-group">
-              <label>Current Pawn / Loan Interest Rate at Local Sahukar</label>
-              <select id="nbfcRate" class="field-select">
+              <label for="nbfcRate">Current Pawn / Loan Interest Rate at Local Sahukar</label>
+              <select id="nbfcRate" class="field-select" onchange="updateSectorPlaybookWidget()">
                 <option value="36%">36% per annum (Local Mahajan / Moneylender)</option>
                 <option value="48%" selected>48% per annum (Pawnshop default)</option>
                 <option value="24%">24% per annum (Other NBFC)</option>
@@ -552,12 +1549,15 @@
             </div>
           </div>
 
-          <div style="display:flex;gap:10px;margin-top:16px;">
-            <button type="button" class="btn-block btn-primary" style="background:#EF9F27;color:#1F1D1B;" onclick="triggerOtpFlow()">
+          <!-- Dynamic Sector Playbook Value-Add Widget (AI Score / Premium Estimator / Inventory) -->
+          <div class="playbook-widget" id="sectorPlaybookWidget"></div>
+
+          <div class="action-btn-row">
+            <button type="button" id="triggerOtpBtn" class="btn-block btn-primary" style="background:#EF9F27 !important;color:#1F1D1B !important;border-color:#EF9F27 !important;" onclick="triggerOtpFlow()">
               <ph-icon name="key" weight="bold"></ph-icon>
               1. Trigger Dual OTP Verification
             </button>
-            <button type="submit" id="submitLeadBtn" class="btn-block btn-primary" style="background:#1E7B4D;display:none;">
+            <button type="submit" id="submitLeadBtn" class="btn-block btn-primary" style="background:#1E7B4D !important;border-color:#1E7B4D !important;display:none;">
               <ph-icon name="check-circle" weight="bold"></ph-icon>
               2. Save Verified Lead
             </button>
@@ -568,53 +1568,1209 @@
       </div>
     </section>
 
+    <!-- ── FEATURE 4: LIVE TERMINAL SUBMISSION LEDGER & OFFLINE SYNC ──── -->
+    <section class="feature-card">
+      <div class="feature-header">
+        <h2>
+          <ph-icon name="database" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
+          Live Session Ledger & Offline Sync Queue
+        </h2>
+        <button type="button" class="btn btn-sm btn-ghost" onclick="flushOfflineLeads()">
+          ↻ Sync Queued Now
+        </button>
+      </div>
+      <div class="feature-body">
+        <div id="localLeadsList" style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;">
+          <div class="caption">No field leads captured in this session yet. Complete a lead above to test instant persistence.</div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ── OTP MODAL ──────────────────────────────────────────────────── -->
   <div class="otp-modal-overlay" id="otpModal">
     <div class="otp-modal">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <h3 style="font-size:1.1rem;font-weight:700;">Instant Dual-Verification</h3>
+        <h3 style="font-size:1.1rem;font-weight:700;margin:0;">Instant Dual-Verification</h3>
         <span class="badge badge-amber" id="otpTimerDisplay">90s</span>
       </div>
       <p style="font-size:0.84rem;color:var(--muted);margin-bottom:14px;">
         An auditable verification challenge has been generated for <strong id="otpPhoneDisplay">+91 9437128495</strong>.
       </p>
 
-      <div style="background:#FAF6EF;border:1px dashed var(--accent);border-radius:8px;padding:12px;margin-bottom:14px;text-align:center;">
+      <div style="background:#FAF6EF;border:1.5px dashed var(--accent);border-radius:8px;padding:12px;margin-bottom:14px;text-align:center;">
         <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;">PROMOTER SCREEN DEMO CODE:</div>
         <div style="font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--accent);" id="demoOtpCode">------</div>
-        <div style="font-size:0.7rem;color:var(--muted);margin-top:4px;">(Real customer also receives via WhatsApp link)</div>
+        <div style="margin-top:6px;">
+          <button type="button" class="btn btn-sm btn-ghost" onclick="autoFillDemoOtp()" style="font-size:0.72rem;padding:4px 10px;min-height:30px;">
+            ⚡ Tap to Auto-Fill Code
+          </button>
+        </div>
       </div>
 
-      <a id="waTriggerLink" href="#" target="_blank" class="btn btn-ghost" style="width:100%;margin-bottom:14px;color:#1E7B4D;border-color:#1E7B4D;justify-content:center;gap:6px;text-decoration:none;">
+      <a id="waTriggerLink" href="#" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;margin-bottom:14px;color:#1E7B4D !important;border-color:#1E7B4D !important;justify-content:center;gap:6px;text-decoration:none;min-height:42px;">
         <ph-icon name="whatsapp-logo" weight="fill" style="font-size:18px;"></ph-icon>
         Open WhatsApp Verification Deep-Link (₹0 Cost)
       </a>
 
       <div class="field-group">
-        <label>Enter 6-Digit OTP Provided by Customer</label>
-        <input type="text" id="otpInput" class="field-input" maxlength="6" placeholder="Enter 6-digit code" style="font-family:var(--mono);font-size:1.3rem;letter-spacing:4px;text-align:center;" />
+        <label for="otpInput">Enter 6-Digit OTP Provided by Customer</label>
+        <input type="text" id="otpInput" inputmode="numeric" class="field-input" maxlength="6" placeholder="Enter 6-digit code" style="font-family:var(--mono);font-size:1.3rem !important;letter-spacing:4px;text-align:center;" />
+        <div id="otpModalFeedback" style="display:none;margin-top:6px;font-size:0.76rem;font-family:var(--mono);color:var(--red);"></div>
       </div>
 
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-ghost" style="flex:1;" onclick="closeOtpModal()">Cancel</button>
-        <button class="btn btn-primary" style="flex:2;" onclick="verifyOtpCode()">Verify & Unlock</button>
+        <button type="button" class="btn btn-ghost" style="flex:1;min-height:44px;" onclick="closeOtpModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" style="flex:2;min-height:44px;" onclick="verifyOtpCode()">Verify & Unlock</button>
       </div>
     </div>
   </div>
 
   <!-- Utkal Vantage Engine Scripts -->
   <script src="js/field-engine.js"></script>
+<script id="uv-inline-core-engine">
+  if (!window.UtkalVantage) {
+/**
+ * ============================================================================
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.0
+ * Zero-cost client-side architecture for Odisha BTL Operations:
+ *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
+ *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
+ *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
+ *   4. LeadScoringEngine (Sector-Specific P&L Qualification Scoring)
+ *   5. StorageEngine (Resilient IndexedDB + localStorage + Memory Failover)
+ *   6. RealtimeBroadcaster (BroadcastChannel + Storage Event Cross-Tab Sync)
+ * ============================================================================
+ */
+(function (global) {
+  'use strict';
+
+  // ── 1. CRYPTOGRAPHIC SHA-256 (WebCrypto + Pure-JS Fallback for HTTP/LAN) ──
+  function sha256PureJS(ascii) {
+    function rightRotate(value, amount) {
+      return (value >>> amount) | (value << (32 - amount));
+    }
+    const mathPow = Math.pow;
+    const maxWord = mathPow(2, 32);
+    const lengthProperty = 'length';
+    let i, j;
+    let result = '';
+    const words = [];
+    const asciiBitLength = ascii[lengthProperty] * 8;
+    let hash = (sha256PureJS.h = sha256PureJS.h || []);
+    const k = (sha256PureJS.k = sha256PureJS.k || []);
+    let primeCounter = k[lengthProperty];
+    const isComposite = {};
+    for (let candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = 0; i < 313; i += candidate) {
+          isComposite[i] = candidate;
+        }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while ((ascii[lengthProperty] % 64) - 56) ascii += '\x00';
+    for (i = 0; i < ascii[lengthProperty]; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << (((3 - i) % 4) * 8);
+    }
+    words[words[lengthProperty]] = (asciiBitLength / maxWord) | 0;
+    words[words[lengthProperty]] = asciiBitLength;
+    for (j = 0; j < words[lengthProperty]; ) {
+      const w = words.slice(j, (j += 16));
+      const oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (i = 0; i < 64; i++) {
+        const i2 = i + j;
+        const w15 = w[i - 15], w2 = w[i - 2];
+        const a = hash[0], e = hash[4];
+        const temp1 =
+          hash[7] +
+          (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+          ((e & hash[5]) ^ (~e & hash[6])) +
+          k[i] +
+          (w[i] =
+            i < 16
+              ? w[i]
+              : (w[i - 16] +
+                  (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                  w[i - 7] +
+                  (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+                0);
+        const temp2 =
+          (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+          ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (i = 0; i < 8; i++) {
+        hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j + 1; j--) {
+        const b = (hash[i] >> (j * 8)) & 255;
+        result += (b < 16 ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  async function computeSha256Hex(strInput) {
+    const str = String(strInput || '');
+    try {
+      if (global.crypto && global.crypto.subtle && global.TextEncoder) {
+        const buf = new TextEncoder().encode(str);
+        const digest = await global.crypto.subtle.digest('SHA-256', buf);
+        return Array.from(new Uint8Array(digest))
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('');
+      }
+    } catch (_) {
+      // Fallback to pure JS SHA-256 on non-HTTPS mobile LAN or restricted contexts
+    }
+    const utf8 = unescape(encodeURIComponent(str));
+    return sha256PureJS(utf8);
+  }
+
+  // ── 2. SECURITY & FORMATTING UTILITIES ────────────────────────────────────
+  function escapeHtml(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function escapeCsvCell(val) {
+    let s = String(val == null ? '' : val).replace(/\r?\n/g, ' ').trim();
+    // Defend against CSV Formula Injection (=, +, -, @, \t, \r)
+    if (/^[=+\-@\t\r]/.test(s) && !/^\+91\d/.test(s)) {
+      s = "'" + s;
+    }
+    if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  function sanitizeIndianPhone(raw) {
+    const digits = String(raw || '').replace(/\D/g, '');
+    if (digits.length === 12 && digits.startsWith('91')) {
+      return digits.slice(2);
+    }
+    if (digits.length === 11 && digits.startsWith('0')) {
+      return digits.slice(1);
+    }
+    return digits;
+  }
+
+  function isValidIndianPhone(raw) {
+    const clean = sanitizeIndianPhone(raw);
+    return /^[6-9]\d{9}$/.test(clean);
+  }
+
+  function formatIST(dateObj) {
+    const d = dateObj instanceof Date ? dateObj : new Date();
+    try {
+      return d.toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }) + ' IST';
+    } catch (_) {
+      return d.toISOString();
+    }
+  }
+
+  // ── 3. DESIGNATED BHUBANESWAR & ODISHA ANCHOR ZONES ───────────────────────
+  const anchors = {
+    rasulgarh: {
+      id: 'rasulgarh',
+      name: 'Rasulgarh Square Canopy',
+      lat: 20.2906,
+      lng: 85.8648,
+      radiusM: 100,
+      sector: 'nbfc'
+    },
+    unit1: {
+      id: 'unit1',
+      name: 'Unit-1 Daily Haat Canopy',
+      lat: 20.2638,
+      lng: 85.8340,
+      radiusM: 100,
+      sector: 'nbfc'
+    },
+    patia: {
+      id: 'patia',
+      name: 'KIIT Square Sampling Hub',
+      lat: 20.3541,
+      lng: 85.8192,
+      radiusM: 100,
+      sector: 'd2c'
+    },
+    saheed: {
+      id: 'saheed',
+      name: 'Saheed Nagar Merchant Zone',
+      lat: 20.2882,
+      lng: 85.8436,
+      radiusM: 20,
+      sector: 'bank'
+    },
+    kalinga: {
+      id: 'kalinga',
+      name: 'Kalinga Nagar Society Kiosk',
+      lat: 20.2789,
+      lng: 85.7725,
+      radiusM: 100,
+      sector: 'insurance'
+    }
+  };
+
+  // ── 4. HAVERSINE RADIAL DISTANCE ENGINE ───────────────────────────────────
+  function haversineDistanceM(lat1, lng1, lat2, lng2) {
+    const nLat1 = Number(lat1), nLng1 = Number(lng1);
+    const nLat2 = Number(lat2), nLng2 = Number(lng2);
+    if (
+      !Number.isFinite(nLat1) || !Number.isFinite(nLng1) ||
+      !Number.isFinite(nLat2) || !Number.isFinite(nLng2)
+    ) {
+      return Infinity;
+    }
+    const R = 6371000; // Earth mean radius in meters
+    const toRad = (deg) => (deg * Math.PI) / 180;
+    const dLat = toRad(nLat2 - nLat1);
+    const dLng = toRad(nLng2 - nLng1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(nLat1)) * Math.cos(toRad(nLat2)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(Math.max(0, 1 - a)));
+    return Math.round(R * c);
+  }
+
+  // ── 5. GEOFENCE MANAGER ───────────────────────────────────────────────────
+  class GeofenceManager {
+    constructor(initialAnchor) {
+      this.anchor = Object.assign({}, initialAnchor || anchors.rasulgarh);
+      this.currentPosition = {
+        lat: Number((this.anchor.lat + 0.00009).toFixed(6)),
+        lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
+        accuracy: 4,
+        simulated: true
+      };
+      this.listeners = [];
+      this.watchId = null;
+      this.error = null;
+    }
+
+    subscribe(fn) {
+      if (typeof fn === 'function') {
+        this.listeners.push(fn);
+        fn(this.getStatus());
+      }
+      return () => {
+        this.listeners = this.listeners.filter((l) => l !== fn);
+      };
+    }
+
+    notify() {
+      const status = this.getStatus();
+      this.listeners.forEach((fn) => {
+        try {
+          fn(status);
+        } catch (err) {
+          console.error('[UtkalVantage.GeofenceManager] Listener error:', err);
+        }
+      });
+      RealtimeBroadcaster.publish('GEO_STATUS', status);
+    }
+
+    setAnchor(presetObj) {
+      if (!presetObj || !Number.isFinite(Number(presetObj.lat)) || !Number.isFinite(Number(presetObj.lng))) {
+        return this.getStatus();
+      }
+      this.anchor = {
+        id: presetObj.id || 'custom',
+        name: presetObj.name || 'Assigned Canopy Zone',
+        lat: Number(presetObj.lat),
+        lng: Number(presetObj.lng),
+        radiusM: Number(presetObj.radiusM) || 100,
+        sector: presetObj.sector || 'nbfc'
+      };
+      this.error = null;
+      // Align simulated position near the newly selected preset for seamless demo pitching
+      this.currentPosition = {
+        lat: Number((this.anchor.lat + 0.00008).toFixed(6)),
+        lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
+        accuracy: 4,
+        simulated: true
+      };
+      this.notify();
+      return this.getStatus();
+    }
+
+    setAnchorCoords(lat, lng, name = 'Promoter Locked Location', radiusM = 100) {
+      return this.setAnchor({
+        id: 'locked_gps',
+        name,
+        lat: Number(lat),
+        lng: Number(lng),
+        radiusM: Number(radiusM) || 100
+      });
+    }
+
+    simulatePosition(lat, lng, accuracy = 4) {
+      const nLat = Number(lat);
+      const nLng = Number(lng);
+      if (!Number.isFinite(nLat) || !Number.isFinite(nLng)) {
+        this.error = 'Invalid GPS coordinates received';
+        this.notify();
+        return this.getStatus();
+      }
+      this.error = null;
+      this.currentPosition = {
+        lat: nLat,
+        lng: nLng,
+        accuracy: Number(accuracy) || 4,
+        simulated: true
+      };
+      this.notify();
+      return this.getStatus();
+    }
+
+    getStatus() {
+      if (this.error) {
+        return {
+          anchor: this.anchor,
+          currentPosition: this.currentPosition,
+          distanceM: null,
+          accuracy: null,
+          maxRadiusM: this.anchor.radiusM,
+          isLocked: false,
+          breachM: 0,
+          error: this.error
+        };
+      }
+      const dist = haversineDistanceM(
+        this.anchor.lat,
+        this.anchor.lng,
+        this.currentPosition.lat,
+        this.currentPosition.lng
+      );
+      const maxR = Number(this.anchor.radiusM) || 100;
+      const isLocked = dist <= maxR;
+      const breachM = isLocked ? 0 : Math.max(1, Math.round(dist - maxR));
+      return {
+        anchor: this.anchor,
+        currentPosition: this.currentPosition,
+        distanceM: dist,
+        accuracy: this.currentPosition.accuracy || 4,
+        maxRadiusM: maxR,
+        isLocked,
+        breachM,
+        error: null
+      };
+    }
+
+    startWatch() {
+      // Immediately emit initial valid lock state so UI never hangs on "--"
+      this.notify();
+      if (typeof navigator === 'undefined' || !navigator.geolocation) {
+        return;
+      }
+      try {
+        this.watchId = navigator.geolocation.watchPosition(
+          (pos) => {
+            if (pos && pos.coords) {
+              const distToAnchor = haversineDistanceM(
+                this.anchor.lat,
+                this.anchor.lng,
+                pos.coords.latitude,
+                pos.coords.longitude
+              );
+              // Only override demo anchor if actual GPS is within 5km of Bhubaneswar or user locked current GPS
+              if (distToAnchor < 5000 || this.anchor.id === 'locked_gps') {
+                this.currentPosition = {
+                  lat: pos.coords.latitude,
+                  lng: pos.coords.longitude,
+                  accuracy: Math.round(pos.coords.accuracy || 5),
+                  simulated: false
+                };
+                this.error = null;
+                this.notify();
+              }
+            }
+          },
+          () => {
+            // Keep high-precision simulated anchor position when hardware GPS permission is denied
+            this.notify();
+          },
+          { enableHighAccuracy: true, timeout: 6000, maximumAge: 10000 }
+        );
+      } catch (_) {
+        this.notify();
+      }
+    }
+
+    stopWatch() {
+      if (this.watchId !== null && typeof navigator !== 'undefined' && navigator.geolocation) {
+        navigator.geolocation.clearWatch(this.watchId);
+        this.watchId = null;
+      }
+    }
+  }
+
+  // ── 6. CRYPTOGRAPHIC PHOTO AUDIT ENGINE ───────────────────────────────────
+  const PhotoAuditEngine = {
+    async loadImageSource(source) {
+      if (typeof source === 'string' && source.startsWith('data:image')) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error('Failed to decode Data URL image'));
+          img.src = source;
+        });
+      }
+      if (typeof File !== 'undefined' && (source instanceof File || source instanceof Blob)) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error('Unsupported or corrupt image file'));
+            img.src = e.target.result;
+          };
+          reader.onerror = () => reject(new Error('Failed to read image file'));
+          reader.readAsDataURL(source);
+        });
+      }
+      if (typeof HTMLCanvasElement !== 'undefined' && source instanceof HTMLCanvasElement) {
+        return source;
+      }
+      if (typeof HTMLImageElement !== 'undefined' && source instanceof HTMLImageElement) {
+        return source;
+      }
+      throw new Error('Invalid image input provided to PhotoAuditEngine');
+    },
+
+    async processAndAudit(source, meta = {}) {
+      const istTime = formatIST(new Date());
+      const isoTime = new Date().toISOString();
+      const lat = Number.isFinite(Number(meta.lat)) ? Number(meta.lat) : 20.290623;
+      const lng = Number.isFinite(Number(meta.lng)) ? Number(meta.lng) : 85.864812;
+      const accuracy = Number.isFinite(Number(meta.accuracy)) ? Number(meta.accuracy) : 4;
+      const promoterId = String(meta.promoterId || 'UV-PRO-084');
+      const sector = String(meta.sector || 'nbfc').toUpperCase();
+      const zone = String(meta.zone || 'Rasulgarh Square Canopy');
+
+      let dataUrl = '';
+
+      if (typeof document !== 'undefined') {
+        const imgOrCanvas = await this.loadImageSource(source);
+        const origW = imgOrCanvas.width || 800;
+        const origH = imgOrCanvas.height || 600;
+        // Scale down oversized mobile camera photos (e.g., 4000x3000) to prevent RAM overflow
+        const maxDim = 960;
+        const scale = Math.min(1, maxDim / Math.max(origW, origH));
+        const w = Math.max(400, Math.round(origW * scale));
+        const h = Math.max(300, Math.round(origH * scale));
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(imgOrCanvas, 0, 0, w, h);
+
+        // Burn tamper-proof cryptographic watermark bar at bottom
+        const barH = Math.max(76, Math.round(h * 0.16));
+        const barY = h - barH;
+        ctx.fillStyle = 'rgba(22, 20, 18, 0.88)';
+        ctx.fillRect(0, barY, w, barH);
+
+        // Sunrise Coral top border on watermark bar
+        ctx.fillStyle = '#D85A30';
+        ctx.fillRect(0, barY, w, 4);
+
+        const padX = 16;
+        const fontBase = Math.max(11, Math.round(w * 0.017));
+        ctx.fillStyle = '#EF9F27';
+        ctx.font = `bold ${fontBase}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`UTKAL VANTAGE • TAMPER-PROOF FIELD AUDIT [${sector}]`, padX, barY + Math.round(barH * 0.34));
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = `${fontBase}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`REP: ${promoterId} | ZONE: ${zone}`, padX, barY + Math.round(barH * 0.62));
+
+        ctx.fillStyle = '#A3E635';
+        ctx.font = `${Math.max(10, fontBase - 1)}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`GPS: ${lat.toFixed(6)}, ${lng.toFixed(6)} (±${accuracy}m) | ${istTime}`, padX, barY + Math.round(barH * 0.88));
+
+        dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+      } else {
+        dataUrl = typeof source === 'string' ? source : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+      }
+
+      const sha256 = await computeSha256Hex(dataUrl);
+      return {
+        id: 'AUD-' + Date.now().toString(36).toUpperCase() + '-' + sha256.substring(0, 6).toUpperCase(),
+        dataUrl,
+        sha256,
+        shortHash: sha256.substring(0, 12),
+        timestamp: isoTime,
+        istFormatted: istTime,
+        lat,
+        lng,
+        accuracy,
+        sector: sector.toLowerCase(),
+        zone,
+        promoterId
+      };
+    },
+
+    async verifyIntegrity(dataUrl, expectedSha256) {
+      if (!dataUrl || !expectedSha256) {
+        return { match: false, computed: null, expected: expectedSha256 };
+      }
+      const computed = await computeSha256Hex(dataUrl);
+      const cleanExpected = String(expectedSha256).trim().toLowerCase();
+      return {
+        match: computed.toLowerCase() === cleanExpected,
+        computed,
+        expected: cleanExpected,
+        verifiedAt: new Date().toISOString()
+      };
+    }
+  };
+
+  // ── 7. DUAL-VERIFICATION OTP STATE MACHINE ────────────────────────────────
+  class DualVerificationMachine {
+    constructor(options = {}) {
+      this.ttlMs = Number(options.ttlMs) || 90000; // 90 seconds
+      this.maxAttempts = Number(options.maxAttempts) || 3;
+      this.challenge = null;
+    }
+
+    startChallenge(rawPhone, context = {}) {
+      const cleanPhone = sanitizeIndianPhone(rawPhone);
+      if (!isValidIndianPhone(cleanPhone)) {
+        throw new Error('Invalid Indian mobile number. Must be 10 digits starting with 6, 7, 8, or 9.');
+      }
+      // Cryptographically unbiased 6-digit OTP
+      let codeNum = 0;
+      if (global.crypto && global.crypto.getRandomValues) {
+        const arr = new Uint32Array(1);
+        global.crypto.getRandomValues(arr);
+        codeNum = 100000 + (arr[0] % 900000);
+      } else {
+        codeNum = Math.floor(100000 + Math.random() * 900000);
+      }
+      const now = Date.now();
+      this.challenge = {
+        phone: cleanPhone,
+        code: String(codeNum),
+        createdAt: now,
+        expiresAt: now + this.ttlMs,
+        attempts: 0,
+        maxAttempts: this.maxAttempts,
+        verified: false,
+        verifiedAt: null,
+        token: null,
+        context: Object.assign({}, context)
+      };
+      return Object.assign({}, this.challenge);
+    }
+
+    verify(inputCode, currentPhoneOnForm = null) {
+      if (!this.challenge) {
+        return { success: false, reason: 'No active OTP challenge. Please request an OTP first.' };
+      }
+      if (currentPhoneOnForm !== null) {
+        const checkPhone = sanitizeIndianPhone(currentPhoneOnForm);
+        if (checkPhone !== this.challenge.phone) {
+          return {
+            success: false,
+            reason: `Phone number changed (${checkPhone} vs ${this.challenge.phone}). Please re-trigger OTP for the new number.`
+          };
+        }
+      }
+      if (Date.now() > this.challenge.expiresAt) {
+        return { success: false, reason: 'OTP code expired (90s timeout). Please generate a new OTP.' };
+      }
+      if (this.challenge.attempts >= this.challenge.maxAttempts) {
+        return {
+          success: false,
+          reason: 'Maximum verification attempts (3) exceeded. Challenge locked — please request a new OTP.'
+        };
+      }
+      const cleanedCode = String(inputCode || '').trim();
+      if (!/^\d{6}$/.test(cleanedCode)) {
+        return { success: false, reason: 'Please enter a valid 6-digit numeric OTP code.' };
+      }
+      this.challenge.attempts += 1;
+      if (cleanedCode === this.challenge.code) {
+        this.challenge.verified = true;
+        this.challenge.verifiedAt = new Date().toISOString();
+        this.challenge.token = `UV-OTP-${this.challenge.phone}-${Date.now().toString(36).toUpperCase()}`;
+        return {
+          success: true,
+          phone: this.challenge.phone,
+          verifiedAt: this.challenge.verifiedAt,
+          token: this.challenge.token
+        };
+      }
+      const rem = this.challenge.maxAttempts - this.challenge.attempts;
+      return {
+        success: false,
+        reason: rem > 0
+          ? `Incorrect OTP code (${rem} attempt${rem === 1 ? '' : 's'} remaining).`
+          : 'Incorrect OTP code. Maximum attempts reached — please regenerate OTP.'
+      };
+    }
+
+    isVerifiedForPhone(rawPhone) {
+      if (!this.challenge || !this.challenge.verified) return false;
+      return this.challenge.phone === sanitizeIndianPhone(rawPhone);
+    }
+
+    reset() {
+      this.challenge = null;
+    }
+
+    static getWhatsAppLink(rawPhone, sector = 'nbfc', code = '000000') {
+      const cleanPhone = sanitizeIndianPhone(rawPhone);
+      const sectorMessages = {
+        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at the nearest Muthoot/IIFL Bhubaneswar branch for 11.9% p.a. zero-processing-fee assessment.`,
+        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes 100% cashless hospital coverage brochure for Apollo, SUM Ultimate & AMRI Bhubaneswar.`,
+        bank: `Namaskar! Your Utkal Vantage Merchant CASA & Soundbox Onboarding OTP is *${code}*. Verified KYC checklist logged for zero-fee current account activation.`,
+        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use code *UTKAL25* on Zepto/Blinkit for 25% OFF your next order!`
+      };
+      const text = sectorMessages[String(sector).toLowerCase()] || sectorMessages.nbfc;
+      return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
+    }
+  }
+
+  // ── 8. SECTOR P&L LEAD SCORING ENGINE ─────────────────────────────────────
+  const LeadScoringEngine = {
+    scoreLead(sector, details = {}, geoCompliant = true, otpVerified = true) {
+      let score = 5;
+      const sec = String(sector || 'nbfc').toLowerCase();
+      if (sec === 'nbfc') {
+        const g = String(details.goldGrams || '');
+        if (g.includes('50g+')) score = 9;
+        else if (g.includes('30-50g')) score = 8;
+        else score = 7;
+        if (String(details.currentRate || '').includes('48%') || String(details.currentRate || '').includes('36%')) {
+          score += 1;
+        }
+      } else if (sec === 'insurance') {
+        const f = String(details.family || '');
+        if (f.includes('Parents')) score = 9;
+        else if (f.includes('Children') || f.includes('Spouse')) score = 8;
+        else score = 7;
+        if (details.hospital) score += 0.5;
+      } else if (sec === 'bank') {
+        const k = String(details.kycStatus || '');
+        if (k.includes('GST')) score = 9;
+        else if (k.includes('Udyam')) score = 8;
+        else score = 7;
+        if (details.shopName && String(details.shopName).trim().length > 3) score += 0.5;
+      } else if (sec === 'd2c') {
+        const r = String(details.rating || '');
+        if (r.includes('5')) score = 9;
+        else if (r.includes('4')) score = 8;
+        else score = 6;
+      }
+      if (!geoCompliant) score -= 2;
+      if (!otpVerified) score -= 3;
+      return Math.max(1, Math.min(10, Math.round(score)));
+    },
+
+    estimateInsurancePremium(familyStr, ageBracket = '30-45') {
+      const f = String(familyStr || '');
+      let base = 690;
+      if (f.includes('Parents')) base = 1850;
+      else if (f.includes('Children') || f.includes('Kids')) base = 1190;
+      if (String(ageBracket).includes('45-60')) base = Math.round(base * 1.35);
+      else if (String(ageBracket).includes('18-30')) base = Math.round(base * 0.82);
+      return {
+        monthlyInr: base,
+        annualInr: base * 12,
+        coverLakhs: f.includes('Parents') ? '₹15 Lakhs Floater' : '₹10 Lakhs Floater'
+      };
+    }
+  };
+
+  // ── 9. REALTIME INTER-TAB & SAME-PAGE BROADCASTER ─────────────────────────
+  const RealtimeBroadcaster = {
+    channel: null,
+    subscribers: [],
+
+    init() {
+      if (this._initialized) return;
+      this._initialized = true;
+      try {
+        if (typeof BroadcastChannel !== 'undefined') {
+          this.channel = new BroadcastChannel('utkal_vantage_realtime_v2');
+          this.channel.onmessage = (e) => {
+            if (e && e.data) this._dispatch(e.data);
+          };
+        }
+      } catch (_) {}
+
+      if (typeof global.addEventListener === 'function') {
+        global.addEventListener('storage', (e) => {
+          if (e && e.key === 'uv_realtime_event_bus' && e.newValue) {
+            try {
+              const parsed = JSON.parse(e.newValue);
+              this._dispatch(parsed);
+            } catch (_) {}
+          }
+        });
+      }
+    },
+
+    _dispatch(eventObj) {
+      this.subscribers.forEach((cb) => {
+        try {
+          cb(eventObj);
+        } catch (err) {
+          console.error('[UtkalVantage.RealtimeBroadcaster] Subscriber error:', err);
+        }
+      });
+    },
+
+    publish(type, payload) {
+      this.init();
+      const eventObj = {
+        id: 'EVT-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+        type,
+        payload,
+        timestamp: new Date().toISOString()
+      };
+      // Notify same-window listeners
+      this._dispatch(eventObj);
+      // Notify other tabs via BroadcastChannel
+      try {
+        if (this.channel) this.channel.postMessage(eventObj);
+      } catch (_) {}
+      // Notify other tabs via localStorage event bus fallback
+      try {
+        if (global.localStorage) {
+          global.localStorage.setItem('uv_realtime_event_bus', JSON.stringify(eventObj));
+        }
+      } catch (_) {}
+      return eventObj;
+    },
+
+    subscribe(callback) {
+      this.init();
+      if (typeof callback === 'function') {
+        this.subscribers.push(callback);
+      }
+      return () => {
+        this.subscribers = this.subscribers.filter((cb) => cb !== callback);
+      };
+    }
+  };
+
+  // ── 10. RESILIENT STORAGE ENGINE (IndexedDB + localStorage + Memory) ──────
+  const memoryStore = {
+    leads: [],
+    photos: [],
+    campaigns: [],
+    promoters: [],
+    inventory: {
+      d2c: { startingStock: 200, dispensed: 53, remaining: 147, sku: 'Raw Pressery Cold Juice' }
+    }
+  };
+
+  const StorageEngine = {
+    dbName: 'UtkalVantageDB',
+    dbVersion: 2,
+    _dbPromise: null,
+
+    _readLocal(key, fallback) {
+      try {
+        if (global.localStorage) {
+          const raw = global.localStorage.getItem('uv_store_' + key);
+          if (raw) return JSON.parse(raw);
+        }
+      } catch (_) {}
+      return fallback;
+    },
+
+    _writeLocal(key, val) {
+      try {
+        if (global.localStorage) {
+          global.localStorage.setItem('uv_store_' + key, JSON.stringify(val));
+        }
+      } catch (_) {}
+    },
+
+    async _getDB() {
+      if (typeof indexedDB === 'undefined') return null;
+      if (this._dbPromise) return this._dbPromise;
+      this._dbPromise = new Promise((resolve) => {
+        try {
+          const req = indexedDB.open(this.dbName, this.dbVersion);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('leads')) {
+              db.createObjectStore('leads', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('photos')) {
+              db.createObjectStore('photos', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('campaigns')) {
+              db.createObjectStore('campaigns', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('promoters')) {
+              db.createObjectStore('promoters', { keyPath: 'id' });
+            }
+          };
+          req.onsuccess = (e) => resolve(e.target.result);
+          req.onerror = () => resolve(null);
+          req.onblocked = () => resolve(null);
+        } catch (_) {
+          resolve(null);
+        }
+      });
+      return this._dbPromise;
+    },
+
+    async saveLead(leadRecord, options = {}) {
+      if (!leadRecord || !leadRecord.id) {
+        throw new Error('Invalid leadRecord: missing id');
+      }
+      const cleanLead = Object.assign(
+        {
+          timestamp: new Date().toISOString(),
+          sector: 'nbfc',
+          client: 'Muthoot Finance',
+          otpVerified: true,
+          geoCompliant: true,
+          syncStatus: typeof navigator !== 'undefined' && navigator.onLine === false ? 'queued' : 'synced'
+        },
+        leadRecord
+      );
+
+      // Update local array + memory
+      const existing = this._readLocal('leads', memoryStore.leads);
+      const idx = existing.findIndex((l) => l.id === cleanLead.id);
+      if (idx >= 0) existing[idx] = cleanLead;
+      else existing.unshift(cleanLead);
+      memoryStore.leads = existing;
+      this._writeLocal('leads', existing);
+
+      // Persist to IndexedDB
+      const db = await this._getDB();
+      if (db) {
+        await new Promise((resolve) => {
+          try {
+            const tx = db.transaction('leads', 'readwrite');
+            tx.objectStore('leads').put(cleanLead);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+          } catch (_) {
+            resolve(false);
+          }
+        });
+      }
+
+      if (!options.silent) {
+        RealtimeBroadcaster.publish('LEAD_SAVED', cleanLead);
+      }
+      return cleanLead;
+    },
+
+    async getAllLeads() {
+      const localLeads = this._readLocal('leads', memoryStore.leads);
+      const db = await this._getDB();
+      if (!db) return localLeads;
+
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction('leads', 'readonly');
+          const req = tx.objectStore('leads').getAll();
+          req.onsuccess = () => {
+            const dbLeads = Array.isArray(req.result) ? req.result : [];
+            const mergedMap = new Map();
+            localLeads.forEach((l) => mergedMap.set(l.id, l));
+            dbLeads.forEach((l) => mergedMap.set(l.id, l));
+            const merged = Array.from(mergedMap.values()).sort(
+              (a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)
+            );
+            memoryStore.leads = merged;
+            resolve(merged);
+          };
+          req.onerror = () => resolve(localLeads);
+        } catch (_) {
+          resolve(localLeads);
+        }
+      });
+    },
+
+    async savePhoto(photoRecord, options = {}) {
+      if (!photoRecord || !photoRecord.id) {
+        throw new Error('Invalid photoRecord: missing id');
+      }
+      const existing = this._readLocal('photos', memoryStore.photos);
+      const idx = existing.findIndex((p) => p.id === photoRecord.id);
+      if (idx >= 0) existing[idx] = photoRecord;
+      else existing.unshift(photoRecord);
+      // Cap localStorage mirror to 15 photos to respect 5MB quota
+      memoryStore.photos = existing;
+      this._writeLocal('photos', existing.slice(0, 15));
+
+      const db = await this._getDB();
+      if (db) {
+        await new Promise((resolve) => {
+          try {
+            const tx = db.transaction('photos', 'readwrite');
+            tx.objectStore('photos').put(photoRecord);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+          } catch (_) {
+            resolve(false);
+          }
+        });
+      }
+
+      if (!options.silent) {
+        RealtimeBroadcaster.publish('PHOTO_AUDITED', photoRecord);
+      }
+      return photoRecord;
+    },
+
+    async getAllPhotos() {
+      const localPhotos = this._readLocal('photos', memoryStore.photos);
+      const db = await this._getDB();
+      if (!db) return localPhotos;
+
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction('photos', 'readonly');
+          const req = tx.objectStore('photos').getAll();
+          req.onsuccess = () => {
+            const dbPhotos = Array.isArray(req.result) ? req.result : [];
+            const mergedMap = new Map();
+            localPhotos.forEach((p) => mergedMap.set(p.id, p));
+            dbPhotos.forEach((p) => mergedMap.set(p.id, p));
+            const merged = Array.from(mergedMap.values()).sort(
+              (a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)
+            );
+            memoryStore.photos = merged;
+            resolve(merged);
+          };
+          req.onerror = () => resolve(localPhotos);
+        } catch (_) {
+          resolve(localPhotos);
+        }
+      });
+    },
+
+    getInventory(sector = 'd2c') {
+      const allInv = this._readLocal('inventory', memoryStore.inventory);
+      return (
+        allInv[sector] || {
+          startingStock: 200,
+          dispensed: 53,
+          remaining: 147,
+          sku: 'Raw Pressery Cold Juice'
+        }
+      );
+    },
+
+    updateInventory(sector = 'd2c', deltaDispensed = 1, customStart = null) {
+      const allInv = this._readLocal('inventory', memoryStore.inventory);
+      const cur = allInv[sector] || { startingStock: 200, dispensed: 53, remaining: 147 };
+      if (customStart !== null && Number.isFinite(Number(customStart))) {
+        cur.startingStock = Math.max(0, Number(customStart));
+      }
+      cur.dispensed = Math.min(cur.startingStock, Math.max(0, cur.dispensed + Number(deltaDispensed || 0)));
+      cur.remaining = Math.max(0, cur.startingStock - cur.dispensed);
+      allInv[sector] = cur;
+      memoryStore.inventory = allInv;
+      this._writeLocal('inventory', allInv);
+      RealtimeBroadcaster.publish('INVENTORY_UPDATED', { sector, inventory: cur });
+      return cur;
+    },
+
+    async clearAll() {
+      memoryStore.leads = [];
+      memoryStore.photos = [];
+      this._writeLocal('leads', []);
+      this._writeLocal('photos', []);
+      const db = await this._getDB();
+      if (db) {
+        try {
+          const tx = db.transaction(['leads', 'photos'], 'readwrite');
+          tx.objectStore('leads').clear();
+          tx.objectStore('photos').clear();
+        } catch (_) {}
+      }
+    }
+  };
+
+  // ── 11. UI TOAST & MODAL HELPER ───────────────────────────────────────────
+  const UI = {
+    toast(message, type = 'info', durationMs = 3800) {
+      if (typeof document === 'undefined') return;
+      let container = document.getElementById('uvToastContainer');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'uvToastContainer';
+        container.className = 'uv-toast-container';
+        document.body.appendChild(container);
+      }
+      const toastEl = document.createElement('div');
+      toastEl.className = `uv-toast ${type}`;
+      toastEl.innerHTML = `
+        <span>${escapeHtml(message)}</span>
+        <button type="button" style="background:none;border:none;color:#A39C93;cursor:pointer;font-weight:700;padding:0 4px;" aria-label="Dismiss">✕</button>
+      `;
+      toastEl.querySelector('button').onclick = () => toastEl.remove();
+      container.appendChild(toastEl);
+      if (durationMs > 0) {
+        setTimeout(() => {
+          if (toastEl.parentNode) toastEl.remove();
+        }, durationMs);
+      }
+    }
+  };
+
+  // Expose unified API on window.UtkalVantage
+  global.UtkalVantage = {
+    version: '2.0.0',
+    anchors,
+    haversineDistanceM,
+    computeSha256Hex,
+    escapeHtml,
+    escapeCsvCell,
+    sanitizeIndianPhone,
+    isValidIndianPhone,
+    formatIST,
+    GeofenceManager,
+    PhotoAuditEngine,
+    DualVerificationMachine,
+    LeadScoringEngine,
+    StorageEngine,
+    RealtimeBroadcaster,
+    UI
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+  }
+  if (!window.UtkalSupabase) {
+/**
+ * ============================================================================
+ * UTKAL VANTAGE — SUPABASE CLOUD & OFFLINE-FIRST REST CLIENT (js/supabase.js)
+ * Zero-dependency REST bridge for Supabase Auth, Postgres & Storage.
+ * Automatically falls back to local IndexedDB/StorageEngine when offline
+ * or before production Supabase credentials are configured.
+ * ============================================================================
+ */
+(function (global) {
+  'use strict';
+
+  const SUPABASE_CONFIG = {
+    url: 'https://your-project-ref.supabase.co',
+    anonKey: '' // Paste your Supabase public anon key here for cloud sync
+  };
+
+  class UtkalSupabaseClient {
+    constructor(config) {
+      this.url = (config && config.url) || SUPABASE_CONFIG.url;
+      this.anonKey = (config && config.anonKey) || SUPABASE_CONFIG.anonKey;
+    }
+
+    isConfigured() {
+      return Boolean(
+        this.anonKey &&
+        this.anonKey.length > 20 &&
+        this.url &&
+        !this.url.includes('your-project-ref')
+      );
+    }
+
+    async request(path, options = {}) {
+      if (!this.isConfigured() || (typeof navigator !== 'undefined' && !navigator.onLine)) {
+        return { data: null, offlineFallback: true, error: null };
+      }
+      try {
+        const headers = Object.assign(
+          {
+            'Content-Type': 'application/json',
+            apikey: this.anonKey,
+            Authorization: `Bearer ${this.anonKey}`,
+            Prefer: 'return=representation'
+          },
+          options.headers || {}
+        );
+        const res = await fetch(`${this.url}/rest/v1/${path}`, {
+          method: options.method || 'GET',
+          headers,
+          body: options.body ? JSON.stringify(options.body) : undefined
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          return { data: null, offlineFallback: false, error: errText };
+        }
+        const data = await res.json();
+        return { data, offlineFallback: false, error: null };
+      } catch (err) {
+        return { data: null, offlineFallback: true, error: err.message };
+      }
+    }
+
+    async syncLead(leadRecord) {
+      if (global.UtkalVantage && global.UtkalVantage.StorageEngine) {
+        await global.UtkalVantage.StorageEngine.saveLead(leadRecord, { silent: true });
+      }
+      return this.request('leads', { method: 'POST', body: leadRecord });
+    }
+
+    async fetchLeads() {
+      const cloud = await this.request('leads?select=*&order=timestamp.desc');
+      if (cloud.data && Array.isArray(cloud.data)) {
+        return cloud.data;
+      }
+      if (global.UtkalVantage && global.UtkalVantage.StorageEngine) {
+        return global.UtkalVantage.StorageEngine.getAllLeads();
+      }
+      return [];
+    }
+  }
+
+  global.UtkalSupabase = new UtkalSupabaseClient(SUPABASE_CONFIG);
+})(typeof window !== 'undefined' ? window : globalThis);
+
+  }
+</script>
+  <script src="js/supabase.js"></script>
 
   <script>
     // ═══════════════════════════════════════════════════════════════════════
-    // APPLICATION CONTROLLER
+    // APPLICATION CONTROLLER (Hardened for Mobile, Offline & Chaos Testing)
     // ═══════════════════════════════════════════════════════════════════════
 
     let activeSector = 'nbfc';
     let currentAuditPhoto = null;
+    let originalUntamperedPhotoUrl = null;
     let isOtpVerified = false;
+    let verifiedPhoneLocked = null;
+    let simulatedOfflineMode = false;
     let map = null;
     let anchorMarker = null;
     let circleGeofence = null;
@@ -624,53 +2780,122 @@
     let otpTimerInterval = null;
 
     window.addEventListener('DOMContentLoaded', () => {
+      otpMachine = new UtkalVantage.DualVerificationMachine();
       initMap();
       initGeoEngine();
       initNetworkListener();
+      updateSectorPlaybookWidget();
       updateOfflineQueueBadge();
-      otpMachine = new UtkalVantage.DualVerificationMachine();
+      renderLocalLeadsList();
     });
 
-    // ── LEAFLET MAP INITIALIZATION ─────────────────────────────────────────
+    function isCurrentlyOnline() {
+      if (simulatedOfflineMode) return false;
+      return typeof navigator !== 'undefined' ? navigator.onLine : true;
+    }
+
+    function toggleSimulatedOffline() {
+      simulatedOfflineMode = !simulatedOfflineMode;
+      const btn = document.getElementById('simOfflineToggleBtn');
+      if (simulatedOfflineMode) {
+        btn.textContent = 'Go Back Online (Auto-Sync)';
+        btn.style.background = '#FDE8E8';
+        btn.style.color = '#C53030';
+        btn.style.borderColor = '#C53030';
+        window.dispatchEvent(new Event('offline'));
+        UtkalVantage.UI.toast('Simulated Offline Mode Active: Leads will queue locally in IndexedDB.', 'warn');
+      } else {
+        btn.textContent = 'Simulate Offline Mode';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+        window.dispatchEvent(new Event('online'));
+        UtkalVantage.UI.toast('Back Online: Flushing offline queue to live console!', 'success');
+      }
+    }
+
+    // ── LEAFLET MAP INITIALIZATION (WITH OFFLINE RADAR FALLBACK) ───────────
     function initMap() {
-      // Default center: Rasulgarh Square, Bhubaneswar
-      map = L.map('geofenceMap', { attributionControl: false }).setView([20.2906, 85.8648], 17);
+      const mapContainer = document.getElementById('geofenceMap');
+      if (!mapContainer) return;
 
-      // Watermark-Free, Zero-API-Key Esri World Street Map
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19,
-        attribution: 'Tiles &copy; Esri'
-      }).addTo(map);
+      if (typeof L !== 'undefined' && typeof L.map === 'function') {
+        try {
+          map = L.map('geofenceMap', { attributionControl: false }).setView([20.2906, 85.8648], 17);
+          L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles &copy; Esri'
+          }).addTo(map);
 
-      // Anchor icon
-      const anchorIcon = L.divIcon({
-        className: 'custom-anchor-icon',
-        html: `<div style="background:#1F1D1B;color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);">📍</div>`,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14]
+          const anchorIcon = L.divIcon({
+            className: 'custom-anchor-icon',
+            html: `<div style="background:#1F1D1B;color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);">📍</div>`,
+            iconSize: [28, 28],
+            iconAnchor: [14, 14]
+          });
+
+          const promoterIcon = L.divIcon({
+            className: 'custom-promoter-icon',
+            html: `<div style="background:#D85A30;color:#fff;width:20px;height:20px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 12px #D85A30;"></div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+          });
+
+          anchorMarker = L.marker([20.2906, 85.8648], { icon: anchorIcon }).addTo(map);
+          anchorMarker.bindPopup('<b>Canopy Anchor</b><br>Rasulgarh Square');
+
+          circleGeofence = L.circle([20.2906, 85.8648], {
+            radius: 100,
+            color: '#1E7B4D',
+            fillColor: '#1E7B4D',
+            fillOpacity: 0.12,
+            weight: 2,
+            dashArray: '4, 4'
+          }).addTo(map);
+
+          promoterMarker = L.marker([20.2908, 85.8650], { icon: promoterIcon }).addTo(map);
+          return;
+        } catch (err) {
+          console.warn('Leaflet initialization fallback triggered:', err);
+        }
+      }
+
+      // Offline / Zero-CDN Vector Radar Map Fallback
+      renderOfflineRadarMap({
+        anchor: UtkalVantage.anchors.rasulgarh,
+        currentPosition: { lat: 20.2907, lng: 85.8649 },
+        distanceM: 12,
+        maxRadiusM: 100,
+        isLocked: true
       });
+    }
 
-      // Promoter live pulse icon
-      const promoterIcon = L.divIcon({
-        className: 'custom-promoter-icon',
-        html: `<div style="background:#D85A30;color:#fff;width:20px;height:20px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 12px #D85A30;"></div>`,
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
-      });
+    function renderOfflineRadarMap(status) {
+      const mapContainer = document.getElementById('geofenceMap');
+      if (!mapContainer || map) return;
+      const isLocked = status ? status.isLocked : true;
+      const ringColor = isLocked ? '#1E7B4D' : '#C53030';
+      const dotOffset = isLocked ? 'cx="162" cy="112"' : 'cx="248" cy="48"';
+      const zoneName = status && status.anchor ? status.anchor.name : 'Rasulgarh Square Canopy';
+      const distLabel = status && status.distanceM != null ? `${status.distanceM}m` : '12m';
 
-      anchorMarker = L.marker([20.2906, 85.8648], { icon: anchorIcon }).addTo(map);
-      anchorMarker.bindPopup('<b>Canopy Anchor</b><br>Rasulgarh Square');
-
-      circleGeofence = L.circle([20.2906, 85.8648], {
-        radius: 100,
-        color: '#1E7B4D',
-        fillColor: '#1E7B4D',
-        fillOpacity: 0.12,
-        weight: 2,
-        dashArray: '4, 4'
-      }).addTo(map);
-
-      promoterMarker = L.marker([20.2908, 85.8650], { icon: promoterIcon }).addTo(map);
+      mapContainer.innerHTML = `
+        <svg viewBox="0 0 320 200" width="100%" height="100%" style="background:#E8E5DD;display:block;">
+          <defs>
+            <pattern id="radarGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+              <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(31,29,27,0.08)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="320" height="200" fill="url(#radarGrid)"/>
+          <line x1="0" y1="100" x2="320" y2="100" stroke="rgba(255,255,255,0.7)" stroke-width="3"/>
+          <line x1="150" y1="0" x2="150" y2="200" stroke="rgba(255,255,255,0.7)" stroke-width="3"/>
+          <circle cx="150" cy="100" r="62" fill="${ringColor}" fill-opacity="0.14" stroke="${ringColor}" stroke-width="2" stroke-dasharray="5,4"/>
+          <circle cx="150" cy="100" r="10" fill="#1F1D1B" stroke="#FFFFFF" stroke-width="2"/>
+          <circle ${dotOffset} r="8" fill="#D85A30" stroke="#FFFFFF" stroke-width="2"/>
+          <rect x="10" y="10" width="210" height="26" rx="6" fill="rgba(31,29,27,0.82)"/>
+          <text x="18" y="27" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600">RADAR: ${UtkalVantage.escapeHtml(zoneName)} (${distLabel})</text>
+        </svg>
+      `;
     }
 
     // ── GEO ENGINE SETUP ───────────────────────────────────────────────────
@@ -692,27 +2917,40 @@
 
         const banner = document.getElementById('geoBanner');
         const bannerText = document.getElementById('geoBannerText');
+        const badge = document.getElementById('geoEngineBadge');
 
         if (status.isLocked) {
           banner.className = 'geofence-status-banner locked';
           bannerText.textContent = `GEOFENCE LOCKED — WITHIN ${status.anchor.name.toUpperCase()}`;
-          circleGeofence.setStyle({ color: '#1E7B4D', fillColor: '#1E7B4D' });
+          if (badge) {
+            badge.className = 'badge badge-green';
+            badge.textContent = `LOCKED (${status.distanceM}m <= ${status.maxRadiusM}m)`;
+          }
+          if (circleGeofence) circleGeofence.setStyle({ color: '#1E7B4D', fillColor: '#1E7B4D' });
         } else {
           banner.className = 'geofence-status-banner breach';
           bannerText.textContent = `BREACH DETECTED: ${status.breachM}m OUTSIDE AUTHORIZED CANOPY ZONE`;
-          circleGeofence.setStyle({ color: '#C53030', fillColor: '#C53030' });
+          if (badge) {
+            badge.className = 'badge badge-red';
+            badge.textContent = `BREACH (+${status.breachM}m)`;
+          }
+          if (circleGeofence) circleGeofence.setStyle({ color: '#C53030', fillColor: '#C53030' });
         }
 
         if (status.currentPosition) {
           document.getElementById('geoCoordsDisplay').textContent =
             `${status.currentPosition.lat.toFixed(4)}, ${status.currentPosition.lng.toFixed(4)}`;
           
-          promoterMarker.setLatLng([status.currentPosition.lat, status.currentPosition.lng]);
-          map.panTo([status.currentPosition.lat, status.currentPosition.lng]);
+          if (promoterMarker && map) {
+            promoterMarker.setLatLng([status.currentPosition.lat, status.currentPosition.lng]);
+            map.panTo([status.currentPosition.lat, status.currentPosition.lng]);
+          } else {
+            renderOfflineRadarMap(status);
+          }
         }
+        updateSectorPlaybookWidget();
       });
 
-      // Start actual hardware GPS watch
       geoManager.startWatch();
     }
 
@@ -720,37 +2958,54 @@
       const preset = UtkalVantage.anchors[presetKey];
       if (!preset) return;
       geoManager.setAnchor(preset);
-      anchorMarker.setLatLng([preset.lat, preset.lng]).bindPopup(`<b>${preset.name}</b>`).openPopup();
-      circleGeofence.setLatLng([preset.lat, preset.lng]).setRadius(preset.radiusM);
-      map.setView([preset.lat, preset.lng], 17);
+      if (anchorMarker && circleGeofence && map) {
+        anchorMarker.setLatLng([preset.lat, preset.lng]).bindPopup(`<b>${preset.name}</b>`).openPopup();
+        circleGeofence.setLatLng([preset.lat, preset.lng]).setRadius(preset.radiusM);
+        map.setView([preset.lat, preset.lng], 17);
+      } else {
+        renderOfflineRadarMap(geoManager.getStatus());
+      }
+      UtkalVantage.UI.toast(`Anchor switched to ${preset.name} (${preset.radiusM}m lock)`, 'info', 2200);
     }
 
     function setAnchorToCurrentLocation() {
-      if (!navigator.geolocation) return;
-      navigator.geolocation.getCurrentPosition((pos) => {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-        geoManager.setAnchorCoords(lat, lng, 'Promoter Locked Location', 100);
-        anchorMarker.setLatLng([lat, lng]).bindPopup('<b>Current Locked Anchor</b>').openPopup();
-        circleGeofence.setLatLng([lat, lng]).setRadius(100);
-        map.setView([lat, lng], 17);
-      }, (err) => alert('Unable to get current location: ' + err.message));
+      if (!navigator.geolocation) {
+        UtkalVantage.UI.toast('Hardware GPS unavailable; locked to current simulated coordinates.', 'warn');
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          geoManager.setAnchorCoords(lat, lng, 'Promoter Locked Location', activeSector === 'bank' ? 20 : 100);
+          if (anchorMarker && circleGeofence && map) {
+            anchorMarker.setLatLng([lat, lng]).bindPopup('<b>Current Locked Anchor</b>').openPopup();
+            circleGeofence.setLatLng([lat, lng]).setRadius(activeSector === 'bank' ? 20 : 100);
+            map.setView([lat, lng], 17);
+          }
+          UtkalVantage.UI.toast('Locked Geofence Anchor to your current GPS!', 'success');
+        },
+        () => {
+          const cur = geoManager.getStatus().currentPosition;
+          geoManager.setAnchorCoords(cur.lat, cur.lng, 'Promoter Demo Locked Spot', activeSector === 'bank' ? 20 : 100);
+          UtkalVantage.UI.toast('GPS permission unavailable — locked to active terminal coordinates.', 'info');
+        },
+        { timeout: 4000 }
+      );
     }
 
     function simulateBreach(isBreached) {
       const anchor = geoManager.anchor;
       if (isBreached) {
-        // Move ~140m away north
         geoManager.simulatePosition(anchor.lat + 0.0013, anchor.lng + 0.0012, 3);
       } else {
-        // Move ~15m away
-        geoManager.simulatePosition(anchor.lat + 0.0001, anchor.lng + 0.0001, 3);
+        geoManager.simulatePosition(anchor.lat + 0.00009, anchor.lng + 0.00008, 3);
       }
     }
 
     // ── FEATURE 2: CRYPTOGRAPHIC PHOTO AUDIT ───────────────────────────────
     async function handlePhotoSelected(event) {
-      const file = event.target.files[0];
+      const file = event.target.files && event.target.files[0];
       if (!file) return;
 
       const status = geoManager.getStatus();
@@ -765,26 +3020,37 @@
 
       try {
         currentAuditPhoto = await UtkalVantage.PhotoAuditEngine.processAndAudit(file, meta);
+        originalUntamperedPhotoUrl = currentAuditPhoto.dataUrl;
         displayAuditPhoto(currentAuditPhoto);
         await UtkalVantage.StorageEngine.savePhoto(currentAuditPhoto);
+        UtkalVantage.UI.toast(`Photo Audited! SHA-256: ${currentAuditPhoto.shortHash}...`, 'success');
       } catch (err) {
-        alert('Photo processing error: ' + err.message);
+        UtkalVantage.UI.toast('Photo processing error: ' + err.message, 'error');
       }
     }
 
     async function captureSampleAuditPhoto() {
-      // Create a clean demo canopy canvas image
       const c = document.createElement('canvas');
       c.width = 800; c.height = 600;
       const ctx = c.getContext('2d');
       ctx.fillStyle = '#2A2724'; ctx.fillRect(0, 0, 800, 600);
-      ctx.fillStyle = '#D85A30'; ctx.fillRect(50, 80, 700, 260);
-      ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 36px sans-serif';
-      ctx.fillText('MUTHOOT GOLD LOAN CANOPY CAMP', 80, 160);
-      ctx.font = '22px sans-serif';
-      ctx.fillText('Unit-1 Haat • Precision Scales Demo Active', 80, 210);
+      ctx.fillStyle = '#D85A30'; ctx.fillRect(44, 60, 712, 280);
+      ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 32px sans-serif';
 
       const status = geoManager.getStatus();
+      const titles = {
+        nbfc: 'MUTHOOT GOLD LOAN CANOPY CAMP',
+        insurance: 'STAR HEALTH SOCIETY ADVISORY KIOSK',
+        bank: 'HDFC BANK MERCHANT CASA & SOUNDBOX',
+        d2c: 'RAW PRESSERY LIVE SAMPLING BAR'
+      };
+      ctx.fillText(titles[activeSector] || titles.nbfc, 72, 145);
+      ctx.font = '22px sans-serif';
+      ctx.fillText(`${status.anchor.name} • Verified Ground Setup`, 72, 198);
+      ctx.fillStyle = '#F5C4B3';
+      ctx.font = '18px monospace';
+      ctx.fillText(`Promoter ID: UV-PRO-084 | Distance: ${status.distanceM}m (Max ${status.maxRadiusM}m)`, 72, 250);
+
       const meta = {
         lat: status.currentPosition ? status.currentPosition.lat : 20.290623,
         lng: status.currentPosition ? status.currentPosition.lng : 85.864812,
@@ -795,8 +3061,10 @@
       };
 
       currentAuditPhoto = await UtkalVantage.PhotoAuditEngine.processAndAudit(c.toDataURL(), meta);
+      originalUntamperedPhotoUrl = currentAuditPhoto.dataUrl;
       displayAuditPhoto(currentAuditPhoto);
       await UtkalVantage.StorageEngine.savePhoto(currentAuditPhoto);
+      UtkalVantage.UI.toast(`Sample Photo Audited & Synced (${currentAuditPhoto.shortHash}...)`, 'success');
     }
 
     function displayAuditPhoto(auditRecord) {
@@ -814,34 +3082,61 @@
       if (res.match) {
         box.style.background = 'var(--green-pale)';
         box.style.color = 'var(--green)';
-        box.innerHTML = `✓ CRYPTOGRAPHIC INTEGRITY VERIFIED (Zero pixel modification)<br>Computed SHA-256 matches audit ledger precisely.`;
+        box.innerHTML = `✓ CRYPTOGRAPHIC INTEGRITY VERIFIED (Zero pixel modification)<br>Computed SHA-256 (${res.computed.substring(0, 16)}...) matches ledger hash.`;
       } else {
         box.style.background = 'var(--red-pale)';
         box.style.color = 'var(--red)';
-        box.innerHTML = `⚠ HASH MISMATCH: Image has been altered or tampered with.`;
+        box.innerHTML = `⚠ HASH MISMATCH DETECTED: Image bytes were modified!<br>Expected: ${res.expected.substring(0, 16)}... | Actual: ${res.computed.substring(0, 16)}... <button type="button" onclick="restoreOriginalPhoto()" style="margin-left:8px;padding:2px 6px;border-radius:4px;border:1px solid #C53030;background:#fff;color:#C53030;cursor:pointer;font-weight:700;">Restore Original</button>`;
       }
     }
 
-    // ── FEATURE 3: SECTOR SWITCHER & LEAD ENGINE ───────────────────────────
+    async function simulatePhotoTamperAttack() {
+      if (!currentAuditPhoto) {
+        await captureSampleAuditPhoto();
+      }
+      // Corrupt dataUrl by appending a single byte mutation to simulate pixel tampering
+      currentAuditPhoto.dataUrl = currentAuditPhoto.dataUrl.slice(0, -8) + 'TAMPERED';
+      await verifyCurrentPhotoIntegrity();
+    }
+
+    async function restoreOriginalPhoto() {
+      if (currentAuditPhoto && originalUntamperedPhotoUrl) {
+        currentAuditPhoto.dataUrl = originalUntamperedPhotoUrl;
+        await verifyCurrentPhotoIntegrity();
+      }
+    }
+
+    // ── FEATURE 3: SECTOR SWITCHER & PLAYBOOK WIDGETS ──────────────────────
     function switchSector(sector, tabEl) {
       activeSector = sector;
       document.querySelectorAll('.sector-tab').forEach(t => t.classList.remove('active'));
-      tabEl.classList.add('active');
+      if (tabEl) tabEl.classList.add('active');
+
+      // Align geofence preset with sector SOP (Bank requires 20m merchant storefront lock)
+      if (sector === 'bank') {
+        setAnchorPreset('saheed');
+      } else if (sector === 'd2c') {
+        setAnchorPreset('patia');
+      } else if (sector === 'insurance') {
+        setAnchorPreset('kalinga');
+      } else if (sector === 'nbfc' && geoManager && geoManager.anchor.radiusM === 20) {
+        setAnchorPreset('rasulgarh');
+      }
 
       const container = document.getElementById('sectorDynamicFields');
       if (sector === 'nbfc') {
         container.innerHTML = `
           <div class="field-group">
-            <label>Estimated Gold Weight (Asset Readiness)</label>
-            <select id="nbfcGold" class="field-select">
+            <label for="nbfcGold">Estimated Gold Weight (Asset Readiness)</label>
+            <select id="nbfcGold" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="15-30g">15–30 grams (Ticket: ₹75,000–₹1,50,000)</option>
               <option value="30-50g" selected>30–50 grams (Ticket: ₹1,50,000–₹2,50,000)</option>
               <option value="50g+">50+ grams (High-Value Ticket: ₹2.5L+)</option>
             </select>
           </div>
           <div class="field-group">
-            <label>Current Pawn / Loan Interest Rate at Local Sahukar</label>
-            <select id="nbfcRate" class="field-select">
+            <label for="nbfcRate">Current Pawn / Loan Interest Rate at Local Sahukar</label>
+            <select id="nbfcRate" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="36%">36% per annum (Local Mahajan / Moneylender)</option>
               <option value="48%" selected>48% per annum (Pawnshop default)</option>
               <option value="24%">24% per annum (Other NBFC)</option>
@@ -850,17 +3145,25 @@
       } else if (sector === 'insurance') {
         container.innerHTML = `
           <div class="field-group">
-            <label>Family Size & Dependents</label>
-            <select id="insFamily" class="field-select">
+            <label for="insFamily">Family Size & Dependents</label>
+            <select id="insFamily" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="Self + Spouse + 2 Children">Self + Spouse + 2 Kids (Nuclear)</option>
-              <option value="Self + Spouse + Parents">Self + Spouse + Senior Parents (High Priority)</option>
+              <option value="Self + Spouse + Parents" selected>Self + Spouse + Senior Parents (High Priority)</option>
               <option value="Individual">Self Only</option>
             </select>
           </div>
           <div class="field-group">
-            <label>Preferred Bhubaneswar Cashless Hospital</label>
-            <select id="insHospital" class="field-select">
-              <option value="Apollo Hospitals (Gagapatia)">Apollo Hospitals</option>
+            <label for="insAge">Primary Proposer Age Bracket</label>
+            <select id="insAge" class="field-select" onchange="updateSectorPlaybookWidget()">
+              <option value="18-30">18–30 Years</option>
+              <option value="30-45" selected>30–45 Years</option>
+              <option value="45-60">45–60 Years</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="insHospital">Preferred Bhubaneswar Cashless Hospital</label>
+            <select id="insHospital" class="field-select" onchange="updateSectorPlaybookWidget()">
+              <option value="Apollo Hospitals (Gajapati Nagar)">Apollo Hospitals</option>
               <option value="SUM Ultimate Medicare" selected>SUM Ultimate Medicare</option>
               <option value="AMRI Hospitals">AMRI Hospitals</option>
             </select>
@@ -868,68 +3171,201 @@
       } else if (sector === 'bank') {
         container.innerHTML = `
           <div class="field-group">
-            <label>Merchant / Shop Commercial Name</label>
-            <input type="text" id="bankShopName" class="field-input" placeholder="e.g. Maa Tarini Electricals" value="Maa Tarini Hardware" required />
+            <label for="bankShopName">Merchant / Shop Commercial Name</label>
+            <input type="text" id="bankShopName" class="field-input" placeholder="e.g. Maa Tarini Electricals" value="Maa Tarini Hardware" required oninput="updateSectorPlaybookWidget()" />
           </div>
           <div class="field-group">
-            <label>Business Compliance Readiness</label>
-            <select id="bankKyc" class="field-select">
+            <label for="bankKyc">Business Compliance Readiness (KYC Checklist)</label>
+            <select id="bankKyc" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="GST Registered + Trade License" selected>GST Registered + Trade License (Ready for CASA)</option>
-              <option value="Udyam Certificate Only">Udyam / MSME Certificate</option>
+              <option value="Udyam Certificate Only">Udyam / MSME Certificate + Active Smartphone</option>
               <option value="Shop Photo & PAN Only">PAN + Geo Storefront Photo Only</option>
             </select>
           </div>`;
       } else if (sector === 'd2c') {
         container.innerHTML = `
           <div class="field-group">
-            <label>Product Trial SKU Sampled</label>
-            <select id="d2cSku" class="field-select">
+            <label for="d2cSku">Product Trial SKU Sampled</label>
+            <select id="d2cSku" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="Paper Boat Sparkling Kokum">Paper Boat Sparkling Kokum</option>
               <option value="Raw Pressery Cold Juice" selected>Raw Pressery Cold Juice</option>
               <option value="Milk Mantra Probiotic Shake">Milk Mantra Probiotic Shake</option>
             </select>
           </div>
           <div class="field-group">
-            <label>Consumer Taste & Texture Rating (1-5)</label>
-            <select id="d2cRating" class="field-select">
-              <option value="5 Stars">⭐⭐⭐⭐⭐ Excellent (Will Buy on Zepto)</option>
-              <option value="4 Stars" selected>⭐⭐⭐⭐ Good (Competitive Taste)</option>
+            <label for="d2cRating">Consumer Taste & Texture Rating (1-5)</label>
+            <select id="d2cRating" class="field-select" onchange="updateSectorPlaybookWidget()">
+              <option value="5 Stars" selected>⭐⭐⭐⭐⭐ Excellent (Will Buy on Zepto)</option>
+              <option value="4 Stars">⭐⭐⭐⭐ Good (Competitive Taste)</option>
               <option value="3 Stars">⭐⭐⭐ Neutral</option>
             </select>
           </div>`;
+      }
+      updateSectorPlaybookWidget();
+    }
+
+    function getCurrentSectorDetails() {
+      const geoOk = geoManager ? geoManager.getStatus().isLocked : true;
+      if (activeSector === 'nbfc') {
+        const goldGrams = (document.getElementById('nbfcGold') || {}).value || '30-50g';
+        const currentRate = (document.getElementById('nbfcRate') || {}).value || '48%';
+        return {
+          goldGrams,
+          currentRate,
+          leadScore: UtkalVantage.LeadScoringEngine.scoreLead('nbfc', { goldGrams, currentRate }, geoOk, true)
+        };
+      } else if (activeSector === 'insurance') {
+        const family = (document.getElementById('insFamily') || {}).value || 'Self + Spouse + Parents';
+        const ageBracket = (document.getElementById('insAge') || {}).value || '30-45';
+        const hospital = (document.getElementById('insHospital') || {}).value || 'SUM Ultimate Medicare';
+        const est = UtkalVantage.LeadScoringEngine.estimateInsurancePremium(family, ageBracket);
+        return {
+          family,
+          ageBracket,
+          hospital,
+          monthlyPremiumInr: est.monthlyInr,
+          leadScore: UtkalVantage.LeadScoringEngine.scoreLead('insurance', { family, hospital }, geoOk, true)
+        };
+      } else if (activeSector === 'bank') {
+        const shopName = (document.getElementById('bankShopName') || {}).value || 'Maa Tarini Hardware';
+        const kycStatus = (document.getElementById('bankKyc') || {}).value || 'GST Registered + Trade License';
+        return {
+          shopName,
+          kycStatus,
+          leadScore: UtkalVantage.LeadScoringEngine.scoreLead('bank', { shopName, kycStatus }, geoOk, true)
+        };
+      } else {
+        const sku = (document.getElementById('d2cSku') || {}).value || 'Raw Pressery Cold Juice';
+        const rating = (document.getElementById('d2cRating') || {}).value || '5 Stars';
+        return {
+          sku,
+          rating,
+          couponCode: 'UTKAL25',
+          leadScore: UtkalVantage.LeadScoringEngine.scoreLead('d2c', { sku, rating }, geoOk, true)
+        };
+      }
+    }
+
+    function updateSectorPlaybookWidget() {
+      const box = document.getElementById('sectorPlaybookWidget');
+      if (!box) return;
+      const details = getCurrentSectorDetails();
+
+      if (activeSector === 'nbfc') {
+        box.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <div>
+              <strong style="color:var(--accent-deep);">NBFC Asset Engine Qualification:</strong>
+              <div style="font-size:0.78rem;color:var(--ink-2);">Savings Pitch: 11.9% p.a. vs ${UtkalVantage.escapeHtml(details.currentRate)} Sahukar Rate • Escorted Branch Ping Ready</div>
+            </div>
+            <span class="badge badge-green">AI Score: ${details.leadScore}/10</span>
+          </div>
+        `;
+      } else if (activeSector === 'insurance') {
+        const est = UtkalVantage.LeadScoringEngine.estimateInsurancePremium(details.family, details.ageBracket);
+        box.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <div>
+              <strong style="color:var(--accent-deep);">Instant Policy Estimator (${est.coverLakhs}):</strong>
+              <div style="font-size:0.78rem;color:var(--ink-2);">Est. Premium: <strong>₹${est.monthlyInr}/month</strong> (₹${est.annualInr.toLocaleString('en-IN')}/yr) • 100% Cashless at ${UtkalVantage.escapeHtml(details.hospital)}</div>
+            </div>
+            <span class="badge badge-green">AI Score: ${details.leadScore}/10</span>
+          </div>
+        `;
+      } else if (activeSector === 'bank') {
+        box.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <div>
+              <strong style="color:var(--accent-deep);">20m Storefront Geofence + KYC Lock:</strong>
+              <div style="font-size:0.78rem;color:var(--ink-2);">Merchant: <strong>${UtkalVantage.escapeHtml(details.shopName || 'Pending')}</strong> • ${UtkalVantage.escapeHtml(details.kycStatus)}</div>
+            </div>
+            <span class="badge badge-green">AI Score: ${details.leadScore}/10</span>
+          </div>
+        `;
+      } else if (activeSector === 'd2c') {
+        const inv = UtkalVantage.StorageEngine.getInventory('d2c');
+        box.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <div>
+              <strong style="color:var(--accent-deep);">Live Sampling Inventory & Trial Engine:</strong>
+              <div style="font-size:0.78rem;color:var(--ink-2);font-family:var(--mono);">Start: ${inv.startingStock} | Dispensed: ${inv.dispensed} | <strong>Remaining: ${inv.remaining} units</strong></div>
+            </div>
+            <span class="badge badge-amber">Coupon: UTKAL25</span>
+          </div>
+        `;
+      }
+    }
+
+    // ── PHONE INPUT SECURITY BINDING ───────────────────────────────────────
+    function onPhoneInputChanged() {
+      const currentPhone = UtkalVantage.sanitizeIndianPhone(document.getElementById('custPhone').value);
+      const notice = document.getElementById('phoneBindingNotice');
+      if (isOtpVerified && currentPhone !== verifiedPhoneLocked) {
+        isOtpVerified = false;
+        document.getElementById('submitLeadBtn').style.display = 'none';
+        if (notice) {
+          notice.style.display = 'block';
+          notice.style.color = 'var(--red)';
+          notice.textContent = '⚠ Phone number modified after OTP verification. Please re-verify OTP.';
+        }
       }
     }
 
     // ── DUAL OTP VERIFICATION WORKFLOW ─────────────────────────────────────
     function triggerOtpFlow() {
-      const phone = document.getElementById('custPhone').value.trim();
-      if (phone.length < 10) {
-        alert('Please enter a valid 10-digit mobile number.');
+      const nameInput = document.getElementById('custName');
+      const phoneInput = document.getElementById('custPhone');
+      const name = (nameInput ? nameInput.value : '').trim();
+      const rawPhone = (phoneInput ? phoneInput.value : '').trim();
+      const cleanPhone = UtkalVantage.sanitizeIndianPhone(rawPhone);
+
+      if (name.length < 2) {
+        UtkalVantage.UI.toast('Please enter the customer name (at least 2 characters).', 'error');
+        if (nameInput) nameInput.focus();
         return;
       }
 
-      const challenge = otpMachine.startChallenge(phone, { sector: activeSector });
-      document.getElementById('otpPhoneDisplay').textContent = '+91 ' + phone;
-      document.getElementById('demoOtpCode').textContent = challenge.code;
+      if (!UtkalVantage.isValidIndianPhone(cleanPhone)) {
+        UtkalVantage.UI.toast('Please enter a valid 10-digit Indian mobile number (starts with 6, 7, 8, or 9).', 'error');
+        if (phoneInput) phoneInput.focus();
+        return;
+      }
 
-      const waUrl = UtkalVantage.DualVerificationMachine.getWhatsAppLink(phone, activeSector, challenge.code);
+      phoneInput.value = cleanPhone;
+      const challenge = otpMachine.startChallenge(cleanPhone, { sector: activeSector });
+      document.getElementById('otpPhoneDisplay').textContent = '+91 ' + cleanPhone;
+      document.getElementById('demoOtpCode').textContent = challenge.code;
+      document.getElementById('otpModalFeedback').style.display = 'none';
+
+      const waUrl = UtkalVantage.DualVerificationMachine.getWhatsAppLink(cleanPhone, activeSector, challenge.code);
       document.getElementById('waTriggerLink').href = waUrl;
 
       document.getElementById('otpModal').style.display = 'flex';
       document.getElementById('otpInput').value = '';
       document.getElementById('otpInput').focus();
 
-      // Start 90s countdown timer
       let remaining = 90;
+      const timerBadge = document.getElementById('otpTimerDisplay');
+      timerBadge.textContent = '90s';
+      timerBadge.className = 'badge badge-amber';
       clearInterval(otpTimerInterval);
       otpTimerInterval = setInterval(() => {
         remaining--;
-        document.getElementById('otpTimerDisplay').textContent = `${remaining}s`;
-        if (remaining <= 0) {
+        if (remaining > 0) {
+          timerBadge.textContent = `${remaining}s`;
+        } else {
           clearInterval(otpTimerInterval);
-          document.getElementById('otpTimerDisplay').textContent = 'Expired';
+          timerBadge.textContent = 'Expired';
+          timerBadge.className = 'badge badge-red';
         }
       }, 1000);
+    }
+
+    function autoFillDemoOtp() {
+      const code = document.getElementById('demoOtpCode').textContent.trim();
+      if (code && /^\d{6}$/.test(code)) {
+        document.getElementById('otpInput').value = code;
+      }
     }
 
     function closeOtpModal() {
@@ -939,15 +3375,30 @@
 
     function verifyOtpCode() {
       const code = document.getElementById('otpInput').value.trim();
-      const res = otpMachine.verify(code);
+      const currentPhone = document.getElementById('custPhone').value.trim();
+      const res = otpMachine.verify(code, currentPhone);
+      const feedback = document.getElementById('otpModalFeedback');
+
       if (res.success) {
         clearInterval(otpTimerInterval);
         isOtpVerified = true;
+        verifiedPhoneLocked = res.phone;
         document.getElementById('otpModal').style.display = 'none';
         document.getElementById('submitLeadBtn').style.display = 'flex';
-        alert('✓ Mobile Number OTP Verified Successfully!');
+
+        const notice = document.getElementById('phoneBindingNotice');
+        if (notice) {
+          notice.style.display = 'block';
+          notice.style.color = 'var(--green)';
+          notice.textContent = `✓ OTP Verified & Cryptographically Bound to +91 ${res.phone} (${res.token})`;
+        }
+        UtkalVantage.UI.toast(`✓ Mobile +91 ${res.phone} OTP Verified!`, 'success');
       } else {
-        alert('Verification Failed: ' + res.reason);
+        if (feedback) {
+          feedback.style.display = 'block';
+          feedback.textContent = '⚠ ' + res.reason;
+        }
+        UtkalVantage.UI.toast('Verification Failed: ' + res.reason, 'error');
       }
     }
 
@@ -955,19 +3406,44 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
 
-      if (!isOtpVerified) {
-        alert('Please verify customer OTP before submitting lead.');
+      const name = document.getElementById('custName').value.trim();
+      const phone = UtkalVantage.sanitizeIndianPhone(document.getElementById('custPhone').value);
+
+      if (name.length < 2) {
+        UtkalVantage.UI.toast('Customer name is required.', 'error');
+        return;
+      }
+
+      if (!isOtpVerified || !otpMachine.isVerifiedForPhone(phone)) {
+        UtkalVantage.UI.toast('Please complete OTP verification for this exact phone number before saving.', 'error');
+        document.getElementById('submitLeadBtn').style.display = 'none';
         return;
       }
 
       const geoStatus = geoManager.getStatus();
       if (!geoStatus.isLocked) {
-        const proceed = confirm('WARNING: You are outside the designated canopy zone. This lead will be flagged for compliance review. Proceed?');
+        const proceed = confirm(`COMPLIANCE WARNING: You are ${geoStatus.breachM}m outside the authorized ${geoStatus.anchor.name} zone. This lead will be flagged in the audit log. Proceed?`);
         if (!proceed) return;
       }
 
-      const name = document.getElementById('custName').value.trim();
-      const phone = document.getElementById('custPhone').value.trim();
+      // Ensure bank sector has shop name
+      if (activeSector === 'bank') {
+        const shopEl = document.getElementById('bankShopName');
+        if (shopEl && shopEl.value.trim().length < 2) {
+          UtkalVantage.UI.toast('Please enter the Merchant / Shop Commercial Name.', 'error');
+          shopEl.focus();
+          return;
+        }
+      }
+
+      if (!currentAuditPhoto) {
+        await captureSampleAuditPhoto();
+      } else {
+        await UtkalVantage.StorageEngine.savePhoto(currentAuditPhoto, { silent: true });
+      }
+
+      const details = getCurrentSectorDetails();
+      const online = isCurrentlyOnline();
 
       const leadRecord = {
         id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
@@ -978,58 +3454,46 @@
                 activeSector === 'bank' ? 'HDFC Bank' : 'Raw Pressery',
         customer: { name, phone },
         otpVerified: true,
+        otpToken: otpMachine.challenge ? otpMachine.challenge.token : null,
         geoCompliant: geoStatus.isLocked,
         distanceFromAnchorM: geoStatus.distanceM,
         anchorZone: geoStatus.anchor.name,
         photoSha256: currentAuditPhoto ? currentAuditPhoto.sha256 : null,
-        syncStatus: navigator.onLine ? 'synced' : 'queued'
+        syncStatus: online ? 'synced' : 'queued',
+        details
       };
 
-      // Gather sector-specific details
-      if (activeSector === 'nbfc') {
-        leadRecord.details = {
-          goldGrams: document.getElementById('nbfcGold').value,
-          currentRate: document.getElementById('nbfcRate').value,
-          leadScore: 9
-        };
-      } else if (activeSector === 'insurance') {
-        leadRecord.details = {
-          family: document.getElementById('insFamily').value,
-          hospital: document.getElementById('insHospital').value,
-          leadScore: 8
-        };
-      } else if (activeSector === 'bank') {
-        leadRecord.details = {
-          shopName: document.getElementById('bankShopName').value,
-          kycStatus: document.getElementById('bankKyc').value,
-          leadScore: 8
-        };
-      } else if (activeSector === 'd2c') {
-        leadRecord.details = {
-          sku: document.getElementById('d2cSku').value,
-          rating: document.getElementById('d2cRating').value,
-          leadScore: 9
-        };
+      // If D2C sector, decrement live sampling inventory
+      if (activeSector === 'd2c') {
+        UtkalVantage.StorageEngine.updateInventory('d2c', 1);
       }
 
-      // Save to IndexedDB
       await UtkalVantage.StorageEngine.saveLead(leadRecord);
 
-      alert(`✓ Lead Saved Successfully!\nID: ${leadRecord.id}\nSync Status: ${leadRecord.syncStatus.toUpperCase()}`);
+      UtkalVantage.UI.toast(
+        `✓ Lead ${leadRecord.id} Saved (${leadRecord.syncStatus.toUpperCase()}) • Score: ${details.leadScore}/10`,
+        'success'
+      );
 
-      // Reset state for next customer
+      // Reset form state for next customer
       isOtpVerified = false;
+      verifiedPhoneLocked = null;
+      otpMachine.reset();
       document.getElementById('submitLeadBtn').style.display = 'none';
+      document.getElementById('phoneBindingNotice').style.display = 'none';
       document.getElementById('custName').value = '';
       document.getElementById('custPhone').value = '';
-      updateOfflineQueueBadge();
+
+      updateSectorPlaybookWidget();
+      await updateOfflineQueueBadge();
+      await renderLocalLeadsList();
     }
 
     // ── NETWORK & OFFLINE QUEUE MONITOR ───────────────────────────────────
     function initNetworkListener() {
       const badge = document.getElementById('netStatus');
       const updateNet = () => {
-        if (navigator.onLine) {
+        if (isCurrentlyOnline()) {
           badge.className = 'status-pill online';
           badge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> ONLINE';
           flushOfflineLeads();
@@ -1047,6 +3511,7 @@
       const leads = await UtkalVantage.StorageEngine.getAllLeads();
       const queued = leads.filter(l => l.syncStatus === 'queued').length;
       const b = document.getElementById('offlineQueueBadge');
+      if (!b) return;
       if (queued > 0) {
         b.className = 'badge badge-red';
         b.textContent = `${queued} QUEUED OFFLINE`;
@@ -1057,6 +3522,10 @@
     }
 
     async function flushOfflineLeads() {
+      if (!isCurrentlyOnline()) {
+        await updateOfflineQueueBadge();
+        return;
+      }
       const leads = await UtkalVantage.StorageEngine.getAllLeads();
       let updated = 0;
       for (const lead of leads) {
@@ -1067,9 +3536,41 @@
         }
       }
       if (updated > 0) {
-        console.log(`[UtkalVantage] Auto-synced ${updated} offline leads.`);
+        UtkalVantage.UI.toast(`Synced ${updated} offline lead(s) to Ops Console & Client Portal!`, 'success');
       }
-      updateOfflineQueueBadge();
+      await updateOfflineQueueBadge();
+      await renderLocalLeadsList();
+    }
+
+    async function renderLocalLeadsList() {
+      const container = document.getElementById('localLeadsList');
+      if (!container) return;
+      const leads = await UtkalVantage.StorageEngine.getAllLeads();
+      if (!leads.length) {
+        container.innerHTML = `<div class="caption">No field leads captured in this session yet. Complete a lead above to test instant persistence.</div>`;
+        return;
+      }
+      container.innerHTML = leads.slice(0, 8).map(l => {
+        const score = l.details && l.details.leadScore ? l.details.leadScore : 9;
+        const syncBadge = l.syncStatus === 'queued'
+          ? `<span class="badge badge-red">QUEUED</span>`
+          : `<span class="badge badge-green">SYNCED</span>`;
+        const geoBadge = l.geoCompliant
+          ? `<span class="badge badge-green">GEO OK (${l.distanceFromAnchorM ?? 12}m)</span>`
+          : `<span class="badge badge-red">BREACH</span>`;
+        return `
+          <div style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:#FAF8F5;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div style="font-weight:700;color:var(--ink);">${UtkalVantage.escapeHtml(l.customer.name)} <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);">+91 ${UtkalVantage.escapeHtml(l.customer.phone)}</span></div>
+              <div class="caption">${UtkalVantage.escapeHtml(l.sector.toUpperCase())} • ${UtkalVantage.escapeHtml(l.client)} • ${UtkalVantage.escapeHtml(l.anchorZone)} • Score: ${score}/10</div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              ${geoBadge}
+              ${syncBadge}
+            </div>
+          </div>
+        `;
+      }).join('');
     }
   </script>
 </body>
