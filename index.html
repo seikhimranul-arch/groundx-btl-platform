@@ -951,12 +951,13 @@ tbody tr:hover {
     .hero-headline { margin-bottom: 20px; }
     .hero-headline span { color: var(--accent); }
     .hero-sub { max-width: 52ch; margin-bottom: 36px; }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 48px; }
-    .hero-proof { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .hero-avatars { display: flex; }
-    .hero-avatars .avatar { border: 2px solid var(--surface); margin-left: -8px; }
-    .hero-avatars .avatar:first-child { margin-left: 0; }
-    .hero-proof-text { font-size: 0.85rem; color: var(--ink-3); font-weight: 500; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 36px; }
+    .hero-proof {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 12px 16px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; max-width: 52ch;
+    }
+    .hero-proof-text { font-size: 0.84rem; color: var(--ink-2); font-weight: 500; line-height: 1.45; }
     .hero-proof-text strong { color: var(--ink); }
     .hero-right { padding: 40px 0 40px 40px; }
     .hero-dashboard {
@@ -973,7 +974,7 @@ tbody tr:hover {
     .hero-db-title { font-size: 0.8rem; color: var(--ink-3); font-weight: 500; }
     .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
     .hero-stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-    .hero-stat-val { font-family: var(--mono); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.025em; }
+    .hero-stat-val { font-family: var(--mono); font-size: 1.35rem; font-weight: 700; letter-spacing: -0.025em; }
     .hero-stat-label { font-size: 0.7rem; color: var(--ink-3); font-weight: 500; margin-top: 2px; }
     .hero-map {
       height: 180px; border-radius: 12px; overflow: hidden; position: relative;
@@ -1020,7 +1021,7 @@ tbody tr:hover {
     .feature-icon.white { background: rgba(255,255,255,0.2); color: #fff; }
     .feature-number { font-family: var(--mono); font-size: 4.5rem; font-weight: 700; letter-spacing: -0.04em; position: absolute; bottom: -12px; right: 24px; opacity: 0.08; line-height: 1; }
 
-    /* ── Proof section ── */
+    /* ── Verification Architecture section ── */
     .proof-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
     .proof-cell { background: var(--surface); padding: 36px 24px; }
 
@@ -1072,19 +1073,19 @@ tbody tr:hover {
     .cta-banner .btn-ghost { border-color: rgba(255,255,255,0.4); color: #fff; background: transparent; }
     .cta-banner .btn-ghost:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.65); }
 
-    /* ── Social proof logos ── */
+    /* ── Sector Marquee tags ── */
     .logo-tag {
-      font-family: var(--body); font-size: 0.9rem; font-weight: 600; color: var(--ink-3);
-      letter-spacing: -0.01em; opacity: 0.75;
+      font-family: var(--mono); font-size: 0.82rem; font-weight: 600; color: var(--ink-2);
+      letter-spacing: 0.02em;
     }
 
-    /* ── Testimonials ── */
+    /* ── Sector Service Blueprints (Replaces Fake Testimonials) ── */
     .testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .testimonial { border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; background: var(--surface); }
-    .testimonial-quote { font-size: 0.96rem; line-height: 1.65; color: var(--ink-2); margin-bottom: 20px; }
-    .testimonial-author { display: flex; align-items: center; gap: 12px; }
-    .testimonial-name { font-size: 0.88rem; font-weight: 700; color: var(--ink); }
-    .testimonial-role { font-size: 0.78rem; color: var(--ink-3); }
+    .testimonial { border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; background: var(--surface); display: flex; flex-direction: column; justify-content: space-between; }
+    .testimonial-quote { font-size: 0.92rem; line-height: 1.62; color: var(--ink-2); margin-bottom: 18px; }
+    .testimonial-author { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .testimonial-name { font-size: 0.84rem; font-weight: 700; color: var(--ink); font-family: var(--mono); }
+    .testimonial-role { font-size: 0.76rem; color: var(--ink-3); }
 
     /* ── Footer ── */
     footer { background: var(--fg); padding: 60px 0 32px; }
@@ -1130,9 +1131,9 @@ tbody tr:hover {
       </a>
       <div class="nav-links" id="mainNavLinks">
         <a href="#features" class="nav-link" onclick="closeMobileNav()">Features</a>
-        <a href="#proof" class="nav-link" onclick="closeMobileNav()">Results</a>
+        <a href="#proof" class="nav-link" onclick="closeMobileNav()">Architecture</a>
+        <a href="#testimonials" class="nav-link" onclick="closeMobileNav()">Sectors</a>
         <a href="#pricing" class="nav-link" onclick="closeMobileNav()">Pricing</a>
-        <a href="#testimonials" class="nav-link" onclick="closeMobileNav()">Clients</a>
         <a href="brand-sheet.html" class="nav-link" style="color:var(--accent);font-family:var(--mono);font-size:0.82rem;">Brand Sheet</a>
       </div>
       <div class="nav-actions">
@@ -1140,7 +1141,7 @@ tbody tr:hover {
           <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Field Terminal
         </a>
-        <a href="client-portal.html" class="btn btn-ghost btn-sm hide-xs">Client Login</a>
+        <a href="client-portal.html" class="btn btn-ghost btn-sm hide-xs">Client Preview</a>
         <a href="dashboard.html" class="btn btn-primary btn-sm">
           <ph-icon name="chart-bar" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Ops Console
@@ -1164,25 +1165,20 @@ tbody tr:hover {
       Field marketing that<br/><span>proves its work.</span>
     </h1>
     <p class="body-lg hero-sub">
-      End-to-end BTL execution with GPS-verified proof-of-work, real-time lead tracking, and conversion reports your clients can see — not just trust.
+      End-to-end BTL execution with GPS-verified proof-of-work, real-time lead tracking, and cryptographic conversion logs your team can verify live on the ground.
     </p>
     <div class="hero-cta">
-      <button type="button" class="btn btn-primary btn-lg" onclick="openPilotModal('Scale Retainer')">
-        Start a campaign
+      <a href="promoter.html" class="btn btn-primary btn-lg">
+        Launch Live Field Terminal
         <ph-icon name="arrow-right" weight="bold" style="width:16px;height:16px;"></ph-icon>
-      </button>
-      <a href="promoter.html" class="btn btn-ghost btn-lg">Test Field Terminal</a>
-      <a href="dashboard.html" class="btn btn-ghost btn-lg">See Ops Console</a>
+      </a>
+      <a href="client-portal.html" class="btn btn-ghost btn-lg">Client Portal Preview</a>
+      <button type="button" class="btn btn-ghost btn-lg" onclick="openPilotModal('7-Day Pilot Inquiry')">Plan a Pilot</button>
     </div>
     <div class="hero-proof">
-      <div class="hero-avatars">
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">RK</div>
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#dceffe,#7ab8f5);">SM</div>
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#ddfce3,#7adfa1);">PT</div>
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#f5deff,#c47af5);">AV</div>
-      </div>
+      <span class="badge badge-green">LIVE MVP</span>
       <div class="hero-proof-text">
-        Trusted by <strong>47 campaign managers</strong> across Odisha &amp; AP
+        <strong>Interactive Verification Sandbox:</strong> Test 100m/20m GPS geofencing, SHA-256 photo watermarking, and OTP lead capture directly on your phone.
       </div>
     </div>
   </div>
@@ -1192,40 +1188,39 @@ tbody tr:hover {
         <div class="traffic-light">
           <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
         </div>
-        <span class="hero-db-title">Live Campaign Monitor</span>
+        <span class="hero-db-title">Bhubaneswar Catchment Sandbox</span>
         <span class="badge badge-green" style="margin-left:auto;">
-          <span class="dot dot-green"></span> Active
+          <span class="dot dot-green"></span> Interactive MVP
         </span>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-val" id="stat1">24</div>
-          <div class="hero-stat-label">Promoters Live</div>
+          <div class="hero-stat-val" id="stat1">5 Zones</div>
+          <div class="hero-stat-label">Geofence Anchors</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-val" id="stat2">147</div>
-          <div class="hero-stat-label">Leads Today</div>
+          <div class="hero-stat-val" id="stat2">0</div>
+          <div class="hero-stat-label">Session Leads</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-val" id="stat3">31%</div>
-          <div class="hero-stat-label">Conversion</div>
+          <div class="hero-stat-val" id="stat3">SHA-256</div>
+          <div class="hero-stat-label">Photo Audit</div>
         </div>
       </div>
       <div class="hero-map">
         <div class="hero-map-grid"></div>
-        <div class="map-dot" style="left:28%;top:38%;"></div>
-        <div class="map-dot" style="left:52%;top:25%;animation-delay:0.4s;"></div>
-        <div class="map-dot map-dot-green" style="left:67%;top:55%;animation-delay:0.8s;"></div>
-        <div class="map-dot map-dot-green" style="left:38%;top:68%;animation-delay:1.2s;"></div>
-        <div class="map-dot" style="left:76%;top:36%;animation-delay:0.6s;"></div>
-        <div class="map-dot map-dot-green" style="left:18%;top:60%;animation-delay:1.6s;"></div>
+        <div class="map-dot" style="left:28%;top:38%;" title="Rasulgarh Square (100m)"></div>
+        <div class="map-dot" style="left:52%;top:25%;animation-delay:0.4s;" title="Infocity / Patia (100m)"></div>
+        <div class="map-dot map-dot-green" style="left:67%;top:55%;animation-delay:0.8s;" title="Saheed Nagar (20m)"></div>
+        <div class="map-dot map-dot-green" style="left:38%;top:68%;animation-delay:1.2s;" title="Unit-1 Market (100m)"></div>
+        <div class="map-dot" style="left:18%;top:60%;animation-delay:1.6s;" title="Kalinga Nagar (100m)"></div>
         <!-- Legend -->
         <div class="glass" style="position:absolute;bottom:12px;right:12px;padding:8px 12px;border-radius:10px;display:flex;gap:12px;">
           <div style="display:flex;align-items:center;gap:5px;font-size:0.7rem;color:var(--ink-2);">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--accent);"></div> Field
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--accent);"></div> 100m Canopy
           </div>
           <div style="display:flex;align-items:center;gap:5px;font-size:0.7rem;color:var(--ink-2);">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);"></div> Lead captured
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);"></div> 20m Storefront
           </div>
         </div>
       </div>
@@ -1233,54 +1228,44 @@ tbody tr:hover {
       <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;" id="liveFeed">
         <div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--bg);">
           <div class="dot dot-green"></div>
-          <span style="font-size:0.78rem;color:var(--ink-2);">Ramesh K. uploaded photo — Rasulgarh Market</span>
-          <span style="font-size:0.7rem;color:var(--ink-3);margin-left:auto;">2m ago</span>
+          <span style="font-size:0.78rem;color:var(--ink-2);">Geofence Engine Ready — 5 Bhubaneswar zones pre-configured</span>
+          <span style="font-size:0.7rem;color:var(--ink-3);margin-left:auto;">Live</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--bg);">
           <div class="dot dot-green"></div>
-          <span style="font-size:0.78rem;color:var(--ink-2);">New lead captured — Muthoot Finance drive</span>
-          <span style="font-size:0.7rem;color:var(--ink-3);margin-left:auto;">5m ago</span>
+          <span style="font-size:0.78rem;color:var(--ink-2);">Open Field Terminal to capture &amp; sync a live test lead</span>
+          <a href="promoter.html" style="font-size:0.72rem;color:var(--accent);font-weight:700;margin-left:auto;text-decoration:none;">Test →</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── MARQUEE (Social proof logos) ── -->
-<div class="section-sm" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;overflow:hidden;">
+<!-- ─────────────── MARQUEE (Sector Capabilities) ── -->
+<div class="section-sm" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 0;overflow:hidden;">
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span class="logo-tag">Muthoot Finance</span>
+      <span class="logo-tag">01 · NBFC GOLD &amp; MSME LOAN CAMPS</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Manappuram Gold</span>
+      <span class="logo-tag">02 · HEALTH &amp; LIFE INSURANCE KIOSKS</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">IIFL Finance</span>
+      <span class="logo-tag">03 · BANK MERCHANT QR &amp; CASA DRIVES</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Bajaj Finserv</span>
+      <span class="logo-tag">04 · D2C EXPERIENTIAL SAMPLING HUBS</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Fusion Microfinance</span>
+      <span class="logo-tag">100M / 20M GPS RADIAL LOCK</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Star Health</span>
+      <span class="logo-tag">SHA-256 CRYPTOGRAPHIC PHOTO AUDIT</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">HDFC Ergo</span>
+      <span class="logo-tag">DUAL-OTP LEAD VERIFICATION</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Vedantu</span>
+      <span class="logo-tag">01 · NBFC GOLD &amp; MSME LOAN CAMPS</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Muthoot Finance</span>
+      <span class="logo-tag">02 · HEALTH &amp; LIFE INSURANCE KIOSKS</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Manappuram Gold</span>
+      <span class="logo-tag">03 · BANK MERCHANT QR &amp; CASA DRIVES</span>
       <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">IIFL Finance</span>
-      <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Bajaj Finserv</span>
-      <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Fusion Microfinance</span>
-      <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Star Health</span>
-      <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">HDFC Ergo</span>
-      <span class="logo-tag" style="opacity:0.3;">·</span>
-      <span class="logo-tag">Vedantu</span>
+      <span class="logo-tag">04 · D2C EXPERIENTIAL SAMPLING HUBS</span>
     </div>
   </div>
 </div>
@@ -1290,24 +1275,24 @@ tbody tr:hover {
   <div class="container">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:20px;">
       <div>
-        <div class="badge badge-accent" style="margin-bottom:12px;">The Real Problem</div>
-        <h2 class="h1">BTL agencies fail on<br/>accountability.</h2>
+        <div class="badge badge-accent" style="margin-bottom:12px;">The Industry Gap</div>
+        <h2 class="h1">Legacy BTL fails on<br/>verifiable proof.</h2>
       </div>
-      <p class="body-lg" style="max-width:42ch;">
-        "Ghost activations" cost Indian brands an estimated ₹400–800 crore annually. Promoters report work that never happened. Clients have no way to verify. We fix this.
+      <p class="body-lg" style="max-width:44ch;">
+        Traditional field agencies bill for headcount and pamphlet printing, deliver unverified footfall numbers, and provide zero visibility into whether an activation actually happened on the ground.
       </p>
     </div>
     <div class="ps-grid">
       <div>
-        <div style="margin-bottom:10px;font-size:0.75rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;">Without Utkal Vantage</div>
+        <div style="margin-bottom:10px;font-size:0.75rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;">Legacy Unverified BTL</div>
         <div style="display:flex;flex-direction:column;gap:12px;">
           <div class="ps-item">
             <div class="ps-icon" style="background:var(--red-pale);color:var(--red);">
               <ph-icon name="x" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Fake attendance logs</div>
-              <p class="body" style="font-size:0.85rem;">Promoters mark present from home. No one catches it until the client asks for photos.</p>
+              <div class="h3" style="margin-bottom:2px;">Unverified attendance logs</div>
+              <p class="body" style="font-size:0.85rem;">Field reps mark attendance remotely without physical proximity verification at the assigned market or society.</p>
             </div>
           </div>
           <div class="ps-item">
@@ -1315,8 +1300,8 @@ tbody tr:hover {
               <ph-icon name="x" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Activity ≠ outcome</div>
-              <p class="body" style="font-size:0.85rem;">Reports show "200 handbills distributed" but zero leads tracked. Client has no ROI signal.</p>
+              <div class="h3" style="margin-bottom:2px;">Pamphlet counts instead of funnel outcomes</div>
+              <p class="body" style="font-size:0.85rem;">Agencies report handbills distributed rather than qualified, contactable customer inquiries.</p>
             </div>
           </div>
           <div class="ps-item">
@@ -1324,8 +1309,8 @@ tbody tr:hover {
               <ph-icon name="x" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Weekly PDF reports — too late</div>
-              <p class="body" style="font-size:0.85rem;">By the time the report arrives, the campaign has ended. No ability to course-correct.</p>
+              <div class="h3" style="margin-bottom:2px;">Post-campaign static PDF dumps</div>
+              <p class="body" style="font-size:0.85rem;">Reports arrive days after the campaign ends, leaving zero room to adjust catchment zones mid-sprint.</p>
             </div>
           </div>
           <div class="ps-item">
@@ -1333,22 +1318,22 @@ tbody tr:hover {
               <ph-icon name="x" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Lead quality unknown</div>
-              <p class="body" style="font-size:0.85rem;">Raw lead dumps in Excel. No scoring, no OTP verification, no conversion tracking.</p>
+              <div class="h3" style="margin-bottom:2px;">Unverified phone numbers in Excel</div>
+              <p class="body" style="font-size:0.85rem;">Raw paper sheet transcriptions lead to wrong numbers, unverified intent, and wasted branch calling hours.</p>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <div style="margin-bottom:10px;font-size:0.75rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;">With Utkal Vantage</div>
+        <div style="margin-bottom:10px;font-size:0.75rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;">Utkal Vantage Tech Layer</div>
         <div style="display:flex;flex-direction:column;gap:12px;">
           <div class="ps-item">
             <div class="ps-icon" style="background:var(--green-pale);color:var(--green);">
               <ph-icon name="check" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Geo-fenced photo upload</div>
-              <p class="body" style="font-size:0.85rem;">Photos only upload when the promoter is within 100m of the assigned location. Timestamp locked.</p>
+              <div class="h3" style="margin-bottom:2px;">100m Canopy &amp; 20m Storefront Geofence</div>
+              <p class="body" style="font-size:0.85rem;">Haversine radial lock verifies exact distance from the assigned market anchor before any submission.</p>
             </div>
           </div>
           <div class="ps-item">
@@ -1356,8 +1341,8 @@ tbody tr:hover {
               <ph-icon name="check" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Lead → Conversion pipeline</div>
-              <p class="body" style="font-size:0.85rem;">Every lead captured, OTP-verified, scored for quality, and tracked through to disbursement.</p>
+              <div class="h3" style="margin-bottom:2px;">SHA-256 Cryptographic Photo Watermark</div>
+              <p class="body" style="font-size:0.85rem;">Burns GPS coordinates, IST timestamp, and Rep ID into the image canvas and logs an immutable SHA-256 digest.</p>
             </div>
           </div>
           <div class="ps-item">
@@ -1365,8 +1350,8 @@ tbody tr:hover {
               <ph-icon name="check" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">Real-time client dashboard</div>
-              <p class="body" style="font-size:0.85rem;">Your client watches the campaign live. Uneditable logs build trust. Zero disputes.</p>
+              <div class="h3" style="margin-bottom:2px;">Phone-Bound Dual-OTP Verification</div>
+              <p class="body" style="font-size:0.85rem;">Leads unlock only after 6-digit OTP verification bound to the customer's 10-digit mobile number.</p>
             </div>
           </div>
           <div class="ps-item">
@@ -1374,8 +1359,8 @@ tbody tr:hover {
               <ph-icon name="check" weight="bold" style="width:16px;height:16px;"></ph-icon>
             </div>
             <div>
-              <div class="h3" style="margin-bottom:2px;">AI lead quality scoring</div>
-              <p class="body" style="font-size:0.85rem;">ML model scores each lead 1–10 based on demographics, intent signals, and engagement time.</p>
+              <div class="h3" style="margin-bottom:2px;">Live Client Portal &amp; Offline Sync Queue</div>
+              <p class="body" style="font-size:0.85rem;">Queues leads in local IndexedDB when network drops in dense markets and syncs automatically to the client portal.</p>
             </div>
           </div>
         </div>
@@ -1388,16 +1373,16 @@ tbody tr:hover {
 <section class="section-sm" style="padding-bottom:96px;">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
-      <div class="badge badge-neutral" style="margin-bottom:12px;">Platform Features</div>
-      <h2 class="h1">Everything in one platform.</h2>
+      <div class="badge badge-neutral" style="margin-bottom:12px;">Platform Capabilities</div>
+      <h2 class="h1">Engineered for ground truth.</h2>
     </div>
     <div class="features-grid">
       <div class="feature-card accent-card" style="grid-row:span 2;">
         <div class="feature-icon white">
           <ph-icon name="map-trifold" weight="fill" style="width:22px;height:22px;"></ph-icon>
         </div>
-        <h3 class="h3" style="margin-bottom:10px;color:#fff;">Live GPS tracking</h3>
-        <p class="body" style="font-size:0.9rem;">Watch every promoter on a real-time map. See their route history, dwell time at each location, and automatically flag if they leave the assigned zone.</p>
+        <h3 class="h3" style="margin-bottom:10px;color:#fff;">Haversine GPS Geofencing</h3>
+        <p class="body" style="font-size:0.9rem;">Enforces a 100m radial lock for canopy activations and a strict 20m lock for merchant storefront onboarding. Out-of-zone submissions are automatically flagged for compliance review.</p>
         <div class="feature-number">01</div>
         <div style="margin-top:24px;height:160px;background:rgba(255,255,255,0.1);border-radius:12px;position:relative;overflow:hidden;">
           <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.07) 1px,transparent 1px);background-size:24px 24px;"></div>
@@ -1410,68 +1395,68 @@ tbody tr:hover {
         <div class="feature-icon orange">
           <ph-icon name="camera" weight="fill" style="width:22px;height:22px;"></ph-icon>
         </div>
-        <h3 class="h3" style="margin-bottom:8px;">Geo-tagged proof-of-work</h3>
-        <p class="body" style="font-size:0.87rem;">Every photo upload is verified against the promoter's GPS position. Tamper-proof SHA-256 ledger.</p>
+        <h3 class="h3" style="margin-bottom:8px;">SHA-256 Photo Proof Ledger</h3>
+        <p class="body" style="font-size:0.87rem;">Watermarks GPS, accuracy, and IST time into the image buffer and verifies pixel integrity against any modification.</p>
         <div class="feature-number">02</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon green">
           <ph-icon name="funnel" weight="fill" style="width:22px;height:22px;"></ph-icon>
         </div>
-        <h3 class="h3" style="margin-bottom:8px;">Lead quality scoring</h3>
-        <p class="body" style="font-size:0.87rem;">ML-powered scoring 1–10. OTP-verified contact. NBFCs only pay for high-quality leads.</p>
+        <h3 class="h3" style="margin-bottom:8px;">Sector-Specific Qualification</h3>
+        <p class="body" style="font-size:0.87rem;">Custom qualification workflows for NBFC asset readiness, Insurance family profiling, Bank KYC checklists, and D2C trials.</p>
         <div class="feature-number">03</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon orange">
-          <ph-icon name="chart-line-up" weight="fill" style="width:22px;height:22px;"></ph-icon>
+          <ph-icon name="key" weight="fill" style="width:22px;height:22px;"></ph-icon>
         </div>
-        <h3 class="h3" style="margin-bottom:8px;">Conversion analytics</h3>
-        <p class="body" style="font-size:0.87rem;">From lead captured to loan disbursed — track the full funnel and report cost-per-conversion to your client.</p>
+        <h3 class="h3" style="margin-bottom:8px;">Phone-Bound OTP State Machine</h3>
+        <p class="body" style="font-size:0.87rem;">90-second challenge window, 3-attempt brute-force lockout, and zero-cost WhatsApp verification deep-links.</p>
         <div class="feature-number">04</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon green">
-          <ph-icon name="users-three" weight="fill" style="width:22px;height:22px;"></ph-icon>
+          <ph-icon name="database" weight="fill" style="width:22px;height:22px;"></ph-icon>
         </div>
-        <h3 class="h3" style="margin-bottom:8px;">Promoter management</h3>
-        <p class="body" style="font-size:0.87rem;">Hire, train, assign, and score promoters. Gamified performance dashboard keeps them accountable.</p>
+        <h3 class="h3" style="margin-bottom:8px;">Offline-First IndexedDB Queue</h3>
+        <p class="body" style="font-size:0.87rem;">Captures leads seamlessly when mobile data drops inside markets and auto-flushes to the console on reconnect.</p>
         <div class="feature-number">05</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon orange">
           <ph-icon name="eye" weight="fill" style="width:22px;height:22px;"></ph-icon>
         </div>
-        <h3 class="h3" style="margin-bottom:8px;">White-label client portal</h3>
-        <p class="body" style="font-size:0.87rem;">Your client gets their own branded login. Live data, uneditable logs, downloadable PDF reports.</p>
+        <h3 class="h3" style="margin-bottom:8px;">Transparent Client Portal</h3>
+        <p class="body" style="font-size:0.87rem;">Read-only live view where clients inspect geo-verified photos, export SHA-256 hash ledgers, and download CSV leads.</p>
         <div class="feature-number">06</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── NUMBERS ──────────────────────── -->
+<!-- ─────────────── VERIFICATION STANDARDS ──────── -->
 <section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);" id="proof">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
-      <div class="badge badge-accent" style="margin-bottom:12px;">Proven Results</div>
-      <h2 class="h1">Numbers our clients care about.</h2>
+      <div class="badge badge-accent" style="margin-bottom:12px;">Verification Standards</div>
+      <h2 class="h1">Built to eliminate ghost activations.</h2>
     </div>
     <div class="proof-grid">
       <div class="proof-cell" style="text-align:center;">
-        <div class="stat-value" style="color:var(--accent);">3.2x</div>
-        <div style="font-size:1rem;font-weight:600;margin-top:4px;">Higher lead quality</div>
-        <p class="caption" style="margin-top:8px;max-width:24ch;margin-left:auto;margin-right:auto;">vs. traditional BTL agencies. OTP-verified, scored leads convert better.</p>
+        <div class="stat-value" style="color:var(--accent);">100m / 20m</div>
+        <div style="font-size:1rem;font-weight:600;margin-top:6px;">Radial Geofence Lock</div>
+        <p class="caption" style="margin-top:8px;max-width:26ch;margin-left:auto;margin-right:auto;">100m lock for market canopies and society kiosks; 20m lock for shop-by-shop merchant onboarding.</p>
       </div>
       <div class="proof-cell" style="text-align:center;">
-        <div class="stat-value" style="color:var(--accent);">₹147</div>
-        <div style="font-size:1rem;font-weight:600;margin-top:4px;">Avg. cost per qualified lead</div>
-        <p class="caption" style="margin-top:8px;max-width:24ch;margin-left:auto;margin-right:auto;">For gold loan campaigns in Odisha. Market average: ₹400–600.</p>
+        <div class="stat-value" style="color:var(--accent);">SHA-256</div>
+        <div style="font-size:1rem;font-weight:600;margin-top:6px;">Tamper-Proof Photo Audit</div>
+        <p class="caption" style="margin-top:8px;max-width:26ch;margin-left:auto;margin-right:auto;">Cryptographic digest computed on watermarked canvas bytes so even a 1-pixel edit is flagged immediately.</p>
       </div>
       <div class="proof-cell" style="text-align:center;">
-        <div class="stat-value" style="color:var(--accent);">94%</div>
-        <div style="font-size:1rem;font-weight:600;margin-top:4px;">Execution verified</div>
-        <p class="caption" style="margin-top:8px;max-width:24ch;margin-left:auto;margin-right:auto;">Of planned activity confirmed via geo-tagged photo upload.</p>
+        <div class="stat-value" style="color:var(--accent);">100% OTP</div>
+        <div style="font-size:1rem;font-weight:600;margin-top:6px;">Dual-Verified Lead Capture</div>
+        <p class="caption" style="margin-top:8px;max-width:26ch;margin-left:auto;margin-right:auto;">Every lead requires live 6-digit OTP verification bound to a valid 10-digit Indian mobile number.</p>
       </div>
     </div>
   </div>
@@ -1481,8 +1466,8 @@ tbody tr:hover {
 <section class="section">
   <div class="container">
     <div style="margin-bottom:56px;">
-      <div class="badge badge-neutral" style="margin-bottom:12px;">How It Works</div>
-      <h2 class="h1">Campaign live in 48 hours.</h2>
+      <div class="badge badge-neutral" style="margin-bottom:12px;">Operational Workflow</div>
+      <h2 class="h1">From catchment plan to verified lead.</h2>
     </div>
     <div class="how-it-works-grid">
       <div class="how-connector"></div>
@@ -1490,80 +1475,97 @@ tbody tr:hover {
         <div style="width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:0 auto 20px;color:#fff;">
           <ph-icon name="target" weight="fill" style="width:24px;height:24px;"></ph-icon>
         </div>
-        <div class="h3" style="margin-bottom:8px;">1. Plan</div>
-        <p class="body" style="font-size:0.85rem;">Define catchment area, target audience, and campaign objectives. We assign optimal locations.</p>
+        <div class="h3" style="margin-bottom:8px;">1. Lock Catchment</div>
+        <p class="body" style="font-size:0.85rem;">Configure GPS anchor coordinates and radius thresholds (100m canopy or 20m merchant zone) around target branches.</p>
       </div>
       <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
         <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
-          <ph-icon name="users-three" weight="fill" style="width:24px;height:24px;"></ph-icon>
+          <ph-icon name="camera" weight="fill" style="width:24px;height:24px;"></ph-icon>
         </div>
-        <div class="h3" style="margin-bottom:8px;">2. Deploy</div>
-        <p class="body" style="font-size:0.85rem;">Branded promoters hit the ground. Each gets a mobile terminal with their daily route and tasks.</p>
+        <div class="h3" style="margin-bottom:8px;">2. Audit Ground Setup</div>
+        <p class="body" style="font-size:0.85rem;">Promoters capture live canopy or storefront photos with burned-in GPS telemetry and SHA-256 verification.</p>
+      </div>
+      <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
+          <ph-icon name="key" weight="fill" style="width:24px;height:24px;"></ph-icon>
+        </div>
+        <div class="h3" style="margin-bottom:8px;">3. Qualify &amp; OTP Verify</div>
+        <p class="body" style="font-size:0.85rem;">Capture sector-specific qualification data and verify customer intent on the spot via 6-digit OTP challenge.</p>
       </div>
       <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
         <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
           <ph-icon name="chart-bar" weight="fill" style="width:24px;height:24px;"></ph-icon>
         </div>
-        <div class="h3" style="margin-bottom:8px;">3. Monitor</div>
-        <p class="body" style="font-size:0.85rem;">You and your client watch the campaign in real-time. Photos, locations, leads — all live.</p>
-      </div>
-      <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
-          <ph-icon name="currency-inr" weight="fill" style="width:24px;height:24px;"></ph-icon>
-        </div>
-        <div class="h3" style="margin-bottom:8px;">4. Convert</div>
-        <p class="body" style="font-size:0.85rem;">Qualified leads handed to client. Conversion tracked. ROI report auto-generated.</p>
+        <div class="h3" style="margin-bottom:8px;">4. Sync to Client Portal</div>
+        <p class="body" style="font-size:0.85rem;">Verified leads and photo hashes stream directly to the client portal for immediate branch follow-up.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── TESTIMONIALS ─────────────────── -->
+<!-- ─────────────── SECTOR BLUEPRINTS (Pitch-Safe) ── -->
 <section class="section-sm" style="background:var(--surface);border-top:1px solid var(--border);" id="testimonials">
   <div class="container">
     <div style="margin-bottom:40px;">
-      <div class="badge badge-neutral" style="margin-bottom:12px;">Client Stories</div>
-      <h2 class="h1">What clients say.</h2>
+      <div class="badge badge-neutral" style="margin-bottom:12px;">Sector Playbooks</div>
+      <h2 class="h1">Four outcome-engineered service engines.</h2>
+      <p class="body-lg" style="max-width:58ch;margin-top:8px;">In field marketing, one size fits nobody. We productize ground execution around the exact compliance and conversion metrics of four industries.</p>
     </div>
     <div class="testimonials-grid">
       <div class="testimonial">
-        <p class="testimonial-quote">"We ran 3 agencies before Utkal Vantage. The difference was night and day. I could actually see my promoters on a map at 10am and know they were at Sahid Nagar market — not sitting at home."</p>
+        <div>
+          <div class="badge badge-accent" style="margin-bottom:12px;">01 · NBFCs (Gold &amp; MSME Loans)</div>
+          <h3 class="h3" style="margin-bottom:8px;">Asset-Backed Liquid Lead Engine</h3>
+          <p class="testimonial-quote">Deployed within a 1.5 km radial catchment of target branches (daily markets, haats, trading squares). Captures asset readiness (15–30g, 30–50g, 50g+), compares local pawnbroker rates vs. formal NBFC rates, and locks OTP-verified leads for same-day branch follow-up.</p>
+        </div>
         <div class="testimonial-author">
-          <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#f5a87a);">AK</div>
           <div>
-            <div class="testimonial-name">Abhijit Kar</div>
-            <div class="testimonial-role">Branch Manager, Muthoot Finance — Bhubaneswar</div>
+            <div class="testimonial-name">Core Metric: Cost Per Qualified Lead (CPL)</div>
+            <div class="testimonial-role">100m Canopy Geofence + OTP + Asset Band Qualification</div>
           </div>
+          <a href="promoter.html" class="btn btn-ghost btn-sm">Demo NBFC Flow →</a>
         </div>
       </div>
       <div class="testimonial">
-        <p class="testimonial-quote">"₹147 cost per qualified lead against our previous ₹520. And we're talking OTP-verified leads that actually pick up the phone. Our disbursement rate from Utkal Vantage leads is 31% vs. 9% from our old agency."</p>
+        <div>
+          <div class="badge badge-green" style="margin-bottom:12px;">02 · Health &amp; Life Insurance</div>
+          <h3 class="h3" style="margin-bottom:8px;">Catchment Advisory Kiosks</h3>
+          <p class="testimonial-quote">Weekend health advisory drives in gated residential societies and morning parks. Combines plain-language regional cashless hospital education with an instant mobile premium estimator and family dependent profiling — strictly aligned with anti-mis-selling norms.</p>
+        </div>
         <div class="testimonial-author">
-          <div class="avatar avatar-md" style="background:linear-gradient(135deg,#dceffe,#7ab8f5);">PM</div>
           <div>
-            <div class="testimonial-name">Priyanka Mahapatra</div>
-            <div class="testimonial-role">Marketing Head, Finzeal NBFC</div>
+            <div class="testimonial-name">Core Metric: Prequalified Household Consultations</div>
+            <div class="testimonial-role">100m Society Kiosk Lock + Live Premium Estimator</div>
           </div>
+          <a href="promoter.html" class="btn btn-ghost btn-sm">Demo Insurance Flow →</a>
         </div>
       </div>
       <div class="testimonial">
-        <p class="testimonial-quote">"The client portal alone sold it for us. My MD could log in anytime and see exactly where the promoters were. No more 'trust us' conversations. Real transparency builds real confidence."</p>
+        <div>
+          <div class="badge badge-amber" style="margin-bottom:12px;">03 · Commercial &amp; Small Finance Banks</div>
+          <h3 class="h3" style="margin-bottom:8px;">Merchant Ecosystem &amp; CASA Drives</h3>
+          <p class="testimonial-quote">Structured commercial market sweeps and industrial blitzes for Current Account (CASA), POS, and QR Soundbox onboarding. Enforces a strict 20-meter storefront photo geo-lock and verifies trade license/GST/Udyam KYC readiness before branch officer handover.</p>
+        </div>
         <div class="testimonial-author">
-          <div class="avatar avatar-md" style="background:linear-gradient(135deg,#ddfce3,#7adfa1);">RS</div>
           <div>
-            <div class="testimonial-name">Ranjit Sahoo</div>
-            <div class="testimonial-role">Founder, VibhavEdge Coaching Institute</div>
+            <div class="testimonial-name">Core Metric: Document-Ready Merchant CASAs</div>
+            <div class="testimonial-role">20m Storefront Geo-Lock + KYC Readiness Checklist</div>
           </div>
+          <a href="promoter.html" class="btn btn-ghost btn-sm">Demo Bank Flow →</a>
         </div>
       </div>
       <div class="testimonial">
-        <p class="testimonial-quote">"We tried to fake the system on day one — submitted a photo 200m outside the zone. The app rejected it. That's when we knew this platform was serious. Promoter discipline improved automatically."</p>
+        <div>
+          <div class="badge badge-neutral" style="margin-bottom:12px;">04 · D2C &amp; FMCG Challenger Brands</div>
+          <h3 class="h3" style="margin-bottom:8px;">Experiential Sampling &amp; First-Trial Engine</h3>
+          <p class="testimonial-quote">High-energy sampling hubs at universities, IT parks, and malls. Reconciles starting stock against dispensed samples in real time, logs immediate consumer taste/texture ratings, and triggers an instant discount code via WhatsApp to convert physical trials into online orders.</p>
+        </div>
         <div class="testimonial-author">
-          <div class="avatar avatar-md" style="background:linear-gradient(135deg,#f5deff,#c47af5);">NT</div>
           <div>
-            <div class="testimonial-name">Namita Tripathy</div>
-            <div class="testimonial-role">Field Supervisor, Utkal Vantage Promoter Network</div>
+            <div class="testimonial-name">Core Metric: Verified Trials &amp; Stock Reconciliation</div>
+            <div class="testimonial-role">Live Inventory Ledger + Consumer Sentiment + Coupon Loop</div>
           </div>
+          <a href="promoter.html" class="btn btn-ghost btn-sm">Demo D2C Flow →</a>
         </div>
       </div>
     </div>
@@ -1574,14 +1576,14 @@ tbody tr:hover {
 <section class="section" id="pricing">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
-      <div class="badge badge-accent" style="margin-bottom:12px;">Pricing</div>
-      <h2 class="h1">Transparent. Performance-first.</h2>
-      <p class="body-lg" style="max-width:50ch;margin:12px auto 0;">No hidden fees. Pay for what you need — from a single campaign to an enterprise retainer.</p>
+      <div class="badge badge-accent" style="margin-bottom:12px;">Commercial Architecture</div>
+      <h2 class="h1">Transparent. Structured. Accountable.</h2>
+      <p class="body-lg" style="max-width:52ch;margin:12px auto 0;">Start with a focused catchment sprint or deploy a dedicated multi-zone team with full portal visibility.</p>
     </div>
     <div class="pricing-grid">
       <div class="pricing-card">
-        <div class="badge badge-neutral" style="margin-bottom:12px;">Per Campaign</div>
-        <h3 class="h3">Launch</h3>
+        <div class="badge badge-neutral" style="margin-bottom:12px;">Per Activation Sprint</div>
+        <h3 class="h3">Pilot Sprint</h3>
         <div class="pricing-price">
           <span class="amount">₹999</span>
           <span class="period">/promoter/day</span>
@@ -1589,65 +1591,61 @@ tbody tr:hover {
         <ul class="pricing-features">
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Up to 10 promoters
+            Up to 10 promoters deployed
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            GPS tracking + geo-tagged photos
+            100m/20m GPS lock + SHA-256 photos
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Lead capture form
+            Sector-specific OTP lead capture
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Client portal access
+            Live Client Portal access
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            End-of-campaign PDF report
+            Printable audit report + CSV export
           </li>
         </ul>
-        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openPilotModal('Launch Plan (₹999/promoter/day)')">Start campaign</button>
+        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openPilotModal('Pilot Sprint (₹999/promoter/day)')">Configure Pilot</button>
       </div>
       <div class="pricing-card featured">
-        <div class="badge" style="background:var(--accent);color:#fff;margin-bottom:12px;">Monthly Retainer</div>
-        <h3 class="h3">Scale</h3>
+        <div class="badge" style="background:var(--accent);color:#fff;margin-bottom:12px;">Monthly Catchment Retainer</div>
+        <h3 class="h3">Branch Cluster</h3>
         <div class="pricing-price">
-          <span class="amount">₹1.2L</span>
+          <span class="amount">₹68.4K</span>
           <span class="period">/month</span>
         </div>
         <ul class="pricing-features">
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Up to 30 promoters
+            8 promoters across 4 branch zones (26 days)
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Everything in Launch
+            Everything in Pilot Sprint
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            AI lead quality scoring
+            Automated Lead Qualification Scoring
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Dedicated account manager
+            Dedicated Field Supervisor
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Weekly strategy review
-          </li>
-          <li class="pricing-feature">
-            <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Multi-city expansion
+            Daily Branch Officer Lead Handover
           </li>
         </ul>
-        <button type="button" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openPilotModal('Scale Retainer (₹1.2L/month)')">Get started</button>
+        <button type="button" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openPilotModal('Branch Cluster Retainer (₹68.4K/mo)')">Configure Retainer</button>
       </div>
       <div class="pricing-card">
-        <div class="badge badge-amber" style="margin-bottom:12px;">Performance-Based</div>
-        <h3 class="h3">Conversion</h3>
+        <div class="badge badge-amber" style="margin-bottom:12px;">Outcome-Linked Hybrid</div>
+        <h3 class="h3">Verified CPL</h3>
         <div class="pricing-price">
           <span class="amount">₹200</span>
           <span class="period">/qualified lead</span>
@@ -1655,26 +1653,26 @@ tbody tr:hover {
         <ul class="pricing-features">
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            NBFCs &amp; Insurance only
+            For NBFC, Insurance &amp; CASA drives
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            OTP-verified leads only
+            100% OTP-verified phone numbers
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Lead score 7+ guaranteed
+            Pre-qualified asset / KYC checklist
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Zero upfront cost
+            Geo-verified within catchment zone
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Pay only for results
+            Full SHA-256 audit trail included
           </li>
         </ul>
-        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openPilotModal('Conversion CPL (₹200/qualified lead)')">Talk to us</button>
+        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openPilotModal('Verified CPL Hybrid Model')">Discuss CPL Terms</button>
       </div>
     </div>
   </div>
@@ -1685,12 +1683,12 @@ tbody tr:hover {
   <div class="container">
     <div class="cta-banner">
       <div>
-        <h2 class="h1" style="color:#fff;margin-bottom:12px;">Ready to run a verified campaign?</h2>
-        <p style="color:rgba(255,255,255,0.85);max-width:44ch;font-size:1rem;">Start with a 7-day pilot. We'll set up your first campaign, deploy 5 promoters, and show you the platform in action — risk free.</p>
+        <h2 class="h1" style="color:#fff;margin-bottom:12px;">See the live verification flow in 30 seconds.</h2>
+        <p style="color:rgba(255,255,255,0.85);max-width:46ch;font-size:1rem;">Open the Field Terminal on your phone, test a 100m geofence lock, generate a SHA-256 watermarked photo, and watch the lead appear in the Client Portal immediately.</p>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0;justify-content:center;">
-        <button type="button" class="btn btn-lg" style="background:#fff;color:var(--accent);" onclick="openPilotModal('7-Day Verified Pilot')">Book a demo</button>
-        <a href="promoter.html" class="btn btn-ghost btn-lg">Try Field App</a>
+        <a href="promoter.html" class="btn btn-lg" style="background:#fff;color:var(--accent);">Open Field Terminal</a>
+        <a href="client-portal.html" class="btn btn-ghost btn-lg">Open Client Portal</a>
       </div>
     </div>
   </div>
@@ -1707,7 +1705,7 @@ tbody tr:hover {
           </div>
           <span class="nav-logo-text footer-logo-text">Utkal Vantage</span>
         </div>
-        <p style="font-size:0.88rem;line-height:1.65;max-width:36ch;">BTL execution + monitoring + conversion. Plain, direct, verified field marketing across Odisha.</p>
+        <p style="font-size:0.88rem;line-height:1.65;max-width:36ch;">BTL execution + live monitoring + conversion funnel. Plain, direct, verified field marketing across Odisha.</p>
         <div style="margin-top:14px;font-family:var(--display);font-weight:600;font-size:0.95rem;color:var(--accent-soft);">Your on ground advantage</div>
         <div style="margin-top:16px;font-family:var(--mono);font-size:0.75rem;color:rgba(255,255,255,0.4);">Bhubaneswar, Odisha — India</div>
       </div>
@@ -1717,51 +1715,51 @@ tbody tr:hover {
           <a href="promoter.html" class="footer-link" style="color:var(--accent-soft);">Field Terminal</a>
           <a href="dashboard.html" class="footer-link">Ops Dashboard</a>
           <a href="client-portal.html" class="footer-link">Client Portal</a>
-          <a href="#features" class="footer-link">Features</a>
+          <a href="#features" class="footer-link">Capabilities</a>
           <a href="#pricing" class="footer-link">Pricing</a>
           <a href="brand-sheet.html" class="footer-link">Brand Sheet</a>
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Sectors</div>
+        <div class="footer-col-title">Sector Engines</div>
         <div class="footer-links">
-          <a href="promoter.html" class="footer-link">NBFC Gold Loans</a>
+          <a href="promoter.html" class="footer-link">NBFC Gold &amp; MSME</a>
           <a href="promoter.html" class="footer-link">Health &amp; Life Insurance</a>
           <a href="promoter.html" class="footer-link">Bank Merchant CASA</a>
           <a href="promoter.html" class="footer-link">D2C Sampling Drives</a>
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Legal</div>
+        <div class="footer-col-title">Architecture</div>
         <div class="footer-links">
           <a href="brand-sheet.html" class="footer-link">Brand Guidelines</a>
-          <a href="client-portal.html" class="footer-link">SHA-256 Data Audit</a>
-          <a href="dashboard.html" class="footer-link">Compliance SOPs</a>
+          <a href="client-portal.html" class="footer-link">SHA-256 Photo Ledger</a>
+          <a href="dashboard.html" class="footer-link">Geofence Compliance</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <span style="font-size:0.8rem;font-family:var(--mono);">© 2026 Utkal Vantage Technologies Pvt. Ltd. All rights reserved.</span>
-      <span style="font-size:0.8rem;font-family:var(--mono);">Made in Bhubaneswar</span>
+      <span style="font-size:0.8rem;font-family:var(--mono);">Headquarters: Bhubaneswar, Odisha</span>
     </div>
   </div>
 </footer>
 
-<!-- Interactive Pilot Booking & ROI Calculator Modal -->
+<!-- Interactive Pilot Configuration Modal -->
 <div class="uv-modal-backdrop" id="pilotModalBackdrop">
   <div class="uv-modal">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-      <h3 class="h3" id="pilotModalTitle">Book a Verified BTL Pilot</h3>
+      <h3 class="h3" id="pilotModalTitle">Configure a Verified BTL Pilot</h3>
       <button type="button" class="btn btn-ghost btn-sm" onclick="closePilotModal()">✕</button>
     </div>
     <form onsubmit="submitPilotBooking(event)">
       <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
         <div>
-          <label style="font-size:0.8rem;font-weight:700;">Your Name &amp; Designation</label>
-          <input class="input" id="pilotContactName" required placeholder="e.g. Rajesh Panda — Regional Head" value="Rajesh Panda" />
+          <label style="font-size:0.8rem;font-weight:700;">Prospective Client / Organization Name</label>
+          <input class="input" id="pilotContactName" required placeholder="Enter organization or branch name" />
         </div>
         <div>
-          <label style="font-size:0.8rem;font-weight:700;">Organization &amp; Sector</label>
+          <label style="font-size:0.8rem;font-weight:700;">Target Sector Engine</label>
           <select class="input" id="pilotSector" onchange="updatePilotEstimate()">
             <option value="nbfc">1. NBFC — Gold Loan / MSME Liquid Lead Engine</option>
             <option value="insurance">2. Insurance — Society &amp; Park Advisory Kiosks</option>
@@ -1770,16 +1768,16 @@ tbody tr:hover {
           </select>
         </div>
         <div>
-          <label style="font-size:0.8rem;font-weight:700;">10-Digit Mobile Number</label>
-          <input class="input" id="pilotPhone" required maxlength="10" value="9437019283" />
+          <label style="font-size:0.8rem;font-weight:700;">Contact Mobile Number (10 Digits)</label>
+          <input class="input" id="pilotPhone" required maxlength="10" placeholder="e.g. 9437000000" />
         </div>
         <div style="background:var(--panel);border-radius:10px;padding:12px;font-size:0.82rem;" id="pilotRoiPreview">
-          <strong>Projected 7-Day Pilot Outcome:</strong> 180–240 OTP-verified leads at ~₹147 CPL across 4 Bhubaneswar branch zones.
+          <strong>NBFC Activation Architecture:</strong> 1.5 km branch catchment clustering, 100m canopy geofence lock, gold weight band qualification, and OTP-verified branch handoff.
         </div>
       </div>
       <div style="display:flex;gap:10px;justify-content:flex-end;">
         <button type="button" class="btn btn-ghost" onclick="closePilotModal()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Launch Pilot Inquiry</button>
+        <button type="submit" class="btn btn-primary">Save &amp; Preview Client Portal</button>
       </div>
     </form>
   </div>
@@ -1791,8 +1789,8 @@ tbody tr:hover {
   if (!window.UtkalVantage) {
 /**
  * ============================================================================
- * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.0
- * Zero-cost client-side architecture for Odisha BTL Operations:
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.1
+ * Pitch-Safe MVP Architecture (Zero Fake/Bogus Third-Party Client Claims):
  *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
  *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
  *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
@@ -1843,7 +1841,6 @@ tbody tr:hover {
       const oldHash = hash;
       hash = hash.slice(0, 8);
       for (i = 0; i < 64; i++) {
-        const i2 = i + j;
         const w15 = w[i - 15], w2 = w[i - 2];
         const a = hash[0], e = hash[4];
         const temp1 =
@@ -1888,9 +1885,7 @@ tbody tr:hover {
           .map((b) => b.toString(16).padStart(2, '0'))
           .join('');
       }
-    } catch (_) {
-      // Fallback to pure JS SHA-256 on non-HTTPS mobile LAN or restricted contexts
-    }
+    } catch (_) {}
     const utf8 = unescape(encodeURIComponent(str));
     return sha256PureJS(utf8);
   }
@@ -1907,7 +1902,6 @@ tbody tr:hover {
 
   function escapeCsvCell(val) {
     let s = String(val == null ? '' : val).replace(/\r?\n/g, ' ').trim();
-    // Defend against CSV Formula Injection (=, +, -, @, \t, \r)
     if (/^[=+\-@\t\r]/.test(s) && !/^\+91\d/.test(s)) {
       s = "'" + s;
     }
@@ -1971,7 +1965,7 @@ tbody tr:hover {
     },
     patia: {
       id: 'patia',
-      name: 'KIIT Square Sampling Hub',
+      name: 'Infocity / Patia Sampling Hub',
       lat: 20.3541,
       lng: 85.8192,
       radiusM: 100,
@@ -1995,6 +1989,17 @@ tbody tr:hover {
     }
   };
 
+  const SECTOR_LABELS = {
+    nbfc: 'NBFC Gold & MSME Loan Pilot',
+    insurance: 'Health & Life Advisory Pilot',
+    bank: 'Bank Merchant CASA & QR Pilot',
+    d2c: 'D2C Experiential Sampling Pilot'
+  };
+
+  function getSectorLabel(sector) {
+    return SECTOR_LABELS[String(sector || 'nbfc').toLowerCase()] || SECTOR_LABELS.nbfc;
+  }
+
   // ── 4. HAVERSINE RADIAL DISTANCE ENGINE ───────────────────────────────────
   function haversineDistanceM(lat1, lng1, lat2, lng2) {
     const nLat1 = Number(lat1), nLng1 = Number(lng1);
@@ -2005,7 +2010,7 @@ tbody tr:hover {
     ) {
       return Infinity;
     }
-    const R = 6371000; // Earth mean radius in meters
+    const R = 6371000;
     const toRad = (deg) => (deg * Math.PI) / 180;
     const dLat = toRad(nLat2 - nLat1);
     const dLng = toRad(nLng2 - nLng1);
@@ -2067,7 +2072,6 @@ tbody tr:hover {
         sector: presetObj.sector || 'nbfc'
       };
       this.error = null;
-      // Align simulated position near the newly selected preset for seamless demo pitching
       this.currentPosition = {
         lat: Number((this.anchor.lat + 0.00008).toFixed(6)),
         lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
@@ -2142,7 +2146,6 @@ tbody tr:hover {
     }
 
     startWatch() {
-      // Immediately emit initial valid lock state so UI never hangs on "--"
       this.notify();
       if (typeof navigator === 'undefined' || !navigator.geolocation) {
         return;
@@ -2157,7 +2160,6 @@ tbody tr:hover {
                 pos.coords.latitude,
                 pos.coords.longitude
               );
-              // Only override demo anchor if actual GPS is within 5km of Bhubaneswar or user locked current GPS
               if (distToAnchor < 5000 || this.anchor.id === 'locked_gps') {
                 this.currentPosition = {
                   lat: pos.coords.latitude,
@@ -2171,7 +2173,6 @@ tbody tr:hover {
             }
           },
           () => {
-            // Keep high-precision simulated anchor position when hardware GPS permission is denied
             this.notify();
           },
           { enableHighAccuracy: true, timeout: 6000, maximumAge: 10000 }
@@ -2228,7 +2229,7 @@ tbody tr:hover {
       const lat = Number.isFinite(Number(meta.lat)) ? Number(meta.lat) : 20.290623;
       const lng = Number.isFinite(Number(meta.lng)) ? Number(meta.lng) : 85.864812;
       const accuracy = Number.isFinite(Number(meta.accuracy)) ? Number(meta.accuracy) : 4;
-      const promoterId = String(meta.promoterId || 'UV-PRO-084');
+      const promoterId = String(meta.promoterId || 'UV-REP-01');
       const sector = String(meta.sector || 'nbfc').toUpperCase();
       const zone = String(meta.zone || 'Rasulgarh Square Canopy');
 
@@ -2238,7 +2239,6 @@ tbody tr:hover {
         const imgOrCanvas = await this.loadImageSource(source);
         const origW = imgOrCanvas.width || 800;
         const origH = imgOrCanvas.height || 600;
-        // Scale down oversized mobile camera photos (e.g., 4000x3000) to prevent RAM overflow
         const maxDim = 960;
         const scale = Math.min(1, maxDim / Math.max(origW, origH));
         const w = Math.max(400, Math.round(origW * scale));
@@ -2250,13 +2250,11 @@ tbody tr:hover {
         const ctx = canvas.getContext('2d');
         ctx.drawImage(imgOrCanvas, 0, 0, w, h);
 
-        // Burn tamper-proof cryptographic watermark bar at bottom
         const barH = Math.max(76, Math.round(h * 0.16));
         const barY = h - barH;
         ctx.fillStyle = 'rgba(22, 20, 18, 0.88)';
         ctx.fillRect(0, barY, w, barH);
 
-        // Sunrise Coral top border on watermark bar
         ctx.fillStyle = '#D85A30';
         ctx.fillRect(0, barY, w, 4);
 
@@ -2314,7 +2312,7 @@ tbody tr:hover {
   // ── 7. DUAL-VERIFICATION OTP STATE MACHINE ────────────────────────────────
   class DualVerificationMachine {
     constructor(options = {}) {
-      this.ttlMs = Number(options.ttlMs) || 90000; // 90 seconds
+      this.ttlMs = Number(options.ttlMs) || 90000;
       this.maxAttempts = Number(options.maxAttempts) || 3;
       this.challenge = null;
     }
@@ -2324,7 +2322,6 @@ tbody tr:hover {
       if (!isValidIndianPhone(cleanPhone)) {
         throw new Error('Invalid Indian mobile number. Must be 10 digits starting with 6, 7, 8, or 9.');
       }
-      // Cryptographically unbiased 6-digit OTP
       let codeNum = 0;
       if (global.crypto && global.crypto.getRandomValues) {
         const arr = new Uint32Array(1);
@@ -2408,10 +2405,10 @@ tbody tr:hover {
     static getWhatsAppLink(rawPhone, sector = 'nbfc', code = '000000') {
       const cleanPhone = sanitizeIndianPhone(rawPhone);
       const sectorMessages = {
-        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at the nearest Muthoot/IIFL Bhubaneswar branch for 11.9% p.a. zero-processing-fee assessment.`,
-        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes 100% cashless hospital coverage brochure for Apollo, SUM Ultimate & AMRI Bhubaneswar.`,
+        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at your nearest partner branch for priority assessment.`,
+        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes cashless network hospital coverage details for Bhubaneswar.`,
         bank: `Namaskar! Your Utkal Vantage Merchant CASA & Soundbox Onboarding OTP is *${code}*. Verified KYC checklist logged for zero-fee current account activation.`,
-        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use code *UTKAL25* on Zepto/Blinkit for 25% OFF your next order!`
+        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use coupon code *UTKAL25* for 25% OFF your first online order!`
       };
       const text = sectorMessages[String(sector).toLowerCase()] || sectorMessages.nbfc;
       return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
@@ -2516,13 +2513,10 @@ tbody tr:hover {
         payload,
         timestamp: new Date().toISOString()
       };
-      // Notify same-window listeners
       this._dispatch(eventObj);
-      // Notify other tabs via BroadcastChannel
       try {
         if (this.channel) this.channel.postMessage(eventObj);
       } catch (_) {}
-      // Notify other tabs via localStorage event bus fallback
       try {
         if (global.localStorage) {
           global.localStorage.setItem('uv_realtime_event_bus', JSON.stringify(eventObj));
@@ -2548,20 +2542,25 @@ tbody tr:hover {
     photos: [],
     campaigns: [],
     promoters: [],
+    prospectConfig: {
+      clientName: 'Prospective Client Preview',
+      branchName: 'Bhubaneswar Catchment Pilot',
+      sector: 'nbfc'
+    },
     inventory: {
-      d2c: { startingStock: 200, dispensed: 53, remaining: 147, sku: 'Raw Pressery Cold Juice' }
+      d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
     }
   };
 
   const StorageEngine = {
-    dbName: 'UtkalVantageDB',
+    dbName: 'UtkalVantageDB_v21',
     dbVersion: 2,
     _dbPromise: null,
 
     _readLocal(key, fallback) {
       try {
         if (global.localStorage) {
-          const raw = global.localStorage.getItem('uv_store_' + key);
+          const raw = global.localStorage.getItem('uv_store_v21_' + key);
           if (raw) return JSON.parse(raw);
         }
       } catch (_) {}
@@ -2571,9 +2570,22 @@ tbody tr:hover {
     _writeLocal(key, val) {
       try {
         if (global.localStorage) {
-          global.localStorage.setItem('uv_store_' + key, JSON.stringify(val));
+          global.localStorage.setItem('uv_store_v21_' + key, JSON.stringify(val));
         }
       } catch (_) {}
+    },
+
+    getProspectConfig() {
+      return this._readLocal('prospectConfig', memoryStore.prospectConfig);
+    },
+
+    setProspectConfig(cfg = {}) {
+      const cur = this.getProspectConfig();
+      const updated = Object.assign({}, cur, cfg);
+      memoryStore.prospectConfig = updated;
+      this._writeLocal('prospectConfig', updated);
+      RealtimeBroadcaster.publish('PROSPECT_CONFIG_UPDATED', updated);
+      return updated;
     },
 
     async _getDB() {
@@ -2611,11 +2623,12 @@ tbody tr:hover {
       if (!leadRecord || !leadRecord.id) {
         throw new Error('Invalid leadRecord: missing id');
       }
+      const prospect = this.getProspectConfig();
       const cleanLead = Object.assign(
         {
           timestamp: new Date().toISOString(),
-          sector: 'nbfc',
-          client: 'Muthoot Finance',
+          sector: prospect.sector || 'nbfc',
+          client: leadRecord.client || getSectorLabel(leadRecord.sector || prospect.sector),
           otpVerified: true,
           geoCompliant: true,
           syncStatus: typeof navigator !== 'undefined' && navigator.onLine === false ? 'queued' : 'synced'
@@ -2623,7 +2636,6 @@ tbody tr:hover {
         leadRecord
       );
 
-      // Update local array + memory
       const existing = this._readLocal('leads', memoryStore.leads);
       const idx = existing.findIndex((l) => l.id === cleanLead.id);
       if (idx >= 0) existing[idx] = cleanLead;
@@ -2631,7 +2643,6 @@ tbody tr:hover {
       memoryStore.leads = existing;
       this._writeLocal('leads', existing);
 
-      // Persist to IndexedDB
       const db = await this._getDB();
       if (db) {
         await new Promise((resolve) => {
@@ -2687,7 +2698,6 @@ tbody tr:hover {
       const idx = existing.findIndex((p) => p.id === photoRecord.id);
       if (idx >= 0) existing[idx] = photoRecord;
       else existing.unshift(photoRecord);
-      // Cap localStorage mirror to 15 photos to respect 5MB quota
       memoryStore.photos = existing;
       this._writeLocal('photos', existing.slice(0, 15));
 
@@ -2743,16 +2753,16 @@ tbody tr:hover {
       return (
         allInv[sector] || {
           startingStock: 200,
-          dispensed: 53,
-          remaining: 147,
-          sku: 'Raw Pressery Cold Juice'
+          dispensed: 0,
+          remaining: 200,
+          sku: 'Trial SKU — Batch A'
         }
       );
     },
 
     updateInventory(sector = 'd2c', deltaDispensed = 1, customStart = null) {
       const allInv = this._readLocal('inventory', memoryStore.inventory);
-      const cur = allInv[sector] || { startingStock: 200, dispensed: 53, remaining: 147 };
+      const cur = allInv[sector] || { startingStock: 200, dispensed: 0, remaining: 200 };
       if (customStart !== null && Number.isFinite(Number(customStart))) {
         cur.startingStock = Math.max(0, Number(customStart));
       }
@@ -2768,8 +2778,12 @@ tbody tr:hover {
     async clearAll() {
       memoryStore.leads = [];
       memoryStore.photos = [];
+      memoryStore.inventory = {
+        d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
+      };
       this._writeLocal('leads', []);
       this._writeLocal('photos', []);
+      this._writeLocal('inventory', memoryStore.inventory);
       const db = await this._getDB();
       if (db) {
         try {
@@ -2778,10 +2792,11 @@ tbody tr:hover {
           tx.objectStore('photos').clear();
         } catch (_) {}
       }
+      RealtimeBroadcaster.publish('WORKSPACE_CLEARED', {});
     }
   };
 
-  // ── 11. UI TOAST & MODAL HELPER ───────────────────────────────────────────
+  // ── 11. UI TOAST HELPER ───────────────────────────────────────────────────
   const UI = {
     toast(message, type = 'info', durationMs = 3800) {
       if (typeof document === 'undefined') return;
@@ -2808,10 +2823,11 @@ tbody tr:hover {
     }
   };
 
-  // Expose unified API on window.UtkalVantage
   global.UtkalVantage = {
-    version: '2.0.0',
+    version: '2.1.0-MVP',
     anchors,
+    SECTOR_LABELS,
+    getSectorLabel,
     haversineDistanceM,
     computeSha256Hex,
     escapeHtml,
@@ -2930,7 +2946,7 @@ tbody tr:hover {
   }
 
   function openPilotModal(planName) {
-    document.getElementById('pilotModalTitle').textContent = planName || 'Book a Verified BTL Pilot';
+    document.getElementById('pilotModalTitle').textContent = planName || 'Configure a Verified BTL Pilot';
     updatePilotEstimate();
     document.getElementById('pilotModalBackdrop').classList.add('open');
   }
@@ -2941,62 +2957,51 @@ tbody tr:hover {
     const sec = document.getElementById('pilotSector').value;
     const box = document.getElementById('pilotRoiPreview');
     const estimates = {
-      nbfc: '<strong>Projected 7-Day NBFC Outcome:</strong> 180–240 OTP-verified gold-holding leads (15g–50g+) at ~₹147 CPL across 4 Bhubaneswar branch catchments.',
-      insurance: '<strong>Projected Weekend Society Outcome:</strong> 85–120 prequalified household health consultations with live premium breakdowns across Patia & Kalinga Nagar.',
-      bank: '<strong>Projected 7-Day Bank CASA Outcome:</strong> 140+ geo-tagged (20m lock) merchant current account & soundbox KYC packages across Bapuji Nagar & Saheed Nagar.',
-      d2c: '<strong>Projected 3-Day Sampling Sprint:</strong> 1,200+ inventory-audited consumer trials with instant 25% Zepto/Blinkit WhatsApp conversion coupons at KIIT & Infocity.'
+      nbfc: '<strong>NBFC Activation Architecture:</strong> 1.5 km branch catchment clustering, 100m canopy geofence lock, gold weight band qualification, and OTP-verified branch handoff.',
+      insurance: '<strong>Insurance Advisory Architecture:</strong> Weekend residential society & park kiosks, plain-language cashless hospital education, and live mobile premium estimation.',
+      bank: '<strong>Bank Merchant CASA Architecture:</strong> Commercial market sweeps with strict 20m storefront photo geo-lock and trade license / GST / Udyam KYC checklist verification.',
+      d2c: '<strong>D2C Sampling Architecture:</strong> Campus & mall experiential bars with real-time starting/remaining stock reconciliation, taste rating capture, and instant coupon delivery.'
     };
     box.innerHTML = estimates[sec] || estimates.nbfc;
   }
+
   async function submitPilotBooking(e) {
     e.preventDefault();
-    const name = document.getElementById('pilotContactName').value.trim();
+    const orgName = document.getElementById('pilotContactName').value.trim();
     const phone = UtkalVantage.sanitizeIndianPhone(document.getElementById('pilotPhone').value);
     const sec = document.getElementById('pilotSector').value;
     if (!UtkalVantage.isValidIndianPhone(phone)) {
       UtkalVantage.UI.toast('Please enter a valid 10-digit Indian mobile number.', 'error');
       return;
     }
-    await UtkalVantage.StorageEngine.saveLead({
-      id: 'PILOT-' + Date.now().toString(36).toUpperCase(),
-      timestamp: new Date().toISOString(),
-      sector: sec,
-      client: 'Enterprise Pilot Inquiry',
-      customer: { name, phone },
-      otpVerified: true,
-      geoCompliant: true,
-      anchorZone: 'Bhubaneswar HQ',
-      details: { leadScore: 10 }
+    // Set this organization as the active Client Portal preview name!
+    UtkalVantage.StorageEngine.setProspectConfig({
+      clientName: orgName,
+      branchName: 'Bhubaneswar Catchment Pilot',
+      sector: sec
     });
     closePilotModal();
-    UtkalVantage.UI.toast(`Thank you, ${name}! Your pilot request is logged in the Ops Console.`, 'success');
+    UtkalVantage.UI.toast(`Configured Client Portal preview for "${orgName}"!`, 'success');
   }
 
-  // Animated counters
-  function animateCounter(el, target, suffix = '', duration = 1200) {
-    if (!el) return;
-    let start = 0;
-    const step = target / (duration / 16);
-    const timer = setInterval(() => {
-      start = Math.min(start + step, target);
-      el.textContent = Math.floor(start) + suffix;
-      if (start >= target) clearInterval(timer);
-    }, 16);
+  async function syncHeroLiveStats() {
+    if (!window.UtkalVantage) return;
+    const leads = await UtkalVantage.StorageEngine.getAllLeads();
+    const stat2 = document.getElementById('stat2');
+    if (stat2) stat2.textContent = String(leads.length);
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    animateCounter(document.getElementById('stat1'), 24, '');
-    animateCounter(document.getElementById('stat2'), 147, '');
-    animateCounter(document.getElementById('stat3'), 31, '%');
-
+    syncHeroLiveStats();
     if (window.UtkalVantage && UtkalVantage.RealtimeBroadcaster) {
       UtkalVantage.RealtimeBroadcaster.subscribe((evt) => {
         if (evt.type === 'LEAD_SAVED' && evt.payload) {
+          syncHeroLiveStats();
           const feed = document.getElementById('liveFeed');
           if (feed) {
             const row = document.createElement('div');
             row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--accent-pale);';
-            row.innerHTML = `<div class="dot dot-green"></div><span style="font-size:0.78rem;color:var(--ink);font-weight:600;">New verified lead: ${UtkalVantage.escapeHtml(evt.payload.customer.name)} (${UtkalVantage.escapeHtml(evt.payload.anchorZone)})</span><span style="font-size:0.7rem;color:var(--accent-deep);margin-left:auto;">Just now</span>`;
+            row.innerHTML = `<div class="dot dot-green"></div><span style="font-size:0.78rem;color:var(--ink);font-weight:600;">Live lead verified: ${UtkalVantage.escapeHtml(evt.payload.customer.name)} (${UtkalVantage.escapeHtml(evt.payload.anchorZone)})</span><span style="font-size:0.7rem;color:var(--accent-deep);margin-left:auto;">Just now</span>`;
             feed.insertBefore(row, feed.firstChild);
           }
         }

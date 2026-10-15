@@ -1,7 +1,7 @@
 /**
  * ============================================================================
- * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.0
- * Zero-cost client-side architecture for Odisha BTL Operations:
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.1
+ * Pitch-Safe MVP Architecture (Zero Fake/Bogus Third-Party Client Claims):
  *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
  *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
  *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
@@ -52,7 +52,6 @@
       const oldHash = hash;
       hash = hash.slice(0, 8);
       for (i = 0; i < 64; i++) {
-        const i2 = i + j;
         const w15 = w[i - 15], w2 = w[i - 2];
         const a = hash[0], e = hash[4];
         const temp1 =
@@ -97,9 +96,7 @@
           .map((b) => b.toString(16).padStart(2, '0'))
           .join('');
       }
-    } catch (_) {
-      // Fallback to pure JS SHA-256 on non-HTTPS mobile LAN or restricted contexts
-    }
+    } catch (_) {}
     const utf8 = unescape(encodeURIComponent(str));
     return sha256PureJS(utf8);
   }
@@ -116,7 +113,6 @@
 
   function escapeCsvCell(val) {
     let s = String(val == null ? '' : val).replace(/\r?\n/g, ' ').trim();
-    // Defend against CSV Formula Injection (=, +, -, @, \t, \r)
     if (/^[=+\-@\t\r]/.test(s) && !/^\+91\d/.test(s)) {
       s = "'" + s;
     }
@@ -180,7 +176,7 @@
     },
     patia: {
       id: 'patia',
-      name: 'KIIT Square Sampling Hub',
+      name: 'Infocity / Patia Sampling Hub',
       lat: 20.3541,
       lng: 85.8192,
       radiusM: 100,
@@ -204,6 +200,17 @@
     }
   };
 
+  const SECTOR_LABELS = {
+    nbfc: 'NBFC Gold & MSME Loan Pilot',
+    insurance: 'Health & Life Advisory Pilot',
+    bank: 'Bank Merchant CASA & QR Pilot',
+    d2c: 'D2C Experiential Sampling Pilot'
+  };
+
+  function getSectorLabel(sector) {
+    return SECTOR_LABELS[String(sector || 'nbfc').toLowerCase()] || SECTOR_LABELS.nbfc;
+  }
+
   // ── 4. HAVERSINE RADIAL DISTANCE ENGINE ───────────────────────────────────
   function haversineDistanceM(lat1, lng1, lat2, lng2) {
     const nLat1 = Number(lat1), nLng1 = Number(lng1);
@@ -214,7 +221,7 @@
     ) {
       return Infinity;
     }
-    const R = 6371000; // Earth mean radius in meters
+    const R = 6371000;
     const toRad = (deg) => (deg * Math.PI) / 180;
     const dLat = toRad(nLat2 - nLat1);
     const dLng = toRad(nLng2 - nLng1);
@@ -276,7 +283,6 @@
         sector: presetObj.sector || 'nbfc'
       };
       this.error = null;
-      // Align simulated position near the newly selected preset for seamless demo pitching
       this.currentPosition = {
         lat: Number((this.anchor.lat + 0.00008).toFixed(6)),
         lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
@@ -351,7 +357,6 @@
     }
 
     startWatch() {
-      // Immediately emit initial valid lock state so UI never hangs on "--"
       this.notify();
       if (typeof navigator === 'undefined' || !navigator.geolocation) {
         return;
@@ -366,7 +371,6 @@
                 pos.coords.latitude,
                 pos.coords.longitude
               );
-              // Only override demo anchor if actual GPS is within 5km of Bhubaneswar or user locked current GPS
               if (distToAnchor < 5000 || this.anchor.id === 'locked_gps') {
                 this.currentPosition = {
                   lat: pos.coords.latitude,
@@ -380,7 +384,6 @@
             }
           },
           () => {
-            // Keep high-precision simulated anchor position when hardware GPS permission is denied
             this.notify();
           },
           { enableHighAccuracy: true, timeout: 6000, maximumAge: 10000 }
@@ -437,7 +440,7 @@
       const lat = Number.isFinite(Number(meta.lat)) ? Number(meta.lat) : 20.290623;
       const lng = Number.isFinite(Number(meta.lng)) ? Number(meta.lng) : 85.864812;
       const accuracy = Number.isFinite(Number(meta.accuracy)) ? Number(meta.accuracy) : 4;
-      const promoterId = String(meta.promoterId || 'UV-PRO-084');
+      const promoterId = String(meta.promoterId || 'UV-REP-01');
       const sector = String(meta.sector || 'nbfc').toUpperCase();
       const zone = String(meta.zone || 'Rasulgarh Square Canopy');
 
@@ -447,7 +450,6 @@
         const imgOrCanvas = await this.loadImageSource(source);
         const origW = imgOrCanvas.width || 800;
         const origH = imgOrCanvas.height || 600;
-        // Scale down oversized mobile camera photos (e.g., 4000x3000) to prevent RAM overflow
         const maxDim = 960;
         const scale = Math.min(1, maxDim / Math.max(origW, origH));
         const w = Math.max(400, Math.round(origW * scale));
@@ -459,13 +461,11 @@
         const ctx = canvas.getContext('2d');
         ctx.drawImage(imgOrCanvas, 0, 0, w, h);
 
-        // Burn tamper-proof cryptographic watermark bar at bottom
         const barH = Math.max(76, Math.round(h * 0.16));
         const barY = h - barH;
         ctx.fillStyle = 'rgba(22, 20, 18, 0.88)';
         ctx.fillRect(0, barY, w, barH);
 
-        // Sunrise Coral top border on watermark bar
         ctx.fillStyle = '#D85A30';
         ctx.fillRect(0, barY, w, 4);
 
@@ -523,7 +523,7 @@
   // ── 7. DUAL-VERIFICATION OTP STATE MACHINE ────────────────────────────────
   class DualVerificationMachine {
     constructor(options = {}) {
-      this.ttlMs = Number(options.ttlMs) || 90000; // 90 seconds
+      this.ttlMs = Number(options.ttlMs) || 90000;
       this.maxAttempts = Number(options.maxAttempts) || 3;
       this.challenge = null;
     }
@@ -533,7 +533,6 @@
       if (!isValidIndianPhone(cleanPhone)) {
         throw new Error('Invalid Indian mobile number. Must be 10 digits starting with 6, 7, 8, or 9.');
       }
-      // Cryptographically unbiased 6-digit OTP
       let codeNum = 0;
       if (global.crypto && global.crypto.getRandomValues) {
         const arr = new Uint32Array(1);
@@ -617,10 +616,10 @@
     static getWhatsAppLink(rawPhone, sector = 'nbfc', code = '000000') {
       const cleanPhone = sanitizeIndianPhone(rawPhone);
       const sectorMessages = {
-        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at the nearest Muthoot/IIFL Bhubaneswar branch for 11.9% p.a. zero-processing-fee assessment.`,
-        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes 100% cashless hospital coverage brochure for Apollo, SUM Ultimate & AMRI Bhubaneswar.`,
+        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at your nearest partner branch for priority assessment.`,
+        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes cashless network hospital coverage details for Bhubaneswar.`,
         bank: `Namaskar! Your Utkal Vantage Merchant CASA & Soundbox Onboarding OTP is *${code}*. Verified KYC checklist logged for zero-fee current account activation.`,
-        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use code *UTKAL25* on Zepto/Blinkit for 25% OFF your next order!`
+        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use coupon code *UTKAL25* for 25% OFF your first online order!`
       };
       const text = sectorMessages[String(sector).toLowerCase()] || sectorMessages.nbfc;
       return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
@@ -725,13 +724,10 @@
         payload,
         timestamp: new Date().toISOString()
       };
-      // Notify same-window listeners
       this._dispatch(eventObj);
-      // Notify other tabs via BroadcastChannel
       try {
         if (this.channel) this.channel.postMessage(eventObj);
       } catch (_) {}
-      // Notify other tabs via localStorage event bus fallback
       try {
         if (global.localStorage) {
           global.localStorage.setItem('uv_realtime_event_bus', JSON.stringify(eventObj));
@@ -757,20 +753,25 @@
     photos: [],
     campaigns: [],
     promoters: [],
+    prospectConfig: {
+      clientName: 'Prospective Client Preview',
+      branchName: 'Bhubaneswar Catchment Pilot',
+      sector: 'nbfc'
+    },
     inventory: {
-      d2c: { startingStock: 200, dispensed: 53, remaining: 147, sku: 'Raw Pressery Cold Juice' }
+      d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
     }
   };
 
   const StorageEngine = {
-    dbName: 'UtkalVantageDB',
+    dbName: 'UtkalVantageDB_v21',
     dbVersion: 2,
     _dbPromise: null,
 
     _readLocal(key, fallback) {
       try {
         if (global.localStorage) {
-          const raw = global.localStorage.getItem('uv_store_' + key);
+          const raw = global.localStorage.getItem('uv_store_v21_' + key);
           if (raw) return JSON.parse(raw);
         }
       } catch (_) {}
@@ -780,9 +781,22 @@
     _writeLocal(key, val) {
       try {
         if (global.localStorage) {
-          global.localStorage.setItem('uv_store_' + key, JSON.stringify(val));
+          global.localStorage.setItem('uv_store_v21_' + key, JSON.stringify(val));
         }
       } catch (_) {}
+    },
+
+    getProspectConfig() {
+      return this._readLocal('prospectConfig', memoryStore.prospectConfig);
+    },
+
+    setProspectConfig(cfg = {}) {
+      const cur = this.getProspectConfig();
+      const updated = Object.assign({}, cur, cfg);
+      memoryStore.prospectConfig = updated;
+      this._writeLocal('prospectConfig', updated);
+      RealtimeBroadcaster.publish('PROSPECT_CONFIG_UPDATED', updated);
+      return updated;
     },
 
     async _getDB() {
@@ -820,11 +834,12 @@
       if (!leadRecord || !leadRecord.id) {
         throw new Error('Invalid leadRecord: missing id');
       }
+      const prospect = this.getProspectConfig();
       const cleanLead = Object.assign(
         {
           timestamp: new Date().toISOString(),
-          sector: 'nbfc',
-          client: 'Muthoot Finance',
+          sector: prospect.sector || 'nbfc',
+          client: leadRecord.client || getSectorLabel(leadRecord.sector || prospect.sector),
           otpVerified: true,
           geoCompliant: true,
           syncStatus: typeof navigator !== 'undefined' && navigator.onLine === false ? 'queued' : 'synced'
@@ -832,7 +847,6 @@
         leadRecord
       );
 
-      // Update local array + memory
       const existing = this._readLocal('leads', memoryStore.leads);
       const idx = existing.findIndex((l) => l.id === cleanLead.id);
       if (idx >= 0) existing[idx] = cleanLead;
@@ -840,7 +854,6 @@
       memoryStore.leads = existing;
       this._writeLocal('leads', existing);
 
-      // Persist to IndexedDB
       const db = await this._getDB();
       if (db) {
         await new Promise((resolve) => {
@@ -896,7 +909,6 @@
       const idx = existing.findIndex((p) => p.id === photoRecord.id);
       if (idx >= 0) existing[idx] = photoRecord;
       else existing.unshift(photoRecord);
-      // Cap localStorage mirror to 15 photos to respect 5MB quota
       memoryStore.photos = existing;
       this._writeLocal('photos', existing.slice(0, 15));
 
@@ -952,16 +964,16 @@
       return (
         allInv[sector] || {
           startingStock: 200,
-          dispensed: 53,
-          remaining: 147,
-          sku: 'Raw Pressery Cold Juice'
+          dispensed: 0,
+          remaining: 200,
+          sku: 'Trial SKU — Batch A'
         }
       );
     },
 
     updateInventory(sector = 'd2c', deltaDispensed = 1, customStart = null) {
       const allInv = this._readLocal('inventory', memoryStore.inventory);
-      const cur = allInv[sector] || { startingStock: 200, dispensed: 53, remaining: 147 };
+      const cur = allInv[sector] || { startingStock: 200, dispensed: 0, remaining: 200 };
       if (customStart !== null && Number.isFinite(Number(customStart))) {
         cur.startingStock = Math.max(0, Number(customStart));
       }
@@ -977,8 +989,12 @@
     async clearAll() {
       memoryStore.leads = [];
       memoryStore.photos = [];
+      memoryStore.inventory = {
+        d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
+      };
       this._writeLocal('leads', []);
       this._writeLocal('photos', []);
+      this._writeLocal('inventory', memoryStore.inventory);
       const db = await this._getDB();
       if (db) {
         try {
@@ -987,10 +1003,11 @@
           tx.objectStore('photos').clear();
         } catch (_) {}
       }
+      RealtimeBroadcaster.publish('WORKSPACE_CLEARED', {});
     }
   };
 
-  // ── 11. UI TOAST & MODAL HELPER ───────────────────────────────────────────
+  // ── 11. UI TOAST HELPER ───────────────────────────────────────────────────
   const UI = {
     toast(message, type = 'info', durationMs = 3800) {
       if (typeof document === 'undefined') return;
@@ -1017,10 +1034,11 @@
     }
   };
 
-  // Expose unified API on window.UtkalVantage
   global.UtkalVantage = {
-    version: '2.0.0',
+    version: '2.1.0-MVP',
     anchors,
+    SECTOR_LABELS,
+    getSectorLabel,
     haversineDistanceM,
     computeSha256Hex,
     escapeHtml,

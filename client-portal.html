@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Utkal Vantage — Campaign Portal | Muthoot Finance</title>
+  <title>Utkal Vantage — Live Client Portal Preview</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles/main.css" />
   <style id="uv-inline-main-css">
@@ -971,12 +971,12 @@ tbody tr:hover {
 
     /* Proof gallery */
     .proof-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .proof-item { border-radius: 12px; overflow: hidden; position: relative; aspect-ratio: 4/3; background: #222; cursor: pointer; }
+    .proof-item { border-radius: 12px; overflow: hidden; position: relative; aspect-ratio: 4/3; background: #211E1B; cursor: pointer; border: 1px solid var(--border); }
     .proof-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .proof-item:hover img { transform: scale(1.04); }
+    .proof-item:hover img { transform: scale(1.03); }
     .proof-badge {
       position: absolute; bottom: 8px; left: 8px; right: 8px;
-      background: rgba(31,29,27,0.78); backdrop-filter: blur(8px);
+      background: rgba(31,29,27,0.82); backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border-radius: 8px; padding: 6px 10px;
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
@@ -1032,22 +1032,21 @@ tbody tr:hover {
           <span class="nav-logo-text">Utkal Vantage</span>
         </a>
         <div class="divider-v" style="height:18px;"></div>
-        <span style="font-family:var(--mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;">Client Portal</span>
+        <span style="font-family:var(--mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;">Client Portal Preview</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="openProspectCustomizer()">
+          ✎ Customize Prospect Name
+        </button>
         <a href="promoter.html" class="btn btn-ghost btn-sm" style="color:var(--accent);border-color:var(--accent);">
           <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Field Terminal
         </a>
         <div class="portal-client-meta" style="text-align:right;">
-          <div style="font-size:0.85rem;font-weight:700;color:var(--ink);" id="portalClientName">Muthoot Finance</div>
-          <div style="font-size:0.72rem;color:var(--ink-3);">Bhubaneswar Branch</div>
+          <div style="font-size:0.85rem;font-weight:700;color:var(--ink);" id="portalClientName">Prospective Client Preview</div>
+          <div style="font-size:0.72rem;color:var(--ink-3);" id="portalBranchSub">Bhubaneswar Catchment Pilot</div>
         </div>
-        <div class="avatar avatar-md" style="background:linear-gradient(135deg,#fde8dc,#D85A30);color:#fff;">MF</div>
-        <button type="button" class="btn btn-ghost btn-sm" onclick="window.location='index.html'">
-          <ph-icon name="sign-out" weight="bold" style="width:14px;height:14px;"></ph-icon>
-          Sign out
-        </button>
+        <div class="avatar avatar-md" id="portalAvatarInitials" style="background:linear-gradient(135deg,#fde8dc,#D85A30);color:#fff;">PC</div>
       </div>
     </div>
   </div>
@@ -1058,14 +1057,17 @@ tbody tr:hover {
   <div class="container">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
       <div>
-        <div class="badge badge-green" style="margin-bottom:10px;"><span class="dot dot-green"></span> Campaign Active</div>
-        <h1 style="font-size:clamp(1.35rem,3vw,1.7rem);font-weight:700;color:#fff;letter-spacing:-0.025em;margin-bottom:6px;">Gold Loan Activation Drive</h1>
-        <div style="color:rgba(255,255,255,0.7);font-size:0.86rem;">Bhubaneswar — 9 Oct to 15 Oct 2026 • Managed by Utkal Vantage</div>
+        <div class="badge badge-green" style="margin-bottom:10px;"><span class="dot dot-green"></span> Live MVP Sandbox</div>
+        <h1 style="font-size:clamp(1.35rem,3vw,1.7rem);font-weight:700;color:#fff;letter-spacing:-0.025em;margin-bottom:6px;" id="portalHeroTitle">NBFC Gold &amp; MSME Catchment Pilot</h1>
+        <div style="color:rgba(255,255,255,0.7);font-size:0.86rem;" id="portalHeroSub">Bhubaneswar Catchment Zones • Real-Time Read-Only Client View</div>
       </div>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <button type="button" class="btn btn-sm" style="background:var(--accent);color:#fff;border:1px solid var(--accent);" onclick="simulateInstantLiveLead()">
+          ⚡ Simulate Incoming Field Lead
+        </button>
         <button type="button" class="btn btn-sm" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.92);border:1px solid rgba(255,255,255,0.25);" onclick="downloadReport()">
           <ph-icon name="download-simple" weight="bold" style="width:14px;height:14px;"></ph-icon>
-          Download Report
+          Print Report
         </button>
         <a href="dashboard.html" class="btn btn-sm" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.92);border:1px solid rgba(255,255,255,0.25);">
           <ph-icon name="arrow-left" weight="bold" style="width:14px;height:14px;"></ph-icon>
@@ -1082,87 +1084,66 @@ tbody tr:hover {
   <!-- Metric strip -->
   <div class="metric-strip">
     <div class="metric-cell">
-      <div class="metric-val" style="color:var(--accent);">24</div>
-      <div class="metric-label">Promoters Deployed</div>
+      <div class="metric-val" style="color:var(--accent);">5 Zones</div>
+      <div class="metric-label">Geofence Anchors</div>
       <div style="margin-top:8px;display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--green);font-weight:600;">
-        <ph-icon name="check-circle" weight="fill" style="width:12px;height:12px;"></ph-icon> All GPS-verified
+        <ph-icon name="check-circle" weight="fill" style="width:12px;height:12px;"></ph-icon> 100m / 20m GPS Locks
       </div>
     </div>
     <div class="metric-cell">
-      <div class="metric-val" id="portalLeadsMetricVal">147</div>
-      <div class="metric-label">Leads Captured Today</div>
-      <div style="margin-top:8px;font-size:0.72rem;color:var(--ink-3);" id="portalOtpCountSub">OTP verified: 89</div>
+      <div class="metric-val" id="portalLeadsMetricVal">0</div>
+      <div class="metric-label">Live Session Leads</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:var(--ink-3);" id="portalOtpCountSub">OTP verified: 0</div>
     </div>
     <div class="metric-cell">
-      <div class="metric-val" style="color:var(--green);">31%</div>
-      <div class="metric-label">Lead Conversion Rate</div>
-      <div style="margin-top:8px;font-size:0.72rem;color:var(--green);font-weight:600;">Industry avg: 9–14%</div>
+      <div class="metric-val" style="color:var(--green);">100%</div>
+      <div class="metric-label">OTP Verification Rate</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:var(--green);font-weight:600;">Phone-bound state machine</div>
     </div>
     <div class="metric-cell">
-      <div class="metric-val">₹147</div>
-      <div class="metric-label">Cost Per Qualified Lead</div>
-      <div style="margin-top:8px;font-size:0.72rem;color:var(--ink-3);">vs. ₹520 market avg</div>
+      <div class="metric-val">SHA-256</div>
+      <div class="metric-label">Photo Audit Standard</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:var(--ink-3);">1-pixel tamper detection</div>
     </div>
     <div class="metric-cell">
-      <div class="metric-val" style="color:var(--green);" id="portalPhotosMetricVal">89</div>
-      <div class="metric-label">Geo-verified Photos</div>
-      <div style="margin-top:8px;"><div class="progress"><div class="progress-fill green" style="width:94%;"></div></div><div style="font-size:0.7rem;margin-top:3px;color:var(--ink-3);">94% verification rate</div></div>
-    </div>
-  </div>
-
-  <!-- Campaign progress bar -->
-  <div class="card-flat" style="margin-bottom:24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
-    <div style="flex-shrink:0;">
-      <div style="font-size:0.78rem;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Campaign Progress</div>
-      <div style="font-size:1rem;font-weight:700;">Day 5 of 7</div>
-    </div>
-    <div style="flex:1;min-width:200px;">
-      <div class="progress" style="height:10px;"><div class="progress-fill" style="width:71.4%;"></div></div>
-      <div style="display:flex;justify-content:space-between;margin-top:6px;">
-        <span class="caption">9 Oct 2026</span>
-        <span class="caption" style="color:var(--accent);font-weight:600;">71% complete</span>
-        <span class="caption">15 Oct 2026</span>
-      </div>
-    </div>
-    <div style="flex-shrink:0;text-align:right;">
-      <div style="font-size:0.78rem;color:var(--ink-3);">Ends in</div>
-      <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);">2 days</div>
+      <div class="metric-val" style="color:var(--green);" id="portalPhotosMetricVal">0</div>
+      <div class="metric-label">Session Audited Photos</div>
+      <div style="margin-top:8px;"><div class="progress"><div class="progress-fill green" style="width:100%;"></div></div><div style="font-size:0.7rem;margin-top:3px;color:var(--ink-3);">Watermarked GPS + IST</div></div>
     </div>
   </div>
 
   <!-- Main 2-col layout -->
   <div class="portal-main-split">
 
-    <!-- Lead funnel chart -->
+    <!-- Lead funnel architecture -->
     <div class="card-flat">
-      <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px;">Lead Funnel</div>
-      <div class="caption" style="margin-bottom:20px;">Full-campaign view (5 of 7 days)</div>
-      <!-- Funnel visual -->
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px;">Verification Funnel Architecture</div>
+      <div class="caption" style="margin-bottom:20px;">How Utkal Vantage filters raw footfall into branch-ready leads</div>
       <div class="funnel-steps" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;">
         <div class="funnel-step">
-          <div class="funnel-step-val" style="color:var(--ink);">648</div>
-          <div class="funnel-step-label">Contacted</div>
+          <div class="funnel-step-val" style="color:var(--ink);">Step 1</div>
+          <div class="funnel-step-label">100m/20m Geo Lock</div>
           <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);"></div>
         </div>
         <div class="funnel-step">
-          <div class="funnel-step-val">412</div>
-          <div class="funnel-step-label">Form Submitted</div>
-          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);width:63.5%;"></div>
+          <div class="funnel-step-val">Step 2</div>
+          <div class="funnel-step-label">SHA-256 Photo Proof</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);width:80%;"></div>
         </div>
         <div class="funnel-step">
-          <div class="funnel-step-val" id="funnelOtpVal">318</div>
-          <div class="funnel-step-label">OTP Verified</div>
-          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);width:49%;"></div>
+          <div class="funnel-step-val" id="funnelOtpVal">Step 3</div>
+          <div class="funnel-step-label">Sector Qualification</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--accent);width:65%;"></div>
         </div>
         <div class="funnel-step">
-          <div class="funnel-step-val" style="color:var(--green);" id="funnelHotVal">201</div>
-          <div class="funnel-step-label">Score 7+ (Hot)</div>
-          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--green);width:31%;"></div>
+          <div class="funnel-step-val" style="color:var(--green);" id="funnelHotVal">Step 4</div>
+          <div class="funnel-step-label">6-Digit OTP Lock</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--green);width:50%;"></div>
         </div>
         <div class="funnel-step">
-          <div class="funnel-step-val" style="color:var(--green);">74</div>
-          <div class="funnel-step-label">Converted</div>
-          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--green);width:11.4%;"></div>
+          <div class="funnel-step-val" style="color:var(--green);">Step 5</div>
+          <div class="funnel-step-label">Branch Handover</div>
+          <div style="margin-top:8px;height:4px;border-radius:2px;background:var(--green);width:35%;"></div>
         </div>
       </div>
       <div class="chart-area" id="funnelChartContainer">
@@ -1170,74 +1151,67 @@ tbody tr:hover {
       </div>
     </div>
 
-    <!-- Live field map + activity -->
+    <!-- Live field map + session summary -->
     <div style="display:flex;flex-direction:column;gap:16px;">
-      <!-- Live map -->
       <div class="card-flat" style="padding:0;overflow:hidden;flex:1;">
         <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-weight:700;font-size:0.88rem;">Live Field Map</div>
-          <div class="badge badge-green"><span class="dot dot-green"></span> Live</div>
+          <div style="font-weight:700;font-size:0.88rem;">Bhubaneswar Catchment Zones</div>
+          <div class="badge badge-green"><span class="dot dot-green"></span> Read-Only</div>
         </div>
         <div style="height:200px;background:#e6ede8;position:relative;overflow:hidden;">
           <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px);background-size:28px 28px;"></div>
-          <!-- Roads -->
           <div style="position:absolute;top:38%;left:0;right:0;height:3px;background:rgba(255,255,255,0.6);"></div>
           <div style="position:absolute;top:62%;left:0;right:0;height:3px;background:rgba(255,255,255,0.6);"></div>
           <div style="position:absolute;top:0;bottom:0;left:30%;width:3px;background:rgba(255,255,255,0.6);"></div>
           <div style="position:absolute;top:0;bottom:0;left:65%;width:3px;background:rgba(255,255,255,0.6);"></div>
-          <!-- Promoter pins (read-only for client) -->
-          <div style="position:absolute;left:18%;top:22%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">RK</div>
-          <div style="position:absolute;left:40%;top:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">SM</div>
-          <div style="position:absolute;left:70%;top:28%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--amber);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">DP</div>
-          <div style="position:absolute;left:55%;top:70%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">BS</div>
-          <div style="position:absolute;left:82%;top:55%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">AV</div>
+          <div style="position:absolute;left:18%;top:22%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">Z1</div>
+          <div style="position:absolute;left:40%;top:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">Z2</div>
+          <div style="position:absolute;left:70%;top:28%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--green);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">Z3</div>
+          <div style="position:absolute;left:55%;top:70%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">Z4</div>
+          <div style="position:absolute;left:82%;top:55%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid white;display:grid;place-items:center;font-size:0.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">Z5</div>
           <div style="position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,0.62);backdrop-filter:blur(8px);color:rgba(255,255,255,0.9);font-size:0.65rem;padding:5px 9px;border-radius:6px;">
-            Read-only view. All data is cryptographically locked.
+            Read-only client view. All records are cryptographically locked.
           </div>
         </div>
       </div>
-      <!-- Today's summary -->
+      <!-- Session summary -->
       <div class="card-flat" style="padding:16px;">
-        <div style="font-weight:700;font-size:0.88rem;margin-bottom:12px;">Today's Summary</div>
+        <div style="font-weight:700;font-size:0.88rem;margin-bottom:12px;">Live Session Summary</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:0.83rem;color:var(--ink-2);">Promoters deployed</span>
-            <strong style="font-size:0.88rem;">8 / 8</strong>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:0.83rem;color:var(--ink-2);">Zones covered</span>
+            <span style="font-size:0.83rem;color:var(--ink-2);">Geofence zones configured</span>
             <strong style="font-size:0.88rem;">5 of 5</strong>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:0.83rem;color:var(--ink-2);">Leads today</span>
-            <strong style="font-size:0.88rem;color:var(--green);" id="summaryLeadsToday">147</strong>
+            <span style="font-size:0.83rem;color:var(--ink-2);">Session leads captured</span>
+            <strong style="font-size:0.88rem;color:var(--green);" id="summaryLeadsToday">0</strong>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:0.83rem;color:var(--ink-2);">Hot leads (score 7+)</span>
-            <strong style="font-size:0.88rem;color:var(--green);" id="summaryHotLeads">61</strong>
+            <span style="font-size:0.83rem;color:var(--ink-2);">Qualified leads (score 7+)</span>
+            <strong style="font-size:0.88rem;color:var(--green);" id="summaryHotLeads">0</strong>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:0.83rem;color:var(--ink-2);">Photos geo-verified</span>
-            <strong style="font-size:0.88rem;" id="summaryPhotosCount">89 / 94</strong>
+            <span style="font-size:0.83rem;color:var(--ink-2);">SHA-256 photos audited</span>
+            <strong style="font-size:0.88rem;" id="summaryPhotosCount">0</strong>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Leads per day chart -->
+  <!-- Target Daily Ramp chart -->
   <div class="card-flat" style="margin-bottom:24px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div>
-        <div style="font-weight:700;font-size:0.95rem;">Daily Lead Performance</div>
-        <div class="caption">Gold Loan Activation Drive • 9–15 Oct 2026</div>
+        <div style="font-weight:700;font-size:0.95rem;">7-Day Pilot Target Ramp (Benchmark Model)</div>
+        <div class="caption">Projected daily qualified lead trajectory for an 8-promoter cluster</div>
       </div>
       <div style="display:flex;gap:12px;">
         <div style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--ink-3);">
-          <div style="width:12px;height:3px;border-radius:2px;background:var(--accent);"></div> Total Leads
+          <div style="width:12px;height:3px;border-radius:2px;background:var(--accent);"></div> OTP-Verified Leads
         </div>
         <div style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--ink-3);">
-          <div style="width:12px;height:3px;border-radius:2px;background:var(--green);"></div> Converted
+          <div style="width:12px;height:3px;border-radius:2px;background:var(--green);"></div> Branch Walk-ins
         </div>
       </div>
     </div>
@@ -1251,59 +1225,17 @@ tbody tr:hover {
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div>
         <div style="font-weight:700;font-size:0.95rem;">Proof of Work Gallery</div>
-        <div class="caption">Geo-tagged photos — uneditable, SHA-256 timestamped</div>
+        <div class="caption">Displays live SHA-256 watermarked photos from the Field Terminal + Sector Blueprint Specimens</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <div class="badge badge-green">
           <ph-icon name="lock-key" weight="fill" style="width:11px;height:11px;"></ph-icon>
-          Tamper-proof
+          SHA-256 Ledger
         </div>
         <button type="button" class="btn btn-ghost btn-sm" onclick="downloadPhotoManifest()">Export Hash Ledger</button>
       </div>
     </div>
     <div class="proof-gallery" id="clientProofGallery">
-      <div class="proof-item">
-        <img src="https://picsum.photos/seed/proof101/600/400" alt="Campaign proof" />
-        <div class="proof-badge">
-          <div class="proof-badge-text">Ramesh K. • Sahid Nagar • 09:42 AM</div>
-          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="https://picsum.photos/seed/proof102/600/400" alt="Campaign proof" />
-        <div class="proof-badge">
-          <div class="proof-badge-text">Sunita M. • Rasulgarh • 10:11 AM</div>
-          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="https://picsum.photos/seed/proof103/600/400" alt="Campaign proof" />
-        <div class="proof-badge">
-          <div class="proof-badge-text">Anjali V. • Patia • 10:38 AM</div>
-          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="https://picsum.photos/seed/proof104/600/400" alt="Campaign proof" />
-        <div class="proof-badge">
-          <div class="proof-badge-text">Bikash S. • Nayapalli • 11:15 AM</div>
-          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="https://picsum.photos/seed/proof105/600/400" alt="Campaign proof" />
-        <div class="proof-badge">
-          <div class="proof-badge-text">Priya T. • Chandrasekharpur • 12:02 PM</div>
-          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="https://picsum.photos/seed/proof106/600/400" alt="Campaign proof" />
-        <div class="proof-badge">
-          <div class="proof-badge-text">Ramesh K. • Sahid Nagar • 12:54 PM</div>
-          <div class="proof-geo-ok"><ph-icon name="map-pin" weight="fill" style="width:9px;height:9px;"></ph-icon>OK</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1311,69 +1243,27 @@ tbody tr:hover {
   <div style="margin-bottom:24px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div>
-        <div style="font-weight:700;font-size:0.95rem;">Your Lead Database</div>
-        <div class="caption">Hot leads (score 7+) from today • Ready for your branch team to contact</div>
+        <div style="font-weight:700;font-size:0.95rem;">Live Verified Lead Database</div>
+        <div class="caption">Real-time OTP-verified leads synced from the Field Terminal during this session</div>
       </div>
-      <button type="button" class="btn btn-primary btn-sm" onclick="downloadLeads()">
-        <ph-icon name="download-simple" weight="bold" style="width:14px;height:14px;"></ph-icon>
-        Download CSV
-      </button>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="simulateInstantLiveLead()">⚡ Add Sample Verified Lead</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="downloadLeads()">
+          <ph-icon name="download-simple" weight="bold" style="width:14px;height:14px;"></ph-icon>
+          Download CSV
+        </button>
+      </div>
     </div>
     <div class="card-flat table-wrap">
       <table>
         <thead>
-          <tr><th>Name</th><th>Phone</th><th>Age / Gender</th><th>Zone</th><th>Lead Score</th><th>OTP Status</th><th>Gold / Sector Spec</th><th>Priority</th></tr>
+          <tr><th>Customer Name</th><th>Phone</th><th>Verification</th><th>Catchment Zone</th><th>Score</th><th>OTP Status</th><th>Sector Qualification Spec</th><th>Action</th></tr>
         </thead>
         <tbody id="clientLeadsTbody">
-          <tr>
-            <td><div style="font-weight:600;font-size:0.85rem;">Suresh Behera</div></td>
-            <td style="font-family:monospace;font-size:0.82rem;">+91 94521 63748</td>
-            <td>47M</td>
-            <td>Rasulgarh</td>
-            <td><span class="badge badge-green">9/10</span></td>
-            <td><span class="badge badge-green">Verified</span></td>
-            <td style="font-weight:600;">28–35g</td>
-            <td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Call Today</span></td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:600;font-size:0.85rem;">Mrunalini Das</div></td>
-            <td style="font-family:monospace;font-size:0.82rem;">+91 70821 49362</td>
-            <td>34F</td>
-            <td>Sahid Nagar</td>
-            <td><span class="badge badge-green">8/10</span></td>
-            <td><span class="badge badge-green">Verified</span></td>
-            <td style="font-weight:600;">18–24g</td>
-            <td><span class="badge" style="background:#dbeafe;color:#1d4ed8;">Call Today</span></td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:600;font-size:0.85rem;">Gopabandhu Rath</div></td>
-            <td style="font-family:monospace;font-size:0.82rem;">+91 63841 28473</td>
-            <td>52M</td>
-            <td>Nayapalli</td>
-            <td><span class="badge badge-green">8/10</span></td>
-            <td><span class="badge badge-green">Verified</span></td>
-            <td style="font-weight:600;">40–50g</td>
-            <td><span class="badge badge-green">Priority</span></td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:600;font-size:0.85rem;">Shanti Devi Patra</div></td>
-            <td style="font-family:monospace;font-size:0.82rem;">+91 82461 73924</td>
-            <td>45F</td>
-            <td>Chandrasekharpur</td>
-            <td><span class="badge badge-amber">7/10</span></td>
-            <td><span class="badge badge-green">Verified</span></td>
-            <td style="font-weight:600;">12–18g</td>
-            <td><span class="badge badge-neutral">Normal</span></td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:600;font-size:0.85rem;">Nirmal Mishra</div></td>
-            <td style="font-family:monospace;font-size:0.82rem;">+91 99124 38472</td>
-            <td>38M</td>
-            <td>Patia</td>
-            <td><span class="badge badge-green">9/10</span></td>
-            <td><span class="badge badge-green">Verified</span></td>
-            <td style="font-weight:600;">55–70g</td>
-            <td><span class="badge badge-green">Priority</span></td>
+          <tr id="portalEmptyLeadsRow">
+            <td colspan="8" style="text-align:center;padding:28px;color:var(--ink-3);">
+              No leads captured in this session yet. Submit a lead in the <a href="promoter.html" style="color:var(--accent);font-weight:700;">Field Terminal</a> or click <strong>⚡ Add Sample Verified Lead</strong> above to see instant sync.
+            </td>
           </tr>
         </tbody>
       </table>
@@ -1383,48 +1273,38 @@ tbody tr:hover {
   <!-- Activity log & Downloads -->
   <div class="grid-2">
     <div class="card-flat">
-      <div style="font-weight:700;font-size:0.95rem;margin-bottom:16px;">Campaign Audit Log</div>
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:16px;">Cryptographic Audit Log</div>
       <div class="timeline" id="portalAuditTimeline">
         <div class="timeline-item">
           <div class="timeline-dot green"></div>
-          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">147 leads captured — Day 5</div>
-          <div class="caption">Oct 14, 2026 • Real-time verified</div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">Client Portal Live Sync Active</div>
+          <div class="caption">Listening for Field Terminal SHA-256 photo &amp; OTP lead events</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot active"></div>
-          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">All 8 promoters checked in</div>
-          <div class="caption">09:15 AM • 100m GPS Geofence verified</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot green"></div>
-          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">118 leads — Day 4</div>
-          <div class="caption">5:47 PM • SHA-256 ledger locked</div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">5 Bhubaneswar Catchment Anchors Configured</div>
+          <div class="caption">Rasulgarh, Unit-1, Patia, Kalinga Nagar (100m) &amp; Saheed Nagar (20m)</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">134 leads — Day 3</div>
-          <div class="caption">6:02 PM • SHA-256 ledger locked</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">Campaign launched • All zones assigned</div>
-          <div class="caption">Oct 9, 2026 at 8:00 AM</div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--ink);">FIPS 180-4 SHA-256 Photo Ledger Initialized</div>
+          <div class="caption">1-pixel tamper detection enabled on all canvas uploads</div>
         </div>
       </div>
     </div>
 
     <!-- Download / actions -->
     <div class="card-flat">
-      <div style="font-weight:700;font-size:0.95rem;margin-bottom:6px;">Reports & Downloads</div>
-      <div class="caption" style="margin-bottom:16px;">All data is read-only and tamper-proof</div>
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:6px;">Reports &amp; Exports</div>
+      <div class="caption" style="margin-bottom:16px;">All exported data is formula-sanitized and cryptographically logged</div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <button type="button" class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;" onclick="downloadReport()">
           <div style="width:34px;height:34px;border-radius:9px;background:var(--accent-pale);display:grid;place-items:center;flex-shrink:0;">
             <ph-icon name="file-pdf" weight="fill" style="width:16px;height:16px;color:var(--accent);"></ph-icon>
           </div>
           <div style="text-align:left;">
-            <div style="font-size:0.85rem;font-weight:600;">Full Campaign Report PDF</div>
-            <div class="caption">Day 5 of 7 • Printable Audit Summary</div>
+            <div style="font-size:0.85rem;font-weight:600;">Printable Campaign Audit Summary</div>
+            <div class="caption">Clean PDF print view of active portal</div>
           </div>
         </button>
         <button type="button" class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;" onclick="downloadLeads()">
@@ -1432,8 +1312,8 @@ tbody tr:hover {
             <ph-icon name="table" weight="fill" style="width:16px;height:16px;color:var(--green);"></ph-icon>
           </div>
           <div style="text-align:left;">
-            <div style="font-size:0.85rem;font-weight:600;">Lead Database CSV</div>
-            <div class="caption">OTP-verified + Live Terminal Sync</div>
+            <div style="font-size:0.85rem;font-weight:600;">Verified Lead Database CSV</div>
+            <div class="caption">Exports all session OTP-verified leads</div>
           </div>
         </button>
         <button type="button" class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;" onclick="downloadPhotoManifest()">
@@ -1441,8 +1321,8 @@ tbody tr:hover {
             <ph-icon name="images" weight="fill" style="width:16px;height:16px;color:#6d28d9;"></ph-icon>
           </div>
           <div style="text-align:left;">
-            <div style="font-size:0.85rem;font-weight:600;">Photo Proof SHA-256 Ledger</div>
-            <div class="caption">Cryptographic geo-tagged manifest</div>
+            <div style="font-size:0.85rem;font-weight:600;">Photo Proof SHA-256 Ledger CSV</div>
+            <div class="caption">Cryptographic geo-tagged hash manifest</div>
           </div>
         </button>
         <button type="button" class="btn btn-ghost" style="width:100%;justify-content:flex-start;gap:12px;" onclick="downloadRoiSummary()">
@@ -1450,8 +1330,8 @@ tbody tr:hover {
             <ph-icon name="chart-line-up" weight="fill" style="width:16px;height:16px;color:var(--amber);"></ph-icon>
           </div>
           <div style="text-align:left;">
-            <div style="font-size:0.85rem;font-weight:600;">ROI Analytics Breakdown</div>
-            <div class="caption">Cost per lead (₹147) • Conversion attribution</div>
+            <div style="font-size:0.85rem;font-weight:600;">Sector Commercial Benchmark CSV</div>
+            <div class="caption">Standard rate card &amp; verification specs</div>
           </div>
         </button>
       </div>
@@ -1465,6 +1345,41 @@ tbody tr:hover {
   </div>
 
 </div><!-- /container -->
+
+<!-- Customize Prospect Modal -->
+<div class="uv-modal-backdrop" id="prospectModalBackdrop">
+  <div class="uv-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <h3 class="h3">Customize Client Portal Preview</h3>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="closeProspectCustomizer()">✕</button>
+    </div>
+    <form onsubmit="saveProspectCustomizer(event)">
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;">
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;">Prospective Client Organization Name</label>
+          <input class="input" id="custModalOrgName" required placeholder="Enter prospect company name" />
+        </div>
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;">Branch / Catchment Subtitle</label>
+          <input class="input" id="custModalBranch" required placeholder="e.g. Bhubaneswar Regional Circle" />
+        </div>
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;">Sector Blueprint</label>
+          <select class="input" id="custModalSector">
+            <option value="nbfc">1. NBFC — Gold &amp; MSME Catchment Pilot</option>
+            <option value="insurance">2. Insurance — Society &amp; Park Advisory Pilot</option>
+            <option value="bank">3. Bank — Merchant CASA &amp; 20m Storefront Pilot</option>
+            <option value="d2c">4. D2C Brand — Experiential Sampling Pilot</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="btn btn-ghost" onclick="closeProspectCustomizer()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Apply to Portal</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- Footer -->
 <div style="border-top:1px solid var(--border);padding:20px 0;background:var(--surface);">
@@ -1480,8 +1395,8 @@ tbody tr:hover {
   if (!window.UtkalVantage) {
 /**
  * ============================================================================
- * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.0
- * Zero-cost client-side architecture for Odisha BTL Operations:
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.1
+ * Pitch-Safe MVP Architecture (Zero Fake/Bogus Third-Party Client Claims):
  *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
  *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
  *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
@@ -1532,7 +1447,6 @@ tbody tr:hover {
       const oldHash = hash;
       hash = hash.slice(0, 8);
       for (i = 0; i < 64; i++) {
-        const i2 = i + j;
         const w15 = w[i - 15], w2 = w[i - 2];
         const a = hash[0], e = hash[4];
         const temp1 =
@@ -1577,9 +1491,7 @@ tbody tr:hover {
           .map((b) => b.toString(16).padStart(2, '0'))
           .join('');
       }
-    } catch (_) {
-      // Fallback to pure JS SHA-256 on non-HTTPS mobile LAN or restricted contexts
-    }
+    } catch (_) {}
     const utf8 = unescape(encodeURIComponent(str));
     return sha256PureJS(utf8);
   }
@@ -1596,7 +1508,6 @@ tbody tr:hover {
 
   function escapeCsvCell(val) {
     let s = String(val == null ? '' : val).replace(/\r?\n/g, ' ').trim();
-    // Defend against CSV Formula Injection (=, +, -, @, \t, \r)
     if (/^[=+\-@\t\r]/.test(s) && !/^\+91\d/.test(s)) {
       s = "'" + s;
     }
@@ -1660,7 +1571,7 @@ tbody tr:hover {
     },
     patia: {
       id: 'patia',
-      name: 'KIIT Square Sampling Hub',
+      name: 'Infocity / Patia Sampling Hub',
       lat: 20.3541,
       lng: 85.8192,
       radiusM: 100,
@@ -1684,6 +1595,17 @@ tbody tr:hover {
     }
   };
 
+  const SECTOR_LABELS = {
+    nbfc: 'NBFC Gold & MSME Loan Pilot',
+    insurance: 'Health & Life Advisory Pilot',
+    bank: 'Bank Merchant CASA & QR Pilot',
+    d2c: 'D2C Experiential Sampling Pilot'
+  };
+
+  function getSectorLabel(sector) {
+    return SECTOR_LABELS[String(sector || 'nbfc').toLowerCase()] || SECTOR_LABELS.nbfc;
+  }
+
   // ── 4. HAVERSINE RADIAL DISTANCE ENGINE ───────────────────────────────────
   function haversineDistanceM(lat1, lng1, lat2, lng2) {
     const nLat1 = Number(lat1), nLng1 = Number(lng1);
@@ -1694,7 +1616,7 @@ tbody tr:hover {
     ) {
       return Infinity;
     }
-    const R = 6371000; // Earth mean radius in meters
+    const R = 6371000;
     const toRad = (deg) => (deg * Math.PI) / 180;
     const dLat = toRad(nLat2 - nLat1);
     const dLng = toRad(nLng2 - nLng1);
@@ -1756,7 +1678,6 @@ tbody tr:hover {
         sector: presetObj.sector || 'nbfc'
       };
       this.error = null;
-      // Align simulated position near the newly selected preset for seamless demo pitching
       this.currentPosition = {
         lat: Number((this.anchor.lat + 0.00008).toFixed(6)),
         lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
@@ -1831,7 +1752,6 @@ tbody tr:hover {
     }
 
     startWatch() {
-      // Immediately emit initial valid lock state so UI never hangs on "--"
       this.notify();
       if (typeof navigator === 'undefined' || !navigator.geolocation) {
         return;
@@ -1846,7 +1766,6 @@ tbody tr:hover {
                 pos.coords.latitude,
                 pos.coords.longitude
               );
-              // Only override demo anchor if actual GPS is within 5km of Bhubaneswar or user locked current GPS
               if (distToAnchor < 5000 || this.anchor.id === 'locked_gps') {
                 this.currentPosition = {
                   lat: pos.coords.latitude,
@@ -1860,7 +1779,6 @@ tbody tr:hover {
             }
           },
           () => {
-            // Keep high-precision simulated anchor position when hardware GPS permission is denied
             this.notify();
           },
           { enableHighAccuracy: true, timeout: 6000, maximumAge: 10000 }
@@ -1917,7 +1835,7 @@ tbody tr:hover {
       const lat = Number.isFinite(Number(meta.lat)) ? Number(meta.lat) : 20.290623;
       const lng = Number.isFinite(Number(meta.lng)) ? Number(meta.lng) : 85.864812;
       const accuracy = Number.isFinite(Number(meta.accuracy)) ? Number(meta.accuracy) : 4;
-      const promoterId = String(meta.promoterId || 'UV-PRO-084');
+      const promoterId = String(meta.promoterId || 'UV-REP-01');
       const sector = String(meta.sector || 'nbfc').toUpperCase();
       const zone = String(meta.zone || 'Rasulgarh Square Canopy');
 
@@ -1927,7 +1845,6 @@ tbody tr:hover {
         const imgOrCanvas = await this.loadImageSource(source);
         const origW = imgOrCanvas.width || 800;
         const origH = imgOrCanvas.height || 600;
-        // Scale down oversized mobile camera photos (e.g., 4000x3000) to prevent RAM overflow
         const maxDim = 960;
         const scale = Math.min(1, maxDim / Math.max(origW, origH));
         const w = Math.max(400, Math.round(origW * scale));
@@ -1939,13 +1856,11 @@ tbody tr:hover {
         const ctx = canvas.getContext('2d');
         ctx.drawImage(imgOrCanvas, 0, 0, w, h);
 
-        // Burn tamper-proof cryptographic watermark bar at bottom
         const barH = Math.max(76, Math.round(h * 0.16));
         const barY = h - barH;
         ctx.fillStyle = 'rgba(22, 20, 18, 0.88)';
         ctx.fillRect(0, barY, w, barH);
 
-        // Sunrise Coral top border on watermark bar
         ctx.fillStyle = '#D85A30';
         ctx.fillRect(0, barY, w, 4);
 
@@ -2003,7 +1918,7 @@ tbody tr:hover {
   // ── 7. DUAL-VERIFICATION OTP STATE MACHINE ────────────────────────────────
   class DualVerificationMachine {
     constructor(options = {}) {
-      this.ttlMs = Number(options.ttlMs) || 90000; // 90 seconds
+      this.ttlMs = Number(options.ttlMs) || 90000;
       this.maxAttempts = Number(options.maxAttempts) || 3;
       this.challenge = null;
     }
@@ -2013,7 +1928,6 @@ tbody tr:hover {
       if (!isValidIndianPhone(cleanPhone)) {
         throw new Error('Invalid Indian mobile number. Must be 10 digits starting with 6, 7, 8, or 9.');
       }
-      // Cryptographically unbiased 6-digit OTP
       let codeNum = 0;
       if (global.crypto && global.crypto.getRandomValues) {
         const arr = new Uint32Array(1);
@@ -2097,10 +2011,10 @@ tbody tr:hover {
     static getWhatsAppLink(rawPhone, sector = 'nbfc', code = '000000') {
       const cleanPhone = sanitizeIndianPhone(rawPhone);
       const sectorMessages = {
-        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at the nearest Muthoot/IIFL Bhubaneswar branch for 11.9% p.a. zero-processing-fee assessment.`,
-        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes 100% cashless hospital coverage brochure for Apollo, SUM Ultimate & AMRI Bhubaneswar.`,
+        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at your nearest partner branch for priority assessment.`,
+        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes cashless network hospital coverage details for Bhubaneswar.`,
         bank: `Namaskar! Your Utkal Vantage Merchant CASA & Soundbox Onboarding OTP is *${code}*. Verified KYC checklist logged for zero-fee current account activation.`,
-        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use code *UTKAL25* on Zepto/Blinkit for 25% OFF your next order!`
+        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use coupon code *UTKAL25* for 25% OFF your first online order!`
       };
       const text = sectorMessages[String(sector).toLowerCase()] || sectorMessages.nbfc;
       return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
@@ -2205,13 +2119,10 @@ tbody tr:hover {
         payload,
         timestamp: new Date().toISOString()
       };
-      // Notify same-window listeners
       this._dispatch(eventObj);
-      // Notify other tabs via BroadcastChannel
       try {
         if (this.channel) this.channel.postMessage(eventObj);
       } catch (_) {}
-      // Notify other tabs via localStorage event bus fallback
       try {
         if (global.localStorage) {
           global.localStorage.setItem('uv_realtime_event_bus', JSON.stringify(eventObj));
@@ -2237,20 +2148,25 @@ tbody tr:hover {
     photos: [],
     campaigns: [],
     promoters: [],
+    prospectConfig: {
+      clientName: 'Prospective Client Preview',
+      branchName: 'Bhubaneswar Catchment Pilot',
+      sector: 'nbfc'
+    },
     inventory: {
-      d2c: { startingStock: 200, dispensed: 53, remaining: 147, sku: 'Raw Pressery Cold Juice' }
+      d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
     }
   };
 
   const StorageEngine = {
-    dbName: 'UtkalVantageDB',
+    dbName: 'UtkalVantageDB_v21',
     dbVersion: 2,
     _dbPromise: null,
 
     _readLocal(key, fallback) {
       try {
         if (global.localStorage) {
-          const raw = global.localStorage.getItem('uv_store_' + key);
+          const raw = global.localStorage.getItem('uv_store_v21_' + key);
           if (raw) return JSON.parse(raw);
         }
       } catch (_) {}
@@ -2260,9 +2176,22 @@ tbody tr:hover {
     _writeLocal(key, val) {
       try {
         if (global.localStorage) {
-          global.localStorage.setItem('uv_store_' + key, JSON.stringify(val));
+          global.localStorage.setItem('uv_store_v21_' + key, JSON.stringify(val));
         }
       } catch (_) {}
+    },
+
+    getProspectConfig() {
+      return this._readLocal('prospectConfig', memoryStore.prospectConfig);
+    },
+
+    setProspectConfig(cfg = {}) {
+      const cur = this.getProspectConfig();
+      const updated = Object.assign({}, cur, cfg);
+      memoryStore.prospectConfig = updated;
+      this._writeLocal('prospectConfig', updated);
+      RealtimeBroadcaster.publish('PROSPECT_CONFIG_UPDATED', updated);
+      return updated;
     },
 
     async _getDB() {
@@ -2300,11 +2229,12 @@ tbody tr:hover {
       if (!leadRecord || !leadRecord.id) {
         throw new Error('Invalid leadRecord: missing id');
       }
+      const prospect = this.getProspectConfig();
       const cleanLead = Object.assign(
         {
           timestamp: new Date().toISOString(),
-          sector: 'nbfc',
-          client: 'Muthoot Finance',
+          sector: prospect.sector || 'nbfc',
+          client: leadRecord.client || getSectorLabel(leadRecord.sector || prospect.sector),
           otpVerified: true,
           geoCompliant: true,
           syncStatus: typeof navigator !== 'undefined' && navigator.onLine === false ? 'queued' : 'synced'
@@ -2312,7 +2242,6 @@ tbody tr:hover {
         leadRecord
       );
 
-      // Update local array + memory
       const existing = this._readLocal('leads', memoryStore.leads);
       const idx = existing.findIndex((l) => l.id === cleanLead.id);
       if (idx >= 0) existing[idx] = cleanLead;
@@ -2320,7 +2249,6 @@ tbody tr:hover {
       memoryStore.leads = existing;
       this._writeLocal('leads', existing);
 
-      // Persist to IndexedDB
       const db = await this._getDB();
       if (db) {
         await new Promise((resolve) => {
@@ -2376,7 +2304,6 @@ tbody tr:hover {
       const idx = existing.findIndex((p) => p.id === photoRecord.id);
       if (idx >= 0) existing[idx] = photoRecord;
       else existing.unshift(photoRecord);
-      // Cap localStorage mirror to 15 photos to respect 5MB quota
       memoryStore.photos = existing;
       this._writeLocal('photos', existing.slice(0, 15));
 
@@ -2432,16 +2359,16 @@ tbody tr:hover {
       return (
         allInv[sector] || {
           startingStock: 200,
-          dispensed: 53,
-          remaining: 147,
-          sku: 'Raw Pressery Cold Juice'
+          dispensed: 0,
+          remaining: 200,
+          sku: 'Trial SKU — Batch A'
         }
       );
     },
 
     updateInventory(sector = 'd2c', deltaDispensed = 1, customStart = null) {
       const allInv = this._readLocal('inventory', memoryStore.inventory);
-      const cur = allInv[sector] || { startingStock: 200, dispensed: 53, remaining: 147 };
+      const cur = allInv[sector] || { startingStock: 200, dispensed: 0, remaining: 200 };
       if (customStart !== null && Number.isFinite(Number(customStart))) {
         cur.startingStock = Math.max(0, Number(customStart));
       }
@@ -2457,8 +2384,12 @@ tbody tr:hover {
     async clearAll() {
       memoryStore.leads = [];
       memoryStore.photos = [];
+      memoryStore.inventory = {
+        d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
+      };
       this._writeLocal('leads', []);
       this._writeLocal('photos', []);
+      this._writeLocal('inventory', memoryStore.inventory);
       const db = await this._getDB();
       if (db) {
         try {
@@ -2467,10 +2398,11 @@ tbody tr:hover {
           tx.objectStore('photos').clear();
         } catch (_) {}
       }
+      RealtimeBroadcaster.publish('WORKSPACE_CLEARED', {});
     }
   };
 
-  // ── 11. UI TOAST & MODAL HELPER ───────────────────────────────────────────
+  // ── 11. UI TOAST HELPER ───────────────────────────────────────────────────
   const UI = {
     toast(message, type = 'info', durationMs = 3800) {
       if (typeof document === 'undefined') return;
@@ -2497,10 +2429,11 @@ tbody tr:hover {
     }
   };
 
-  // Expose unified API on window.UtkalVantage
   global.UtkalVantage = {
-    version: '2.0.0',
+    version: '2.1.0-MVP',
     anchors,
+    SECTOR_LABELS,
+    getSectorLabel,
     haversineDistanceM,
     computeSha256Hex,
     escapeHtml,
@@ -2606,31 +2539,178 @@ tbody tr:hover {
   }
 </script>
 <script>
-  // Live Field Sync
+  function generatePortalSpecimenSvg(title, zone, lockText, colorHex) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+      <rect width="600" height="400" fill="#211E1B"/>
+      <rect x="30" y="30" width="540" height="235" rx="10" fill="${colorHex}" fill-opacity="0.16" stroke="${colorHex}" stroke-width="2" stroke-dasharray="6,4"/>
+      <text x="56" y="95" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="19" font-weight="700">${title}</text>
+      <text x="56" y="135" fill="#F5C4B3" font-family="IBM Plex Sans, sans-serif" font-size="15">Catchment Anchor: ${zone}</text>
+      <text x="56" y="175" fill="#A3E635" font-family="IBM Plex Mono, monospace" font-size="13">${lockText} • Watermarked Canvas Specimen</text>
+      <rect x="0" y="300" width="600" height="100" fill="#161412"/>
+      <rect x="0" y="300" width="600" height="4" fill="#D85A30"/>
+      <text x="24" y="335" fill="#EF9F27" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700">UTKAL VANTAGE • TAMPER-PROOF SPECIMEN TEMPLATE</text>
+      <text x="24" y="362" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="11">Live photos captured in Field Terminal appear first in this gallery</text>
+    </svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
+  function renderBaselineSpecimenGallery(storedPhotos) {
+    const gallery = document.getElementById('clientProofGallery');
+    if (!gallery) return;
+    gallery.innerHTML = '';
+
+    const specimens = [
+      { id: 'SPEC-1', title: 'NBFC Canopy Setup Specimen', zone: 'Rasulgarh Square', lock: '100m Geofence Lock', color: '#D85A30' },
+      { id: 'SPEC-2', title: 'Insurance Advisory Kiosk Specimen', zone: 'Kalinga Nagar', lock: '100m Geofence Lock', color: '#1E7B4D' },
+      { id: 'SPEC-3', title: 'Bank Storefront KYC Specimen', zone: 'Saheed Nagar', lock: '20m Storefront Lock', color: '#EF9F27' }
+    ];
+
+    specimens.forEach(sp => {
+      const card = document.createElement('div');
+      card.className = 'proof-item';
+      card.innerHTML = `
+        <img src="${generatePortalSpecimenSvg(sp.title, sp.zone, sp.lock, sp.color)}" alt="${sp.title}" />
+        <div class="proof-badge">
+          <div class="proof-badge-text">${sp.title} • ${sp.zone}</div>
+          <div class="proof-geo-ok"><ph-icon name="shield-check" weight="fill" style="width:11px;height:11px;color:#4ade80;"></ph-icon>SPECIMEN</div>
+        </div>
+      `;
+      gallery.appendChild(card);
+    });
+
+    if (storedPhotos && storedPhotos.length) {
+      storedPhotos.slice().reverse().forEach(photo => prependPhotoCard(photo, false));
+    }
+  }
+
+  function applyProspectBranding() {
+    const cfg = UtkalVantage.StorageEngine.getProspectConfig();
+    const org = cfg.clientName || 'Prospective Client Preview';
+    const branch = cfg.branchName || 'Bhubaneswar Catchment Pilot';
+    const secLabel = UtkalVantage.getSectorLabel(cfg.sector || 'nbfc');
+
+    document.getElementById('portalClientName').textContent = org;
+    document.getElementById('portalBranchSub').textContent = branch;
+    document.getElementById('portalHeroTitle').textContent = `${org} — ${secLabel}`;
+    const initials = org.split(/\s+/).map(w => w[0] || '').join('').substring(0, 2).toUpperCase() || 'PC';
+    document.getElementById('portalAvatarInitials').textContent = initials;
+  }
+
+  function openProspectCustomizer() {
+    const cfg = UtkalVantage.StorageEngine.getProspectConfig();
+    document.getElementById('custModalOrgName').value = cfg.clientName || '';
+    document.getElementById('custModalBranch').value = cfg.branchName || 'Bhubaneswar Catchment Pilot';
+    document.getElementById('custModalSector').value = cfg.sector || 'nbfc';
+    document.getElementById('prospectModalBackdrop').classList.add('open');
+  }
+
+  function closeProspectCustomizer() {
+    document.getElementById('prospectModalBackdrop').classList.remove('open');
+  }
+
+  function saveProspectCustomizer(e) {
+    e.preventDefault();
+    const clientName = document.getElementById('custModalOrgName').value.trim();
+    const branchName = document.getElementById('custModalBranch').value.trim();
+    const sector = document.getElementById('custModalSector').value;
+    UtkalVantage.StorageEngine.setProspectConfig({ clientName, branchName, sector });
+    applyProspectBranding();
+    closeProspectCustomizer();
+    UtkalVantage.UI.toast(`Portal customized for "${clientName}"!`, 'success');
+  }
+
+  async function simulateInstantLiveLead() {
+    const cfg = UtkalVantage.StorageEngine.getProspectConfig();
+    const c = document.createElement('canvas');
+    c.width = 800; c.height = 600;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#2A2724'; ctx.fillRect(0, 0, 800, 600);
+    ctx.fillStyle = '#D85A30'; ctx.fillRect(44, 60, 712, 280);
+    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 30px sans-serif';
+    ctx.fillText('LIVE SANDBOX FIELD PROOF', 72, 150);
+    ctx.font = '22px sans-serif';
+    ctx.fillText('Rasulgarh Square Canopy • 100m Geofence Verified', 72, 205);
+
+    const auditPhoto = await UtkalVantage.PhotoAuditEngine.processAndAudit(c.toDataURL(), {
+      lat: 20.2907,
+      lng: 85.8649,
+      accuracy: 4,
+      sector: cfg.sector || 'nbfc',
+      zone: 'Rasulgarh Square Canopy',
+      promoterId: 'UV-REP-01'
+    });
+    await UtkalVantage.StorageEngine.savePhoto(auditPhoto);
+
+    const leadRecord = {
+      id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
+      timestamp: new Date().toISOString(),
+      sector: cfg.sector || 'nbfc',
+      client: cfg.clientName || UtkalVantage.getSectorLabel(cfg.sector),
+      customer: { name: 'Verified Sandbox Prospect', phone: '9437000099' },
+      otpVerified: true,
+      geoCompliant: true,
+      distanceFromAnchorM: 12,
+      anchorZone: 'Rasulgarh Square Canopy',
+      photoSha256: auditPhoto.sha256,
+      details: { goldGrams: '30-50g', leadScore: 9 }
+    };
+    await UtkalVantage.StorageEngine.saveLead(leadRecord);
+  }
+
   async function initLiveSync() {
+    applyProspectBranding();
     try {
       const storedLeads = await UtkalVantage.StorageEngine.getAllLeads();
-      const tbody = document.getElementById('clientLeadsTbody');
-      if (tbody && storedLeads && storedLeads.length) {
-        storedLeads.slice().reverse().forEach(lead => appendLeadRow(lead, false));
-      }
-
       const storedPhotos = await UtkalVantage.StorageEngine.getAllPhotos();
-      const gallery = document.getElementById('clientProofGallery');
-      if (gallery && storedPhotos && storedPhotos.length) {
-        storedPhotos.slice().reverse().forEach(photo => prependPhotoCard(photo, false));
+      renderBaselineSpecimenGallery(storedPhotos);
+
+      if (storedLeads && storedLeads.length) {
+        storedLeads.slice().reverse().forEach(lead => appendLeadRow(lead, false));
+        refreshPortalCounters(storedLeads, storedPhotos || []);
+      } else if (storedPhotos && storedPhotos.length) {
+        refreshPortalCounters([], storedPhotos);
       }
     } catch (e) {
       console.warn('StorageEngine sync notice:', e);
     }
 
-    UtkalVantage.RealtimeBroadcaster.subscribe((event) => {
+    UtkalVantage.RealtimeBroadcaster.subscribe(async (event) => {
       if (event.type === 'LEAD_SAVED') {
         appendLeadRow(event.payload, true);
+        const allLeads = await UtkalVantage.StorageEngine.getAllLeads();
+        const allPhotos = await UtkalVantage.StorageEngine.getAllPhotos();
+        refreshPortalCounters(allLeads, allPhotos);
       } else if (event.type === 'PHOTO_AUDITED') {
         prependPhotoCard(event.payload, true);
+        const allLeads = await UtkalVantage.StorageEngine.getAllLeads();
+        const allPhotos = await UtkalVantage.StorageEngine.getAllPhotos();
+        refreshPortalCounters(allLeads, allPhotos);
+      } else if (event.type === 'PROSPECT_CONFIG_UPDATED') {
+        applyProspectBranding();
+      } else if (event.type === 'WORKSPACE_CLEARED') {
+        renderBaselineSpecimenGallery([]);
+        document.getElementById('clientLeadsTbody').innerHTML = `
+          <tr id="portalEmptyLeadsRow">
+            <td colspan="8" style="text-align:center;padding:28px;color:var(--ink-3);">
+              No leads captured in this session yet. Submit a lead in the <a href="promoter.html" style="color:var(--accent);font-weight:700;">Field Terminal</a> or click <strong>⚡ Add Sample Verified Lead</strong> above to see instant sync.
+            </td>
+          </tr>
+        `;
+        refreshPortalCounters([], []);
       }
     });
+  }
+
+  function refreshPortalCounters(leads, photos) {
+    const lCount = leads.length;
+    const pCount = photos.length;
+    const hotCount = leads.filter(l => (l.details && l.details.leadScore ? l.details.leadScore : 9) >= 7).length;
+    document.getElementById('portalLeadsMetricVal').textContent = String(lCount);
+    document.getElementById('portalOtpCountSub').textContent = `OTP verified: ${lCount}`;
+    document.getElementById('portalPhotosMetricVal').textContent = String(pCount);
+    document.getElementById('summaryLeadsToday').textContent = String(lCount);
+    document.getElementById('summaryHotLeads').textContent = String(hotCount);
+    document.getElementById('summaryPhotosCount').textContent = String(pCount);
   }
 
   function appendLeadRow(lead, isLive = false) {
@@ -2638,11 +2718,14 @@ tbody tr:hover {
     if (!tbody || !lead || !lead.id) return;
     if (document.getElementById('lead-row-' + lead.id)) return;
 
+    const emptyRow = document.getElementById('portalEmptyLeadsRow');
+    if (emptyRow) emptyRow.remove();
+
     const tr = document.createElement('tr');
     tr.id = 'lead-row-' + lead.id;
     if (isLive) tr.style.background = 'rgba(216,90,48,0.12)';
 
-    let specVal = 'Verified Lead';
+    let specVal = 'Qualified Lead';
     if (lead.details) {
       if (lead.details.goldGrams) specVal = lead.details.goldGrams;
       else if (lead.details.family) specVal = lead.details.family;
@@ -2654,24 +2737,18 @@ tbody tr:hover {
     tr.innerHTML = `
       <td><div style="font-weight:700;font-size:0.85rem;color:var(--accent);">${UtkalVantage.escapeHtml(lead.customer.name)}</div></td>
       <td style="font-family:monospace;font-size:0.82rem;">+91 ${UtkalVantage.escapeHtml(lead.customer.phone)}</td>
-      <td>Live Verified</td>
+      <td>100m Geo + OTP</td>
       <td>${UtkalVantage.escapeHtml(lead.anchorZone || 'Bhubaneswar')}</td>
       <td><span class="badge badge-green">${UtkalVantage.escapeHtml(scoreVal)}</span></td>
       <td><span class="badge badge-green">OTP Verified</span></td>
       <td style="font-weight:600;">${UtkalVantage.escapeHtml(specVal)}</td>
-      <td><span class="badge badge-green">Immediate Followup</span></td>
+      <td><span class="badge badge-green">Ready for Branch</span></td>
     `;
     tbody.insertBefore(tr, tbody.firstChild);
 
-    // Update KPI counters
-    const metricEl = document.getElementById('portalLeadsMetricVal');
-    if (metricEl) metricEl.textContent = String((parseInt(metricEl.textContent, 10) || 147) + 1);
-    const summaryEl = document.getElementById('summaryLeadsToday');
-    if (summaryEl) summaryEl.textContent = String((parseInt(summaryEl.textContent, 10) || 147) + 1);
-
     if (isLive) {
       setTimeout(() => { tr.style.transition = 'background 1.5s'; tr.style.background = ''; }, 3000);
-      UtkalVantage.UI.toast(`New OTP-Verified Lead synced from Field Terminal: ${lead.customer.name}`, 'success');
+      UtkalVantage.UI.toast(`New OTP-Verified Lead synced: ${lead.customer.name}`, 'success');
     }
   }
 
@@ -2693,9 +2770,6 @@ tbody tr:hover {
       </div>
     `;
     gallery.insertBefore(card, gallery.firstChild);
-
-    const pMetric = document.getElementById('portalPhotosMetricVal');
-    if (pMetric) pMetric.textContent = String((parseInt(pMetric.textContent, 10) || 89) + 1);
   }
 
   function initPortalCharts() {
@@ -2704,9 +2778,9 @@ tbody tr:hover {
       new Chart(funnelCtx, {
         type: 'bar',
         data: {
-          labels: ['Contacted', 'Form Submitted', 'OTP Verified', 'Hot Leads', 'Converted'],
+          labels: ['100m Geo Lock', 'SHA-256 Photo', 'Sector Filter', '6-Digit OTP', 'Branch Ready'],
           datasets: [{
-            data: [648, 412, 318, 201, 74],
+            data: [100, 95, 80, 65, 45],
             backgroundColor: ['rgba(216,90,48,0.15)','rgba(216,90,48,0.28)','rgba(216,90,48,0.48)','rgba(30,123,77,0.5)','rgba(30,123,77,0.85)'],
             borderColor: ['rgba(216,90,48,0.6)','rgba(216,90,48,0.7)','rgba(216,90,48,0.85)','rgba(30,123,77,0.7)','rgba(30,123,77,0.95)'],
             borderWidth: 1.5, borderRadius: 6,
@@ -2716,13 +2790,13 @@ tbody tr:hover {
           responsive: true, maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660' } },
+            y: { grid: { color: 'rgba(31,29,27,0.05)' }, border: { display: false }, ticks: { font: { family: 'IBM Plex Mono' }, color: '#6B6660', callback: v => v + '%' } },
             x: { grid: { display: false }, border: { display: false }, ticks: { font: { family: 'IBM Plex Sans', size: 10 }, color: '#6B6660' } }
           }
         }
       });
     } else if (funnelCtx) {
-      document.getElementById('funnelChartContainer').innerHTML = `<svg viewBox="0 0 360 170" width="100%" height="100%"><rect x="20" y="15" width="45" height="135" rx="4" fill="#D85A30" opacity="0.3"/><rect x="88" y="55" width="45" height="95" rx="4" fill="#D85A30" opacity="0.5"/><rect x="156" y="75" width="45" height="75" rx="4" fill="#D85A30" opacity="0.75"/><rect x="224" y="100" width="45" height="50" rx="4" fill="#1E7B4D" opacity="0.75"/><rect x="292" y="128" width="45" height="22" rx="4" fill="#1E7B4D"/></svg>`;
+      document.getElementById('funnelChartContainer').innerHTML = `<svg viewBox="0 0 360 170" width="100%" height="100%"><rect x="20" y="15" width="45" height="135" rx="4" fill="#D85A30" opacity="0.3"/><rect x="88" y="35" width="45" height="115" rx="4" fill="#D85A30" opacity="0.5"/><rect x="156" y="60" width="45" height="90" rx="4" fill="#D85A30" opacity="0.75"/><rect x="224" y="85" width="45" height="65" rx="4" fill="#1E7B4D" opacity="0.75"/><rect x="292" y="110" width="45" height="40" rx="4" fill="#1E7B4D"/></svg>`;
     }
 
     const dlCtx = document.getElementById('dailyLeadsChart');
@@ -2730,18 +2804,18 @@ tbody tr:hover {
       new Chart(dlCtx, {
         type: 'line',
         data: {
-          labels: ['Day 1 (9 Oct)','Day 2 (10 Oct)','Day 3 (11 Oct)','Day 4 (12 Oct)','Day 5 (Today)','Day 6','Day 7'],
+          labels: ['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7'],
           datasets: [
             {
-              label: 'Total Leads',
-              data: [82, 95, 134, 118, 147, null, null],
+              label: 'Target OTP-Verified Leads',
+              data: [35, 42, 48, 52, 56, 60, 64],
               borderColor: 'rgba(216,90,48,0.92)', backgroundColor: 'rgba(216,90,48,0.06)',
               fill: true, tension: 0.4, borderWidth: 2.5, pointRadius: 5,
               pointBackgroundColor: '#fff', pointBorderColor: 'rgba(216,90,48,0.92)', pointBorderWidth: 2,
             },
             {
-              label: 'Converted',
-              data: [18, 26, 37, 31, 46, null, null],
+              label: 'Target Branch Walk-ins',
+              data: [10, 14, 16, 18, 20, 22, 24],
               borderColor: 'rgba(30,123,77,0.92)', backgroundColor: 'rgba(30,123,77,0.06)',
               fill: true, tension: 0.4, borderWidth: 2.5, pointRadius: 5,
               pointBackgroundColor: '#fff', pointBorderColor: 'rgba(30,123,77,0.92)', pointBorderWidth: 2,
@@ -2758,27 +2832,19 @@ tbody tr:hover {
         }
       });
     } else if (dlCtx) {
-      document.getElementById('dailyLeadsChartContainer').innerHTML = `<svg viewBox="0 0 500 160" width="100%" height="100%"><polyline fill="none" stroke="#D85A30" stroke-width="3" points="30,110 120,95 210,55 300,72 390,35"/><polyline fill="none" stroke="#1E7B4D" stroke-width="3" points="30,140 120,132 210,118 300,125 390,108"/></svg>`;
+      document.getElementById('dailyLeadsChartContainer').innerHTML = `<svg viewBox="0 0 500 160" width="100%" height="100%"><polyline fill="none" stroke="#D85A30" stroke-width="3" points="30,110 100,95 170,80 240,68 310,55 380,45 450,35"/><polyline fill="none" stroke="#1E7B4D" stroke-width="3" points="30,140 100,134 170,128 240,122 310,116 380,110 450,104"/></svg>`;
     }
   }
 
   function downloadReport() {
-    UtkalVantage.UI.toast('Opening Printable Campaign Audit Report PDF view...', 'info');
+    UtkalVantage.UI.toast('Opening Printable Campaign Audit Summary...', 'info');
     setTimeout(() => window.print(), 350);
   }
 
   async function downloadLeads() {
     const stored = await UtkalVantage.StorageEngine.getAllLeads();
     const rows = [
-      ['Lead ID', 'Customer Name', 'Phone', 'Zone', 'Sector', 'Lead Score', 'OTP Status', 'Geo Compliant', 'Asset / Qualification Spec', 'Photo SHA-256']
-    ];
-    // Include initial verified campaign leads
-    const baseline = [
-      ['LEAD-INIT-01', 'Suresh Behera', '+919452163748', 'Rasulgarh', 'NBFC', '9/10', 'Verified', 'Yes', '28-35g Gold', 'e3b0c44298fc1c14'],
-      ['LEAD-INIT-02', 'Mrunalini Das', '+917082149362', 'Sahid Nagar', 'NBFC', '8/10', 'Verified', 'Yes', '18-24g Gold', 'a94a8fe5ccb19ba6'],
-      ['LEAD-INIT-03', 'Gopabandhu Rath', '+916384128473', 'Nayapalli', 'NBFC', '8/10', 'Verified', 'Yes', '40-50g Gold', 'd4735e3a265e16ee'],
-      ['LEAD-INIT-04', 'Shanti Devi Patra', '+918246173924', 'Chandrasekharpur', 'NBFC', '7/10', 'Verified', 'Yes', '12-18g Gold', '4e07408562bedb8b'],
-      ['LEAD-INIT-05', 'Nirmal Mishra', '+919912438472', 'Patia', 'NBFC', '9/10', 'Verified', 'Yes', '55-70g Gold', '2c26b46b68ffc68f']
+      ['Lead ID', 'Customer Name', 'Phone', 'Zone', 'Sector', 'Lead Score', 'OTP Status', 'Geo Compliant', 'Qualification Spec', 'Photo SHA-256']
     ];
     if (stored && stored.length) {
       stored.forEach(l => {
@@ -2798,28 +2864,26 @@ tbody tr:hover {
         ]);
       });
     }
-    baseline.forEach(b => rows.push(b));
 
     const csv = rows.map(r => r.map(UtkalVantage.escapeCsvCell).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'UtkalVantage_Live_Verified_Leads.csv';
+    a.download = 'UtkalVantage_Session_Verified_Leads.csv';
     a.click();
-    UtkalVantage.UI.toast(`Downloaded ${rows.length - 1} verified leads as CSV!`, 'success');
+    UtkalVantage.UI.toast(`Downloaded ${rows.length - 1} session verified lead(s) as CSV!`, 'success');
   }
 
   async function downloadPhotoManifest() {
     const photos = await UtkalVantage.StorageEngine.getAllPhotos();
     const rows = [
-      ['Audit ID', 'Promoter ID', 'Zone', 'Sector', 'GPS Latitude', 'GPS Longitude', 'Accuracy (m)', 'IST Timestamp', 'SHA-256 Cryptographic Digest']
+      ['Audit ID', 'Terminal ID', 'Zone', 'Sector', 'GPS Latitude', 'GPS Longitude', 'Accuracy (m)', 'IST Timestamp', 'SHA-256 Cryptographic Digest']
     ];
     if (photos && photos.length) {
       photos.forEach(p => {
         rows.push([p.id, p.promoterId, p.zone, p.sector, p.lat, p.lng, p.accuracy, p.istFormatted, p.sha256]);
       });
     }
-    rows.push(['AUD-BASE-101', 'UV-PRO-014', 'Sahid Nagar', 'nbfc', '20.288200', '85.843600', '4', '14 Oct 2026, 09:42:11 AM IST', '8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4']);
     const csv = rows.map(r => r.map(UtkalVantage.escapeCsvCell).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a');
@@ -2831,19 +2895,19 @@ tbody tr:hover {
 
   function downloadRoiSummary() {
     const rows = [
-      ['Metric', 'Utkal Vantage Campaign', 'Traditional BTL Agency Benchmark', 'Variance / Advantage'],
-      ['Cost Per Qualified Lead (CPL)', 'INR 147', 'INR 520', '-71.7% CAC Reduction'],
-      ['OTP Verification Rate', '100% Enforced', '0% (Raw Excel Dump)', '+100% Contactability'],
-      ['Lead-to-Disbursal Conversion', '31.0%', '9.2%', '3.37x Higher Conversion'],
-      ['GPS Geofence Compliance', '94.6% (100m Lock)', 'Unverified', 'Zero Ghost Activations']
+      ['Service Package', 'Target Sector', 'Geofence Standard', 'Verification Protocol', 'Commercial Rate'],
+      ['NBFC Branch Cluster', 'NBFC Gold & MSME Loans', '100m Canopy Lock', 'Dual-OTP + Gold Band Filter', 'INR 68,400 / month (8 Reps)'],
+      ['Insurance Society Drive', 'Health & Life Insurance', '100m Society Kiosk Lock', 'Dual-OTP + Live Premium Est.', 'INR 85,000 / month (12 Societies)'],
+      ['Bank Merchant CASA Blitz', 'Commercial & SFB Banks', '20m Storefront Lock', 'Dual-OTP + KYC Checklist', 'INR 1,100 / promoter / day'],
+      ['D2C Sampling Sprint', 'D2C & FMCG Brands', '100m Booth Lock', 'Stock Ledger + Coupon Loop', 'INR 45,000 / 3-day sprint']
     ];
     const csv = rows.map(r => r.map(UtkalVantage.escapeCsvCell).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'UtkalVantage_ROI_Analytics_Muthoot.csv';
+    a.download = 'UtkalVantage_Commercial_Benchmarks.csv';
     a.click();
-    UtkalVantage.UI.toast('Downloaded Campaign ROI Analytics Breakdown!', 'success');
+    UtkalVantage.UI.toast('Downloaded Commercial Benchmarks CSV!', 'success');
   }
 
   window.addEventListener('DOMContentLoaded', () => {

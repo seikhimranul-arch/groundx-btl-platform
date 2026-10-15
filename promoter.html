@@ -1218,7 +1218,7 @@ tbody tr:hover {
       border: 1.5px solid #B8B0A2 !important;
       border-radius: 8px;
       font-family: var(--body);
-      font-size: 16px !important; /* Prevents iOS Safari auto-zoom on focus */
+      font-size: 16px !important;
       background: #FFFFFF !important;
       color: #1F1D1B !important;
       outline: none;
@@ -1375,7 +1375,7 @@ tbody tr:hover {
       <span class="status-pill online" id="netStatus">
         <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> ONLINE
       </span>
-      <span style="font-family:var(--mono);font-size:0.72rem;color:#A39C93;">ID: PRO-084</span>
+      <span style="font-family:var(--mono);font-size:0.72rem;color:#A39C93;">ID: UV-REP-01</span>
     </div>
   </header>
 
@@ -1393,10 +1393,10 @@ tbody tr:hover {
       </div>
       <div class="feature-body">
         
-        <!-- Founder Pitch Tool for Instant Demo in Client Office -->
+        <!-- Interactive MVP Demo Controls -->
         <div class="pitch-tools">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px;">
-            <strong>Founder Demo Mode (In-Office & Mobile Pitch Tool):</strong>
+            <strong>Interactive MVP Sandbox Controls (In-Office Pitch Tool):</strong>
             <div style="display:flex;gap:6px;align-items:center;">
               <button type="button" class="btn btn-sm btn-ghost" id="simOfflineToggleBtn" onclick="toggleSimulatedOffline()" style="padding:3px 8px;font-size:0.7rem;min-height:28px;">
                 Simulate Offline Mode
@@ -1406,7 +1406,7 @@ tbody tr:hover {
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('rasulgarh')">Rasulgarh (100m)</button>
             <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('unit1')">Unit-1 Market (100m)</button>
-            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('patia')">KIIT Square (100m)</button>
+            <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('patia')">Infocity / Patia (100m)</button>
             <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('kalinga')">Kalinga Nagar (100m)</button>
             <button type="button" class="btn btn-sm btn-ghost" onclick="setAnchorPreset('saheed')">Saheed Nagar (20m Shop)</button>
             <button type="button" class="btn btn-sm btn-primary" onclick="setAnchorToCurrentLocation()">Lock Here (My Current GPS)</button>
@@ -1420,7 +1420,7 @@ tbody tr:hover {
         <div class="geofence-gauge">
           <div class="gauge-item">
             <div class="gauge-val" id="gaugeDistance">12m</div>
-            <div class="gauge-label">Distance to Canopy</div>
+            <div class="gauge-label">Distance to Anchor</div>
           </div>
           <div class="gauge-item">
             <div class="gauge-val" id="gaugeAccuracy">±4m</div>
@@ -1442,7 +1442,7 @@ tbody tr:hover {
         </div>
 
         <div class="sim-btn-row" style="display:flex;gap:8px;margin-top:10px;">
-          <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(false)">Simulate Inside Canopy (15m)</button>
+          <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(false)">Simulate Inside Zone (15m)</button>
           <button type="button" class="btn btn-sm btn-ghost" style="flex:1;" onclick="simulateBreach(true)">Simulate Breach (140m)</button>
         </div>
       </div>
@@ -1459,7 +1459,7 @@ tbody tr:hover {
       </div>
       <div class="feature-body">
         <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
-          Captures ground canopy or merchant storefront proof. Automatically burns real-time GPS coordinates, IST timestamp, and promoter ID into canvas bytes, then calculates an immutable FIPS 180-4 SHA-256 hash.
+          Captures ground canopy or merchant storefront proof. Automatically burns real-time GPS coordinates, IST timestamp, and Rep ID into canvas bytes, then calculates an immutable FIPS 180-4 SHA-256 hash.
         </p>
 
         <!-- Hidden input and capture trigger -->
@@ -1471,7 +1471,7 @@ tbody tr:hover {
             Capture Live Canopy / Storefront Photo
           </button>
           <button type="button" class="btn btn-ghost" style="min-height:46px;" onclick="captureSampleAuditPhoto()">
-            Use Sample Demo Photo
+            Generate Sample Audit Card
           </button>
         </div>
 
@@ -1501,9 +1501,14 @@ tbody tr:hover {
       <div class="feature-header">
         <h2>
           <ph-icon name="user-check" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
-          Feature 3: Sector Lead Engine & Dual-Verification (OTP)
+          Feature 3: Sector Lead Engine &amp; Dual-Verification (OTP)
         </h2>
-        <span class="badge badge-amber" id="offlineQueueBadge">0 QUEUED OFFLINE</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button type="button" class="btn btn-sm btn-ghost" onclick="fillSampleTestLead()" style="padding:3px 8px;font-size:0.7rem;min-height:28px;">
+            ⚡ Auto-Fill Test Input
+          </button>
+          <span class="badge badge-amber" id="offlineQueueBadge">0 QUEUED OFFLINE</span>
+        </div>
       </div>
       <div class="feature-body">
         
@@ -1518,13 +1523,13 @@ tbody tr:hover {
         <form id="leadForm" onsubmit="handleFormSubmit(event)" novalidate>
           
           <div class="field-group">
-            <label for="custName">Customer / Contact Name</label>
-            <input type="text" id="custName" class="field-input" placeholder="e.g. Rakesh Mohanty" required value="Suresh Behera" />
+            <label for="custName">Prospect / Customer Full Name</label>
+            <input type="text" id="custName" class="field-input" placeholder="Enter customer name (or tap Auto-Fill above)" required />
           </div>
 
           <div class="field-group">
-            <label for="custPhone">Mobile Number (10-Digit Indian Mobile for Dual OTP Verification)</label>
-            <input type="tel" id="custPhone" class="field-input" placeholder="10-digit number starting with 6-9" required value="9437128495" maxlength="10" pattern="[6-9][0-9]{9}" oninput="onPhoneInputChanged()" />
+            <label for="custPhone">Customer 10-Digit Mobile Number (For Dual OTP Verification)</label>
+            <input type="tel" id="custPhone" class="field-input" placeholder="Enter 10-digit mobile starting with 6-9" required maxlength="10" pattern="[6-9][0-9]{9}" oninput="onPhoneInputChanged()" />
             <div id="phoneBindingNotice" style="display:none;margin-top:4px;font-size:0.74rem;font-family:var(--mono);color:var(--green);"></div>
           </div>
 
@@ -1532,7 +1537,7 @@ tbody tr:hover {
           <div id="sectorDynamicFields">
             <!-- NBFC Fields (Default) -->
             <div class="field-group">
-              <label for="nbfcGold">Estimated Gold Weight (Asset Readiness)</label>
+              <label for="nbfcGold">Estimated Gold Asset Band (Readiness Qualification)</label>
               <select id="nbfcGold" class="field-select" onchange="updateSectorPlaybookWidget()">
                 <option value="15-30g">15–30 grams (Ticket: ₹75,000–₹1,50,000)</option>
                 <option value="30-50g" selected>30–50 grams (Ticket: ₹1,50,000–₹2,50,000)</option>
@@ -1540,16 +1545,16 @@ tbody tr:hover {
               </select>
             </div>
             <div class="field-group">
-              <label for="nbfcRate">Current Pawn / Loan Interest Rate at Local Sahukar</label>
+              <label for="nbfcRate">Current Informal / Pawn Interest Rate Benchmark</label>
               <select id="nbfcRate" class="field-select" onchange="updateSectorPlaybookWidget()">
-                <option value="36%">36% per annum (Local Mahajan / Moneylender)</option>
-                <option value="48%" selected>48% per annum (Pawnshop default)</option>
-                <option value="24%">24% per annum (Other NBFC)</option>
+                <option value="36%">36% per annum (Local Informal Lender)</option>
+                <option value="48%" selected>48% per annum (Unorganized Pawn Rate)</option>
+                <option value="24%">24% per annum (Existing Institutional Loan)</option>
               </select>
             </div>
           </div>
 
-          <!-- Dynamic Sector Playbook Value-Add Widget (AI Score / Premium Estimator / Inventory) -->
+          <!-- Dynamic Sector Playbook Value-Add Widget -->
           <div class="playbook-widget" id="sectorPlaybookWidget"></div>
 
           <div class="action-btn-row">
@@ -1573,15 +1578,17 @@ tbody tr:hover {
       <div class="feature-header">
         <h2>
           <ph-icon name="database" weight="fill" style="color:var(--accent);font-size:18px;"></ph-icon>
-          Live Session Ledger & Offline Sync Queue
+          Live Session Ledger &amp; Offline Sync Queue
         </h2>
-        <button type="button" class="btn btn-sm btn-ghost" onclick="flushOfflineLeads()">
-          ↻ Sync Queued Now
-        </button>
+        <div style="display:flex;gap:6px;">
+          <button type="button" class="btn btn-sm btn-ghost" onclick="flushOfflineLeads()">
+            ↻ Sync Queued Now
+          </button>
+        </div>
       </div>
       <div class="feature-body">
         <div id="localLeadsList" style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;">
-          <div class="caption">No field leads captured in this session yet. Complete a lead above to test instant persistence.</div>
+          <div class="caption">No field leads captured in this session yet. Complete a lead above to test instant persistence and cross-page sync.</div>
         </div>
       </div>
     </section>
@@ -1596,11 +1603,11 @@ tbody tr:hover {
         <span class="badge badge-amber" id="otpTimerDisplay">90s</span>
       </div>
       <p style="font-size:0.84rem;color:var(--muted);margin-bottom:14px;">
-        An auditable verification challenge has been generated for <strong id="otpPhoneDisplay">+91 9437128495</strong>.
+        An auditable verification challenge has been generated for <strong id="otpPhoneDisplay">+91 ----------</strong>.
       </p>
 
       <div style="background:#FAF6EF;border:1.5px dashed var(--accent);border-radius:8px;padding:12px;margin-bottom:14px;text-align:center;">
-        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;">PROMOTER SCREEN DEMO CODE:</div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;">SANDBOX DEMO OTP CODE:</div>
         <div style="font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--accent);" id="demoOtpCode">------</div>
         <div style="margin-top:6px;">
           <button type="button" class="btn btn-sm btn-ghost" onclick="autoFillDemoOtp()" style="font-size:0.72rem;padding:4px 10px;min-height:30px;">
@@ -1622,7 +1629,7 @@ tbody tr:hover {
 
       <div style="display:flex;gap:8px;">
         <button type="button" class="btn btn-ghost" style="flex:1;min-height:44px;" onclick="closeOtpModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" style="flex:2;min-height:44px;" onclick="verifyOtpCode()">Verify & Unlock</button>
+        <button type="button" class="btn btn-primary" style="flex:2;min-height:44px;" onclick="verifyOtpCode()">Verify &amp; Unlock</button>
       </div>
     </div>
   </div>
@@ -1633,8 +1640,8 @@ tbody tr:hover {
   if (!window.UtkalVantage) {
 /**
  * ============================================================================
- * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.0
- * Zero-cost client-side architecture for Odisha BTL Operations:
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.1
+ * Pitch-Safe MVP Architecture (Zero Fake/Bogus Third-Party Client Claims):
  *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
  *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
  *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
@@ -1685,7 +1692,6 @@ tbody tr:hover {
       const oldHash = hash;
       hash = hash.slice(0, 8);
       for (i = 0; i < 64; i++) {
-        const i2 = i + j;
         const w15 = w[i - 15], w2 = w[i - 2];
         const a = hash[0], e = hash[4];
         const temp1 =
@@ -1730,9 +1736,7 @@ tbody tr:hover {
           .map((b) => b.toString(16).padStart(2, '0'))
           .join('');
       }
-    } catch (_) {
-      // Fallback to pure JS SHA-256 on non-HTTPS mobile LAN or restricted contexts
-    }
+    } catch (_) {}
     const utf8 = unescape(encodeURIComponent(str));
     return sha256PureJS(utf8);
   }
@@ -1749,7 +1753,6 @@ tbody tr:hover {
 
   function escapeCsvCell(val) {
     let s = String(val == null ? '' : val).replace(/\r?\n/g, ' ').trim();
-    // Defend against CSV Formula Injection (=, +, -, @, \t, \r)
     if (/^[=+\-@\t\r]/.test(s) && !/^\+91\d/.test(s)) {
       s = "'" + s;
     }
@@ -1813,7 +1816,7 @@ tbody tr:hover {
     },
     patia: {
       id: 'patia',
-      name: 'KIIT Square Sampling Hub',
+      name: 'Infocity / Patia Sampling Hub',
       lat: 20.3541,
       lng: 85.8192,
       radiusM: 100,
@@ -1837,6 +1840,17 @@ tbody tr:hover {
     }
   };
 
+  const SECTOR_LABELS = {
+    nbfc: 'NBFC Gold & MSME Loan Pilot',
+    insurance: 'Health & Life Advisory Pilot',
+    bank: 'Bank Merchant CASA & QR Pilot',
+    d2c: 'D2C Experiential Sampling Pilot'
+  };
+
+  function getSectorLabel(sector) {
+    return SECTOR_LABELS[String(sector || 'nbfc').toLowerCase()] || SECTOR_LABELS.nbfc;
+  }
+
   // ── 4. HAVERSINE RADIAL DISTANCE ENGINE ───────────────────────────────────
   function haversineDistanceM(lat1, lng1, lat2, lng2) {
     const nLat1 = Number(lat1), nLng1 = Number(lng1);
@@ -1847,7 +1861,7 @@ tbody tr:hover {
     ) {
       return Infinity;
     }
-    const R = 6371000; // Earth mean radius in meters
+    const R = 6371000;
     const toRad = (deg) => (deg * Math.PI) / 180;
     const dLat = toRad(nLat2 - nLat1);
     const dLng = toRad(nLng2 - nLng1);
@@ -1909,7 +1923,6 @@ tbody tr:hover {
         sector: presetObj.sector || 'nbfc'
       };
       this.error = null;
-      // Align simulated position near the newly selected preset for seamless demo pitching
       this.currentPosition = {
         lat: Number((this.anchor.lat + 0.00008).toFixed(6)),
         lng: Number((this.anchor.lng + 0.00008).toFixed(6)),
@@ -1984,7 +1997,6 @@ tbody tr:hover {
     }
 
     startWatch() {
-      // Immediately emit initial valid lock state so UI never hangs on "--"
       this.notify();
       if (typeof navigator === 'undefined' || !navigator.geolocation) {
         return;
@@ -1999,7 +2011,6 @@ tbody tr:hover {
                 pos.coords.latitude,
                 pos.coords.longitude
               );
-              // Only override demo anchor if actual GPS is within 5km of Bhubaneswar or user locked current GPS
               if (distToAnchor < 5000 || this.anchor.id === 'locked_gps') {
                 this.currentPosition = {
                   lat: pos.coords.latitude,
@@ -2013,7 +2024,6 @@ tbody tr:hover {
             }
           },
           () => {
-            // Keep high-precision simulated anchor position when hardware GPS permission is denied
             this.notify();
           },
           { enableHighAccuracy: true, timeout: 6000, maximumAge: 10000 }
@@ -2070,7 +2080,7 @@ tbody tr:hover {
       const lat = Number.isFinite(Number(meta.lat)) ? Number(meta.lat) : 20.290623;
       const lng = Number.isFinite(Number(meta.lng)) ? Number(meta.lng) : 85.864812;
       const accuracy = Number.isFinite(Number(meta.accuracy)) ? Number(meta.accuracy) : 4;
-      const promoterId = String(meta.promoterId || 'UV-PRO-084');
+      const promoterId = String(meta.promoterId || 'UV-REP-01');
       const sector = String(meta.sector || 'nbfc').toUpperCase();
       const zone = String(meta.zone || 'Rasulgarh Square Canopy');
 
@@ -2080,7 +2090,6 @@ tbody tr:hover {
         const imgOrCanvas = await this.loadImageSource(source);
         const origW = imgOrCanvas.width || 800;
         const origH = imgOrCanvas.height || 600;
-        // Scale down oversized mobile camera photos (e.g., 4000x3000) to prevent RAM overflow
         const maxDim = 960;
         const scale = Math.min(1, maxDim / Math.max(origW, origH));
         const w = Math.max(400, Math.round(origW * scale));
@@ -2092,13 +2101,11 @@ tbody tr:hover {
         const ctx = canvas.getContext('2d');
         ctx.drawImage(imgOrCanvas, 0, 0, w, h);
 
-        // Burn tamper-proof cryptographic watermark bar at bottom
         const barH = Math.max(76, Math.round(h * 0.16));
         const barY = h - barH;
         ctx.fillStyle = 'rgba(22, 20, 18, 0.88)';
         ctx.fillRect(0, barY, w, barH);
 
-        // Sunrise Coral top border on watermark bar
         ctx.fillStyle = '#D85A30';
         ctx.fillRect(0, barY, w, 4);
 
@@ -2156,7 +2163,7 @@ tbody tr:hover {
   // ── 7. DUAL-VERIFICATION OTP STATE MACHINE ────────────────────────────────
   class DualVerificationMachine {
     constructor(options = {}) {
-      this.ttlMs = Number(options.ttlMs) || 90000; // 90 seconds
+      this.ttlMs = Number(options.ttlMs) || 90000;
       this.maxAttempts = Number(options.maxAttempts) || 3;
       this.challenge = null;
     }
@@ -2166,7 +2173,6 @@ tbody tr:hover {
       if (!isValidIndianPhone(cleanPhone)) {
         throw new Error('Invalid Indian mobile number. Must be 10 digits starting with 6, 7, 8, or 9.');
       }
-      // Cryptographically unbiased 6-digit OTP
       let codeNum = 0;
       if (global.crypto && global.crypto.getRandomValues) {
         const arr = new Uint32Array(1);
@@ -2250,10 +2256,10 @@ tbody tr:hover {
     static getWhatsAppLink(rawPhone, sector = 'nbfc', code = '000000') {
       const cleanPhone = sanitizeIndianPhone(rawPhone);
       const sectorMessages = {
-        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at the nearest Muthoot/IIFL Bhubaneswar branch for 11.9% p.a. zero-processing-fee assessment.`,
-        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes 100% cashless hospital coverage brochure for Apollo, SUM Ultimate & AMRI Bhubaneswar.`,
+        nbfc: `Namaskar! Your Utkal Vantage Gold Loan Priority Valuation OTP is *${code}*. Present this at your nearest partner branch for priority assessment.`,
+        insurance: `Namaskar! Your Utkal Vantage Family Health Advisory OTP is *${code}*. Includes cashless network hospital coverage details for Bhubaneswar.`,
         bank: `Namaskar! Your Utkal Vantage Merchant CASA & Soundbox Onboarding OTP is *${code}*. Verified KYC checklist logged for zero-fee current account activation.`,
-        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use code *UTKAL25* on Zepto/Blinkit for 25% OFF your next order!`
+        d2c: `Hey! Your Utkal Vantage Sampling Trial OTP is *${code}*. Use coupon code *UTKAL25* for 25% OFF your first online order!`
       };
       const text = sectorMessages[String(sector).toLowerCase()] || sectorMessages.nbfc;
       return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
@@ -2358,13 +2364,10 @@ tbody tr:hover {
         payload,
         timestamp: new Date().toISOString()
       };
-      // Notify same-window listeners
       this._dispatch(eventObj);
-      // Notify other tabs via BroadcastChannel
       try {
         if (this.channel) this.channel.postMessage(eventObj);
       } catch (_) {}
-      // Notify other tabs via localStorage event bus fallback
       try {
         if (global.localStorage) {
           global.localStorage.setItem('uv_realtime_event_bus', JSON.stringify(eventObj));
@@ -2390,20 +2393,25 @@ tbody tr:hover {
     photos: [],
     campaigns: [],
     promoters: [],
+    prospectConfig: {
+      clientName: 'Prospective Client Preview',
+      branchName: 'Bhubaneswar Catchment Pilot',
+      sector: 'nbfc'
+    },
     inventory: {
-      d2c: { startingStock: 200, dispensed: 53, remaining: 147, sku: 'Raw Pressery Cold Juice' }
+      d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
     }
   };
 
   const StorageEngine = {
-    dbName: 'UtkalVantageDB',
+    dbName: 'UtkalVantageDB_v21',
     dbVersion: 2,
     _dbPromise: null,
 
     _readLocal(key, fallback) {
       try {
         if (global.localStorage) {
-          const raw = global.localStorage.getItem('uv_store_' + key);
+          const raw = global.localStorage.getItem('uv_store_v21_' + key);
           if (raw) return JSON.parse(raw);
         }
       } catch (_) {}
@@ -2413,9 +2421,22 @@ tbody tr:hover {
     _writeLocal(key, val) {
       try {
         if (global.localStorage) {
-          global.localStorage.setItem('uv_store_' + key, JSON.stringify(val));
+          global.localStorage.setItem('uv_store_v21_' + key, JSON.stringify(val));
         }
       } catch (_) {}
+    },
+
+    getProspectConfig() {
+      return this._readLocal('prospectConfig', memoryStore.prospectConfig);
+    },
+
+    setProspectConfig(cfg = {}) {
+      const cur = this.getProspectConfig();
+      const updated = Object.assign({}, cur, cfg);
+      memoryStore.prospectConfig = updated;
+      this._writeLocal('prospectConfig', updated);
+      RealtimeBroadcaster.publish('PROSPECT_CONFIG_UPDATED', updated);
+      return updated;
     },
 
     async _getDB() {
@@ -2453,11 +2474,12 @@ tbody tr:hover {
       if (!leadRecord || !leadRecord.id) {
         throw new Error('Invalid leadRecord: missing id');
       }
+      const prospect = this.getProspectConfig();
       const cleanLead = Object.assign(
         {
           timestamp: new Date().toISOString(),
-          sector: 'nbfc',
-          client: 'Muthoot Finance',
+          sector: prospect.sector || 'nbfc',
+          client: leadRecord.client || getSectorLabel(leadRecord.sector || prospect.sector),
           otpVerified: true,
           geoCompliant: true,
           syncStatus: typeof navigator !== 'undefined' && navigator.onLine === false ? 'queued' : 'synced'
@@ -2465,7 +2487,6 @@ tbody tr:hover {
         leadRecord
       );
 
-      // Update local array + memory
       const existing = this._readLocal('leads', memoryStore.leads);
       const idx = existing.findIndex((l) => l.id === cleanLead.id);
       if (idx >= 0) existing[idx] = cleanLead;
@@ -2473,7 +2494,6 @@ tbody tr:hover {
       memoryStore.leads = existing;
       this._writeLocal('leads', existing);
 
-      // Persist to IndexedDB
       const db = await this._getDB();
       if (db) {
         await new Promise((resolve) => {
@@ -2529,7 +2549,6 @@ tbody tr:hover {
       const idx = existing.findIndex((p) => p.id === photoRecord.id);
       if (idx >= 0) existing[idx] = photoRecord;
       else existing.unshift(photoRecord);
-      // Cap localStorage mirror to 15 photos to respect 5MB quota
       memoryStore.photos = existing;
       this._writeLocal('photos', existing.slice(0, 15));
 
@@ -2585,16 +2604,16 @@ tbody tr:hover {
       return (
         allInv[sector] || {
           startingStock: 200,
-          dispensed: 53,
-          remaining: 147,
-          sku: 'Raw Pressery Cold Juice'
+          dispensed: 0,
+          remaining: 200,
+          sku: 'Trial SKU — Batch A'
         }
       );
     },
 
     updateInventory(sector = 'd2c', deltaDispensed = 1, customStart = null) {
       const allInv = this._readLocal('inventory', memoryStore.inventory);
-      const cur = allInv[sector] || { startingStock: 200, dispensed: 53, remaining: 147 };
+      const cur = allInv[sector] || { startingStock: 200, dispensed: 0, remaining: 200 };
       if (customStart !== null && Number.isFinite(Number(customStart))) {
         cur.startingStock = Math.max(0, Number(customStart));
       }
@@ -2610,8 +2629,12 @@ tbody tr:hover {
     async clearAll() {
       memoryStore.leads = [];
       memoryStore.photos = [];
+      memoryStore.inventory = {
+        d2c: { startingStock: 200, dispensed: 0, remaining: 200, sku: 'Trial SKU — Batch A' }
+      };
       this._writeLocal('leads', []);
       this._writeLocal('photos', []);
+      this._writeLocal('inventory', memoryStore.inventory);
       const db = await this._getDB();
       if (db) {
         try {
@@ -2620,10 +2643,11 @@ tbody tr:hover {
           tx.objectStore('photos').clear();
         } catch (_) {}
       }
+      RealtimeBroadcaster.publish('WORKSPACE_CLEARED', {});
     }
   };
 
-  // ── 11. UI TOAST & MODAL HELPER ───────────────────────────────────────────
+  // ── 11. UI TOAST HELPER ───────────────────────────────────────────────────
   const UI = {
     toast(message, type = 'info', durationMs = 3800) {
       if (typeof document === 'undefined') return;
@@ -2650,10 +2674,11 @@ tbody tr:hover {
     }
   };
 
-  // Expose unified API on window.UtkalVantage
   global.UtkalVantage = {
-    version: '2.0.0',
+    version: '2.1.0-MVP',
     anchors,
+    SECTOR_LABELS,
+    getSectorLabel,
     haversineDistanceM,
     computeSha256Hex,
     escapeHtml,
@@ -2761,10 +2786,6 @@ tbody tr:hover {
   <script src="js/supabase.js"></script>
 
   <script>
-    // ═══════════════════════════════════════════════════════════════════════
-    // APPLICATION CONTROLLER (Hardened for Mobile, Offline & Chaos Testing)
-    // ═══════════════════════════════════════════════════════════════════════
-
     let activeSector = 'nbfc';
     let currentAuditPhoto = null;
     let originalUntamperedPhotoUrl = null;
@@ -2788,6 +2809,20 @@ tbody tr:hover {
       updateOfflineQueueBadge();
       renderLocalLeadsList();
     });
+
+    function fillSampleTestLead() {
+      const nameEl = document.getElementById('custName');
+      const phoneEl = document.getElementById('custPhone');
+      if (nameEl && !nameEl.value.trim()) nameEl.value = 'Demo Prospect Lead';
+      if (phoneEl && !phoneEl.value.trim()) phoneEl.value = '9437000001';
+      if (activeSector === 'bank') {
+        const shopEl = document.getElementById('bankShopName');
+        if (shopEl && !shopEl.value.trim()) shopEl.value = 'Sample Market Storefront';
+      }
+      onPhoneInputChanged();
+      updateSectorPlaybookWidget();
+      UtkalVantage.UI.toast('Filled sample test input for quick pitch demo.', 'info', 2000);
+    }
 
     function isCurrentlyOnline() {
       if (simulatedOfflineMode) return false;
@@ -2814,7 +2849,6 @@ tbody tr:hover {
       }
     }
 
-    // ── LEAFLET MAP INITIALIZATION (WITH OFFLINE RADAR FALLBACK) ───────────
     function initMap() {
       const mapContainer = document.getElementById('geofenceMap');
       if (!mapContainer) return;
@@ -2860,7 +2894,6 @@ tbody tr:hover {
         }
       }
 
-      // Offline / Zero-CDN Vector Radar Map Fallback
       renderOfflineRadarMap({
         anchor: UtkalVantage.anchors.rasulgarh,
         currentPosition: { lat: 20.2907, lng: 85.8649 },
@@ -2892,13 +2925,12 @@ tbody tr:hover {
           <circle cx="150" cy="100" r="62" fill="${ringColor}" fill-opacity="0.14" stroke="${ringColor}" stroke-width="2" stroke-dasharray="5,4"/>
           <circle cx="150" cy="100" r="10" fill="#1F1D1B" stroke="#FFFFFF" stroke-width="2"/>
           <circle ${dotOffset} r="8" fill="#D85A30" stroke="#FFFFFF" stroke-width="2"/>
-          <rect x="10" y="10" width="210" height="26" rx="6" fill="rgba(31,29,27,0.82)"/>
+          <rect x="10" y="10" width="230" height="26" rx="6" fill="rgba(31,29,27,0.82)"/>
           <text x="18" y="27" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600">RADAR: ${UtkalVantage.escapeHtml(zoneName)} (${distLabel})</text>
         </svg>
       `;
     }
 
-    // ── GEO ENGINE SETUP ───────────────────────────────────────────────────
     function initGeoEngine() {
       geoManager = new UtkalVantage.GeofenceManager(UtkalVantage.anchors.rasulgarh);
 
@@ -2929,7 +2961,7 @@ tbody tr:hover {
           if (circleGeofence) circleGeofence.setStyle({ color: '#1E7B4D', fillColor: '#1E7B4D' });
         } else {
           banner.className = 'geofence-status-banner breach';
-          bannerText.textContent = `BREACH DETECTED: ${status.breachM}m OUTSIDE AUTHORIZED CANOPY ZONE`;
+          bannerText.textContent = `BREACH DETECTED: ${status.breachM}m OUTSIDE AUTHORIZED ZONE`;
           if (badge) {
             badge.className = 'badge badge-red';
             badge.textContent = `BREACH (+${status.breachM}m)`;
@@ -3003,7 +3035,6 @@ tbody tr:hover {
       }
     }
 
-    // ── FEATURE 2: CRYPTOGRAPHIC PHOTO AUDIT ───────────────────────────────
     async function handlePhotoSelected(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
@@ -3015,7 +3046,7 @@ tbody tr:hover {
         accuracy: status.currentPosition ? status.currentPosition.accuracy : 5,
         sector: activeSector,
         zone: status.anchor.name,
-        promoterId: 'UV-PRO-084'
+        promoterId: 'UV-REP-01'
       };
 
       try {
@@ -3035,21 +3066,21 @@ tbody tr:hover {
       const ctx = c.getContext('2d');
       ctx.fillStyle = '#2A2724'; ctx.fillRect(0, 0, 800, 600);
       ctx.fillStyle = '#D85A30'; ctx.fillRect(44, 60, 712, 280);
-      ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 32px sans-serif';
+      ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 30px sans-serif';
 
       const status = geoManager.getStatus();
       const titles = {
-        nbfc: 'MUTHOOT GOLD LOAN CANOPY CAMP',
-        insurance: 'STAR HEALTH SOCIETY ADVISORY KIOSK',
-        bank: 'HDFC BANK MERCHANT CASA & SOUNDBOX',
-        d2c: 'RAW PRESSERY LIVE SAMPLING BAR'
+        nbfc: 'NBFC GOLD & MSME CATCHMENT CANOPY',
+        insurance: 'RESIDENTIAL HEALTH ADVISORY KIOSK',
+        bank: 'BANK MERCHANT CASA & QR ONBOARDING',
+        d2c: 'D2C EXPERIENTIAL SAMPLING BOOTH'
       };
       ctx.fillText(titles[activeSector] || titles.nbfc, 72, 145);
       ctx.font = '22px sans-serif';
       ctx.fillText(`${status.anchor.name} • Verified Ground Setup`, 72, 198);
       ctx.fillStyle = '#F5C4B3';
       ctx.font = '18px monospace';
-      ctx.fillText(`Promoter ID: UV-PRO-084 | Distance: ${status.distanceM}m (Max ${status.maxRadiusM}m)`, 72, 250);
+      ctx.fillText(`Rep ID: UV-REP-01 | Distance: ${status.distanceM}m (Max ${status.maxRadiusM}m)`, 72, 250);
 
       const meta = {
         lat: status.currentPosition ? status.currentPosition.lat : 20.290623,
@@ -3057,14 +3088,14 @@ tbody tr:hover {
         accuracy: 4,
         sector: activeSector,
         zone: status.anchor.name,
-        promoterId: 'UV-PRO-084'
+        promoterId: 'UV-REP-01'
       };
 
       currentAuditPhoto = await UtkalVantage.PhotoAuditEngine.processAndAudit(c.toDataURL(), meta);
       originalUntamperedPhotoUrl = currentAuditPhoto.dataUrl;
       displayAuditPhoto(currentAuditPhoto);
       await UtkalVantage.StorageEngine.savePhoto(currentAuditPhoto);
-      UtkalVantage.UI.toast(`Sample Photo Audited & Synced (${currentAuditPhoto.shortHash}...)`, 'success');
+      UtkalVantage.UI.toast(`Sample Audit Card Generated (${currentAuditPhoto.shortHash}...)`, 'success');
     }
 
     function displayAuditPhoto(auditRecord) {
@@ -3094,7 +3125,6 @@ tbody tr:hover {
       if (!currentAuditPhoto) {
         await captureSampleAuditPhoto();
       }
-      // Corrupt dataUrl by appending a single byte mutation to simulate pixel tampering
       currentAuditPhoto.dataUrl = currentAuditPhoto.dataUrl.slice(0, -8) + 'TAMPERED';
       await verifyCurrentPhotoIntegrity();
     }
@@ -3106,13 +3136,11 @@ tbody tr:hover {
       }
     }
 
-    // ── FEATURE 3: SECTOR SWITCHER & PLAYBOOK WIDGETS ──────────────────────
     function switchSector(sector, tabEl) {
       activeSector = sector;
       document.querySelectorAll('.sector-tab').forEach(t => t.classList.remove('active'));
       if (tabEl) tabEl.classList.add('active');
 
-      // Align geofence preset with sector SOP (Bank requires 20m merchant storefront lock)
       if (sector === 'bank') {
         setAnchorPreset('saheed');
       } else if (sector === 'd2c') {
@@ -3127,7 +3155,7 @@ tbody tr:hover {
       if (sector === 'nbfc') {
         container.innerHTML = `
           <div class="field-group">
-            <label for="nbfcGold">Estimated Gold Weight (Asset Readiness)</label>
+            <label for="nbfcGold">Estimated Gold Asset Band (Readiness Qualification)</label>
             <select id="nbfcGold" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="15-30g">15–30 grams (Ticket: ₹75,000–₹1,50,000)</option>
               <option value="30-50g" selected>30–50 grams (Ticket: ₹1,50,000–₹2,50,000)</option>
@@ -3135,17 +3163,17 @@ tbody tr:hover {
             </select>
           </div>
           <div class="field-group">
-            <label for="nbfcRate">Current Pawn / Loan Interest Rate at Local Sahukar</label>
+            <label for="nbfcRate">Current Informal / Pawn Interest Rate Benchmark</label>
             <select id="nbfcRate" class="field-select" onchange="updateSectorPlaybookWidget()">
-              <option value="36%">36% per annum (Local Mahajan / Moneylender)</option>
-              <option value="48%" selected>48% per annum (Pawnshop default)</option>
-              <option value="24%">24% per annum (Other NBFC)</option>
+              <option value="36%">36% per annum (Local Informal Lender)</option>
+              <option value="48%" selected>48% per annum (Unorganized Pawn Rate)</option>
+              <option value="24%">24% per annum (Existing Institutional Loan)</option>
             </select>
           </div>`;
       } else if (sector === 'insurance') {
         container.innerHTML = `
           <div class="field-group">
-            <label for="insFamily">Family Size & Dependents</label>
+            <label for="insFamily">Family Size &amp; Dependents</label>
             <select id="insFamily" class="field-select" onchange="updateSectorPlaybookWidget()">
               <option value="Self + Spouse + 2 Children">Self + Spouse + 2 Kids (Nuclear)</option>
               <option value="Self + Spouse + Parents" selected>Self + Spouse + Senior Parents (High Priority)</option>
@@ -3161,18 +3189,18 @@ tbody tr:hover {
             </select>
           </div>
           <div class="field-group">
-            <label for="insHospital">Preferred Bhubaneswar Cashless Hospital</label>
+            <label for="insHospital">Preferred Cashless Network Hospital Tier (Bhubaneswar)</label>
             <select id="insHospital" class="field-select" onchange="updateSectorPlaybookWidget()">
-              <option value="Apollo Hospitals (Gajapati Nagar)">Apollo Hospitals</option>
-              <option value="SUM Ultimate Medicare" selected>SUM Ultimate Medicare</option>
-              <option value="AMRI Hospitals">AMRI Hospitals</option>
+              <option value="Tier-1 Multi-Specialty Network Hospital" selected>Tier-1 Multi-Specialty Network Hospital</option>
+              <option value="Regional Super-Specialty Center">Regional Super-Specialty Center</option>
+              <option value="Zonal Cashless Empaneled Clinic">Zonal Cashless Empaneled Clinic</option>
             </select>
           </div>`;
       } else if (sector === 'bank') {
         container.innerHTML = `
           <div class="field-group">
             <label for="bankShopName">Merchant / Shop Commercial Name</label>
-            <input type="text" id="bankShopName" class="field-input" placeholder="e.g. Maa Tarini Electricals" value="Maa Tarini Hardware" required oninput="updateSectorPlaybookWidget()" />
+            <input type="text" id="bankShopName" class="field-input" placeholder="Enter storefront or enterprise name" required oninput="updateSectorPlaybookWidget()" />
           </div>
           <div class="field-group">
             <label for="bankKyc">Business Compliance Readiness (KYC Checklist)</label>
@@ -3187,16 +3215,16 @@ tbody tr:hover {
           <div class="field-group">
             <label for="d2cSku">Product Trial SKU Sampled</label>
             <select id="d2cSku" class="field-select" onchange="updateSectorPlaybookWidget()">
-              <option value="Paper Boat Sparkling Kokum">Paper Boat Sparkling Kokum</option>
-              <option value="Raw Pressery Cold Juice" selected>Raw Pressery Cold Juice</option>
-              <option value="Milk Mantra Probiotic Shake">Milk Mantra Probiotic Shake</option>
+              <option value="Trial SKU — Batch A (Beverage)" selected>Trial SKU — Batch A (Beverage / Functional Drink)</option>
+              <option value="Trial SKU — Batch B (Packaged Snack)">Trial SKU — Batch B (Packaged Snack / Dairy)</option>
+              <option value="Trial SKU — Batch C (Personal Care)">Trial SKU — Batch C (Personal Care Sample)</option>
             </select>
           </div>
           <div class="field-group">
-            <label for="d2cRating">Consumer Taste & Texture Rating (1-5)</label>
+            <label for="d2cRating">Consumer Taste &amp; Texture Rating (1-5)</label>
             <select id="d2cRating" class="field-select" onchange="updateSectorPlaybookWidget()">
-              <option value="5 Stars" selected>⭐⭐⭐⭐⭐ Excellent (Will Buy on Zepto)</option>
-              <option value="4 Stars">⭐⭐⭐⭐ Good (Competitive Taste)</option>
+              <option value="5 Stars" selected>⭐⭐⭐⭐⭐ Excellent (High Repeat Purchase Intent)</option>
+              <option value="4 Stars">⭐⭐⭐⭐ Good (Competitive Fit)</option>
               <option value="3 Stars">⭐⭐⭐ Neutral</option>
             </select>
           </div>`;
@@ -3217,7 +3245,7 @@ tbody tr:hover {
       } else if (activeSector === 'insurance') {
         const family = (document.getElementById('insFamily') || {}).value || 'Self + Spouse + Parents';
         const ageBracket = (document.getElementById('insAge') || {}).value || '30-45';
-        const hospital = (document.getElementById('insHospital') || {}).value || 'SUM Ultimate Medicare';
+        const hospital = (document.getElementById('insHospital') || {}).value || 'Tier-1 Multi-Specialty Network Hospital';
         const est = UtkalVantage.LeadScoringEngine.estimateInsurancePremium(family, ageBracket);
         return {
           family,
@@ -3227,7 +3255,7 @@ tbody tr:hover {
           leadScore: UtkalVantage.LeadScoringEngine.scoreLead('insurance', { family, hospital }, geoOk, true)
         };
       } else if (activeSector === 'bank') {
-        const shopName = (document.getElementById('bankShopName') || {}).value || 'Maa Tarini Hardware';
+        const shopName = (document.getElementById('bankShopName') || {}).value || 'Verified Merchant Storefront';
         const kycStatus = (document.getElementById('bankKyc') || {}).value || 'GST Registered + Trade License';
         return {
           shopName,
@@ -3235,7 +3263,7 @@ tbody tr:hover {
           leadScore: UtkalVantage.LeadScoringEngine.scoreLead('bank', { shopName, kycStatus }, geoOk, true)
         };
       } else {
-        const sku = (document.getElementById('d2cSku') || {}).value || 'Raw Pressery Cold Juice';
+        const sku = (document.getElementById('d2cSku') || {}).value || 'Trial SKU — Batch A (Beverage)';
         const rating = (document.getElementById('d2cRating') || {}).value || '5 Stars';
         return {
           sku,
@@ -3256,9 +3284,9 @@ tbody tr:hover {
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
             <div>
               <strong style="color:var(--accent-deep);">NBFC Asset Engine Qualification:</strong>
-              <div style="font-size:0.78rem;color:var(--ink-2);">Savings Pitch: 11.9% p.a. vs ${UtkalVantage.escapeHtml(details.currentRate)} Sahukar Rate • Escorted Branch Ping Ready</div>
+              <div style="font-size:0.78rem;color:var(--ink-2);">Rate Comparison Pitch vs ${UtkalVantage.escapeHtml(details.currentRate)} Informal Benchmark • Branch Officer Handoff Ready</div>
             </div>
-            <span class="badge badge-green">AI Score: ${details.leadScore}/10</span>
+            <span class="badge badge-green">Qualification Score: ${details.leadScore}/10</span>
           </div>
         `;
       } else if (activeSector === 'insurance') {
@@ -3267,9 +3295,9 @@ tbody tr:hover {
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
             <div>
               <strong style="color:var(--accent-deep);">Instant Policy Estimator (${est.coverLakhs}):</strong>
-              <div style="font-size:0.78rem;color:var(--ink-2);">Est. Premium: <strong>₹${est.monthlyInr}/month</strong> (₹${est.annualInr.toLocaleString('en-IN')}/yr) • 100% Cashless at ${UtkalVantage.escapeHtml(details.hospital)}</div>
+              <div style="font-size:0.78rem;color:var(--ink-2);">Est. Indicative Premium: <strong>₹${est.monthlyInr}/month</strong> (₹${est.annualInr.toLocaleString('en-IN')}/yr) • ${UtkalVantage.escapeHtml(details.hospital)}</div>
             </div>
-            <span class="badge badge-green">AI Score: ${details.leadScore}/10</span>
+            <span class="badge badge-green">Qualification Score: ${details.leadScore}/10</span>
           </div>
         `;
       } else if (activeSector === 'bank') {
@@ -3277,9 +3305,9 @@ tbody tr:hover {
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
             <div>
               <strong style="color:var(--accent-deep);">20m Storefront Geofence + KYC Lock:</strong>
-              <div style="font-size:0.78rem;color:var(--ink-2);">Merchant: <strong>${UtkalVantage.escapeHtml(details.shopName || 'Pending')}</strong> • ${UtkalVantage.escapeHtml(details.kycStatus)}</div>
+              <div style="font-size:0.78rem;color:var(--ink-2);">Merchant: <strong>${UtkalVantage.escapeHtml(details.shopName || 'Enter Shop Name')}</strong> • ${UtkalVantage.escapeHtml(details.kycStatus)}</div>
             </div>
-            <span class="badge badge-green">AI Score: ${details.leadScore}/10</span>
+            <span class="badge badge-green">Qualification Score: ${details.leadScore}/10</span>
           </div>
         `;
       } else if (activeSector === 'd2c') {
@@ -3287,7 +3315,7 @@ tbody tr:hover {
         box.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
             <div>
-              <strong style="color:var(--accent-deep);">Live Sampling Inventory & Trial Engine:</strong>
+              <strong style="color:var(--accent-deep);">Live Sampling Inventory &amp; Trial Engine:</strong>
               <div style="font-size:0.78rem;color:var(--ink-2);font-family:var(--mono);">Start: ${inv.startingStock} | Dispensed: ${inv.dispensed} | <strong>Remaining: ${inv.remaining} units</strong></div>
             </div>
             <span class="badge badge-amber">Coupon: UTKAL25</span>
@@ -3296,7 +3324,6 @@ tbody tr:hover {
       }
     }
 
-    // ── PHONE INPUT SECURITY BINDING ───────────────────────────────────────
     function onPhoneInputChanged() {
       const currentPhone = UtkalVantage.sanitizeIndianPhone(document.getElementById('custPhone').value);
       const notice = document.getElementById('phoneBindingNotice');
@@ -3311,7 +3338,6 @@ tbody tr:hover {
       }
     }
 
-    // ── DUAL OTP VERIFICATION WORKFLOW ─────────────────────────────────────
     function triggerOtpFlow() {
       const nameInput = document.getElementById('custName');
       const phoneInput = document.getElementById('custPhone');
@@ -3320,7 +3346,7 @@ tbody tr:hover {
       const cleanPhone = UtkalVantage.sanitizeIndianPhone(rawPhone);
 
       if (name.length < 2) {
-        UtkalVantage.UI.toast('Please enter the customer name (at least 2 characters).', 'error');
+        UtkalVantage.UI.toast('Please enter the customer name (or tap Auto-Fill Test Input).', 'error');
         if (nameInput) nameInput.focus();
         return;
       }
@@ -3402,7 +3428,6 @@ tbody tr:hover {
       }
     }
 
-    // ── LEAD SUBMISSION & STORAGE ──────────────────────────────────────────
     async function handleFormSubmit(e) {
       e.preventDefault();
 
@@ -3426,7 +3451,6 @@ tbody tr:hover {
         if (!proceed) return;
       }
 
-      // Ensure bank sector has shop name
       if (activeSector === 'bank') {
         const shopEl = document.getElementById('bankShopName');
         if (shopEl && shopEl.value.trim().length < 2) {
@@ -3444,14 +3468,16 @@ tbody tr:hover {
 
       const details = getCurrentSectorDetails();
       const online = isCurrentlyOnline();
+      const prospectCfg = UtkalVantage.StorageEngine.getProspectConfig();
+      const campaignLabel = (prospectCfg && prospectCfg.clientName && prospectCfg.clientName !== 'Prospective Client Preview')
+        ? prospectCfg.clientName
+        : UtkalVantage.getSectorLabel(activeSector);
 
       const leadRecord = {
         id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
         timestamp: new Date().toISOString(),
         sector: activeSector,
-        client: activeSector === 'nbfc' ? 'Muthoot Finance' :
-                activeSector === 'insurance' ? 'Star Health' :
-                activeSector === 'bank' ? 'HDFC Bank' : 'Raw Pressery',
+        client: campaignLabel,
         customer: { name, phone },
         otpVerified: true,
         otpToken: otpMachine.challenge ? otpMachine.challenge.token : null,
@@ -3463,7 +3489,6 @@ tbody tr:hover {
         details
       };
 
-      // If D2C sector, decrement live sampling inventory
       if (activeSector === 'd2c') {
         UtkalVantage.StorageEngine.updateInventory('d2c', 1);
       }
@@ -3475,7 +3500,6 @@ tbody tr:hover {
         'success'
       );
 
-      // Reset form state for next customer
       isOtpVerified = false;
       verifiedPhoneLocked = null;
       otpMachine.reset();
@@ -3489,7 +3513,6 @@ tbody tr:hover {
       await renderLocalLeadsList();
     }
 
-    // ── NETWORK & OFFLINE QUEUE MONITOR ───────────────────────────────────
     function initNetworkListener() {
       const badge = document.getElementById('netStatus');
       const updateNet = () => {
@@ -3517,7 +3540,7 @@ tbody tr:hover {
         b.textContent = `${queued} QUEUED OFFLINE`;
       } else {
         b.className = 'badge badge-green';
-        b.textContent = `ALL ${leads.length} LEADS SYNCED`;
+        b.textContent = `${leads.length} SESSION LEADS SYNCED`;
       }
     }
 
@@ -3547,7 +3570,7 @@ tbody tr:hover {
       if (!container) return;
       const leads = await UtkalVantage.StorageEngine.getAllLeads();
       if (!leads.length) {
-        container.innerHTML = `<div class="caption">No field leads captured in this session yet. Complete a lead above to test instant persistence.</div>`;
+        container.innerHTML = `<div class="caption">No field leads captured in this session yet. Complete a lead above to test instant persistence and cross-page sync.</div>`;
         return;
       }
       container.innerHTML = leads.slice(0, 8).map(l => {
