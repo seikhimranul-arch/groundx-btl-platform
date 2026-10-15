@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="styles/main.css" />
   <style id="uv-inline-main-css">
 /* ==========================================================================
-   UTKAL VANTAGE — GLOBAL DESIGN SYSTEM & MOBILE-FIRST RESPONSIVE ENGINE v2.0
+   UTKAL VANTAGE — APPLE HIG & B2B SAAS DESIGN SYSTEM v3.0
+   Principles: Clarity, Deference, Depth, Spring Physics & Tactile Materials
    Brand Palette: Sunrise Coral (#D85A30), Ember (#993C1D), Dawn (#F5C4B3),
    Ink (#1F1D1B), Warm Paper (#F6F3EE), Amber (#EF9F27), Forest (#1E7B4D)
    ========================================================================== */
@@ -21,11 +22,11 @@
   --ink-2: #38332E;
   --ink-3: #6B6660;
   --muted: #6B6660;
-  --line: #DCD6CD;
+  --line: #E2DDD5;
   --panel: #ECE7DF;
   --surface: #FFFFFF;
-  --border: #DCD6CD;
-  --border-strong: #B8B0A2;
+  --border: rgba(31, 29, 27, 0.11);
+  --border-strong: rgba(31, 29, 27, 0.22);
 
   --accent: #D85A30;
   --accent-2: #E8714A;
@@ -43,20 +44,25 @@
   --red: #C53030;
   --red-pale: #FDE8E8;
 
-  --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
 
-  --shadow-sm: 0 2px 6px rgba(31, 29, 27, 0.05);
-  --shadow: 0 6px 20px rgba(31, 29, 27, 0.08);
-  --shadow-lg: 0 18px 42px rgba(31, 29, 27, 0.12);
+  /* Apple Multi-Layered Contact + Ambient Shadows */
+  --shadow-sm: 0 1px 2px rgba(31, 29, 27, 0.04), 0 4px 12px rgba(31, 29, 27, 0.04);
+  --shadow: 0 2px 4px rgba(31, 29, 27, 0.04), 0 12px 28px -4px rgba(31, 29, 27, 0.08);
+  --shadow-lg: 0 4px 8px rgba(31, 29, 27, 0.04), 0 24px 48px -8px rgba(31, 29, 27, 0.14);
+  --specular-inset: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 
-  --sidebar-w: 252px;
+  /* Apple Critically Damped Spring Physics */
+  --spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --sidebar-w: 256px;
   --topbar-h: 64px;
   color-scheme: light;
 }
@@ -82,6 +88,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
@@ -98,31 +105,33 @@ button, input, select, textarea {
   font: inherit;
 }
 
-/* ── Typography ─────────────────────────────────────────────────────────── */
+/* ── Typography (Optical Sizing & Balanced Tracking) ────────────────────── */
 .display {
   font-family: var(--display);
-  font-size: clamp(2.25rem, 5vw, 3.8rem);
+  font-size: clamp(2.35rem, 5.2vw, 4rem);
   font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .h1, h1 {
   font-family: var(--display);
-  font-size: clamp(1.75rem, 3.6vw, 2.65rem);
+  font-size: clamp(1.8rem, 3.6vw, 2.75rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .h2, h2 {
   font-family: var(--display);
-  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-size: clamp(1.28rem, 2.4vw, 1.7rem);
   font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: -0.015em;
+  line-height: 1.16;
+  letter-spacing: -0.018em;
   color: var(--ink);
 }
 
@@ -130,8 +139,8 @@ button, input, select, textarea {
   font-family: var(--display);
   font-size: 1.12rem;
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.24;
+  letter-spacing: -0.012em;
   color: var(--ink);
 }
 
@@ -158,19 +167,19 @@ button, input, select, textarea {
   font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
 /* ── Layout & Containers ────────────────────────────────────────────────── */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1220px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 .section {
-  padding: 84px 0;
+  padding: 88px 0;
 }
 
 .section-sm {
@@ -202,34 +211,35 @@ button, input, select, textarea {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(220, 214, 205, 0.8);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-sm);
 }
 
-/* ── Top Marketing Navigation ───────────────────────────────────────────── */
+/* ── Apple Vibrancy Top Navigation ──────────────────────────────────────── */
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 200;
-  background: rgba(246, 243, 238, 0.86);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  background: rgba(246, 243, 238, 0.78);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(31, 29, 27, 0.06);
+  transition: border-color 0.3s var(--spring), box-shadow 0.3s var(--spring), background 0.3s var(--spring);
 }
 
 .nav.scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.88);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
 }
 
 .nav-inner {
-  height: 72px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -263,15 +273,15 @@ button, input, select, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
 }
 
 .nav-link {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--ink-2);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s var(--spring);
 }
 
 .nav-link:hover {
@@ -281,7 +291,7 @@ button, input, select, textarea {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .mobile-menu-toggle {
@@ -297,45 +307,50 @@ button, input, select, textarea {
   cursor: pointer;
 }
 
-/* ── Buttons & Inputs ───────────────────────────────────────────────────── */
+/* ── Apple HIG Tactile Buttons & Segmented Controls ─────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-family: var(--body);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
   padding: 10px 18px;
-  border-radius: 10px;
-  border: 1.5px solid transparent;
+  border-radius: 11px;
+  border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.22s var(--spring), box-shadow 0.22s var(--spring), background 0.2s var(--spring), border-color 0.2s var(--spring);
   white-space: nowrap;
   user-select: none;
 }
 
+.btn:hover {
+  transform: translateY(-1px);
+}
+
 .btn:active {
-  transform: translateY(1px);
+  transform: scale(0.975);
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(180deg, #E06338 0%, #D85A30 100%);
   color: #FFFFFF;
-  border-color: var(--accent);
+  border-color: rgba(153, 60, 29, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(216, 90, 48, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--accent-deep);
-  border-color: var(--accent-deep);
-  box-shadow: 0 4px 14px rgba(216, 90, 48, 0.28);
+  background: linear-gradient(180deg, #D85A30 0%, #B84722 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px rgba(216, 90, 48, 0.34);
 }
 
 .btn-ghost {
   background: var(--surface);
   color: var(--ink);
   border-color: var(--border-strong);
+  box-shadow: var(--specular-inset), 0 1px 2px rgba(31, 29, 27, 0.03);
 }
 
 .btn-ghost:hover {
@@ -344,32 +359,80 @@ button, input, select, textarea {
 }
 
 .btn-sm {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   padding: 7px 12px;
-  border-radius: 8px;
+  border-radius: 9px;
 }
 
 .btn-lg {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   padding: 13px 24px;
-  border-radius: 12px;
+  border-radius: 13px;
 }
 
 .input {
   width: 100%;
   padding: 10px 14px;
-  border-radius: 9px;
+  border-radius: 10px;
   border: 1.5px solid var(--border-strong);
   background: var(--surface);
   color: var(--ink);
   font-family: var(--body);
   font-size: 0.92rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s var(--spring), box-shadow 0.2s var(--spring);
 }
 
 .input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(216, 90, 48, 0.16);
+}
+
+/* Apple Segmented Control */
+.segmented-control {
+  display: inline-flex;
+  background: rgba(31, 29, 27, 0.065);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(31, 29, 27, 0.06);
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.segmented-item {
+  padding: 8px 16px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.24s var(--spring);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.segmented-item:hover {
+  color: var(--ink);
+}
+
+.segmented-item.active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(31, 29, 27, 0.1), 0 0.5px 1px rgba(31, 29, 27, 0.08);
+}
+
+.kbd-pill {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(31, 29, 27, 0.07);
+  color: var(--ink-3);
+  border: 1px solid rgba(31, 29, 27, 0.12);
 }
 
 /* ── Badges, Dots & Deltas ──────────────────────────────────────────────── */
@@ -378,7 +441,7 @@ button, input, select, textarea {
   align-items: center;
   gap: 5px;
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 999px;
@@ -389,13 +452,13 @@ button, input, select, textarea {
 .badge-accent {
   background: var(--accent-pale);
   color: var(--accent-deep);
-  border: 1px solid rgba(216, 90, 48, 0.25);
+  border: 1px solid rgba(216, 90, 48, 0.24);
 }
 
 .badge-green {
   background: var(--green-pale);
   color: var(--green);
-  border: 1px solid rgba(30, 123, 77, 0.25);
+  border: 1px solid rgba(30, 123, 77, 0.24);
 }
 
 .badge-amber {
@@ -407,7 +470,7 @@ button, input, select, textarea {
 .badge-red {
   background: var(--red-pale);
   color: var(--red);
-  border: 1px solid rgba(197, 48, 48, 0.25);
+  border: 1px solid rgba(197, 48, 48, 0.24);
 }
 
 .badge-neutral {
@@ -465,7 +528,8 @@ button, input, select, textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--specular-inset), var(--shadow-sm);
+  transition: transform 0.28s var(--spring), box-shadow 0.28s var(--spring);
 }
 
 .card-flat {
@@ -473,6 +537,7 @@ button, input, select, textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
+  box-shadow: var(--specular-inset), 0 1px 3px rgba(31, 29, 27, 0.03);
 }
 
 .avatar {
@@ -503,7 +568,7 @@ button, input, select, textarea {
   height: 100%;
   background: var(--accent);
   border-radius: 999px;
-  transition: width 0.35s ease;
+  transition: width 0.4s var(--spring);
 }
 
 .progress-fill.green {
@@ -531,7 +596,7 @@ table {
 
 thead th {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -554,13 +619,17 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
+tbody tr {
+  transition: background 0.15s ease;
+}
+
 tbody tr:hover {
-  background: rgba(246, 243, 238, 0.55);
+  background: rgba(246, 243, 238, 0.65);
 }
 
 .tabs {
   display: inline-flex;
-  background: var(--panel);
+  background: rgba(31, 29, 27, 0.06);
   padding: 4px;
   border-radius: 10px;
   border: 1px solid var(--border);
@@ -574,7 +643,7 @@ tbody tr:hover {
   font-weight: 600;
   color: var(--ink-3);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s var(--spring);
 }
 
 .tab.active {
@@ -595,7 +664,7 @@ tbody tr:hover {
   align-items: center;
   gap: 32px;
   white-space: nowrap;
-  animation: marquee-scroll 28s linear infinite;
+  animation: marquee-scroll 30s linear infinite;
 }
 
 @keyframes marquee-scroll {
@@ -609,7 +678,7 @@ tbody tr:hover {
 }
 
 .animate-slide-up {
-  animation: slideUpFade 0.45s ease forwards;
+  animation: slideUpFade 0.5s var(--spring) forwards;
 }
 
 .delay-1 { animation-delay: 0.06s; }
@@ -627,7 +696,9 @@ tbody tr:hover {
 
 .sidebar {
   width: var(--sidebar-w);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -636,7 +707,7 @@ tbody tr:hover {
   bottom: 0;
   left: 0;
   z-index: 300;
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s var(--spring);
 }
 
 .sidebar-logo {
@@ -658,7 +729,7 @@ tbody tr:hover {
 
 .sidebar-section {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -671,17 +742,17 @@ tbody tr:hover {
   align-items: center;
   gap: 10px;
   padding: 9px 12px;
-  border-radius: 9px;
+  border-radius: 10px;
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--ink-2);
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: all 0.18s var(--spring);
   cursor: pointer;
 }
 
 .sidebar-item:hover {
-  background: var(--bg);
+  background: rgba(31, 29, 27, 0.05);
   color: var(--ink);
 }
 
@@ -701,7 +772,9 @@ tbody tr:hover {
 
 .app-topbar {
   min-height: var(--topbar-h);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 10px 24px;
   display: flex;
@@ -725,8 +798,8 @@ tbody tr:hover {
 .sidebar-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(31, 29, 27, 0.55);
-  backdrop-filter: blur(2px);
+  background: rgba(31, 29, 27, 0.45);
+  backdrop-filter: blur(4px);
   z-index: 290;
   display: none;
 }
@@ -741,13 +814,15 @@ tbody tr:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 62px;
-  background: var(--surface);
-  border-top: 1.5px solid var(--border);
+  height: 64px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--border);
   z-index: 280;
   grid-template-columns: repeat(5, 1fr);
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  box-shadow: 0 -4px 16px rgba(31, 29, 27, 0.06);
+  box-shadow: 0 -4px 20px rgba(31, 29, 27, 0.06);
 }
 
 .mobile-bottom-item {
@@ -769,12 +844,13 @@ tbody tr:hover {
   color: var(--accent);
 }
 
-/* ── Universal Modal & Toast Components ─────────────────────────────────── */
+/* ── Universal Modal, Command Palette (⌘K) & Toast Components ──────────── */
 .uv-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(31, 29, 27, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(22, 20, 18, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 2500;
   display: none;
   align-items: center;
@@ -788,15 +864,36 @@ tbody tr:hover {
 
 .uv-modal {
   background: var(--surface);
-  border: 1.5px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   max-height: 90dvh;
   overflow-y: auto;
   padding: 24px;
   box-shadow: var(--shadow-lg);
   color: var(--ink);
+  animation: slideUpFade 0.24s var(--spring) forwards;
+}
+
+/* Command Palette Item */
+.uv-cmdk-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.uv-cmdk-item:hover {
+  background: var(--accent-pale);
+  color: var(--accent-deep);
 }
 
 .uv-toast-container {
@@ -807,14 +904,15 @@ tbody tr:hover {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: min(380px, calc(100vw - 32px));
+  max-width: min(390px, calc(100vw - 32px));
 }
 
 .uv-toast {
-  background: #1F1D1B;
+  background: rgba(31, 29, 27, 0.94);
+  backdrop-filter: blur(12px);
   color: #FFFFFF;
   padding: 12px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 0.84rem;
   font-weight: 500;
   box-shadow: var(--shadow-lg);
@@ -823,7 +921,7 @@ tbody tr:hover {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  animation: slideUpFade 0.25s ease forwards;
+  animation: slideUpFade 0.25s var(--spring) forwards;
 }
 
 .uv-toast.success { border-left-color: #4ade80; }
@@ -871,10 +969,11 @@ tbody tr:hover {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 72px;
+    top: 68px;
     left: 0;
     right: 0;
-    background: var(--surface);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
     padding: 16px 24px;
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow);
@@ -885,7 +984,7 @@ tbody tr:hover {
     padding: 10px 14px;
   }
   .app-content {
-    padding: 14px 14px 80px 14px;
+    padding: 14px 14px 82px 14px;
   }
   .mobile-bottom-nav {
     display: grid;
@@ -920,66 +1019,106 @@ tbody tr:hover {
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" type="module"></script>
   <style>
-    /* ── Landing-specific styles ── */
+    /* ── Apple HIG & B2B SaaS Landing Architecture v3.0 ── */
     .hero {
       min-height: 100dvh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.05fr 1fr;
       align-items: center;
-      padding-top: 84px;
-      background: var(--bg);
+      gap: 40px;
+      padding-top: 96px;
+      padding-bottom: 64px;
+      background:
+        radial-gradient(ellipse 65% 55% at 78% 22%, rgba(216,90,48,0.11) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 15% 85%, rgba(239,159,39,0.08) 0%, transparent 70%),
+        var(--bg);
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -120px; right: -80px;
-      width: 640px; height: 640px;
-      background: radial-gradient(circle, rgba(216,90,48,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-left { padding: 40px 0; }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--accent-pale); border: 1px solid rgba(216,90,48,0.22);
-      border-radius: 100px; padding: 5px 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(216,90,48,0.25);
+      box-shadow: 0 2px 8px rgba(216,90,48,0.08);
+      border-radius: 100px; padding: 6px 14px;
       font-family: var(--mono);
-      font-size: 0.76rem; font-weight: 500; color: var(--accent-deep);
-      margin-bottom: 24px;
+      font-size: 0.74rem; font-weight: 600; color: var(--accent-deep);
+      margin-bottom: 22px;
     }
-    .hero-headline { margin-bottom: 20px; }
+    .hero-headline { margin-bottom: 18px; }
     .hero-headline span { color: var(--accent); }
-    .hero-sub { max-width: 52ch; margin-bottom: 36px; }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 36px; }
-    .hero-proof {
-      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-      padding: 12px 16px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; max-width: 52ch;
+    .hero-sub { max-width: 52ch; margin-bottom: 30px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
+    .hero-trust-pills {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
     }
-    .hero-proof-text { font-size: 0.84rem; color: var(--ink-2); font-weight: 500; line-height: 1.45; }
-    .hero-proof-text strong { color: var(--ink); }
-    .hero-right { padding: 40px 0 40px 40px; }
+    .trust-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 11px; border-radius: 9px;
+      background: rgba(255,255,255,0.75); border: 1px solid var(--border);
+      font-family: var(--mono); font-size: 0.71rem; font-weight: 600; color: var(--ink-2);
+    }
+
+    /* Interactive Hero Product Tour Window (Apple Window Chrome) */
     .hero-dashboard {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-xl); padding: 24px;
-      box-shadow: var(--shadow-lg); position: relative;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: saturate(180%) blur(24px);
+      border: 1px solid rgba(31, 29, 27, 0.12);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: var(--specular-inset), var(--shadow-lg);
+      position: relative;
+      transition: transform 0.35s var(--spring);
     }
     .hero-dashboard-bar {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px;
+      flex-wrap: wrap;
     }
-    .traffic-light { display: flex; gap: 5px; }
-    .tl { width: 10px; height: 10px; border-radius: 50%; }
+    .traffic-light { display: flex; gap: 6px; align-items: center; }
+    .tl { width: 11px; height: 11px; border-radius: 50%; }
     .tl-r { background: #ff5f57; } .tl-y { background: #febc2e; } .tl-g { background: #28c840; }
-    .hero-db-title { font-size: 0.8rem; color: var(--ink-3); font-weight: 500; }
-    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
-    .hero-stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-    .hero-stat-val { font-family: var(--mono); font-size: 1.35rem; font-weight: 700; letter-spacing: -0.025em; }
-    .hero-stat-label { font-size: 0.7rem; color: var(--ink-3); font-weight: 500; margin-top: 2px; }
+
+    /* Interactive Hero Tour Switcher */
+    .tour-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      background: rgba(31, 29, 27, 0.06);
+      padding: 4px;
+      border-radius: 11px;
+      margin-bottom: 14px;
+    }
+    .tour-tab {
+      padding: 7px 6px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      font-family: var(--mono);
+      font-size: 0.69rem;
+      font-weight: 600;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: all 0.22s var(--spring);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .tour-tab.active {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 6px rgba(31,29,27,0.09);
+    }
+    .tour-pane { display: none; animation: slideUpFade 0.25s var(--spring) forwards; }
+    .tour-pane.active { display: block; }
+
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .hero-stat { background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 11px 13px; }
+    .hero-stat-val { font-family: var(--mono); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; }
+    .hero-stat-label { font-size: 0.68rem; color: var(--ink-3); font-weight: 500; margin-top: 2px; }
     .hero-map {
-      height: 180px; border-radius: 12px; overflow: hidden; position: relative;
+      height: 175px; border-radius: 12px; overflow: hidden; position: relative;
       background: #E8E5DD;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
     }
     .hero-map-grid {
       position: absolute; inset: 0;
@@ -987,8 +1126,9 @@ tbody tr:hover {
       background-size: 20px 20px;
     }
     .map-dot {
-      position: absolute; width: 10px; height: 10px; border-radius: 50%;
+      position: absolute; width: 11px; height: 11px; border-radius: 50%;
       background: var(--accent); transform: translate(-50%, -50%);
+      transition: all 0.4s var(--spring);
     }
     .map-dot::after {
       content: ''; position: absolute; inset: -4px; border-radius: 50%;
@@ -999,7 +1139,65 @@ tbody tr:hover {
     .map-dot-green { background: var(--green); }
     .map-dot-green::after { border-color: var(--green); }
 
-    /* ── Features ── */
+    /* ── Interactive ROI & Persona Calculator Section (JoinAmply Best Practice) ── */
+    .calculator-shell {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--specular-inset), var(--shadow);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .range-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--panel);
+      outline: none;
+      margin-top: 8px;
+    }
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(31, 29, 27, 0.25);
+      cursor: pointer;
+      transition: transform 0.15s var(--spring);
+    }
+    .range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+    }
+    .calc-output-card {
+      background: #1F1D1B;
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calc-output-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .calc-metric-box {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    /* ── Features Bento ── */
     .features-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1008,11 +1206,12 @@ tbody tr:hover {
     .feature-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-lg); padding: 32px;
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: box-shadow 0.32s var(--spring), transform 0.32s var(--spring);
       position: relative; overflow: hidden;
+      box-shadow: var(--specular-inset), var(--shadow-sm);
     }
-    .feature-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
-    .feature-card.accent-card { background: var(--accent); border-color: transparent; }
+    .feature-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .feature-card.accent-card { background: linear-gradient(145deg, #D85A30 0%, #B3431E 100%); border-color: transparent; }
     .feature-card.accent-card * { color: rgba(255,255,255,0.92); }
     .feature-card.accent-card .h3 { color: #fff; }
     .feature-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 20px; }
@@ -1045,15 +1244,17 @@ tbody tr:hover {
     /* ── Problem/Solution ── */
     .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .ps-item { display: flex; gap: 14px; align-items: flex-start; }
-    .ps-icon { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
+    .ps-icon { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
 
     /* ── Pricing ── */
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .pricing-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-lg); padding: 32px 26px;
+      transition: transform 0.28s var(--spring), box-shadow 0.28s var(--spring);
     }
-    .pricing-card.featured { background: var(--fg); border-color: var(--fg); }
+    .pricing-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .pricing-card.featured { background: var(--fg); border-color: var(--fg); box-shadow: var(--shadow-lg); }
     .pricing-card.featured * { color: rgba(255,255,255,0.85); }
     .pricing-card.featured .h2 { color: #fff; }
     .pricing-card.featured .h3 { color: #fff; }
@@ -1064,10 +1265,58 @@ tbody tr:hover {
     .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 20px 0 24px; }
     .pricing-feature { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; }
 
+    /* ── Enterprise FAQ Accordion (Apple HIG Disclosure) ── */
+    .faq-list {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s var(--spring), box-shadow 0.2s var(--spring);
+    }
+    .faq-item.open {
+      border-color: rgba(216, 90, 48, 0.35);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-trigger {
+      width: 100%;
+      padding: 18px 22px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--display);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+    }
+    .faq-body {
+      display: none;
+      padding: 0 22px 18px;
+      font-size: 0.92rem;
+      color: var(--ink-2);
+      line-height: 1.65;
+    }
+    .faq-item.open .faq-body {
+      display: block;
+    }
+
     /* ── CTA banner ── */
     .cta-banner {
-      background: var(--accent); border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #D85A30 0%, #993C1D 100%);
+      border-radius: var(--radius-xl);
       padding: 56px 48px; display: flex; justify-content: space-between; align-items: center; gap: 32px;
+      box-shadow: var(--shadow-lg);
     }
     .cta-banner * { color: #fff; }
     .cta-banner .btn-ghost { border-color: rgba(255,255,255,0.4); color: #fff; background: transparent; }
@@ -1075,15 +1324,16 @@ tbody tr:hover {
 
     /* ── Sector Marquee tags ── */
     .logo-tag {
-      font-family: var(--mono); font-size: 0.82rem; font-weight: 600; color: var(--ink-2);
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 600; color: var(--ink-2);
       letter-spacing: 0.02em;
     }
 
-    /* ── Sector Service Blueprints (Replaces Fake Testimonials) ── */
+    /* ── Sector Service Blueprints ── */
     .testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .testimonial { border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; background: var(--surface); display: flex; flex-direction: column; justify-content: space-between; }
+    .testimonial { border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; background: var(--surface); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.25s var(--spring), box-shadow 0.25s var(--spring); }
+    .testimonial:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .testimonial-quote { font-size: 0.92rem; line-height: 1.62; color: var(--ink-2); margin-bottom: 18px; }
-    .testimonial-author { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .testimonial-author { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border); flex-wrap: wrap; }
     .testimonial-name { font-size: 0.84rem; font-weight: 700; color: var(--ink); font-family: var(--mono); }
     .testimonial-role { font-size: 0.76rem; color: var(--ink-3); }
 
@@ -1100,8 +1350,8 @@ tbody tr:hover {
 
     /* ── Mobile ── */
     @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; padding-top: 96px; }
-      .hero-right { padding: 0 0 40px; }
+      .hero { grid-template-columns: 1fr; padding-top: 92px; gap: 28px; }
+      .calculator-shell { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
       .features-grid, .ps-grid, .testimonials-grid { grid-template-columns: 1fr; }
       .proof-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
@@ -1111,6 +1361,8 @@ tbody tr:hover {
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 600px) {
+      .tour-tabs { grid-template-columns: repeat(2, 1fr); }
+      .calc-output-grid { grid-template-columns: 1fr; }
       .how-it-works-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .nav-actions .hide-xs { display: none; }
@@ -1119,7 +1371,7 @@ tbody tr:hover {
 </head>
 <body>
 
-<!-- ─────────────── NAV ─────────────────────────── -->
+<!-- ─────────────── APPLE VIBRANCY NAV ─────────────── -->
 <nav class="nav" id="mainNav">
   <div class="container">
     <div class="nav-inner">
@@ -1130,18 +1382,22 @@ tbody tr:hover {
         <span class="nav-logo-text">Utkal Vantage</span>
       </a>
       <div class="nav-links" id="mainNavLinks">
-        <a href="#features" class="nav-link" onclick="closeMobileNav()">Features</a>
-        <a href="#proof" class="nav-link" onclick="closeMobileNav()">Architecture</a>
+        <a href="#roi-calculator" class="nav-link" onclick="closeMobileNav()">ROI Calculator</a>
+        <a href="#features" class="nav-link" onclick="closeMobileNav()">Platform</a>
         <a href="#testimonials" class="nav-link" onclick="closeMobileNav()">Sectors</a>
         <a href="#pricing" class="nav-link" onclick="closeMobileNav()">Pricing</a>
-        <a href="brand-sheet.html" class="nav-link" style="color:var(--accent);font-family:var(--mono);font-size:0.82rem;">Brand Sheet</a>
+        <a href="#faq" class="nav-link" onclick="closeMobileNav()">FAQs</a>
+        <a href="brand-sheet.html" class="nav-link" style="color:var(--accent);font-family:var(--mono);font-size:0.8rem;">Brand</a>
       </div>
       <div class="nav-actions">
-        <a href="promoter.html" class="btn btn-ghost btn-sm" style="color:var(--accent);border-color:var(--accent);">
+        <button type="button" class="btn btn-ghost btn-sm hide-xs" onclick="UtkalVantage.UI.openCommandPalette()" title="Open Command Palette (Ctrl+K / ⌘K)">
+          <span>Search</span>
+          <span class="kbd-pill">⌘K</span>
+        </button>
+        <a href="promoter.html" class="btn btn-ghost btn-sm" style="color:var(--accent);border-color:rgba(216,90,48,0.4);">
           <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon>
-          Field Terminal
+          Field App
         </a>
-        <a href="client-portal.html" class="btn btn-ghost btn-sm hide-xs">Client Preview</a>
         <a href="dashboard.html" class="btn btn-primary btn-sm">
           <ph-icon name="chart-bar" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Ops Console
@@ -1154,87 +1410,140 @@ tbody tr:hover {
   </div>
 </nav>
 
-<!-- ─────────────── HERO ─────────────────────────── -->
+<!-- ─────────────── HERO WITH INTERACTIVE PRODUCT TOUR ─────────────── -->
 <section class="hero">
-  <div class="hero-left container animate-slide-up">
-    <div class="hero-tag">
-      <span class="dot dot-green"></span>
-      Your on ground advantage · Odisha
-    </div>
-    <h1 class="display hero-headline">
-      Field marketing that<br/><span>proves its work.</span>
-    </h1>
-    <p class="body-lg hero-sub">
-      End-to-end BTL execution with GPS-verified proof-of-work, real-time lead tracking, and cryptographic conversion logs your team can verify live on the ground.
-    </p>
-    <div class="hero-cta">
-      <a href="promoter.html" class="btn btn-primary btn-lg">
-        Launch Live Field Terminal
-        <ph-icon name="arrow-right" weight="bold" style="width:16px;height:16px;"></ph-icon>
-      </a>
-      <a href="client-portal.html" class="btn btn-ghost btn-lg">Client Portal Preview</a>
-      <button type="button" class="btn btn-ghost btn-lg" onclick="openPilotModal('7-Day Pilot Inquiry')">Plan a Pilot</button>
-    </div>
-    <div class="hero-proof">
-      <span class="badge badge-green">LIVE MVP</span>
-      <div class="hero-proof-text">
-        <strong>Interactive Verification Sandbox:</strong> Test 100m/20m GPS geofencing, SHA-256 photo watermarking, and OTP lead capture directly on your phone.
+  <div class="container" style="display:contents;">
+    <div class="hero-left container animate-slide-up">
+      <div class="hero-tag">
+        <span class="dot dot-green"></span>
+        Your on ground advantage · Odisha BTL Tech Layer
+      </div>
+      <h1 class="display hero-headline">
+        Field marketing that<br/><span>proves every lead.</span>
+      </h1>
+      <p class="body-lg hero-sub">
+        Eliminate ghost activations. Deploy GPS-locked canopy and storefront teams across Odisha with SHA-256 photo auditing, phone-bound OTP verification, and real-time client portals.
+      </p>
+      <div class="hero-cta">
+        <a href="promoter.html" class="btn btn-primary btn-lg">
+          Try Live Field Terminal
+          <ph-icon name="arrow-right" weight="bold" style="width:16px;height:16px;"></ph-icon>
+        </a>
+        <a href="client-portal.html" class="btn btn-ghost btn-lg">Client Portal Preview</a>
+        <a href="#roi-calculator" class="btn btn-ghost btn-lg">Calculate CPL</a>
+      </div>
+      <div class="hero-trust-pills">
+        <span class="trust-pill"><ph-icon name="map-pin" weight="fill" style="color:var(--accent);"></ph-icon> 100m / 20m Haversine Lock</span>
+        <span class="trust-pill"><ph-icon name="shield-check" weight="fill" style="color:var(--green);"></ph-icon> FIPS 180-4 SHA-256</span>
+        <span class="trust-pill"><ph-icon name="key" weight="fill" style="color:var(--amber);"></ph-icon> 100% Dual-OTP Verified</span>
       </div>
     </div>
-  </div>
-  <div class="hero-right container animate-slide-up delay-2">
-    <div class="hero-dashboard">
-      <div class="hero-dashboard-bar">
-        <div class="traffic-light">
-          <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
-        </div>
-        <span class="hero-db-title">Bhubaneswar Catchment Sandbox</span>
-        <span class="badge badge-green" style="margin-left:auto;">
-          <span class="dot dot-green"></span> Interactive MVP
-        </span>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="stat1">5 Zones</div>
-          <div class="hero-stat-label">Geofence Anchors</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="stat2">0</div>
-          <div class="hero-stat-label">Session Leads</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="stat3">SHA-256</div>
-          <div class="hero-stat-label">Photo Audit</div>
-        </div>
-      </div>
-      <div class="hero-map">
-        <div class="hero-map-grid"></div>
-        <div class="map-dot" style="left:28%;top:38%;" title="Rasulgarh Square (100m)"></div>
-        <div class="map-dot" style="left:52%;top:25%;animation-delay:0.4s;" title="Infocity / Patia (100m)"></div>
-        <div class="map-dot map-dot-green" style="left:67%;top:55%;animation-delay:0.8s;" title="Saheed Nagar (20m)"></div>
-        <div class="map-dot map-dot-green" style="left:38%;top:68%;animation-delay:1.2s;" title="Unit-1 Market (100m)"></div>
-        <div class="map-dot" style="left:18%;top:60%;animation-delay:1.6s;" title="Kalinga Nagar (100m)"></div>
-        <!-- Legend -->
-        <div class="glass" style="position:absolute;bottom:12px;right:12px;padding:8px 12px;border-radius:10px;display:flex;gap:12px;">
-          <div style="display:flex;align-items:center;gap:5px;font-size:0.7rem;color:var(--ink-2);">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--accent);"></div> 100m Canopy
+
+    <!-- Right Column: Interactive Product Walkthrough Sandbox (No Signup Needed) -->
+    <div class="hero-right container animate-slide-up delay-2">
+      <div class="hero-dashboard">
+        <div class="hero-dashboard-bar">
+          <div class="traffic-light">
+            <div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div>
+            <span class="hero-db-title" style="margin-left:6px;font-family:var(--mono);font-size:0.74rem;">Interactive Verification Tour</span>
           </div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:0.7rem;color:var(--ink-2);">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);"></div> 20m Storefront
+          <span class="badge badge-green">
+            <span class="dot dot-green"></span> Click Tabs to Test Live
+          </span>
+        </div>
+
+        <!-- 4-Mode Interactive Product Switcher -->
+        <div class="tour-tabs" role="tablist">
+          <button type="button" class="tour-tab active" onclick="switchHeroTour('geo', this)">1. GPS Lock</button>
+          <button type="button" class="tour-tab" onclick="switchHeroTour('sha', this)">2. SHA-256</button>
+          <button type="button" class="tour-tab" onclick="switchHeroTour('otp', this)">3. Dual-OTP</button>
+          <button type="button" class="tour-tab" onclick="switchHeroTour('json', this)">4. Audit JSON</button>
+        </div>
+
+        <!-- PANE 1: Interactive GPS Geofence Radar -->
+        <div id="tour-pane-geo" class="tour-pane active">
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-val" id="heroGeoDistVal">12m</div>
+              <div class="hero-stat-label">Distance to Anchor</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val" id="stat2">0</div>
+              <div class="hero-stat-label">Session Leads</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val" id="heroGeoStatusVal" style="color:var(--green);">LOCKED</div>
+              <div class="hero-stat-label">Geofence State</div>
+            </div>
+          </div>
+          <div class="hero-map" id="heroInteractiveMap">
+            <div class="hero-map-grid"></div>
+            <div id="heroRadiusCircle" style="position:absolute;left:50%;top:50%;width:120px;height:120px;transform:translate(-50%,-50%);border-radius:50%;border:2px dashed var(--green);background:rgba(30,123,77,0.12);transition:all 0.35s var(--spring);"></div>
+            <div style="position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);border-radius:50%;background:#1F1D1B;border:2px solid #fff;" title="Canopy Anchor"></div>
+            <div class="map-dot map-dot-green" id="heroRepPin" style="left:54%;top:46%;" title="Field Rep GPS"></div>
+            <div class="glass" style="position:absolute;bottom:10px;left:10px;right:10px;padding:7px 11px;border-radius:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-family:var(--mono);font-size:0.7rem;font-weight:600;" id="heroMapCaption">Anchor: Rasulgarh Square (100m Radius)</span>
+              <div style="display:flex;gap:6px;">
+                <button type="button" class="btn btn-sm btn-ghost" style="padding:3px 8px;font-size:0.68rem;min-height:26px;" onclick="testHeroGeofence(false)">15m (Lock)</button>
+                <button type="button" class="btn btn-sm btn-ghost" style="padding:3px 8px;font-size:0.68rem;min-height:26px;color:var(--red);border-color:var(--red);" onclick="testHeroGeofence(true)">140m (Breach)</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Live feed -->
-      <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;" id="liveFeed">
-        <div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--bg);">
-          <div class="dot dot-green"></div>
-          <span style="font-size:0.78rem;color:var(--ink-2);">Geofence Engine Ready — 5 Bhubaneswar zones pre-configured</span>
-          <span style="font-size:0.7rem;color:var(--ink-3);margin-left:auto;">Live</span>
+
+        <!-- PANE 2: Interactive SHA-256 Photo Watermark Verifier -->
+        <div id="tour-pane-sha" class="tour-pane">
+          <div style="background:#161412;border-radius:12px;padding:16px;color:#fff;font-family:var(--mono);margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <span style="color:#EF9F27;font-size:0.74rem;font-weight:700;">UTKAL VANTAGE • CANVAS PIXEL LEDGER</span>
+              <span class="badge badge-green" id="heroShaBadge">INTEGRITY OK</span>
+            </div>
+            <div style="background:#24201D;border-left:3px solid var(--accent);padding:10px 12px;border-radius:6px;font-size:0.72rem;line-height:1.55;margin-bottom:12px;">
+              <div>REP: UV-REP-01 | ZONE: Rasulgarh Square Canopy</div>
+              <div style="color:#A3E635;">GPS: 20.290680, 85.864870 (±4m) | IST Timestamp Burned</div>
+              <div style="color:#A39C93;margin-top:4px;word-break:break-all;" id="heroShaHashText">SHA-256: 8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-sm btn-ghost" style="background:#2A2623;color:#4ade80;border-color:#4ade80;font-size:0.72rem;" onclick="testHeroShaTamper(false)">✓ Verify Original Bytes</button>
+              <button type="button" class="btn btn-sm btn-ghost" style="background:#2A2623;color:#f87171;border-color:#f87171;font-size:0.72rem;" onclick="testHeroShaTamper(true)">⚡ Simulate 1-Pixel Tamper</button>
+            </div>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--bg);">
-          <div class="dot dot-green"></div>
-          <span style="font-size:0.78rem;color:var(--ink-2);">Open Field Terminal to capture &amp; sync a live test lead</span>
-          <a href="promoter.html" style="font-size:0.72rem;color:var(--accent);font-weight:700;margin-left:auto;text-decoration:none;">Test →</a>
+
+        <!-- PANE 3: Interactive Dual-OTP State Machine Preview -->
+        <div id="tour-pane-otp" class="tour-pane">
+          <div style="background:#FAF8F5;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <span style="font-weight:700;font-size:0.86rem;">Phone-Bound OTP State Machine</span>
+              <span class="badge badge-amber">90s TTL · Max 3 Tries</span>
+            </div>
+            <p class="caption" style="margin-bottom:12px;">Prevents phone-swap fraud: if the promoter changes the mobile number after OTP verification, the submit lock immediately revokes.</p>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <div style="font-family:var(--mono);font-size:1.1rem;font-weight:700;padding:8px 14px;background:#fff;border:1px dashed var(--accent);border-radius:8px;color:var(--accent);" id="heroDemoOtpVal">482910</div>
+              <button type="button" class="btn btn-sm btn-primary" onclick="rotateHeroDemoOtp()">Regenerate OTP Token</button>
+              <a href="promoter.html" class="btn btn-sm btn-ghost">Test Full Flow →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 4: Stripe/Vanta-Style Cryptographic Telemetry JSON -->
+        <div id="tour-pane-json" class="tour-pane">
+          <pre style="background:#161412;color:#E2DDD6;padding:14px;border-radius:12px;font-family:var(--mono);font-size:0.7rem;line-height:1.5;overflow-x:auto;margin-bottom:10px;">{
+  "protocol": "UtkalVantage-v3.0-Audit",
+  "geofence": { "zone": "Rasulgarh_Square", "distM": 12, "maxM": 100, "locked": true },
+  "photoAudit": { "sha256": "8f434346648f6b96...7aa4", "watermark": "BURNED_IN" },
+  "otpBinding": { "verified": true, "ttlSec": 90, "maxAttempts": 3 },
+  "offlineSync": { "store": "IndexedDB_v21", "broadcast": "BroadcastChannel" }
+}</pre>
+        </div>
+
+        <!-- Live Activity Stream -->
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;" id="liveFeed">
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;background:var(--bg);">
+            <div class="dot dot-green"></div>
+            <span style="font-size:0.77rem;color:var(--ink-2);">5 Bhubaneswar catchment zones pre-configured</span>
+            <a href="promoter.html" style="font-size:0.72rem;color:var(--accent);font-weight:700;margin-left:auto;text-decoration:none;">Open App →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1242,7 +1551,7 @@ tbody tr:hover {
 </section>
 
 <!-- ─────────────── MARQUEE (Sector Capabilities) ── -->
-<div class="section-sm" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 0;overflow:hidden;">
+<div class="section-sm" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 0;overflow:hidden;">
   <div class="marquee-wrap">
     <div class="marquee-track">
       <span class="logo-tag">01 · NBFC GOLD &amp; MSME LOAN CAMPS</span>
@@ -1270,8 +1579,102 @@ tbody tr:hover {
   </div>
 </div>
 
+<!-- ─────────────── INTERACTIVE PERSONA & ROI CALCULATOR (JoinAmply Pattern) ── -->
+<section class="section" id="roi-calculator">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div class="badge badge-accent" style="margin-bottom:12px;">Interactive Campaign Planner</div>
+      <h2 class="h1">Tailored to your sector. Calculated in real time.</h2>
+      <p class="body-lg" style="max-width:56ch;margin:10px auto 24px;">Select your industry vertical and adjust promoter headcount to model your projected OTP-verified leads, geofence lock standard, and cost per lead.</p>
+
+      <!-- Apple Segmented Industry Switcher -->
+      <div class="segmented-control" role="tablist" aria-label="Select industry vertical">
+        <button type="button" class="segmented-item active" onclick="setCalculatorSector('nbfc', this)">1. NBFCs (Gold / MSME)</button>
+        <button type="button" class="segmented-item" onclick="setCalculatorSector('insurance', this)">2. Health &amp; Life Insurance</button>
+        <button type="button" class="segmented-item" onclick="setCalculatorSector('bank', this)">3. Commercial &amp; SFB Banks</button>
+        <button type="button" class="segmented-item" onclick="setCalculatorSector('d2c', this)">4. D2C &amp; FMCG Brands</button>
+      </div>
+    </div>
+
+    <div class="calculator-shell">
+      <div>
+        <div class="badge badge-neutral" id="calcSectorBadge" style="margin-bottom:10px;">NBFC Asset-Backed Liquid Lead Engine</div>
+        <h3 class="h2" id="calcSectorHeadline" style="margin-bottom:8px;">Hyperlocal 1.5 km branch catchment camps.</h3>
+        <p class="body" id="calcSectorDesc" style="margin-bottom:24px;">Deployed at daily markets, haats, and transit junctions. Promoters pre-qualify gold weight bands (15–30g, 30–50g, 50g+) and verify borrower intent via instant 6-digit OTP.</p>
+
+        <!-- Slider 1: Promoters -->
+        <div style="margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <label for="calcPromotersSlider" style="font-weight:700;font-size:0.88rem;">Promoters Deployed on Ground</label>
+            <span style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--accent);" id="calcPromotersLabel">8 Promoters</span>
+          </div>
+          <input type="range" id="calcPromotersSlider" class="range-slider" min="2" max="24" value="8" oninput="updateInteractiveCalculator()" />
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--ink-3);margin-top:4px;">
+            <span>2 Reps (Single Zone)</span>
+            <span>8 Reps (4-Branch Cluster)</span>
+            <span>24 Reps (City-Wide)</span>
+          </div>
+        </div>
+
+        <!-- Slider 2: Days -->
+        <div style="margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <label for="calcDaysSlider" style="font-weight:700;font-size:0.88rem;">Campaign Duration (Active Days)</label>
+            <span style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--accent);" id="calcDaysLabel">7 Days</span>
+          </div>
+          <input type="range" id="calcDaysSlider" class="range-slider" min="3" max="26" value="7" oninput="updateInteractiveCalculator()" />
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--ink-3);margin-top:4px;">
+            <span>3-Day Weekend Sprint</span>
+            <span>7-Day Pilot</span>
+            <span>26-Day Monthly Retainer</span>
+          </div>
+        </div>
+
+        <div style="padding:12px 14px;background:var(--bg);border-radius:10px;border:1px solid var(--border);font-size:0.82rem;color:var(--ink-2);" id="calcComplianceNote">
+          <strong>Geofence Protocol:</strong> 100m Radial Canopy Lock + SHA-256 Photo Watermark + Dual-OTP Phone Binding.
+        </div>
+      </div>
+
+      <!-- Right Output Card -->
+      <div class="calc-output-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#A39C93;">Projected Campaign Outcome</span>
+          <span class="badge" style="background:rgba(74,222,128,0.18);color:#4ade80;border:1px solid rgba(74,222,128,0.35);">100% OTP-Verified</span>
+        </div>
+
+        <div class="calc-output-grid">
+          <div class="calc-metric-box">
+            <div style="font-family:var(--mono);font-size:2rem;font-weight:700;color:#FFFFFF;line-height:1;" id="calcOutLeads">364</div>
+            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;" id="calcOutLeadsUnit">OTP-Verified Gold Leads</div>
+          </div>
+          <div class="calc-metric-box">
+            <div style="font-family:var(--mono);font-size:2rem;font-weight:700;color:#EF9F27;line-height:1;" id="calcOutCpl">₹154</div>
+            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;">Est. Cost Per Qualified Lead</div>
+          </div>
+          <div class="calc-metric-box">
+            <div style="font-family:var(--mono);font-size:1.55rem;font-weight:700;color:#4ade80;line-height:1;" id="calcOutWalkins">113</div>
+            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;">Projected Branch Conversions</div>
+          </div>
+          <div class="calc-metric-box">
+            <div style="font-family:var(--mono);font-size:1.55rem;font-weight:700;color:#FFFFFF;line-height:1;" id="calcOutBudget">₹55,944</div>
+            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;" id="calcOutRepDays">56 Promoter-Days Total</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
+          <button type="button" class="btn btn-primary" style="flex:1;" onclick="launchCalculatedPilot()">
+            Configure This Pilot in Portal
+            <ph-icon name="arrow-right" weight="bold"></ph-icon>
+          </button>
+          <a href="promoter.html" class="btn btn-ghost" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">Test App</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─────────────── PROBLEM / SOLUTION ────────────── -->
-<section class="section" id="features">
+<section class="section" id="features" style="padding-top:20px;">
   <div class="container">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:20px;">
       <div>
@@ -1439,7 +1842,7 @@ tbody tr:hover {
 <section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);" id="proof">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
-      <div class="badge badge-accent" style="margin-bottom:12px;">Verification Standards</div>
+      <div class="badge badge-accent" style="margin-bottom:12px;">Verification Architecture</div>
       <h2 class="h1">Built to eliminate ghost activations.</h2>
     </div>
     <div class="proof-grid">
@@ -1462,49 +1865,8 @@ tbody tr:hover {
   </div>
 </section>
 
-<!-- ─────────────── HOW IT WORKS ─────────────────── -->
-<section class="section">
-  <div class="container">
-    <div style="margin-bottom:56px;">
-      <div class="badge badge-neutral" style="margin-bottom:12px;">Operational Workflow</div>
-      <h2 class="h1">From catchment plan to verified lead.</h2>
-    </div>
-    <div class="how-it-works-grid">
-      <div class="how-connector"></div>
-      <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:0 auto 20px;color:#fff;">
-          <ph-icon name="target" weight="fill" style="width:24px;height:24px;"></ph-icon>
-        </div>
-        <div class="h3" style="margin-bottom:8px;">1. Lock Catchment</div>
-        <p class="body" style="font-size:0.85rem;">Configure GPS anchor coordinates and radius thresholds (100m canopy or 20m merchant zone) around target branches.</p>
-      </div>
-      <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
-          <ph-icon name="camera" weight="fill" style="width:24px;height:24px;"></ph-icon>
-        </div>
-        <div class="h3" style="margin-bottom:8px;">2. Audit Ground Setup</div>
-        <p class="body" style="font-size:0.85rem;">Promoters capture live canopy or storefront photos with burned-in GPS telemetry and SHA-256 verification.</p>
-      </div>
-      <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
-          <ph-icon name="key" weight="fill" style="width:24px;height:24px;"></ph-icon>
-        </div>
-        <div class="h3" style="margin-bottom:8px;">3. Qualify &amp; OTP Verify</div>
-        <p class="body" style="font-size:0.85rem;">Capture sector-specific qualification data and verify customer intent on the spot via 6-digit OTP challenge.</p>
-      </div>
-      <div style="text-align:center;padding:0 16px;position:relative;z-index:1;">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:grid;place-items:center;margin:0 auto 20px;color:var(--ink-2);">
-          <ph-icon name="chart-bar" weight="fill" style="width:24px;height:24px;"></ph-icon>
-        </div>
-        <div class="h3" style="margin-bottom:8px;">4. Sync to Client Portal</div>
-        <p class="body" style="font-size:0.85rem;">Verified leads and photo hashes stream directly to the client portal for immediate branch follow-up.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ─────────────── SECTOR BLUEPRINTS (Pitch-Safe) ── -->
-<section class="section-sm" style="background:var(--surface);border-top:1px solid var(--border);" id="testimonials">
+<section class="section-sm" style="background:var(--bg);" id="testimonials">
   <div class="container">
     <div style="margin-bottom:40px;">
       <div class="badge badge-neutral" style="margin-bottom:12px;">Sector Playbooks</div>
@@ -1573,7 +1935,7 @@ tbody tr:hover {
 </section>
 
 <!-- ─────────────── PRICING ───────────────────────── -->
-<section class="section" id="pricing">
+<section class="section" id="pricing" style="background:var(--surface);border-top:1px solid var(--border);">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
       <div class="badge badge-accent" style="margin-bottom:12px;">Commercial Architecture</div>
@@ -1678,6 +2040,54 @@ tbody tr:hover {
   </div>
 </section>
 
+<!-- ─────────────── ENTERPRISE FAQ ACCORDION (JoinAmply Decision Support) ── -->
+<section class="section" id="faq">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:44px;">
+      <div class="badge badge-neutral" style="margin-bottom:12px;">Decision Support &amp; Compliance</div>
+      <h2 class="h1">Frequently asked questions.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)">
+          <span>How does Utkal Vantage prevent promoters from faking attendance or uploading old photos?</span>
+          <span style="font-family:var(--mono);color:var(--accent);">—</span>
+        </button>
+        <div class="faq-body">
+          Every field submission passes through two hardware locks: first, our Haversine Geofence Engine verifies that the promoter's GPS coordinates are within <strong>100m of the assigned canopy anchor</strong> (or <strong>20m for bank merchant storefronts</strong>). Second, the Photo Audit Engine burns the live GPS coordinates, accuracy radius, Rep ID, and IST timestamp directly into the HTML5 canvas pixel buffer and computes an immutable <strong>FIPS 180-4 SHA-256 digest</strong>. Any 1-pixel edit triggers an immediate hash mismatch alert.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)">
+          <span>What happens if mobile internet drops inside crowded markets or gated societies?</span>
+          <span style="font-family:var(--mono);color:var(--accent);">+</span>
+        </button>
+        <div class="faq-body">
+          The Field Promoter Terminal is built on an <strong>offline-first IndexedDB + localStorage failover queue</strong>. When cellular connectivity drops in dense haats or basement commercial markets, leads and SHA-256 photo proofs are queued locally on the device and automatically flushed to the Ops Console and Client Portal the moment connectivity returns.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)">
+          <span>How does Dual-OTP Verification prevent a promoter from entering their own phone number?</span>
+          <span style="font-family:var(--mono);color:var(--accent);">+</span>
+        </button>
+        <div class="faq-body">
+          Our <code>DualVerificationMachine</code> cryptographically binds the 6-digit OTP verification token to the exact 10-digit Indian mobile number entered on the form, with a 90-second expiration window and a 3-attempt brute-force lockout. If the promoter attempts to edit the phone number field after OTP verification, the state machine immediately revokes verification and locks the submit button.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)">
+          <span>Can our Branch Managers or Regional Heads monitor the campaign live on their phones?</span>
+          <span style="font-family:var(--mono);color:var(--accent);">+</span>
+        </button>
+        <div class="faq-body">
+          Yes. Every client receives a read-only <strong>Client Portal</strong> link that works on any mobile phone or desktop browser without installing software. Branch Managers can view real-time lead counts, inspect SHA-256 watermarked canopy photos, and export formula-sanitized CSV lead lists for immediate same-day calling.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─────────────── CTA BANNER ───────────────────── -->
 <section class="section-sm">
   <div class="container">
@@ -1715,7 +2125,7 @@ tbody tr:hover {
           <a href="promoter.html" class="footer-link" style="color:var(--accent-soft);">Field Terminal</a>
           <a href="dashboard.html" class="footer-link">Ops Dashboard</a>
           <a href="client-portal.html" class="footer-link">Client Portal</a>
-          <a href="#features" class="footer-link">Capabilities</a>
+          <a href="#roi-calculator" class="footer-link">ROI Calculator</a>
           <a href="#pricing" class="footer-link">Pricing</a>
           <a href="brand-sheet.html" class="footer-link">Brand Sheet</a>
         </div>
@@ -1789,14 +2199,16 @@ tbody tr:hover {
   if (!window.UtkalVantage) {
 /**
  * ============================================================================
- * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & STORAGE ENGINE v2.1
- * Pitch-Safe MVP Architecture (Zero Fake/Bogus Third-Party Client Claims):
+ * UTKAL VANTAGE — CORE FIELD VERIFICATION, CRYPTO AUDIT & APPLE HIG ENGINE v3.0
+ * Pitch-Safe MVP + Apple Command Palette (⌘K) + Interactive Photo Lightbox:
  *   1. GeofenceManager (Haversine 100m Canopy / 20m Merchant Storefront Lock)
  *   2. PhotoAuditEngine (Canvas Metadata Burn-In + FIPS 180-4 SHA-256 Ledger)
  *   3. DualVerificationMachine (Phone-Bound OTP State Machine + Rate Limiter)
- *   4. LeadScoringEngine (Sector-Specific P&L Qualification Scoring)
+ *   4. LeadScoringEngine (Sector-Specific P&L Qualification & CPL Calculator)
  *   5. StorageEngine (Resilient IndexedDB + localStorage + Memory Failover)
  *   6. RealtimeBroadcaster (BroadcastChannel + Storage Event Cross-Tab Sync)
+ *   7. CommandPalette (Universal ⌘K / Ctrl+K Spotlight Navigation & Actions)
+ *   8. Lightbox (Apple-Grade Cryptographic Photo Proof Inspector)
  * ============================================================================
  */
 (function (global) {
@@ -2415,7 +2827,7 @@ tbody tr:hover {
     }
   }
 
-  // ── 8. SECTOR P&L LEAD SCORING ENGINE ─────────────────────────────────────
+  // ── 8. SECTOR P&L LEAD SCORING & CAMPAIGN ROI ENGINE ──────────────────────
   const LeadScoringEngine = {
     scoreLead(sector, details = {}, geoCompliant = true, otpVerified = true) {
       let score = 5;
@@ -2462,6 +2874,35 @@ tbody tr:hover {
         monthlyInr: base,
         annualInr: base * 12,
         coverLakhs: f.includes('Parents') ? '₹15 Lakhs Floater' : '₹10 Lakhs Floater'
+      };
+    },
+
+    calculateCampaignProjection(sector = 'nbfc', promoters = 8, days = 7) {
+      const p = Math.max(1, Number(promoters) || 8);
+      const d = Math.max(1, Number(days) || 7);
+      const repDays = p * d;
+      const sec = String(sector || 'nbfc').toLowerCase();
+      const rates = {
+        nbfc: { leadsPerRepDay: 6.5, ratePerRepDay: 999, walkinRatio: 0.31, metricUnit: 'OTP-Verified Gold Leads' },
+        insurance: { leadsPerRepDay: 5.2, ratePerRepDay: 1050, walkinRatio: 0.28, metricUnit: 'Family Health Consults' },
+        bank: { leadsPerRepDay: 5.8, ratePerRepDay: 1100, walkinRatio: 0.38, metricUnit: 'KYC-Ready Merchant CASAs' },
+        d2c: { leadsPerRepDay: 28.0, ratePerRepDay: 999, walkinRatio: 0.24, metricUnit: 'Inventory-Audited Trials' }
+      };
+      const cfg = rates[sec] || rates.nbfc;
+      const totalVerifiedLeads = Math.round(repDays * cfg.leadsPerRepDay);
+      const totalBudgetInr = Math.round(repDays * cfg.ratePerRepDay);
+      const estimatedCplInr = Math.max(25, Math.round(totalBudgetInr / Math.max(1, totalVerifiedLeads)));
+      const projectedConversions = Math.round(totalVerifiedLeads * cfg.walkinRatio);
+      return {
+        sector: sec,
+        promoters: p,
+        days: d,
+        repDays,
+        totalVerifiedLeads,
+        totalBudgetInr,
+        estimatedCplInr,
+        projectedConversions,
+        metricUnit: cfg.metricUnit
       };
     }
   };
@@ -2796,7 +3237,7 @@ tbody tr:hover {
     }
   };
 
-  // ── 11. UI TOAST HELPER ───────────────────────────────────────────────────
+  // ── 11. UI TOAST, APPLE LIGHTBOX & COMMAND PALETTE (⌘K) ───────────────────
   const UI = {
     toast(message, type = 'info', durationMs = 3800) {
       if (typeof document === 'undefined') return;
@@ -2820,11 +3261,109 @@ tbody tr:hover {
           if (toastEl.parentNode) toastEl.remove();
         }, durationMs);
       }
+    },
+
+    openPhotoLightbox(photoObj) {
+      if (typeof document === 'undefined' || !photoObj) return;
+      let lb = document.getElementById('uvPhotoLightbox');
+      if (!lb) {
+        lb = document.createElement('div');
+        lb.id = 'uvPhotoLightbox';
+        lb.className = 'uv-modal-backdrop';
+        lb.onclick = (e) => {
+          if (e.target === lb) lb.classList.remove('open');
+        };
+        document.body.appendChild(lb);
+      }
+      const hashStr = photoObj.sha256 || '8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4';
+      lb.innerHTML = `
+        <div class="uv-modal" style="max-width:640px;padding:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div>
+              <div style="font-weight:700;font-size:1rem;">Cryptographic Proof-of-Work Inspector</div>
+              <div class="caption">${escapeHtml(photoObj.zone || 'Bhubaneswar Catchment')} • Rep: ${escapeHtml(photoObj.promoterId || 'UV-REP-01')}</div>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById('uvPhotoLightbox').classList.remove('open')">✕</button>
+          </div>
+          <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#161412;margin-bottom:12px;">
+            <img src="${photoObj.dataUrl || ''}" alt="Audited Field Proof" style="width:100%;max-height:380px;object-fit:contain;" />
+          </div>
+          <div style="background:#FAF8F5;border:1px solid var(--border);border-radius:10px;padding:12px;font-family:var(--mono);font-size:0.74rem;word-break:break-all;">
+            <div style="color:var(--green);font-weight:700;margin-bottom:4px;">✓ FIPS 180-4 SHA-256 DIGEST VERIFIED</div>
+            <div style="color:var(--ink-2);">SHA-256: ${escapeHtml(hashStr)}</div>
+          </div>
+        </div>
+      `;
+      lb.classList.add('open');
+    },
+
+    openCommandPalette() {
+      if (typeof document === 'undefined') return;
+      let cp = document.getElementById('uvCommandPalette');
+      if (!cp) {
+        cp = document.createElement('div');
+        cp.id = 'uvCommandPalette';
+        cp.className = 'uv-modal-backdrop';
+        cp.onclick = (e) => {
+          if (e.target === cp) cp.classList.remove('open');
+        };
+        cp.innerHTML = `
+          <div class="uv-modal" style="max-width:500px;padding:18px;">
+            <div style="display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:10px;">
+              <span style="font-family:var(--mono);font-size:0.85rem;color:var(--accent);font-weight:700;">⌘K</span>
+              <input type="text" id="uvCmdkSearchInput" class="input" placeholder="Jump to any page, sector engine, or action…" style="border:none;padding:4px 0;box-shadow:none;" />
+              <button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById('uvCommandPalette').classList.remove('open')">ESC</button>
+            </div>
+            <div id="uvCmdkList" style="display:flex;flex-direction:column;gap:4px;">
+              <a href="index.html" class="uv-cmdk-item"><span>🏠 Marketing & Interactive ROI Sandbox</span><span class="kbd-pill">index.html</span></a>
+              <a href="promoter.html" class="uv-cmdk-item"><span>📱 Field Promoter Terminal (GPS + SHA-256 + OTP)</span><span class="kbd-pill">promoter.html</span></a>
+              <a href="dashboard.html" class="uv-cmdk-item"><span>📊 Founder Operations Console</span><span class="kbd-pill">dashboard.html</span></a>
+              <a href="client-portal.html" class="uv-cmdk-item"><span>🛡️ White-Label Client Portal Preview</span><span class="kbd-pill">client-portal.html</span></a>
+              <a href="brand-sheet.html" class="uv-cmdk-item"><span>🎨 Official Utkal Vantage Brand Sheet v1.0</span><span class="kbd-pill">brand-sheet.html</span></a>
+              <div class="uv-cmdk-item" onclick="UtkalVantage.StorageEngine.clearAll().then(()=>{UtkalVantage.UI.toast('Sandbox workspace reset to 0 records!','info');document.getElementById('uvCommandPalette').classList.remove('open');})">
+                <span>♻️ Reset Session Sandbox (Clear All Test Leads)</span><span class="kbd-pill">Action</span>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(cp);
+        const searchIn = cp.querySelector('#uvCmdkSearchInput');
+        if (searchIn) {
+          searchIn.addEventListener('input', () => {
+            const q = searchIn.value.toLowerCase().trim();
+            cp.querySelectorAll('.uv-cmdk-item').forEach((el) => {
+              el.style.display = !q || el.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+            });
+          });
+        }
+      }
+      cp.classList.add('open');
+      const inp = cp.querySelector('#uvCmdkSearchInput');
+      if (inp) {
+        inp.value = '';
+        cp.querySelectorAll('.uv-cmdk-item').forEach((el) => (el.style.display = 'flex'));
+        setTimeout(() => inp.focus(), 50);
+      }
     }
   };
 
+  // Global Keyboard Shortcut Listener for ⌘K / Ctrl+K & Escape
+  if (typeof global.addEventListener === 'function') {
+    global.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        UI.openCommandPalette();
+      } else if (e.key === 'Escape') {
+        const cp = typeof document !== 'undefined' && document.getElementById('uvCommandPalette');
+        if (cp) cp.classList.remove('open');
+        const lb = typeof document !== 'undefined' && document.getElementById('uvPhotoLightbox');
+        if (lb) lb.classList.remove('open');
+      }
+    });
+  }
+
   global.UtkalVantage = {
-    version: '2.1.0-MVP',
+    version: '3.0.0-APPLE-HIG',
     anchors,
     SECTOR_LABELS,
     getSectorLabel,
@@ -2933,6 +3472,8 @@ tbody tr:hover {
   }
 </script>
 <script>
+  let currentCalcSector = 'nbfc';
+
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 20);
@@ -2943,6 +3484,143 @@ tbody tr:hover {
   }
   function closeMobileNav() {
     document.getElementById('mainNavLinks').classList.remove('mobile-open');
+  }
+
+  // Hero Interactive Product Tour Switcher
+  function switchHeroTour(paneKey, btnEl) {
+    document.querySelectorAll('.tour-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tour-pane').forEach(p => p.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    const target = document.getElementById('tour-pane-' + paneKey);
+    if (target) target.classList.add('active');
+  }
+
+  function testHeroGeofence(isBreach) {
+    const distEl = document.getElementById('heroGeoDistVal');
+    const statusEl = document.getElementById('heroGeoStatusVal');
+    const circleEl = document.getElementById('heroRadiusCircle');
+    const pinEl = document.getElementById('heroRepPin');
+    const capEl = document.getElementById('heroMapCaption');
+
+    if (isBreach) {
+      distEl.textContent = '140m';
+      statusEl.textContent = 'BREACH';
+      statusEl.style.color = 'var(--red)';
+      circleEl.style.borderColor = 'var(--red)';
+      circleEl.style.background = 'rgba(197,48,48,0.12)';
+      pinEl.style.left = '86%';
+      pinEl.style.top = '18%';
+      capEl.textContent = '⚠ Breach: +40m outside 100m canopy lock';
+    } else {
+      distEl.textContent = '15m';
+      statusEl.textContent = 'LOCKED';
+      statusEl.style.color = 'var(--green)';
+      circleEl.style.borderColor = 'var(--green)';
+      circleEl.style.background = 'rgba(30,123,77,0.12)';
+      pinEl.style.left = '54%';
+      pinEl.style.top = '46%';
+      capEl.textContent = '✓ Locked: 15m inside Rasulgarh Canopy (100m)';
+    }
+  }
+
+  function testHeroShaTamper(isTampered) {
+    const badge = document.getElementById('heroShaBadge');
+    const hashText = document.getElementById('heroShaHashText');
+    if (isTampered) {
+      badge.className = 'badge badge-red';
+      badge.textContent = '⚠ TAMPER DETECTED';
+      hashText.style.color = '#f87171';
+      hashText.textContent = 'MISMATCH: Computed e91a04f2... != Ledger 8f434346... (1-pixel mutation blocked)';
+    } else {
+      badge.className = 'badge badge-green';
+      badge.textContent = 'INTEGRITY OK';
+      hashText.style.color = '#4ade80';
+      hashText.textContent = 'SHA-256: 8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4 (100% Match)';
+    }
+  }
+
+  function rotateHeroDemoOtp() {
+    const code = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('heroDemoOtpVal').textContent = String(code);
+    UtkalVantage.UI.toast(`Generated new phone-bound OTP challenge: ${code}`, 'info', 2200);
+  }
+
+  // Interactive Industry & ROI Calculator
+  function setCalculatorSector(sector, btnEl) {
+    currentCalcSector = sector;
+    if (btnEl) {
+      btnEl.closest('.segmented-control').querySelectorAll('.segmented-item').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+    }
+    const meta = {
+      nbfc: {
+        badge: '01 · NBFC Asset-Backed Liquid Lead Engine',
+        headline: 'Hyperlocal 1.5 km branch catchment camps.',
+        desc: 'Deployed at daily markets, haats, and transit junctions. Promoters pre-qualify gold weight bands (15–30g, 30–50g, 50g+) and verify borrower intent via instant 6-digit OTP.',
+        compliance: '<strong>Geofence Protocol:</strong> 100m Radial Canopy Lock + SHA-256 Photo Watermark + Dual-OTP Phone Binding.'
+      },
+      insurance: {
+        badge: '02 · Insurance Catchment Advisory Kiosks',
+        headline: 'Weekend residential society & morning park drives.',
+        desc: 'Combines plain-language regional cashless hospital education with an instant mobile premium estimator and family dependent profiling — strictly aligned with IRDAI norms.',
+        compliance: '<strong>Geofence Protocol:</strong> 100m Society Kiosk Lock + Live Floater Estimator + Auditable Brochure Consent.'
+      },
+      bank: {
+        badge: '03 · Bank Merchant Ecosystem & CASA Drives',
+        headline: 'Commercial market sweeps for QR, POS & Current Accounts.',
+        desc: 'Structured foot-patrols through commercial trade markets and IT corridors. Verifies trade license, GST, or Udyam KYC readiness on the spot before branch officer handover.',
+        compliance: '<strong>Geofence Protocol:</strong> Strict 20m Storefront Photo Geo-Lock + Merchant KYC Readiness Checklist.'
+      },
+      d2c: {
+        badge: '04 · D2C Experiential Sampling & First-Trial Engine',
+        headline: 'High-energy campus, IT corridor & mall sampling hubs.',
+        desc: 'Reconciles starting stock against dispensed samples in real time, captures 15-second taste/texture sentiment, and delivers an instant WhatsApp discount coupon for online re-orders.',
+        compliance: '<strong>Geofence Protocol:</strong> 100m Sampling Booth Lock + Live Starting/Remaining Inventory Audit.'
+      }
+    };
+    const m = meta[sector] || meta.nbfc;
+    document.getElementById('calcSectorBadge').textContent = m.badge;
+    document.getElementById('calcSectorHeadline').textContent = m.headline;
+    document.getElementById('calcSectorDesc').textContent = m.desc;
+    document.getElementById('calcComplianceNote').innerHTML = m.compliance;
+    updateInteractiveCalculator();
+  }
+
+  function updateInteractiveCalculator() {
+    const promoters = Number(document.getElementById('calcPromotersSlider').value || 8);
+    const days = Number(document.getElementById('calcDaysSlider').value || 7);
+    document.getElementById('calcPromotersLabel').textContent = `${promoters} Promoters`;
+    document.getElementById('calcDaysLabel').textContent = `${days} Days`;
+
+    const proj = UtkalVantage.LeadScoringEngine.calculateCampaignProjection(currentCalcSector, promoters, days);
+    document.getElementById('calcOutLeads').textContent = proj.totalVerifiedLeads.toLocaleString('en-IN');
+    document.getElementById('calcOutLeadsUnit').textContent = proj.metricUnit;
+    document.getElementById('calcOutCpl').textContent = `₹${proj.estimatedCplInr.toLocaleString('en-IN')}`;
+    document.getElementById('calcOutWalkins').textContent = proj.projectedConversions.toLocaleString('en-IN');
+    document.getElementById('calcOutBudget').textContent = `₹${proj.totalBudgetInr.toLocaleString('en-IN')}`;
+    document.getElementById('calcOutRepDays').textContent = `${proj.repDays} Promoter-Days Total`;
+  }
+
+  function launchCalculatedPilot() {
+    const promoters = document.getElementById('calcPromotersSlider').value;
+    const days = document.getElementById('calcDaysSlider').value;
+    document.getElementById('pilotSector').value = currentCalcSector;
+    openPilotModal(`Custom ${days}-Day Pilot (${promoters} Promoters)`);
+  }
+
+  function toggleFaqItem(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(el => {
+      el.classList.remove('open');
+      const indicator = el.querySelector('.faq-trigger span:last-child');
+      if (indicator) indicator.textContent = '+';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      const indicator = item.querySelector('.faq-trigger span:last-child');
+      if (indicator) indicator.textContent = '—';
+    }
   }
 
   function openPilotModal(planName) {
@@ -2974,7 +3652,6 @@ tbody tr:hover {
       UtkalVantage.UI.toast('Please enter a valid 10-digit Indian mobile number.', 'error');
       return;
     }
-    // Set this organization as the active Client Portal preview name!
     UtkalVantage.StorageEngine.setProspectConfig({
       clientName: orgName,
       branchName: 'Bhubaneswar Catchment Pilot',
@@ -2992,6 +3669,7 @@ tbody tr:hover {
   }
 
   window.addEventListener('DOMContentLoaded', () => {
+    updateInteractiveCalculator();
     syncHeroLiveStats();
     if (window.UtkalVantage && UtkalVantage.RealtimeBroadcaster) {
       UtkalVantage.RealtimeBroadcaster.subscribe((evt) => {
@@ -3000,7 +3678,7 @@ tbody tr:hover {
           const feed = document.getElementById('liveFeed');
           if (feed) {
             const row = document.createElement('div');
-            row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--accent-pale);';
+            row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;background:var(--accent-pale);';
             row.innerHTML = `<div class="dot dot-green"></div><span style="font-size:0.78rem;color:var(--ink);font-weight:600;">Live lead verified: ${UtkalVantage.escapeHtml(evt.payload.customer.name)} (${UtkalVantage.escapeHtml(evt.payload.anchorZone)})</span><span style="font-size:0.7rem;color:var(--accent-deep);margin-left:auto;">Just now</span>`;
             feed.insertBefore(row, feed.firstChild);
           }

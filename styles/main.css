@@ -1,5 +1,6 @@
 /* ==========================================================================
-   UTKAL VANTAGE — GLOBAL DESIGN SYSTEM & MOBILE-FIRST RESPONSIVE ENGINE v2.0
+   UTKAL VANTAGE — APPLE HIG & B2B SAAS DESIGN SYSTEM v3.0
+   Principles: Clarity, Deference, Depth, Spring Physics & Tactile Materials
    Brand Palette: Sunrise Coral (#D85A30), Ember (#993C1D), Dawn (#F5C4B3),
    Ink (#1F1D1B), Warm Paper (#F6F3EE), Amber (#EF9F27), Forest (#1E7B4D)
    ========================================================================== */
@@ -12,11 +13,11 @@
   --ink-2: #38332E;
   --ink-3: #6B6660;
   --muted: #6B6660;
-  --line: #DCD6CD;
+  --line: #E2DDD5;
   --panel: #ECE7DF;
   --surface: #FFFFFF;
-  --border: #DCD6CD;
-  --border-strong: #B8B0A2;
+  --border: rgba(31, 29, 27, 0.11);
+  --border-strong: rgba(31, 29, 27, 0.22);
 
   --accent: #D85A30;
   --accent-2: #E8714A;
@@ -34,20 +35,25 @@
   --red: #C53030;
   --red-pale: #FDE8E8;
 
-  --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
 
-  --shadow-sm: 0 2px 6px rgba(31, 29, 27, 0.05);
-  --shadow: 0 6px 20px rgba(31, 29, 27, 0.08);
-  --shadow-lg: 0 18px 42px rgba(31, 29, 27, 0.12);
+  /* Apple Multi-Layered Contact + Ambient Shadows */
+  --shadow-sm: 0 1px 2px rgba(31, 29, 27, 0.04), 0 4px 12px rgba(31, 29, 27, 0.04);
+  --shadow: 0 2px 4px rgba(31, 29, 27, 0.04), 0 12px 28px -4px rgba(31, 29, 27, 0.08);
+  --shadow-lg: 0 4px 8px rgba(31, 29, 27, 0.04), 0 24px 48px -8px rgba(31, 29, 27, 0.14);
+  --specular-inset: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 
-  --sidebar-w: 252px;
+  /* Apple Critically Damped Spring Physics */
+  --spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --sidebar-w: 256px;
   --topbar-h: 64px;
   color-scheme: light;
 }
@@ -73,6 +79,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
@@ -89,31 +96,33 @@ button, input, select, textarea {
   font: inherit;
 }
 
-/* ── Typography ─────────────────────────────────────────────────────────── */
+/* ── Typography (Optical Sizing & Balanced Tracking) ────────────────────── */
 .display {
   font-family: var(--display);
-  font-size: clamp(2.25rem, 5vw, 3.8rem);
+  font-size: clamp(2.35rem, 5.2vw, 4rem);
   font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .h1, h1 {
   font-family: var(--display);
-  font-size: clamp(1.75rem, 3.6vw, 2.65rem);
+  font-size: clamp(1.8rem, 3.6vw, 2.75rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .h2, h2 {
   font-family: var(--display);
-  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-size: clamp(1.28rem, 2.4vw, 1.7rem);
   font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: -0.015em;
+  line-height: 1.16;
+  letter-spacing: -0.018em;
   color: var(--ink);
 }
 
@@ -121,8 +130,8 @@ button, input, select, textarea {
   font-family: var(--display);
   font-size: 1.12rem;
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.24;
+  letter-spacing: -0.012em;
   color: var(--ink);
 }
 
@@ -149,19 +158,19 @@ button, input, select, textarea {
   font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
 /* ── Layout & Containers ────────────────────────────────────────────────── */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1220px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 .section {
-  padding: 84px 0;
+  padding: 88px 0;
 }
 
 .section-sm {
@@ -193,34 +202,35 @@ button, input, select, textarea {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(220, 214, 205, 0.8);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-sm);
 }
 
-/* ── Top Marketing Navigation ───────────────────────────────────────────── */
+/* ── Apple Vibrancy Top Navigation ──────────────────────────────────────── */
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 200;
-  background: rgba(246, 243, 238, 0.86);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  background: rgba(246, 243, 238, 0.78);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(31, 29, 27, 0.06);
+  transition: border-color 0.3s var(--spring), box-shadow 0.3s var(--spring), background 0.3s var(--spring);
 }
 
 .nav.scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.88);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
 }
 
 .nav-inner {
-  height: 72px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -254,15 +264,15 @@ button, input, select, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
 }
 
 .nav-link {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--ink-2);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s var(--spring);
 }
 
 .nav-link:hover {
@@ -272,7 +282,7 @@ button, input, select, textarea {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .mobile-menu-toggle {
@@ -288,45 +298,50 @@ button, input, select, textarea {
   cursor: pointer;
 }
 
-/* ── Buttons & Inputs ───────────────────────────────────────────────────── */
+/* ── Apple HIG Tactile Buttons & Segmented Controls ─────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-family: var(--body);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
   padding: 10px 18px;
-  border-radius: 10px;
-  border: 1.5px solid transparent;
+  border-radius: 11px;
+  border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.22s var(--spring), box-shadow 0.22s var(--spring), background 0.2s var(--spring), border-color 0.2s var(--spring);
   white-space: nowrap;
   user-select: none;
 }
 
+.btn:hover {
+  transform: translateY(-1px);
+}
+
 .btn:active {
-  transform: translateY(1px);
+  transform: scale(0.975);
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(180deg, #E06338 0%, #D85A30 100%);
   color: #FFFFFF;
-  border-color: var(--accent);
+  border-color: rgba(153, 60, 29, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(216, 90, 48, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--accent-deep);
-  border-color: var(--accent-deep);
-  box-shadow: 0 4px 14px rgba(216, 90, 48, 0.28);
+  background: linear-gradient(180deg, #D85A30 0%, #B84722 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px rgba(216, 90, 48, 0.34);
 }
 
 .btn-ghost {
   background: var(--surface);
   color: var(--ink);
   border-color: var(--border-strong);
+  box-shadow: var(--specular-inset), 0 1px 2px rgba(31, 29, 27, 0.03);
 }
 
 .btn-ghost:hover {
@@ -335,32 +350,80 @@ button, input, select, textarea {
 }
 
 .btn-sm {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   padding: 7px 12px;
-  border-radius: 8px;
+  border-radius: 9px;
 }
 
 .btn-lg {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   padding: 13px 24px;
-  border-radius: 12px;
+  border-radius: 13px;
 }
 
 .input {
   width: 100%;
   padding: 10px 14px;
-  border-radius: 9px;
+  border-radius: 10px;
   border: 1.5px solid var(--border-strong);
   background: var(--surface);
   color: var(--ink);
   font-family: var(--body);
   font-size: 0.92rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s var(--spring), box-shadow 0.2s var(--spring);
 }
 
 .input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(216, 90, 48, 0.16);
+}
+
+/* Apple Segmented Control */
+.segmented-control {
+  display: inline-flex;
+  background: rgba(31, 29, 27, 0.065);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(31, 29, 27, 0.06);
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.segmented-item {
+  padding: 8px 16px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.24s var(--spring);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.segmented-item:hover {
+  color: var(--ink);
+}
+
+.segmented-item.active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(31, 29, 27, 0.1), 0 0.5px 1px rgba(31, 29, 27, 0.08);
+}
+
+.kbd-pill {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(31, 29, 27, 0.07);
+  color: var(--ink-3);
+  border: 1px solid rgba(31, 29, 27, 0.12);
 }
 
 /* ── Badges, Dots & Deltas ──────────────────────────────────────────────── */
@@ -369,7 +432,7 @@ button, input, select, textarea {
   align-items: center;
   gap: 5px;
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 999px;
@@ -380,13 +443,13 @@ button, input, select, textarea {
 .badge-accent {
   background: var(--accent-pale);
   color: var(--accent-deep);
-  border: 1px solid rgba(216, 90, 48, 0.25);
+  border: 1px solid rgba(216, 90, 48, 0.24);
 }
 
 .badge-green {
   background: var(--green-pale);
   color: var(--green);
-  border: 1px solid rgba(30, 123, 77, 0.25);
+  border: 1px solid rgba(30, 123, 77, 0.24);
 }
 
 .badge-amber {
@@ -398,7 +461,7 @@ button, input, select, textarea {
 .badge-red {
   background: var(--red-pale);
   color: var(--red);
-  border: 1px solid rgba(197, 48, 48, 0.25);
+  border: 1px solid rgba(197, 48, 48, 0.24);
 }
 
 .badge-neutral {
@@ -456,7 +519,8 @@ button, input, select, textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--specular-inset), var(--shadow-sm);
+  transition: transform 0.28s var(--spring), box-shadow 0.28s var(--spring);
 }
 
 .card-flat {
@@ -464,6 +528,7 @@ button, input, select, textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
+  box-shadow: var(--specular-inset), 0 1px 3px rgba(31, 29, 27, 0.03);
 }
 
 .avatar {
@@ -494,7 +559,7 @@ button, input, select, textarea {
   height: 100%;
   background: var(--accent);
   border-radius: 999px;
-  transition: width 0.35s ease;
+  transition: width 0.4s var(--spring);
 }
 
 .progress-fill.green {
@@ -522,7 +587,7 @@ table {
 
 thead th {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -545,13 +610,17 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
+tbody tr {
+  transition: background 0.15s ease;
+}
+
 tbody tr:hover {
-  background: rgba(246, 243, 238, 0.55);
+  background: rgba(246, 243, 238, 0.65);
 }
 
 .tabs {
   display: inline-flex;
-  background: var(--panel);
+  background: rgba(31, 29, 27, 0.06);
   padding: 4px;
   border-radius: 10px;
   border: 1px solid var(--border);
@@ -565,7 +634,7 @@ tbody tr:hover {
   font-weight: 600;
   color: var(--ink-3);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s var(--spring);
 }
 
 .tab.active {
@@ -586,7 +655,7 @@ tbody tr:hover {
   align-items: center;
   gap: 32px;
   white-space: nowrap;
-  animation: marquee-scroll 28s linear infinite;
+  animation: marquee-scroll 30s linear infinite;
 }
 
 @keyframes marquee-scroll {
@@ -600,7 +669,7 @@ tbody tr:hover {
 }
 
 .animate-slide-up {
-  animation: slideUpFade 0.45s ease forwards;
+  animation: slideUpFade 0.5s var(--spring) forwards;
 }
 
 .delay-1 { animation-delay: 0.06s; }
@@ -618,7 +687,9 @@ tbody tr:hover {
 
 .sidebar {
   width: var(--sidebar-w);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -627,7 +698,7 @@ tbody tr:hover {
   bottom: 0;
   left: 0;
   z-index: 300;
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s var(--spring);
 }
 
 .sidebar-logo {
@@ -649,7 +720,7 @@ tbody tr:hover {
 
 .sidebar-section {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -662,17 +733,17 @@ tbody tr:hover {
   align-items: center;
   gap: 10px;
   padding: 9px 12px;
-  border-radius: 9px;
+  border-radius: 10px;
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--ink-2);
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: all 0.18s var(--spring);
   cursor: pointer;
 }
 
 .sidebar-item:hover {
-  background: var(--bg);
+  background: rgba(31, 29, 27, 0.05);
   color: var(--ink);
 }
 
@@ -692,7 +763,9 @@ tbody tr:hover {
 
 .app-topbar {
   min-height: var(--topbar-h);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 10px 24px;
   display: flex;
@@ -716,8 +789,8 @@ tbody tr:hover {
 .sidebar-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(31, 29, 27, 0.55);
-  backdrop-filter: blur(2px);
+  background: rgba(31, 29, 27, 0.45);
+  backdrop-filter: blur(4px);
   z-index: 290;
   display: none;
 }
@@ -732,13 +805,15 @@ tbody tr:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 62px;
-  background: var(--surface);
-  border-top: 1.5px solid var(--border);
+  height: 64px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--border);
   z-index: 280;
   grid-template-columns: repeat(5, 1fr);
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  box-shadow: 0 -4px 16px rgba(31, 29, 27, 0.06);
+  box-shadow: 0 -4px 20px rgba(31, 29, 27, 0.06);
 }
 
 .mobile-bottom-item {
@@ -760,12 +835,13 @@ tbody tr:hover {
   color: var(--accent);
 }
 
-/* ── Universal Modal & Toast Components ─────────────────────────────────── */
+/* ── Universal Modal, Command Palette (⌘K) & Toast Components ──────────── */
 .uv-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(31, 29, 27, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(22, 20, 18, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 2500;
   display: none;
   align-items: center;
@@ -779,15 +855,36 @@ tbody tr:hover {
 
 .uv-modal {
   background: var(--surface);
-  border: 1.5px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   max-height: 90dvh;
   overflow-y: auto;
   padding: 24px;
   box-shadow: var(--shadow-lg);
   color: var(--ink);
+  animation: slideUpFade 0.24s var(--spring) forwards;
+}
+
+/* Command Palette Item */
+.uv-cmdk-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.uv-cmdk-item:hover {
+  background: var(--accent-pale);
+  color: var(--accent-deep);
 }
 
 .uv-toast-container {
@@ -798,14 +895,15 @@ tbody tr:hover {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: min(380px, calc(100vw - 32px));
+  max-width: min(390px, calc(100vw - 32px));
 }
 
 .uv-toast {
-  background: #1F1D1B;
+  background: rgba(31, 29, 27, 0.94);
+  backdrop-filter: blur(12px);
   color: #FFFFFF;
   padding: 12px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 0.84rem;
   font-weight: 500;
   box-shadow: var(--shadow-lg);
@@ -814,7 +912,7 @@ tbody tr:hover {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  animation: slideUpFade 0.25s ease forwards;
+  animation: slideUpFade 0.25s var(--spring) forwards;
 }
 
 .uv-toast.success { border-left-color: #4ade80; }
@@ -862,10 +960,11 @@ tbody tr:hover {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 72px;
+    top: 68px;
     left: 0;
     right: 0;
-    background: var(--surface);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
     padding: 16px 24px;
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow);
@@ -876,7 +975,7 @@ tbody tr:hover {
     padding: 10px 14px;
   }
   .app-content {
-    padding: 14px 14px 80px 14px;
+    padding: 14px 14px 82px 14px;
   }
   .mobile-bottom-nav {
     display: grid;
