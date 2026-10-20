@@ -21,15 +21,7 @@
   to = "/client-portal.html"
   status = 200
 
-[[redirects]]
-  from = "/brand"
-  to = "/brand-sheet.html"
-  status = 200
 
-[[redirects]]
-  from = "/brand-sheet"
-  to = "/brand-sheet.html"
-  status = 200
 
 [[headers]]
   for = "/*"
