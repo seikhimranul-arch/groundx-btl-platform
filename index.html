@@ -1364,7 +1364,7 @@ tbody tr:hover {
 
     /* ── Mobile ── */
     @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; padding-top: 92px; gap: 28px; }
+      .hero { grid-template-columns: 1fr; padding-top: 24px !important; padding-bottom: 32px !important; gap: 24px; }
       .calculator-shell { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
       .features-grid, .ps-grid, .testimonials-grid { grid-template-columns: 1fr; }
       .proof-grid { grid-template-columns: 1fr; }
@@ -1668,12 +1668,226 @@ tbody tr:hover {
     }
 
     @media (max-width: 600px) {
-      .tour-tabs { grid-template-columns: repeat(2, 1fr); }
-      .calc-output-grid { grid-template-columns: 1fr; }
-      .suite-grid { grid-template-columns: 1fr !important; }
-      .how-it-works-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .nav-actions .hide-xs { display: none; }
+      /* Prevent horizontal scroll wobble */
+      html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+      }
+      .container {
+        padding: 0 16px !important;
+      }
+
+      /* Navbar Mobile Polish */
+      .nav-inner {
+        height: 60px !important;
+      }
+      .nav-logo {
+        gap: 8px !important;
+      }
+      .nav-logo-mark img {
+        width: 42px !important;
+      }
+      .nav-logo-text {
+        font-size: 1.15rem !important;
+      }
+      .nav-actions {
+        gap: 8px !important;
+      }
+      .nav-actions .btn-sm {
+        padding: 5px 11px !important;
+        font-size: 0.74rem !important;
+      }
+
+      /* Enterprise Announcement Banner Mobile */
+      .enterprise-banner {
+        margin-top: 60px !important;
+        padding: 10px 0 !important;
+      }
+      .enterprise-banner .container {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+      }
+      .enterprise-banner button {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 8px 14px !important;
+        font-size: 0.78rem !important;
+      }
+
+      /* Hero Mobile */
+      .hero {
+        padding-top: 18px !important;
+        padding-bottom: 24px !important;
+        gap: 20px !important;
+      }
+      .hero-tag {
+        font-size: 0.68rem !important;
+        padding: 4px 10px !important;
+        margin-bottom: 10px !important;
+        white-space: normal !important;
+        line-height: 1.35 !important;
+      }
+      .hero-headline {
+        font-size: clamp(1.85rem, 7.5vw, 2.2rem) !important;
+        line-height: 1.16 !important;
+        margin-bottom: 10px !important;
+        letter-spacing: -0.025em !important;
+      }
+      .hero-sub {
+        font-size: 0.88rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 16px !important;
+      }
+      .hero-cta {
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-bottom: 16px !important;
+      }
+      .hero-cta .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 10px 16px !important;
+        font-size: 0.88rem !important;
+      }
+      .hero-trust-pills {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 6px !important;
+      }
+      .trust-pill {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        font-size: 0.68rem !important;
+        padding: 6px 10px !important;
+      }
+
+      /* Hero Interactive Dashboard Mobile */
+      .hero-dashboard {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+      }
+      .hero-dashboard-bar {
+        margin-bottom: 10px !important;
+      }
+      .tour-tabs {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 4px !important;
+        margin-bottom: 10px !important;
+      }
+      .tour-tab {
+        padding: 6px 4px !important;
+        font-size: 0.67rem !important;
+      }
+      .hero-stats {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
+      }
+      .hero-stat {
+        padding: 7px 6px !important;
+        border-radius: 9px !important;
+      }
+      .hero-stat-val {
+        font-size: 0.95rem !important;
+      }
+      .hero-stat-label {
+        font-size: 0.58rem !important;
+      }
+      .hero-map {
+        height: 195px !important;
+        border-radius: 10px !important;
+      }
+      #heroMapCaption {
+        font-size: 0.62rem !important;
+        line-height: 1.25 !important;
+      }
+
+      /* 5-Card Ground Truth Enterprise Suite Strip Mobile */
+      .suite-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+      .suite-card {
+        padding: 18px 14px !important;
+        border-radius: 14px !important;
+      }
+      .suite-card div[style*="font-size:1.12rem"] {
+        font-size: 1.02rem !important;
+        margin-bottom: 4px !important;
+      }
+      .suite-card div[style*="font-size:0.83rem"] {
+        font-size: 0.8rem !important;
+        line-height: 1.45 !important;
+      }
+
+      /* ROI Calculator Mobile */
+      .calculator-shell {
+        padding: 18px 12px !important;
+        border-radius: 16px !important;
+      }
+      .calc-output-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .calc-slider-val {
+        font-size: 1.25rem !important;
+      }
+      .calc-stat-hero-num {
+        font-size: 1.55rem !important;
+      }
+      .calc-output-card {
+        padding: 14px !important;
+      }
+
+      /* Problem/Solution & Features Mobile */
+      .section {
+        padding: 38px 0 !important;
+      }
+      .section-sm {
+        padding: 20px 0 !important;
+      }
+      h1.h1, .h1 {
+        font-size: 1.75rem !important;
+        line-height: 1.2 !important;
+      }
+      h2.h2, .h2 {
+        font-size: 1.4rem !important;
+        line-height: 1.25 !important;
+      }
+      .ps-item {
+        padding: 12px 14px !important;
+      }
+      .feature-card {
+        padding: 18px 14px !important;
+      }
+      .proof-cell {
+        padding: 18px 14px !important;
+      }
+      .how-it-works-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+      }
+
+      /* Quote Modal Mobile */
+      #quoteModalBackdrop .uv-modal {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        padding: 20px 14px !important;
+        max-height: 92vh !important;
+      }
+      #quoteModalBackdrop .grid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+
+      .nav-actions .hide-xs {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -1701,7 +1915,7 @@ tbody tr:hover {
           <span>Search</span>
           <span class="kbd-pill">⌘K</span>
         </button>
-        <a href="promoter.html" class="btn btn-ghost btn-sm" style="color:var(--accent);border-color:rgba(216,90,48,0.4);">
+        <a href="promoter.html" class="btn btn-ghost btn-sm hide-xs" style="color:var(--accent);border-color:rgba(216,90,48,0.4);">
           <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Field App
         </a>
