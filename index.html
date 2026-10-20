@@ -225,18 +225,25 @@ button, input, select, textarea {
   left: 0;
   right: 0;
   z-index: 200;
-  background: rgba(246, 243, 238, 0.78);
+  background: rgba(31, 29, 27, 0.65);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(31, 29, 27, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: border-color 0.3s var(--spring), box-shadow 0.3s var(--spring), background 0.3s var(--spring);
 }
 
 .nav.scrolled {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(246, 243, 238, 0.95);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
 }
+.nav:not(.scrolled) .nav-logo-text { color: #fff; }
+.nav:not(.scrolled) .nav-link { color: rgba(255,255,255,0.78); }
+.nav:not(.scrolled) .nav-link:hover { color: #fff; }
+.nav:not(.scrolled) .kbd-pill { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.15); }
+.nav:not(.scrolled) .btn-ghost { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.2); }
+.nav:not(.scrolled) .btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.35); color: #fff; }
+.nav:not(.scrolled) .mobile-menu-toggle { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: #fff; }
 
 .nav-inner {
   height: 68px;
@@ -1022,34 +1029,36 @@ tbody tr:hover {
   <style>
     /* ── Apple HIG & B2B SaaS Landing Architecture v3.0 ── */
     .hero {
-      min-height: 100dvh;
+      min-height: calc(100dvh - 68px);
       display: grid;
       grid-template-columns: 1.05fr 1fr;
       align-items: center;
       gap: 40px;
-      padding-top: 96px;
+      padding-top: 48px;
       padding-bottom: 64px;
       background:
-        radial-gradient(ellipse 65% 55% at 78% 22%, rgba(216,90,48,0.11) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 45% at 15% 85%, rgba(239,159,39,0.08) 0%, transparent 70%),
-        var(--bg);
+        radial-gradient(ellipse 65% 55% at 78% 22%, rgba(216,90,48,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 15% 85%, rgba(239,159,39,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(31,29,27,0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #1a1715 0%, #2a2520 35%, #1F1D1B 100%);
       position: relative;
       overflow: hidden;
+      color: #fff;
     }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.85);
+      background: rgba(216,90,48,0.15);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(216,90,48,0.25);
-      box-shadow: 0 2px 8px rgba(216,90,48,0.08);
+      border: 1px solid rgba(216,90,48,0.35);
+      box-shadow: 0 2px 8px rgba(216,90,48,0.12);
       border-radius: 100px; padding: 6px 14px;
       font-family: var(--mono);
-      font-size: 0.74rem; font-weight: 600; color: var(--accent-deep);
+      font-size: 0.74rem; font-weight: 600; color: var(--accent-soft);
       margin-bottom: 22px;
     }
-    .hero-headline { margin-bottom: 18px; }
-    .hero-headline span { color: var(--accent); }
-    .hero-sub { max-width: 52ch; margin-bottom: 30px; }
+    .hero-headline { margin-bottom: 18px; color: #fff; }
+    .hero-headline span { color: var(--accent-2); }
+    .hero-sub { max-width: 52ch; margin-bottom: 30px; color: rgba(255,255,255,0.78); }
     .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
     .hero-trust-pills {
       display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
@@ -1057,18 +1066,18 @@ tbody tr:hover {
     .trust-pill {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 6px 11px; border-radius: 9px;
-      background: rgba(255,255,255,0.75); border: 1px solid var(--border);
-      font-family: var(--mono); font-size: 0.71rem; font-weight: 600; color: var(--ink-2);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      font-family: var(--mono); font-size: 0.71rem; font-weight: 600; color: rgba(255,255,255,0.85);
     }
 
     /* Interactive Hero Product Tour Window (Apple Window Chrome) */
     .hero-dashboard {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.07);
       backdrop-filter: saturate(180%) blur(24px);
-      border: 1px solid rgba(31, 29, 27, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-xl);
       padding: 20px;
-      box-shadow: var(--specular-inset), var(--shadow-lg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
       position: relative;
       transition: transform 0.35s var(--spring);
     }
@@ -1349,6 +1358,9 @@ tbody tr:hover {
     .footer-col-title { font-family: var(--mono); font-size: 0.74rem; font-weight: 500; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 
+    /* ── Salesforce-Style Product Suite Cards ── */
+    .suite-card:hover { background: rgba(216,90,48,0.12) !important; border-color: rgba(216,90,48,0.3) !important; transform: translateY(-3px); }
+
     /* ── Mobile ── */
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; padding-top: 92px; gap: 28px; }
@@ -1356,6 +1368,7 @@ tbody tr:hover {
       .features-grid, .ps-grid, .testimonials-grid { grid-template-columns: 1fr; }
       .proof-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
+      .suite-grid { grid-template-columns: repeat(2, 1fr) !important; }
       .how-it-works-grid { grid-template-columns: repeat(2, 1fr); }
       .how-connector { display: none; }
       .cta-banner { flex-direction: column; text-align: center; padding: 36px 24px; }
@@ -1656,6 +1669,7 @@ tbody tr:hover {
     @media (max-width: 600px) {
       .tour-tabs { grid-template-columns: repeat(2, 1fr); }
       .calc-output-grid { grid-template-columns: 1fr; }
+      .suite-grid { grid-template-columns: 1fr !important; }
       .how-it-works-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .nav-actions .hide-xs { display: none; }
@@ -1691,10 +1705,13 @@ tbody tr:hover {
           <ph-icon name="device-mobile" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Field App
         </a>
-        <a href="dashboard.html" class="btn btn-primary btn-sm">
+        <a href="dashboard.html" class="btn btn-ghost btn-sm hide-xs">
           <ph-icon name="chart-bar" weight="bold" style="width:14px;height:14px;"></ph-icon>
           Ops Console
         </a>
+        <button type="button" class="btn btn-sm" onclick="openQuoteModal('Enterprise BTL Proposal')" style="background:#2e844a; border-color:#23693a; color:#fff; border-radius:999px; padding:7px 16px; font-weight:700; box-shadow:0 2px 6px rgba(46,132,74,0.3);">
+          Request Quote
+        </button>
         <button type="button" class="mobile-menu-toggle" onclick="toggleMobileNav()" aria-label="Menu">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
@@ -1702,6 +1719,28 @@ tbody tr:hover {
     </div>
   </div>
 </nav>
+
+<!-- ─────────────── SALESFORCE-STYLE ENTERPRISE ANNOUNCEMENT BANNER ─────────────── -->
+<div class="enterprise-banner" style="background: linear-gradient(90deg, #0A2540 0%, #153E75 45%, #0070D2 100%); color: #fff; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.12); margin-top: 68px; position: relative; z-index: 10;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:1.35rem; filter:drop-shadow(0 2px 4px rgba(255,215,0,0.4));">✨</span>
+      <div>
+        <div style="font-family:var(--display); font-size:1.02rem; font-weight:700; color:#fff; letter-spacing:-0.01em;">
+          Get Started with Utkal Vantage — Odisha's #1 Ground Truth BTL Layer
+        </div>
+        <div style="font-size:0.81rem; color:rgba(255,255,255,0.85); margin-top:1px;">
+          Uniquely built for Odisha's banks, NBFCs &amp; growth brands. Deploy 100m GPS-locked canopies with 100% OTP-verified leads. Live in 48 hours!
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button type="button" class="btn btn-sm" onclick="openQuoteModal('Odisha SMB Growth Kit — Fast Track Pilot')" style="background:#fff; color:#0A2540; font-weight:700; border:none; padding:8px 18px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.25); cursor:pointer;">
+        Get Territory Growth Kit →
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ─────────────── HERO WITH INTERACTIVE PRODUCT TOUR ─────────────── -->
 <section class="hero">
@@ -1838,6 +1877,41 @@ tbody tr:hover {
             <a href="promoter.html" style="font-size:0.72rem;color:var(--accent);font-weight:700;margin-left:auto;text-decoration:none;">Open App →</a>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SALESFORCE-STYLE PRODUCT SUITE STRIP ─────────────── -->
+<section style="background:linear-gradient(180deg, #1F1D1B 0%, #171514 100%);padding:56px 0 64px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.08);">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.5rem);font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.02em;">Welcome to the Ground Truth Enterprise</h2>
+    <p style="font-size:1.05rem;color:rgba(216,90,48,0.9);max-width:62ch;margin:0 auto 40px auto;font-family:var(--body);font-weight:500;">Where GPS locks, SHA-256 photo audits, and dual-OTP verification drive verified customer acquisition together.</p>
+    <div class="suite-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+      <div class="suite-card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px 20px;text-align:left;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(216,90,48,0.22);display:grid;place-items:center;margin-bottom:16px;"><ph-icon name="map-pin" weight="fill" style="width:20px;height:20px;color:var(--accent-2);"></ph-icon></div>
+        <div style="font-family:var(--display);font-weight:700;font-size:1.12rem;color:#fff;margin-bottom:8px;">GPS Geofence</div>
+        <div style="font-size:0.83rem;color:rgba(255,255,255,0.65);line-height:1.55;">100m canopy lock &amp; 20m storefront verification. Zero ghost activations.</div>
+      </div>
+      <div class="suite-card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px 20px;text-align:left;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(74,222,128,0.18);display:grid;place-items:center;margin-bottom:16px;"><ph-icon name="shield-check" weight="fill" style="width:20px;height:20px;color:#4ade80;"></ph-icon></div>
+        <div style="font-family:var(--display);font-weight:700;font-size:1.12rem;color:#fff;margin-bottom:8px;">SHA-256 Audit</div>
+        <div style="font-size:0.83rem;color:rgba(255,255,255,0.65);line-height:1.55;">FIPS 180-4 cryptographic tamper-proof photo verification ledger.</div>
+      </div>
+      <div class="suite-card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px 20px;text-align:left;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(239,159,39,0.2);display:grid;place-items:center;margin-bottom:16px;"><ph-icon name="key" weight="fill" style="width:20px;height:20px;color:#EF9F27;"></ph-icon></div>
+        <div style="font-family:var(--display);font-weight:700;font-size:1.12rem;color:#fff;margin-bottom:8px;">Dual OTP</div>
+        <div style="font-size:0.83rem;color:rgba(255,255,255,0.65);line-height:1.55;">100% phone-bound OTP verification. 0% dead numbers for branch teams.</div>
+      </div>
+      <div class="suite-card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px 20px;text-align:left;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(216,90,48,0.22);display:grid;place-items:center;margin-bottom:16px;"><ph-icon name="eye" weight="fill" style="width:20px;height:20px;color:var(--accent-2);"></ph-icon></div>
+        <div style="font-family:var(--display);font-weight:700;font-size:1.12rem;color:#fff;margin-bottom:8px;">Client Portal</div>
+        <div style="font-size:0.83rem;color:rgba(255,255,255,0.65);line-height:1.55;">Real-time transparency portal with live funnels, audits, and CSV export.</div>
+      </div>
+      <div class="suite-card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px 20px;text-align:left;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(30,123,77,0.22);display:grid;place-items:center;margin-bottom:16px;"><ph-icon name="database" weight="fill" style="width:20px;height:20px;color:#4ade80;"></ph-icon></div>
+        <div style="font-family:var(--display);font-weight:700;font-size:1.12rem;color:#fff;margin-bottom:8px;">DPDP Compliant</div>
+        <div style="font-size:0.83rem;color:rgba(255,255,255,0.65);line-height:1.55;">Bilingual EN+Odia consent engine with DLP firewall for legal safety.</div>
       </div>
     </div>
   </div>
@@ -4453,6 +4527,20 @@ tbody tr:hover {
   window.addEventListener('DOMContentLoaded', () => {
     updateInteractiveCalculator();
     syncHeroLiveStats();
+
+    /* ── Nav Scroll State for Dark Hero (Salesforce style header transition) ── */
+    const mainNav = document.getElementById('mainNav');
+    if (mainNav) {
+      const onScroll = () => {
+        if (window.scrollY > 50) {
+          mainNav.classList.add('scrolled');
+        } else {
+          mainNav.classList.remove('scrolled');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
 
     /* ── Scroll-Triggered Animations (Webflow-grade IntersectionObserver) ── */
     if ('IntersectionObserver' in window) {
