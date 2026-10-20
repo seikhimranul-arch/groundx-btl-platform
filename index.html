@@ -1258,11 +1258,11 @@ tbody tr:hover {
     .pricing-card.featured { background: var(--fg); border-color: var(--fg); box-shadow: var(--shadow-lg); }
     .pricing-card.featured * { color: rgba(255,255,255,0.85); }
     .pricing-card.featured .h2 { color: #fff; }
-    .pricing-card.featured .h3 { color: #fff; }
-    .pricing-price { display: flex; align-items: baseline; gap: 4px; margin: 16px 0; }
-    .pricing-price .amount { font-family: var(--mono); font-size: 2.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--fg); }
+    .pricing-price { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 16px 0; }
+    .pricing-price .amount { font-family: var(--display); font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; color: var(--fg); line-height: 1.15; }
     .pricing-card.featured .pricing-price .amount { color: #fff; }
-    .pricing-price .period { font-size: 0.85rem; color: var(--ink-3); }
+    .pricing-price .period { font-size: 0.82rem; color: var(--ink-3); }
+    .pricing-card.featured .pricing-price .period { color: rgba(255,255,255,0.75); }
     .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 20px 0 24px; }
     .pricing-feature { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; }
 
@@ -1361,6 +1361,298 @@ tbody tr:hover {
       .cta-banner { flex-direction: column; text-align: center; padding: 36px 24px; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       WORLD-CLASS SAAS UI/UX ENHANCEMENTS
+       Inspired by: Stripe · Linear · Vercel · Notion · Figma · Loom
+       ═══════════════════════════════════════════════════════════════════ */
+
+    /* ── Scroll-Triggered Fade-In Animations (Webflow-grade) ── */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Stripe Gradient Mesh on Hero ── */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(216,90,48,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(239,159,39,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero { position: relative; }
+    .hero > * { position: relative; z-index: 1; }
+
+    /* ── Vercel-Style Dot Grid Background on Sections ── */
+    #features::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(31,29,27,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
+      -webkit-mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
+    }
+    #features { position: relative; }
+    #features > * { position: relative; z-index: 1; }
+
+    /* ── Linear Smooth Card Hover Depth (Feature Bento) ── */
+    .feature-card {
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .feature-card:hover {
+      transform: translateY(-4px) scale(1.005);
+      box-shadow: 0 8px 32px -6px rgba(31,29,27,0.12), 0 2px 6px rgba(31,29,27,0.06);
+      border-color: rgba(216,90,48,0.22);
+    }
+    .feature-card .feature-number {
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .feature-card:hover .feature-number {
+      color: var(--accent) !important;
+      transform: scale(1.1);
+    }
+
+    /* ── Figma-Style Accent Glow on Feature Icon ── */
+    .feature-icon {
+      transition: transform 0.28s var(--spring), box-shadow 0.28s var(--spring);
+    }
+    .feature-card:hover .feature-icon {
+      transform: scale(1.08);
+      box-shadow: 0 4px 16px rgba(216,90,48,0.18);
+    }
+
+    /* ── Notion-Style Testimonial/Blueprint Card Polish ── */
+    .testimonial {
+      transition: transform 0.32s cubic-bezier(0.22,1,0.36,1), box-shadow 0.32s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease;
+    }
+    .testimonial:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px -8px rgba(31,29,27,0.1), 0 2px 6px rgba(31,29,27,0.04);
+      border-color: rgba(216,90,48,0.18);
+    }
+
+    /* ── Stripe Trust-Proof Social Bar ── */
+    .hero-trust-pills {
+      animation: fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.4s both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .trust-pill {
+      transition: transform 0.22s var(--spring), background 0.22s ease;
+    }
+    .trust-pill:hover {
+      transform: translateY(-2px);
+      background: var(--accent-pale);
+    }
+
+    /* ── Loom-Style Product Preview Glow ── */
+    .hero-dashboard {
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .hero-dashboard:hover {
+      transform: translateY(-4px) scale(1.005);
+      box-shadow: 0 20px 60px -12px rgba(216,90,48,0.18), 0 8px 24px -8px rgba(31,29,27,0.12);
+    }
+
+    /* ── Intercom-Warm Quote Modal ── */
+    #quoteModalBackdrop .uv-modal {
+      animation: modalSlideUp 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    #quoteModalBackdrop.open {
+      backdrop-filter: blur(6px) saturate(120%);
+      -webkit-backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    /* ── HubSpot Form Focus States ── */
+    #quoteModalBackdrop .input {
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    #quoteModalBackdrop .input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(216,90,48,0.12), 0 1px 2px rgba(216,90,48,0.08);
+      background: #fff;
+    }
+    #quoteModalBackdrop label {
+      color: var(--ink-2);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Pricing Card Enhanced Hover (Linear depth) ── */
+    .pricing-card {
+      transition: transform 0.32s cubic-bezier(0.22,1,0.36,1), box-shadow 0.32s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-5px) scale(1.008);
+      box-shadow: 0 16px 48px -10px rgba(31,29,27,0.12), 0 4px 12px rgba(31,29,27,0.06);
+    }
+    .pricing-card.featured:hover {
+      box-shadow: 0 20px 56px -10px rgba(216,90,48,0.25), 0 8px 24px rgba(31,29,27,0.1);
+    }
+
+    /* ── Proof/Stats Section Animated Counter Style ── */
+    .proof-cell {
+      transition: transform 0.3s var(--spring), box-shadow 0.3s var(--spring);
+    }
+    .proof-cell:hover {
+      transform: translateY(-3px);
+    }
+    .proof-cell .stat-value {
+      transition: transform 0.3s var(--spring);
+    }
+    .proof-cell:hover .stat-value {
+      transform: scale(1.05);
+    }
+
+    /* ── CTA Banner Enhanced Glow ── */
+    .cta-banner {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cta-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 64px -12px rgba(153,60,29,0.35), 0 8px 24px rgba(31,29,27,0.08);
+    }
+
+    /* ── Smooth Scroll Indicator Pulse ── */
+    @keyframes gentlePulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    .dot-green {
+      animation: gentlePulse 2.5s ease-in-out infinite;
+    }
+
+    /* ── Nav Link Underline Animation (Linear-style) ── */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+      transition: width 0.28s var(--spring), left 0.28s var(--spring);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* ── Calculator Card Ambient Glow ── */
+    .calculator-shell {
+      position: relative;
+    }
+    .calculator-shell::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(216,90,48,0.12), rgba(239,159,39,0.08), rgba(30,123,77,0.06));
+      z-index: -1;
+      filter: blur(20px);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .calculator-shell:hover::after {
+      opacity: 1;
+    }
+
+    /* ── Button Micro-Interactions (Stripe-grade) ── */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    .btn-primary:hover::after {
+      transform: translateX(100%);
+    }
+
+    /* ── Section Divider Gradient Fade ── */
+    .section + .section-sm,
+    .section-sm + .section {
+      border-top: none;
+    }
+
+    /* ── FAQ Smooth Accordion Transitions ── */
+    .faq-body {
+      transition: max-height 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s ease, padding 0.25s ease;
+    }
+    .faq-trigger {
+      transition: color 0.2s ease;
+    }
+    .faq-trigger:hover {
+      color: var(--accent);
+    }
+
+    /* ── Slack-Style Logo/Sector Marquee ── */
+    .testimonials-grid {
+      perspective: 1200px;
+    }
+
+    /* ── Selection Color Brand ── */
+    ::selection {
+      background: rgba(216,90,48,0.15);
+      color: var(--ink);
+    }
+
+    /* ── Focus Visible Ring (Accessibility) ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     @media (max-width: 600px) {
       .tour-tabs { grid-template-columns: repeat(2, 1fr); }
       .calc-output-grid { grid-template-columns: 1fr; }
@@ -1386,7 +1678,7 @@ tbody tr:hover {
         <a href="#roi-calculator" class="nav-link" onclick="closeMobileNav()">ROI Calculator</a>
         <a href="#features" class="nav-link" onclick="closeMobileNav()">Platform</a>
         <a href="#testimonials" class="nav-link" onclick="closeMobileNav()">Sectors</a>
-        <a href="#pricing" class="nav-link" onclick="closeMobileNav()">Pricing</a>
+        <a href="#pricing" class="nav-link" onclick="closeMobileNav()">Request a Quote</a>
         <a href="#faq" class="nav-link" onclick="closeMobileNav()">FAQs</a>
         <a href="brand-sheet.html" class="nav-link" style="color:var(--accent);font-family:var(--mono);font-size:0.8rem;">Brand</a>
       </div>
@@ -1431,7 +1723,7 @@ tbody tr:hover {
           <ph-icon name="arrow-right" weight="bold" style="width:16px;height:16px;"></ph-icon>
         </a>
         <a href="client-portal.html" class="btn btn-ghost btn-lg">Client Portal Preview</a>
-        <a href="#roi-calculator" class="btn btn-ghost btn-lg">Calculate CPL</a>
+        <a href="#pricing" class="btn btn-ghost btn-lg" onclick="openQuoteModal()">Request a Quote</a>
       </div>
       <div class="hero-trust-pills">
         <span class="trust-pill"><ph-icon name="map-pin" weight="fill" style="color:var(--accent);"></ph-icon> 100m / 20m Haversine Lock</span>
@@ -1649,22 +1941,22 @@ tbody tr:hover {
             <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;" id="calcOutLeadsUnit">OTP-Verified Gold Leads</div>
           </div>
           <div class="calc-metric-box">
-            <div style="font-family:var(--mono);font-size:2rem;font-weight:700;color:#EF9F27;line-height:1;" id="calcOutCpl">₹154</div>
-            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;">Est. Cost Per Qualified Lead</div>
+            <div style="font-family:var(--mono);font-size:1.85rem;font-weight:700;color:#EF9F27;line-height:1;" id="calcOutCpl">100% OTP</div>
+            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;">Dual-Verification SLA</div>
           </div>
           <div class="calc-metric-box">
             <div style="font-family:var(--mono);font-size:1.55rem;font-weight:700;color:#4ade80;line-height:1;" id="calcOutWalkins">113</div>
-            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;">Projected Branch Conversions</div>
+            <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;">Projected Branch Walk-ins</div>
           </div>
           <div class="calc-metric-box">
-            <div style="font-family:var(--mono);font-size:1.55rem;font-weight:700;color:#FFFFFF;line-height:1;" id="calcOutBudget">₹55,944</div>
+            <div style="font-family:var(--mono);font-size:1.45rem;font-weight:700;color:#FFFFFF;line-height:1;" id="calcOutBudget">Custom Quote</div>
             <div style="font-size:0.74rem;color:#A39C93;margin-top:6px;" id="calcOutRepDays">56 Promoter-Days Total</div>
           </div>
         </div>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
           <button type="button" class="btn btn-primary" style="flex:1;" onclick="launchCalculatedPilot()">
-            Configure This Pilot in Portal
+            Request Custom Quote for This Scope
             <ph-icon name="arrow-right" weight="bold"></ph-icon>
           </button>
           <a href="promoter.html" class="btn btn-ghost" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">Test App</a>
@@ -1935,107 +2227,107 @@ tbody tr:hover {
   </div>
 </section>
 
-<!-- ─────────────── PRICING ───────────────────────── -->
+<!-- ─────────────── COMMERCIAL ARCHITECTURE & CUSTOM QUOTES ───────────────────────── -->
 <section class="section" id="pricing" style="background:var(--surface);border-top:1px solid var(--border);">
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
       <div class="badge badge-accent" style="margin-bottom:12px;">Commercial Architecture</div>
-      <h2 class="h1">Transparent. Structured. Accountable.</h2>
-      <p class="body-lg" style="max-width:52ch;margin:12px auto 0;">Start with a focused catchment sprint or deploy a dedicated multi-zone team with full portal visibility.</p>
+      <h2 class="h1">Tailored Quotes. Zero Guesswork.</h2>
+      <p class="body-lg" style="max-width:56ch;margin:12px auto 0;">Every territory and branch catchment is unique. Tell us your target sector and cities in Odisha, and we will prepare a transparent, milestone-linked rate card within 2 hours.</p>
     </div>
     <div class="pricing-grid">
       <div class="pricing-card">
         <div class="badge badge-neutral" style="margin-bottom:12px;">Per Activation Sprint</div>
         <h3 class="h3">Pilot Sprint</h3>
         <div class="pricing-price">
-          <span class="amount">₹999</span>
-          <span class="period">/promoter/day</span>
+          <span class="amount">Territory Quote</span>
+          <span class="period">Customized to city &amp; footfall density</span>
         </div>
         <ul class="pricing-features">
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Up to 10 promoters deployed
+            Up to 10 promoters deployed across target haats
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            100m/20m GPS lock + SHA-256 photos
+            100m/20m GPS radial lock + SHA-256 photo audits
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Sector-specific OTP lead capture
+            Sector-specific dual-OTP lead verification
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Live Client Portal access
+            Dedicated Client Transparency Portal access
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Printable audit report + CSV export
+            Same-day branch officer CSV &amp; PDF handover
           </li>
         </ul>
-        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openPilotModal('Pilot Sprint (₹999/promoter/day)')">Configure Pilot</button>
+        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openQuoteModal('Pilot Sprint — Custom Territory Quote')">Request Pilot Quote →</button>
       </div>
       <div class="pricing-card featured">
         <div class="badge" style="background:var(--accent);color:#fff;margin-bottom:12px;">Monthly Catchment Retainer</div>
         <h3 class="h3">Branch Cluster</h3>
         <div class="pricing-price">
-          <span class="amount">₹68.4K</span>
-          <span class="period">/month</span>
+          <span class="amount">Retainer Proposal</span>
+          <span class="period">Tailored to branch network footprint</span>
         </div>
         <ul class="pricing-features">
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            8 promoters across 4 branch zones (26 days)
+            Multi-branch deployment across Odisha hubs (26 days/mo)
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Everything in Pilot Sprint
+            Everything in Pilot Sprint included
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Automated Lead Qualification Scoring
+            Automated Lead Qualification &amp; Scoring Engine
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Dedicated Field Supervisor
+            Dedicated Zonal Field Supervisor &amp; QA Officer
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--accent-2);flex-shrink:0;"></ph-icon>
-            Daily Branch Officer Lead Handover
+            Daily Branch Officer sync &amp; conversion tracking
           </li>
         </ul>
-        <button type="button" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openPilotModal('Branch Cluster Retainer (₹68.4K/mo)')">Configure Retainer</button>
+        <button type="button" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openQuoteModal('Branch Cluster — Monthly Retainer Quote')">Get Retainer Proposal →</button>
       </div>
       <div class="pricing-card">
         <div class="badge badge-amber" style="margin-bottom:12px;">Outcome-Linked Hybrid</div>
         <h3 class="h3">Verified CPL</h3>
         <div class="pricing-price">
-          <span class="amount">₹200</span>
-          <span class="period">/qualified lead</span>
+          <span class="amount">Milestone-Linked</span>
+          <span class="period">Performance pricing based on verified SLA</span>
         </div>
         <ul class="pricing-features">
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            For NBFC, Insurance &amp; CASA drives
+            Custom cost-per-lead models for NBFC, Insurance &amp; CASA
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            100% OTP-verified phone numbers
+            Zero billing for invalid, unverified, or out-of-zone leads
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Pre-qualified asset / KYC checklist
+            Pre-qualified asset &amp; KYC checklist verification
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Geo-verified within catchment zone
+            Cryptographic SHA-256 audit ledger on every lead
           </li>
           <li class="pricing-feature">
             <ph-icon name="check-circle" weight="fill" style="width:16px;height:16px;color:var(--green);flex-shrink:0;"></ph-icon>
-            Full SHA-256 audit trail included
+            Pay only for audited, OTP-authenticated prospects
           </li>
         </ul>
-        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openPilotModal('Verified CPL Hybrid Model')">Discuss CPL Terms</button>
+        <button type="button" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openQuoteModal('Verified CPL — Outcome Pricing Quote')">Discuss Outcome Pricing →</button>
       </div>
     </div>
   </div>
@@ -2140,7 +2432,7 @@ tbody tr:hover {
           <a href="dashboard.html" class="footer-link">Ops Dashboard</a>
           <a href="client-portal.html" class="footer-link">Client Portal</a>
           <a href="#roi-calculator" class="footer-link">ROI Calculator</a>
-          <a href="#pricing" class="footer-link">Pricing</a>
+          <a href="#pricing" class="footer-link">Request a Quote</a>
           <a href="brand-sheet.html" class="footer-link">Brand Sheet</a>
         </div>
       </div>
@@ -2202,6 +2494,85 @@ tbody tr:hover {
       <div style="display:flex;gap:10px;justify-content:flex-end;">
         <button type="button" class="btn btn-ghost" onclick="closePilotModal()">Cancel</button>
         <button type="submit" class="btn btn-primary">Save &amp; Preview Client Portal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════ QUOTE REQUEST MODAL (HubSpot-Grade Lead Capture) ═══════ -->
+<div class="uv-modal-backdrop" id="quoteModalBackdrop" onclick="if(event.target===this)closeQuoteModal()">
+  <div class="uv-modal" style="max-width:580px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <div>
+        <h3 class="h3" id="quoteModalTitle" style="margin-bottom:4px;">Request a Custom Quote</h3>
+        <p style="font-size:0.8rem;color:var(--ink-3);font-family:var(--mono);">We respond within 2 hours on business days</p>
+      </div>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="closeQuoteModal()" aria-label="Close">✕</button>
+    </div>
+    <form onsubmit="submitQuoteRequest(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Company / Organization *</label>
+          <input class="input" id="quoteCompanyName" required placeholder="e.g. Muthoot Finance" autocomplete="organization" />
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Contact Person *</label>
+          <input class="input" id="quoteContactName" required placeholder="Full name" autocomplete="name" />
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Designation / Role</label>
+          <input class="input" id="quoteDesignation" placeholder="e.g. Branch Manager" />
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Email Address *</label>
+          <input class="input" id="quoteEmail" type="email" required placeholder="work@company.com" autocomplete="email" />
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Mobile Number *</label>
+          <input class="input" id="quotePhone" required maxlength="10" placeholder="10-digit mobile" autocomplete="tel" />
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Target Sector *</label>
+          <select class="input" id="quoteSector" required>
+            <option value="">Select sector…</option>
+            <option value="nbfc">NBFC — Gold Loan / MSME</option>
+            <option value="insurance">Health & Life Insurance</option>
+            <option value="bank">Bank — Merchant CASA / QR</option>
+            <option value="d2c">D2C / FMCG Sampling</option>
+            <option value="other">Other / Multi-sector</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Scope & Requirements</label>
+        <textarea class="input" id="quoteScope" rows="3" placeholder="Tell us about your campaign goals, number of locations, team size, or any specific requirements…" style="resize:vertical;min-height:72px;"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Preferred Timeline</label>
+          <select class="input" id="quoteTimeline">
+            <option value="immediate">Immediate (this week)</option>
+            <option value="2weeks">Within 2 weeks</option>
+            <option value="1month" selected>Within 1 month</option>
+            <option value="quarter">This quarter</option>
+            <option value="exploring">Just exploring</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:700;display:block;margin-bottom:4px;">Region / Cities in Odisha</label>
+          <input class="input" id="quoteRegion" placeholder="e.g. Bhubaneswar, Cuttack" />
+        </div>
+      </div>
+      <div style="background:var(--green-pale);border:1px solid rgba(30,123,77,0.2);border-radius:10px;padding:12px;margin-bottom:16px;font-size:0.8rem;color:var(--green);display:flex;align-items:flex-start;gap:8px;">
+        <span style="flex-shrink:0;margin-top:1px;">🔒</span>
+        <span>Your information is protected under DPDP Act 2023 compliance. We never share your data with third parties.</span>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="btn btn-ghost" onclick="closeQuoteModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="quoteSubmitBtn">
+          <span>Submit Quote Request</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
       </div>
     </form>
   </div>
@@ -3949,9 +4320,9 @@ tbody tr:hover {
     const proj = UtkalVantage.LeadScoringEngine.calculateCampaignProjection(currentCalcSector, promoters, days);
     document.getElementById('calcOutLeads').textContent = proj.totalVerifiedLeads.toLocaleString('en-IN');
     document.getElementById('calcOutLeadsUnit').textContent = proj.metricUnit;
-    document.getElementById('calcOutCpl').textContent = `₹${proj.estimatedCplInr.toLocaleString('en-IN')}`;
+    document.getElementById('calcOutCpl').textContent = '100% OTP';
     document.getElementById('calcOutWalkins').textContent = proj.projectedConversions.toLocaleString('en-IN');
-    document.getElementById('calcOutBudget').textContent = `₹${proj.totalBudgetInr.toLocaleString('en-IN')}`;
+    document.getElementById('calcOutBudget').textContent = 'Custom Quote';
     document.getElementById('calcOutRepDays').textContent = `${proj.repDays} Promoter-Days Total`;
   }
 
@@ -3959,7 +4330,7 @@ tbody tr:hover {
     const promoters = document.getElementById('calcPromotersSlider').value;
     const days = document.getElementById('calcDaysSlider').value;
     document.getElementById('pilotSector').value = currentCalcSector;
-    openPilotModal(`Custom ${days}-Day Pilot (${promoters} Promoters)`);
+    openQuoteModal(`Custom ${days}-Day Pilot (${promoters} Promoters)`);
   }
 
   function toggleFaqItem(btn) {
@@ -3974,6 +4345,63 @@ tbody tr:hover {
       item.classList.add('open');
       const indicator = item.querySelector('.faq-trigger span:last-child');
       if (indicator) indicator.textContent = '—';
+    }
+  }
+
+  /* ── Quote Request Modal (Intercom-grade lead capture) ── */
+  function openQuoteModal(planName) {
+    const title = document.getElementById('quoteModalTitle');
+    if (title) title.textContent = planName || 'Request a Custom Quote';
+    document.getElementById('quoteModalBackdrop').classList.add('open');
+    const firstInput = document.getElementById('quoteCompanyName');
+    if (firstInput) setTimeout(() => firstInput.focus(), 120);
+  }
+  function closeQuoteModal() {
+    document.getElementById('quoteModalBackdrop').classList.remove('open');
+  }
+  async function submitQuoteRequest(e) {
+    e.preventDefault();
+    const btn = document.getElementById('quoteSubmitBtn');
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span>Submitting…</span>';
+    try {
+      const company = document.getElementById('quoteCompanyName').value.trim();
+      const contact = document.getElementById('quoteContactName').value.trim();
+      const designation = document.getElementById('quoteDesignation').value.trim();
+      const email = document.getElementById('quoteEmail').value.trim();
+      const phone = UtkalVantage.sanitizeIndianPhone(document.getElementById('quotePhone').value);
+      const sector = document.getElementById('quoteSector').value;
+      const scope = document.getElementById('quoteScope').value.trim();
+      const timeline = document.getElementById('quoteTimeline').value;
+      const region = document.getElementById('quoteRegion').value.trim();
+
+      if (!company || !contact || !email || !sector) {
+        UtkalVantage.UI.toast('Please fill all required fields.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = origHTML;
+        return;
+      }
+      if (!UtkalVantage.isValidIndianPhone(phone)) {
+        UtkalVantage.UI.toast('Please enter a valid 10-digit Indian mobile number.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = origHTML;
+        return;
+      }
+
+      const quoteData = { company, contact, designation, email, phone, sector, scope, timeline, region };
+      if (UtkalVantage.StorageEngine && UtkalVantage.StorageEngine.saveQuoteRequest) {
+        await UtkalVantage.StorageEngine.saveQuoteRequest(quoteData);
+      }
+      closeQuoteModal();
+      e.target.reset();
+      UtkalVantage.UI.toast(`Quote request received! We'll contact ${contact} within 2 hours.`, 'success');
+    } catch (err) {
+      console.error('Quote submission error:', err);
+      UtkalVantage.UI.toast('Something went wrong. Please try again.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = origHTML;
     }
   }
 
@@ -4025,6 +4453,23 @@ tbody tr:hover {
   window.addEventListener('DOMContentLoaded', () => {
     updateInteractiveCalculator();
     syncHeroLiveStats();
+
+    /* ── Scroll-Triggered Animations (Webflow-grade IntersectionObserver) ── */
+    if ('IntersectionObserver' in window) {
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            scrollObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.feature-card, .testimonial, .pricing-card, .proof-cell, .ps-item, .faq-item, .cta-banner').forEach(el => {
+        el.classList.add('animate-on-scroll');
+        scrollObserver.observe(el);
+      });
+    }
     if (window.UtkalVantage && UtkalVantage.RealtimeBroadcaster) {
       UtkalVantage.RealtimeBroadcaster.subscribe((evt) => {
         if (evt.type === 'LEAD_SAVED' && evt.payload) {

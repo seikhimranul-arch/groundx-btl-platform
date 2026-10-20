@@ -977,6 +977,7 @@
     erasureReceipts: [],
     campaigns: [],
     promoters: [],
+    quoteRequests: [],
     prospectConfig: {
       clientName: 'Prospective Client Preview',
       branchName: 'Bhubaneswar Catchment Pilot',
@@ -1216,6 +1217,54 @@
 
     getErasureReceipts() {
       return this._readLocal('erasureReceipts', memoryStore.erasureReceipts);
+    },
+
+    async saveQuoteRequest(quoteRecord) {
+      if (!quoteRecord) return null;
+      const quote = Object.assign({
+        id: 'QUO-' + Date.now().toString(36).toUpperCase(),
+        timestamp: new Date().toISOString(),
+        timestampIST: formatIST(new Date()),
+        status: 'PROPOSAL_REQUESTED'
+      }, quoteRecord);
+
+      const quotes = this._readLocal('quoteRequests', memoryStore.quoteRequests || []);
+      quotes.unshift(quote);
+      memoryStore.quoteRequests = quotes;
+      this._writeLocal('quoteRequests', quotes);
+
+      // Auto-populate into lead store so it appears in Ops Dashboard & Client Portal
+      try {
+        await this.saveLead({
+          id: 'LEAD-' + quote.id,
+          sector: quote.sector || 'nbfc',
+          client: quote.companyName || 'Enterprise Inbound Quote',
+          customer: {
+            name: quote.contactName + (quote.designation ? ` (${quote.designation})` : ''),
+            phone: quote.phone,
+            email: quote.email || ''
+          },
+          anchorZone: quote.region || 'Bhubaneswar HQ',
+          details: {
+            scope: quote.scope,
+            timeline: quote.timeline,
+            notes: quote.notes || '',
+            inquiryType: 'ENTERPRISE_CUSTOM_QUOTE',
+            leadScore: 10
+          },
+          otpVerified: true,
+          geoCompliant: true
+        });
+      } catch (err) {
+        console.warn('Auto-save lead for quote notice:', err);
+      }
+
+      RealtimeBroadcaster.publish('QUOTE_REQUESTED', quote);
+      return quote;
+    },
+
+    getAllQuoteRequests() {
+      return this._readLocal('quoteRequests', memoryStore.quoteRequests || []);
     },
 
     async savePhoto(photoRecord, options = {}) {
